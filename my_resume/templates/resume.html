@@ -1,0 +1,98 @@
+{% extends 'base.html' %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+{% block content %}
+<div style="margin-top: 20px;">
+    {% if person %}
+<div style="margin-bottom: 60px;" class="row">
+    <ul style="list-style: none;">
+            {% for a_person in person %}
+            <a href="{% url 'edit_user' a_person.pk %}"><h2 style="display: inline-block;"><li>{{ a_person }}</li></h2></a>
+            <span style="display: inline-block; margin-left: 350px;">
+                {{a_person.address}}<br>
+                {{a_person.email }}<br>
+                 {{ a_person.mobile_number }}
+            </span>
+
+        {% endfor %}
+    </ul>
+</div>
+{% else %}
+<a href="{% url 'create_user'%}"><h3 style="margin-bottom: 50px;">Add Your Profile</h3></a>
+{% endif %}
+</div> 
+
+<div class="row">
+    <div class="col">
+        <a href="{% url 'create_experience'%}"><h3 style="margin-bottom: 20px;">Experience</h3></a>
+<ul>
+    {% for an_experience in experience %}
+    <a href="{% url 'edit_experience' an_experience.pk %}"><li style="padding-right: 50px;"><h5 style="display: inline-block;">{{ an_experience }},</h5></a> {{ an_experience.company_address }} - {{ an_experience.post_held }}</li>
+    <small>{{ an_experience.year_from }} - {{ an_experience.year_to }}</small>
+    <div style="padding-right: 50px; margin-top: 15px; margin-bottom: 30px;">
+        {{ an_experience.info }}
+    </div>
+    {% endfor %}
+</ul>
+
+<a href="{% url 'create_education'%}"><h3 style="margin-bottom: 20px;">Education</h3></a>
+<ul>
+    {% for an_education in education %}
+    <a href="{% url 'edit_education' an_education.pk %}"><li style="padding-right: 50px;"><h5 style="display: inline-block;">{{ an_education }},</h5></a> {{an_education.school_address }} - {{an_education.degree}}</li>
+    <small>{{an_education.year_from }} - {{ an_education.year_to }}</small>
+    <div style="padding-right: 50px; margin-top: 15px; margin-bottom: 30px;">
+        {{ an_education.info }}
+    </div> 
+    {% endfor %}
+</ul>
+
+<a href="{% url 'create_project'%}"><h3 style="margin-bottom: 20px;">Projects</h3></a>
+<ul>
+    {% for project in projects %}
+    <a href="{% url 'edit_project' project.pk %}"><li style="padding-right: 50px;"><h5>{{ project }}</h5></a></li>
+    <p><a href="{{project.source_code}}">Source Code</a>
+    <a href="{{project.live}}">Live</a></p>
+    <div style="padding-right: 50px; margin-top: 15px; margin-bottom: 30px;">
+        {{ project.info }}
+    </div> 
+    {% endfor %}
+</ul>
+</div>
+
+<div style="padding-left: 70px;" class="col">
+    <a href="{% url 'create_skills'%}"><h3>Skills</h3></a>
+<ul>
+    {% for a_skill in skills %}
+    <a href="{% url 'edit_skills' a_skill.pk %}"><li>{{ a_skill }}</li></a>
+    {% endfor %}
+</ul>
+
+<a href="{% url 'create_award'%}"><h3>Awards</h3></a>
+
+<ul>
+    {% for a_award in awards %}
+    <a href="{% url 'edit_award' a_award.pk %}"><li>{{ a_award }}</li>
+    {% endfor %}
+</ul>
+
+
+<a href="{% url 'create_language'%}"><h3>Languages</h3></a>
+
+<ul>
+{% for a_language in language %}
+<a href="{% url 'edit_language' a_language.pk %}"><li>{{ a_language }}</li></a>
+{% endfor %}
+</ul>
+</div>   
+</div>
+
+    {% endblock %}
+</body>
+</html>

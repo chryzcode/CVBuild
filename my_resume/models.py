@@ -1,0 +1,82 @@
+from django.db import models
+from django.urls import reverse_lazy, reverse
+# Create your models here.
+
+class Person(models.Model):
+    name = models.CharField(max_length= 25)
+    address = models.CharField(max_length=200)
+    email = models.EmailField()
+    mobile_number = models.CharField(max_length=12)
+
+    def get_absolute_url(self):
+        return reverse('resume')
+
+    def __str__ (self):
+        return self.name
+
+class Skills(models.Model):
+    name = models.CharField(max_length=30)
+
+    def get_absolute_url(self):
+        return reverse('resume')
+
+    def __str__ (self):
+        return self.name
+
+class Experience(models.Model):
+    company_name = models.CharField(max_length=100)
+    company_address = models.CharField(max_length=200)
+    post_held = models.CharField(max_length=30)
+    year_from = models.CharField(max_length=20)
+    year_to = models.CharField(max_length=20)
+    info = models.TextField()
+
+    def get_absolute_url(self):
+        return reverse('resume')
+
+    def __str__ (self):
+        return self.company_name
+
+class Education(models.Model):
+    school_name = models.CharField(max_length=30)
+    school_address = models.CharField(max_length=150)
+    degree = models.CharField(max_length=30)
+    year_from = models.CharField(max_length=20)
+    year_to = models.CharField(max_length=20)
+    info = models.TextField()
+
+    def get_absolute_url(self):
+        return reverse('resume')
+
+    def __str__ (self):
+        return self.school_name
+
+class Awards(models.Model):
+    award = models.CharField(max_length=40)
+
+    def get_absolute_url(self):
+        return reverse('resume')
+
+    def __str__ (self):
+        return self.award
+
+class Languages(models.Model):
+    language = models.CharField(max_length=40)
+
+    def get_absolute_url(self):
+        return reverse('resume')
+
+    def __str__ (self):
+        return self.language
+
+class Project(models.Model):
+    name = models.CharField(max_length=40)
+    source_code = models.CharField(max_length=150, null = True, blank = True)
+    live = models.CharField(max_length=150, null = True, blank = True)
+    info = models.TextField()
+
+    def get_absolute_url(self):
+        return reverse('resume')
+
+    def __str__ (self):
+        return self.name
