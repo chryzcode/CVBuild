@@ -24,6 +24,8 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
+
+
 # SECRET_KEY = config('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
@@ -93,7 +95,7 @@ DATABASES = {
         'NAME': 'dca6fjkj7o9p0f',
         'USER': 'qvcnprpdaaunrr',
         'PASSWORD': 'edb5a44f69396ea470fb11ce4670614422c2bead500e1d00128018d82a5e8b51',
-        'HOST': 'ec2-3-217-68-126.compute-1.amazonaws.com:5432',
+        'HOST': 'ec2-3-217-68-126.compute-1.amazonaws.com',
         'POST': '5432',
     }
 }
