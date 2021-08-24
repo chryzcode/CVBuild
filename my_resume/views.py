@@ -7,8 +7,9 @@ from django.views.generic import DetailView, CreateView, ListView, UpdateView, D
 from .models import Person, Languages, Awards, Education, Experience, Skills, Project
 from .forms import  PersonForm, LanguageForm, AwardForm, ExperienceForm, EducationForm, SkillsForm, ProjectForm, SignUpForm
 
-@login_required(login_url='login')
-class MyPerson(CreateView):
+
+class MyPerson(LoginRequiredMixin, CreateView):
+    login_url = 'login'
     model = Person
     form_class = PersonForm
     template_name = 'create_user.html'
@@ -26,8 +27,9 @@ def EditPerson(request, pk):
         context = {'form':form}
         return render(request, 'create_user.html', context)
 
-@login_required(login_url='login')
-class MySkills(CreateView):
+
+class MySkills(LoginRequiredMixin, CreateView):
+    login_url = 'login'
     model = Skills
     form_class =SkillsForm
     template_name = 'create_skills.html'
@@ -45,8 +47,9 @@ def EditSkills(request, pk):
         context = {'form':form}
         return render(request, 'create_skills.html', context)
 
-@login_required(login_url='login') 
-class MyLanguage(CreateView):
+ 
+class MyLanguage(LoginRequiredMixin ,CreateView):
+    login_url = 'login'
     model = Languages
     form_class = LanguageForm
     template_name = 'create_language.html'
@@ -63,8 +66,9 @@ def EditLanguage(request, pk):
         context = {'form':form}
         return render(request, 'create_language.html', context)
 
-@login_required(login_url='login')
-class MyAward(CreateView):
+
+class MyAward(LoginRequiredMixin, CreateView):
+    login_url = 'login'
     model = Awards
     form_class = AwardForm
     template_name = 'create_award.html'
@@ -81,8 +85,9 @@ def EditAward(request, pk):
         context = {'form':form}
         return render(request, 'create_award.html', context)
 
-@login_required(login_url='login')
-class MyExperience(CreateView):
+
+class MyExperience(LoginRequiredMixin, CreateView):
+    login_url = 'login'
     model = Experience
     form_class = ExperienceForm
     template_name = 'create_experience.html'
@@ -99,8 +104,9 @@ def EditExperience(request, pk):
         context = {'form':form}
         return render(request, 'create_experience.html', context)
 
-@login_required(login_url='login')
-class MyEducation(CreateView):
+
+class MyEducation(LoginRequiredMixin, CreateView):
+    login_url = 'login'
     model = Education
     form_class = EducationForm
     template_name = 'create_education.html'
@@ -117,8 +123,9 @@ def EditEducation(request, pk):
         context = {'form':form}
         return render(request, 'create_education.html', context)
 
-@login_required(login_url='login')
-class MyProject(CreateView):
+
+class MyProject(LoginRequiredMixin, CreateView):
+    login_url = 'login'
     model = Project
     form_class = ProjectForm
     template_name = 'create_project.html'
