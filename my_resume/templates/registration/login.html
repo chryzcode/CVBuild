@@ -1,0 +1,35 @@
+{% extends 'base.html'%}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>{% block title %} Log in {% endblock %}</title>
+  </head>
+  <body>
+    {% block content%}
+    <br>
+    <h2 style="margin-left: 25px;">Login</h2>
+    <br/>
+    {% if form.errors %}
+        <p style="font-size: 20px; margin-left: 25px;">Your username and password did not match. Please try again. </p>
+    {% endif %}
+        <form action="" method="post">
+          {% csrf_token %}
+        <div class="mb-3">
+          <label id="login-label" for="username" class="form-label">Username:</label>
+          <input id="login-form" type="text" class="form-control" name="username" id="username" placeholder="Username">
+        </div>
+        <div class="mb-3">
+          <label id="login-label" for="password" class="form-label">Password:</label>
+          <input id="login-form" type="password" class="form-control" name="password" id="password" placeholder="Password">
+        </div>
+      <div id="login-btn">
+        <input class="btn btn-secondary"type="submit" value="Login">
+      </div>
+      </form>
+        <h5 style="text-align: center; margin-bottom: 0;">Yet to have an account? <a href="{% url 'register' %}">Sign up</a></h5>
+    {% endblock %}
+
+  </body>
+</html>
