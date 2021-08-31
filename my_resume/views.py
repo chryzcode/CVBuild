@@ -206,9 +206,12 @@ def Resume(request):
         'encoding':'UTF-8'
     }
     pdf = pdfkit.from_string(html, False, options)
-
-    return render(request, 'resume.html', {'language':language, 'education':education, 'experience':
-        experience, 'person': person, 'skills':skills, 'awards': awards, 'projects': projects})
+    response  = HttpResponse(pdf, content_type='application/pdf')
+    response['Content-Disposition'] = 'attachment'
+    filename = 'resume.pdf'
+    return response
+    # return render(request, 'resume.html', {'language':language, 'education':education, 'experience':
+    #     experience, 'person': person, 'skills':skills, 'awards': awards, 'projects': projects})
 
 
 
