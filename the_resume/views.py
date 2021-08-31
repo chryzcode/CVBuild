@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from .models import Profile
 from .forms import ProfileForm
+                                          
 # from django.shortcuts import render, get_object_or_404, redirect
 # from django.views.generic import DetailView, CreateView, ListView, UpdateView, DeleteView
 # from django.urls import reverse_lazy, reverse

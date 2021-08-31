@@ -6,6 +6,11 @@ from django.contrib.auth.models import User
 from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib.auth.views import PasswordChangeView
 
+import pdfkit
+from django.http import HttpResponse
+from django.template import loader
+import io
+
 from django.views.generic import DetailView, CreateView, ListView, UpdateView, DeleteView
 from .models import Person, Languages, Awards, Education, Experience, Skills, Project
 from .forms import  PersonForm, LanguageForm, AwardForm, ExperienceForm, EducationForm, SkillsForm, ProjectForm, SignUpForm, EditAccountForm, PasswordChangingForm
@@ -193,6 +198,15 @@ def Resume(request):
     skills = Skills.objects.all()[:5]
     awards = Awards.objects.all()[:5]
     projects = Project.objects.all()[:5]
+    template = loader.get_template('resume.html')
+    html = template.render( {'language':language, 'education':education, 'experience':
+        experience, 'person': person, 'skills':skills, 'awards': awards, 'projects': projects})
+    options = {
+        'page-size':'Letter',
+        'encoding':'UTF-8'
+    }
+    pdf = pdfkit.from_string(html, False, options)
+
     return render(request, 'resume.html', {'language':language, 'education':education, 'experience':
         experience, 'person': person, 'skills':skills, 'awards': awards, 'projects': projects})
 

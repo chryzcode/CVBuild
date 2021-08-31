@@ -34,7 +34,8 @@
         <a href="{% url 'create_experience'%}"><h3 style="margin-bottom: 20px;">Experience</h3></a>
 <ul>
     {% for an_experience in experience %}
-    <a href="{% url 'edit_experience' an_experience.pk %}"><li style="padding-right: 50px;"><h5 style="display: inline-block;">{{ an_experience }},</h5></a> {{ an_experience.company_address }} - {{ an_experience.post_held }}</li>
+    <a href="{% url 'edit_experience' an_experience.pk %}"><li style="padding-right: 50px;"><h5 style="display: inline-block;">{{ an_experience }},</h5></a> {{ an_experience.company_address }}</li>
+    <p style="margin-bottom: 3px; font-weight: 500;">{{ an_experience.post_held }}</p>
     <small>{{ an_experience.year_from }} - {{ an_experience.year_to }}</small>
     <div style="padding-right: 50px; margin-top: 15px; margin-bottom: 30px;">
         {{ an_experience.info }}
