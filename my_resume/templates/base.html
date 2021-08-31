@@ -24,9 +24,9 @@
 
                   <ul class="navbar-nav">
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">My Profile</a>
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">{{ user.first_name|title }} {{user.last_name|title }}</a>
                         <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                            <li><a class="dropdown-item" href="#">Edit Profile</a></li>
+                            <li><a class="dropdown-item" href="{% url 'update_account'%}">Edit Account</a></li>
                             <li><a class="dropdown-item" href="{% url 'logout' %}">Log Out</a></li>
                         </ul>
                     </li>

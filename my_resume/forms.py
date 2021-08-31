@@ -3,6 +3,26 @@ from .models import Person, Languages, Awards, Education, Experience, Skills, Pr
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm, PasswordChangeForm
 from django.contrib.auth.models import User
 
+
+class EditAccountForm(UserChangeForm):
+    email = forms.EmailField(widget=forms.EmailInput(attrs={'class': 'form-control'}))
+    first_name = forms.CharField(max_length = 100, widget=forms.TextInput(attrs={'class':'form-control'}))
+    last_name = forms.CharField(max_length = 100, widget=forms.TextInput(attrs={'class':'form-control'}))
+    username = forms.CharField(max_length = 100, widget=forms.TextInput(attrs={'class':'form-control'}))
+
+    class Meta:
+        model = User
+        fields = ('username', 'first_name', 'last_name', 'email', 'password')
+
+class PasswordChangingForm(PasswordChangeForm):
+        old_password = forms.CharField(widget=forms.PasswordInput(attrs={'class': 'form-control', 'type':'password'}))
+        new_password1 = forms.CharField(max_length = 100, widget=forms.PasswordInput(attrs={'class':'form-control', 'type':'password'}))
+        new_password2 = forms.CharField(max_length = 100, widget=forms.PasswordInput(attrs={'class':'form-control', 'type':'password'}))
+
+        class Meta:
+                model = User
+                fields = ('old_password', 'new_password1', 'new_password2')
+
 class PersonForm(forms.ModelForm):
     class Meta:
         model= Person
@@ -18,6 +38,7 @@ class PersonForm(forms.ModelForm):
 class LanguageForm(forms.ModelForm):
     class Meta:
         model= Languages
+        exclude = ["user"]
         fields=['language']
 
         widgets={
@@ -27,6 +48,7 @@ class LanguageForm(forms.ModelForm):
 class SkillsForm(forms.ModelForm):
     class Meta:
         model= Skills
+        exclude = ["user"]
         fields=['name']
 
         widgets={
@@ -36,6 +58,7 @@ class SkillsForm(forms.ModelForm):
 class AwardForm(forms.ModelForm):
     class Meta:
         model= Awards
+        exclude = ["user"]
         fields=['award']
 
         widgets={
@@ -45,6 +68,7 @@ class AwardForm(forms.ModelForm):
 class ExperienceForm(forms.ModelForm):
     class Meta:
         model= Experience
+        exclude = ["user"]
         fields=['company_name', 'company_address', 'post_held', 'year_from', 'year_to', 'info']
 
         widgets={
@@ -59,6 +83,7 @@ class ExperienceForm(forms.ModelForm):
 class ProjectForm(forms.ModelForm):
     class Meta:
         model= Project
+        exclude = ["user"]
         fields=['name', 'source_code', 'live', 'info']
 
         widgets={
@@ -71,6 +96,7 @@ class ProjectForm(forms.ModelForm):
 class EducationForm(forms.ModelForm):
     class Meta:
         model= Education
+        exclude = ["user"]
         fields=['school_name', 'school_address', 'degree', 'year_from', 'year_to', 'info']
 
         widgets={

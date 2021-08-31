@@ -2,10 +2,13 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy, reverse
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import User
+from django.http import HttpResponse, HttpResponseRedirect
+from django.contrib.auth.views import PasswordChangeView
 
 from django.views.generic import DetailView, CreateView, ListView, UpdateView, DeleteView
 from .models import Person, Languages, Awards, Education, Experience, Skills, Project
-from .forms import  PersonForm, LanguageForm, AwardForm, ExperienceForm, EducationForm, SkillsForm, ProjectForm, SignUpForm
+from .forms import  PersonForm, LanguageForm, AwardForm, ExperienceForm, EducationForm, SkillsForm, ProjectForm, SignUpForm, EditAccountForm, PasswordChangingForm
 
 
 class MyPerson(LoginRequiredMixin, CreateView):
@@ -35,6 +38,12 @@ class MySkills(LoginRequiredMixin, CreateView):
     template_name = 'create_skills.html'
     success_url = reverse_lazy('resume')
 
+    def form_valid(self, form):
+        experience = form.save(commit=False)
+        experience.user = self.request.user  
+        experience.save()
+        return redirect('resume')
+
 @login_required(login_url='login')
 def EditSkills(request, pk):
         skills = get_object_or_404(Skills, pk=pk)
@@ -53,6 +62,13 @@ class MyLanguage(LoginRequiredMixin ,CreateView):
     model = Languages
     form_class = LanguageForm
     template_name = 'create_language.html'
+
+    def form_valid(self, form):
+        experience = form.save(commit=False)
+        experience.user = self.request.user  
+        experience.save()
+        return redirect('resume')
+
 
 @login_required(login_url='login')
 def EditLanguage(request, pk):
@@ -73,6 +89,12 @@ class MyAward(LoginRequiredMixin, CreateView):
     form_class = AwardForm
     template_name = 'create_award.html'
 
+    def form_valid(self, form):
+        experience = form.save(commit=False)
+        experience.user = self.request.user  
+        experience.save()
+        return redirect('resume')
+
 @login_required(login_url='login')
 def EditAward(request, pk):
         award = get_object_or_404(Awards, pk=pk)
@@ -92,6 +114,12 @@ class MyExperience(LoginRequiredMixin, CreateView):
     form_class = ExperienceForm
     template_name = 'create_experience.html'
 
+    def form_valid(self, form):
+        experience = form.save(commit=False)
+        experience.user = self.request.user  
+        experience.save()
+        return redirect('resume')
+
 @login_required(login_url='login')
 def EditExperience(request, pk):
         experience = get_object_or_404(Experience, pk=pk)
@@ -110,6 +138,12 @@ class MyEducation(LoginRequiredMixin, CreateView):
     model = Education
     form_class = EducationForm
     template_name = 'create_education.html'
+
+    def form_valid(self, form):
+        experience = form.save(commit=False)
+        experience.user = self.request.user  
+        experience.save()
+        return redirect('resume')
 
 @login_required(login_url='login')
 def EditEducation(request, pk):
@@ -131,6 +165,12 @@ class MyProject(LoginRequiredMixin, CreateView):
     template_name = 'create_project.html'
     success_url = reverse_lazy('resume')
 
+    def form_valid(self, form):
+        experience = form.save(commit=False)
+        experience.user = self.request.user  
+        experience.save()
+        return redirect('resume')
+
 @login_required(login_url='login')
 def EditProject(request, pk):
         project = get_object_or_404(Project, pk=pk)
@@ -143,19 +183,42 @@ def EditProject(request, pk):
         context = {'form':form}
         return render(request, 'create_project.html', context)
 
+
+@login_required(login_url='login')
 def Resume(request):
     language  = Languages.objects.all()[:5]
     education = Education.objects.all()[:3]
-    experience = Experience.objects.all()[:4]
-    person = Person.objects.all()[:1]
+    experience = Experience.objects.filter(user = request.user)
+    person = Person.objects.all()
     skills = Skills.objects.all()[:5]
     awards = Awards.objects.all()[:5]
-    projects = Project.objects.all()
+    projects = Project.objects.all()[:5]
     return render(request, 'resume.html', {'language':language, 'education':education, 'experience':
         experience, 'person': person, 'skills':skills, 'awards': awards, 'projects': projects})
+
 
 
 class CreateAccount(CreateView):
     form_class= SignUpForm
     template_name='registration/register.html'
     success_url= reverse_lazy('resume')
+
+class UpdateAccount(UpdateView):
+    model = User
+    form_class= EditAccountForm
+    template_name='registration/edit_profile.html'
+    success_url= reverse_lazy('blog_list')
+
+    def get_object(self):
+        return self.request.user
+
+def UserDelete(request):
+     user = request.user
+     if request.method == 'POST':
+                user.delete()
+                return redirect('login')
+
+
+class PasswordsChangeView(PasswordChangeView):
+    form_class = PasswordChangingForm
+    success_url = reverse_lazy('password_success')

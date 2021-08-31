@@ -2,6 +2,8 @@ from django.urls import path
 
 from .views import MyPerson, MyLanguage, MyAward, MyExperience, MyEducation, MySkills, Resume , MyProject, CreateAccount
 from .views import EditPerson, EditSkills, EditLanguage, EditAward, EditExperience, EditEducation, EditProject
+from .views import CreateAccount, UpdateAccount, UserDelete, PasswordsChangeView
+
 
 urlpatterns = [
     path('add_person/', MyPerson.as_view(), name = 'create_user'),
@@ -18,6 +20,9 @@ urlpatterns = [
     path('edit_skills/<int:pk>', EditSkills, name = 'edit_skills'),
     path('add_project/', MyProject.as_view(), name = 'create_project'),
     path('edit_project/<int:pk>', EditProject, name = 'edit_project'),
-    path('', Resume, name='resume'),
-    path('register/', CreateAccount.as_view(), name='register'),
+    path('resume', Resume, name='resume'),
+    path('', CreateAccount.as_view(), name='register'),
+    path('edit_profile/', UpdateAccount.as_view(), name='update_account'),
+    path('user_delete/', UserDelete, name = 'user_delete'),
+    path('password/', PasswordsChangeView.as_view(template_name='registration/change-password.html'), name='change_password'),
 ]
