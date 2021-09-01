@@ -82,24 +82,24 @@ WSGI_APPLICATION = 'resume_template.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
-}
-
 # DATABASES = {
 #     'default': {
-#         # 'ENGINE': 'django.db.backends.postgresql_psycopg2',
-#         'ENGINE': 'django.db.backends.postgresql',
-#         'NAME': 'dd43urac25m2k2',
-#         'USER': 'xypuqgsxaugowi',
-#         'PASSWORD': '6a43fe994cb4c9e17324a5ea5a77559cbeff7f38d281f0060de14ea954be595b',
-#         'HOST': 'ec2-18-213-219-169.compute-1.amazonaws.com',
-#         'POST': '5432',
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
 #     }
 # }
+
+DATABASES = {
+    'default': {
+        # 'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'dd43urac25m2k2',
+        'USER': 'xypuqgsxaugowi',
+        'PASSWORD': '6a43fe994cb4c9e17324a5ea5a77559cbeff7f38d281f0060de14ea954be595b',
+        'HOST': 'ec2-18-213-219-169.compute-1.amazonaws.com',
+        'POST': '5432',
+    }
+}
 
 
 # Password validation

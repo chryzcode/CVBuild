@@ -191,27 +191,27 @@ def EditProject(request, pk):
 
 @login_required(login_url='login')
 def Resume(request):
-    language  = Languages.objects.all()[:5]
-    education = Education.objects.all()[:3]
-    experience = Experience.objects.filter(user = request.user)
-    person = Person.objects.all()
-    skills = Skills.objects.all()[:5]
-    awards = Awards.objects.all()[:5]
-    projects = Project.objects.all()[:5]
-    template = loader.get_template('resume.html')
-    html = template.render( {'language':language, 'education':education, 'experience':
-        experience, 'person': person, 'skills':skills, 'awards': awards, 'projects': projects})
-    options = {
-        'page-size':'Letter',
-        'encoding':'UTF-8'
-    }
-    pdf = pdfkit.from_string(html, False, options)
-    response  = HttpResponse(pdf, content_type='application/pdf')
-    response['Content-Disposition'] = 'attachment'
-    filename = 'resume.pdf'
-    return response
-    # return render(request, 'resume.html', {'language':language, 'education':education, 'experience':
+    language  = Languages.objects.filter(user = request.user)[:5]
+    education = Education.objects.filter(user = request.user)[:3]
+    experience = Experience.objects.filter(user = request.user)[:5]
+    person = Person.objects.filter(user = request.user)[:1]
+    skills = Skills.objects.filter(user = request.user)[:5]
+    awards = Awards.objects.filter(user = request.user)[:5]
+    projects = Project.objects.filter(user = request.user)[:5]
+    # template = loader.get_template('resume.html')
+    # html = template.render( {'language':language, 'education':education, 'experience':
     #     experience, 'person': person, 'skills':skills, 'awards': awards, 'projects': projects})
+    # options = {
+    #     'page-size':'Letter',
+    #     'encoding':'UTF-8'
+    # }
+    # pdf = pdfkit.from_string(html, False, options)
+    # response  = HttpResponse(pdf, content_type='application/pdf')
+    # response['Content-Disposition'] = 'attachment'
+    # filename = 'resume.pdf'
+    # return response
+    return render(request, 'add_resume.html', {'language':language, 'education':education, 'experience':
+        experience, 'person': person, 'skills':skills, 'awards': awards, 'projects': projects})
 
 
 
@@ -220,7 +220,8 @@ class CreateAccount(CreateView):
     template_name='registration/register.html'
     success_url= reverse_lazy('resume')
 
-class UpdateAccount(UpdateView):
+class UpdateAccount(LoginRequiredMixin, UpdateView):
+    login_url = 'login'
     model = User
     form_class= EditAccountForm
     template_name='registration/edit_profile.html'
@@ -229,6 +230,7 @@ class UpdateAccount(UpdateView):
     def get_object(self):
         return self.request.user
 
+@login_required(login_url='login')
 def UserDelete(request):
      user = request.user
      if request.method == 'POST':
@@ -236,6 +238,10 @@ def UserDelete(request):
                 return redirect('login')
 
 
-class PasswordsChangeView(PasswordChangeView):
+class PasswordsChangeView(LoginRequiredMixin, PasswordChangeView):
+    login_url = 'login'
     form_class = PasswordChangingForm
     success_url = reverse_lazy('password_success')
+
+def WelcomeView(request):
+    return render(request, 'welcome.html')
