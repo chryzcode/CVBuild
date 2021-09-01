@@ -9,6 +9,7 @@ class Person(models.Model):
     address = models.CharField(max_length=200)
     email = models.EmailField()
     mobile_number = models.CharField(max_length=12)
+    summary = models.TextField(default='About Me')
 
     def get_absolute_url(self):
         return reverse('resume')
@@ -88,4 +89,19 @@ class Project(models.Model):
 
     def __str__ (self):
         return self.name
+
+class Volunteer(models.Model):
+    user = models.ForeignKey(User, on_delete = models.CASCADE)
+    post_held = models.CharField(max_length=30)
+    organization = models.CharField(max_length=100)
+    year_from = models.CharField(max_length=20)
+    year_to = models.CharField(max_length=20)
+    info = models.TextField()
+
+    def get_absolute_url(self):
+        return reverse('resume')
+
+    def __str__ (self):
+        return self.post_held
+
 

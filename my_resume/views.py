@@ -12,8 +12,8 @@ from django.template import loader
 import io
 
 from django.views.generic import DetailView, CreateView, ListView, UpdateView, DeleteView
-from .models import Person, Languages, Awards, Education, Experience, Skills, Project
-from .forms import  PersonForm, LanguageForm, AwardForm, ExperienceForm, EducationForm, SkillsForm, ProjectForm, SignUpForm, EditAccountForm, PasswordChangingForm
+from .models import Person, Languages, Awards, Education, Experience, Skills, Project, Volunteer
+from .forms import  PersonForm, LanguageForm, AwardForm, ExperienceForm, EducationForm, SkillsForm, ProjectForm, SignUpForm, EditAccountForm, PasswordChangingForm, VolunteerForm
 
 
 class MyPerson(LoginRequiredMixin, CreateView):
@@ -22,6 +22,12 @@ class MyPerson(LoginRequiredMixin, CreateView):
     form_class = PersonForm
     template_name = 'create_user.html'
     success_url = reverse_lazy('resume')
+
+    def form_valid(self, form):
+        person = form.save(commit=False)
+        person.user = self.request.user  
+        person.save()
+        return redirect('resume')
 
 @login_required(login_url='login')
 def EditPerson(request, pk):
@@ -198,6 +204,7 @@ def Resume(request):
     skills = Skills.objects.filter(user = request.user)[:5]
     awards = Awards.objects.filter(user = request.user)[:5]
     projects = Project.objects.filter(user = request.user)[:5]
+    volunteer = Volunteer.objects.filter(user = request.user)[:5]
     # template = loader.get_template('add_resume.html')
     # html = template.render( {'language':language, 'education':education, 'experience':
     #     experience, 'person': person, 'skills':skills, 'awards': awards, 'projects': projects})
@@ -211,7 +218,7 @@ def Resume(request):
     # filename = 'resume.pdf'
     # return response
     return render(request, 'add_resume.html', {'language':language, 'education':education, 'experience':
-        experience, 'person': person, 'skills':skills, 'awards': awards, 'projects': projects})
+        experience, 'person': person, 'skills':skills, 'awards': awards, 'projects': projects, 'volunteer':volunteer})
 
 
 
@@ -283,4 +290,36 @@ def DeleteLanguage(request, pk):
 def DeleteProject(request, pk):
 	project = Project.objects.get(id=pk)
 	project.delete()
+	return redirect('resume')
+
+class Volunteers(LoginRequiredMixin, CreateView):
+    login_url = 'login'
+    model = Volunteer
+    form_class = VolunteerForm
+    template_name = 'create_volunteer.html'
+    success_url = reverse_lazy('resume')
+
+    def form_valid(self, form):
+        volunteer = form.save(commit=False)
+        volunteer.user = self.request.user  
+        volunteer.save()
+        return redirect('resume')
+
+
+@login_required(login_url='login')
+def EditVolunteers(request, pk):
+        volunteer = get_object_or_404(Volunteer, pk=pk)
+        form = VolunteerForm(instance=volunteer)
+        if request.method == 'POST':
+            form = VolunteerForm(request.POST, instance=volunteer)
+            if form.is_valid():
+                form.save()
+                return redirect('resume')
+        context = {'form':form}
+        return render(request, 'create_volunteer.html', context)
+
+@login_required(login_url='login')
+def DeleteVolunteers(request, pk):
+	volunteer = Volunteer.objects.get(id=pk)
+	volunteer.delete()
 	return redirect('resume')

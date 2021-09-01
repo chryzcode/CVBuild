@@ -4,10 +4,13 @@ from .views import MyPerson, MyLanguage, MyAward, MyExperience, MyEducation, MyS
 from .views import EditPerson, EditSkills, EditLanguage, EditAward, EditExperience, EditEducation, EditProject
 from .views import CreateAccount, UpdateAccount, UserDelete, PasswordsChangeView
 from .views import DeletePerson, DeleteAwards, DeleteEducation, DeleteExperience, DeleteLanguage, DeleteProject, DeleteSkills, DeleteProject
-
+from .views import Volunteers, EditVolunteers, DeleteVolunteers
 
 urlpatterns = [
     path('add_person/', MyPerson.as_view(), name = 'create_user'),
+    path('add_volunteer/', Volunteers.as_view(), name = 'create_volunteer'),
+    path('edit_volunteer/<int:pk>', EditVolunteers, name = 'edit_volunteer'),
+    path('delete_volunteer/<str:pk>/', DeleteVolunteers, name='delete_volunteer'),
     path('edit_person/<int:pk>', EditPerson, name = 'edit_user'),
     path('add_language/', MyLanguage.as_view(), name = 'create_language'),
     path('edit_language/<int:pk>', EditLanguage, name = 'edit_language'),
@@ -26,7 +29,7 @@ urlpatterns = [
     path('edit_profile/', UpdateAccount.as_view(), name='update_account'),
     path('user_delete/', UserDelete, name = 'user_delete'),
     path('password/', PasswordsChangeView.as_view(template_name='registration/change-password.html'), name='change_password'),
-    path('delete_person/<str:pk>/', DeletePerson, name='delete_person'),
+    path('delete_person/<str:pk>/', DeletePerson, name='delete_user'),
     path('delete_education/<str:pk>/', DeleteEducation, name='delete_education'),
     path('delete_skills/<str:pk>/', DeleteSkills, name='delete_skills'),
     path('delete_experience/<str:pk>/', DeleteExperience, name='delete_experience'),

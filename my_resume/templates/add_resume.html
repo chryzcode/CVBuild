@@ -14,15 +14,17 @@
 <div style="margin-bottom: 60px;" class="row">
     <ul style="list-style: none;">
             {% for a_person in person %}
-            <a href="{% url 'edit_user' a_person.pk %}"><h2 style="display: inline-block;"><li>{{ a_person }}</li></h2></a>
-            <a href="{% url 'delete_user' a_person.pk %}"> <span class="material-icons">delete</span></a>            
+            <h2 style="display: inline-block;"><li>{{ a_person }}</li></h2>
 
+            
             <span style="display: inline-block; margin-left: 350px;">
                 {{a_person.address}}<br>
                 {{a_person.email }}<br>
                  {{ a_person.mobile_number }}
             </span>
 
+            <a href="{% url 'edit_user' a_person.pk %}"><span class="material-icons">mode_edit</span</a>
+                <a href="{% url 'delete_user' a_person.pk %}"><span class="material-icons">delete</span></a>
         {% endfor %}
     </ul>
 </div>
@@ -85,11 +87,12 @@
 </ul>
 </div>
 
-<div style="padding-left: 70px;" class="col">
+<div
+ class="col">
     <h3 style="margin-bottom: 20px;">Skills<a href="{% url 'create_skills'%}"><span class="material-icons">add</span></a></h3>
 <ul>
     {% for a_skill in skills %}
-   <li>{{ a_skill }}
+   <li><h5 style="display: inline-block;">{{ a_skill }}</h5>
     <a href="{% url 'edit_skills' a_skill.pk  %}"><span class="material-icons">mode_edit</span></a>   
     <a href="{% url 'delete_skills'  a_skill.pk %}"> <span class="material-icons">delete</span></a>
 </li>
@@ -101,7 +104,7 @@
 
 <ul>
     {% for a_award in awards %}
-    <li>{{ a_award }}
+    <li><h5  style="display: inline-block;">{{ a_award }}</h5>
 
     <a href="{% url 'edit_award' a_award.pk  %}"><span class="material-icons">mode_edit</span></a>   
     <a href="{% url 'delete_awards' a_award.pk %}"><span id="delete-icon" class="material-icons">delete</span></a>
@@ -114,10 +117,26 @@
 
 <ul>
 {% for a_language in language %}
-<li>{{ a_language }}
+<li><h5  style="display: inline-block;">{{ a_language }}</h5>
   <a href="{% url 'edit_language' a_language.pk %}"><span class="material-icons">mode_edit</span></a>   
   <a href="{% url 'delete_language' a_language.pk %}"><span id="delete-icon" class="material-icons">delete</span></a>
 </li>
+{% endfor %}
+</ul>
+
+<h3 style="margin-bottom: 20px;">Volunteering<a href="{% url 'create_volunteer' %}"><span class="material-icons">add</span></a></h3>
+
+<ul>
+{% for a_volunteer in volunteer %}
+<li><h5  style="display: inline-block;">{{ a_volunteer }}</h5></li>
+  <a href="{% url 'edit_volunteer' a_volunteer.pk %}"><span class="material-icons">mode_edit</span></a>   
+  <a href="{% url 'delete_volunteer' a_volunteer.pk %}"><span id="delete-icon" class="material-icons">delete</span></a>
+
+  <p style="margin-bottom: 3px; font-weight: 500;">{{ a_volunteer.organization }}</p>
+  <small>{{ a_volunteer.year_from }} - {{ a_volunteer.year_to }}</small>
+  <div style="padding-right: 50px; margin-top: 15px; margin-bottom: 30px;">
+        {{ a_volunteer.info }}
+    </div>
 {% endfor %}
 </ul>
 </div>   

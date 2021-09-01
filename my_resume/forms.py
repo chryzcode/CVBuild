@@ -1,5 +1,5 @@
 from django import forms
-from .models import Person, Languages, Awards, Education, Experience, Skills, Project
+from .models import Person, Languages, Awards, Education, Experience, Skills, Project, Volunteer
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm, PasswordChangeForm
 from django.contrib.auth.models import User
 
@@ -26,6 +26,7 @@ class PasswordChangingForm(PasswordChangeForm):
 class PersonForm(forms.ModelForm):
     class Meta:
         model= Person
+        exclude = ["user"]
         fields=['name', 'address', 'email', 'mobile_number']
 
         widgets={
@@ -79,6 +80,21 @@ class ExperienceForm(forms.ModelForm):
                 'year_to':forms.TextInput(attrs={'class':'form-control', 'placeholder':'Month and year ended  Ongoing'}),
                 'info':forms.Textarea(attrs={'class':'form-control', 'placeholder':'More information'}),
         }
+
+class VolunteerForm(forms.ModelForm):
+    class Meta:
+        model= Volunteer
+        exclude = ["user"]
+        fields=['post_held', 'organization', 'year_from', 'year_to', 'info']
+
+        widgets={
+                'post_held':forms.TextInput(attrs={'class':'form-control', 'placeholder':'Position held'}),
+                'organization':forms.TextInput(attrs={'class':'form-control', 'placeholder':'Organization name'}),                
+                'year_from':forms.TextInput(attrs={'class':'form-control', 'placeholder':'Month and year started    July 20th 2007'}),
+                'year_to':forms.TextInput(attrs={'class':'form-control', 'placeholder':'Month and year ended  Ongoing'}),
+                'info':forms.Textarea(attrs={'class':'form-control', 'placeholder':'More information'}),
+        }
+
 
 class ProjectForm(forms.ModelForm):
     class Meta:
