@@ -198,7 +198,7 @@ def Resume(request):
     skills = Skills.objects.filter(user = request.user)[:5]
     awards = Awards.objects.filter(user = request.user)[:5]
     projects = Project.objects.filter(user = request.user)[:5]
-    # template = loader.get_template('resume.html')
+    # template = loader.get_template('add_resume.html')
     # html = template.render( {'language':language, 'education':education, 'experience':
     #     experience, 'person': person, 'skills':skills, 'awards': awards, 'projects': projects})
     # options = {
@@ -243,5 +243,44 @@ class PasswordsChangeView(LoginRequiredMixin, PasswordChangeView):
     form_class = PasswordChangingForm
     success_url = reverse_lazy('password_success')
 
-def WelcomeView(request):
-    return render(request, 'welcome.html')
+@login_required(login_url='login')
+def DeletePerson(request, pk):
+	person  = Person .objects.get(id=pk)
+	person.delete()
+	return redirect('resume')
+
+@login_required(login_url='login')
+def DeleteSkills(request, pk):
+	skills =Skills.objects.get(id=pk)
+	skills.delete()
+	return redirect('resume')
+
+@login_required(login_url='login')
+def DeleteExperience(request, pk):
+	experience = Experience.objects.get(id=pk)
+	experience.delete()
+	return redirect('resume')
+
+@login_required(login_url='login')
+def DeleteEducation(request, pk):
+	education = Education.objects.get(id=pk)
+	education.delete()
+	return redirect('resume')
+
+@login_required(login_url='login')
+def DeleteAwards(request, pk):
+	queryset = Awards.objects.get(id=pk)
+	queryset.delete()
+	return redirect('resume')
+
+@login_required(login_url='login')
+def DeleteLanguage(request, pk):
+	language = Languages.objects.get(id=pk)
+	language.delete()
+	return redirect('resume')
+
+@login_required(login_url='login')
+def DeleteProject(request, pk):
+	project = Project.objects.get(id=pk)
+	project.delete()
+	return redirect('resume')

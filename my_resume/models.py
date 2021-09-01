@@ -89,12 +89,3 @@ class Project(models.Model):
     def __str__ (self):
         return self.name
 
-# class UserResume(models.Model):
-#     author = models.ForeignKey(User, on_delete=models.CASCADE)
-#     project = models.ForeignKey(Project, on_delete=models.CASCADE)
-#     language = models.ForeignKey(Languages, on_delete=models.CASCADE)
-#     award = models.ForeignKey(Awards, on_delete=models.CASCADE)
-#     education = models.ForeignKey(Education, on_delete=models.CASCADE)
-#     experience = models.ForeignKey(Experience, on_delete=models.CASCADE)
-#     skill = models.ForeignKey(Skills, on_delete=models.CASCADE)
-#     person = models.ForeignKey(Person, on_delete=models.CASCADE)

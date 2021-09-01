@@ -2,7 +2,8 @@ from django.urls import path
 
 from .views import MyPerson, MyLanguage, MyAward, MyExperience, MyEducation, MySkills, Resume , MyProject, CreateAccount
 from .views import EditPerson, EditSkills, EditLanguage, EditAward, EditExperience, EditEducation, EditProject
-from .views import CreateAccount, UpdateAccount, UserDelete, PasswordsChangeView, WelcomeView
+from .views import CreateAccount, UpdateAccount, UserDelete, PasswordsChangeView
+from .views import DeletePerson, DeleteAwards, DeleteEducation, DeleteExperience, DeleteLanguage, DeleteProject, DeleteSkills, DeleteProject
 
 
 urlpatterns = [
@@ -25,4 +26,11 @@ urlpatterns = [
     path('edit_profile/', UpdateAccount.as_view(), name='update_account'),
     path('user_delete/', UserDelete, name = 'user_delete'),
     path('password/', PasswordsChangeView.as_view(template_name='registration/change-password.html'), name='change_password'),
+    path('delete_person/<str:pk>/', DeletePerson, name='delete_person'),
+    path('delete_education/<str:pk>/', DeleteEducation, name='delete_education'),
+    path('delete_skills/<str:pk>/', DeleteSkills, name='delete_skills'),
+    path('delete_experience/<str:pk>/', DeleteExperience, name='delete_experience'),
+    path('delete_awards/<str:pk>/', DeleteAwards, name='delete_awards'),
+    path('delete_language/<str:pk>/', DeleteLanguage, name='delete_language'),
+    path('delete_project/<str:pk>/', DeleteProject, name='delete_project'),
 ]

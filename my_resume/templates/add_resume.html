@@ -15,6 +15,8 @@
     <ul style="list-style: none;">
             {% for a_person in person %}
             <a href="{% url 'edit_user' a_person.pk %}"><h2 style="display: inline-block;"><li>{{ a_person }}</li></h2></a>
+            <a href="{% url 'delete_user' a_person.pk %}"> <span class="material-icons">delete</span></a>            
+
             <span style="display: inline-block; margin-left: 350px;">
                 {{a_person.address}}<br>
                 {{a_person.email }}<br>
@@ -25,16 +27,21 @@
     </ul>
 </div>
 {% else %}
-<a href="{% url 'create_user'%}"><h3 style="margin-bottom: 50px;">Add Your Profile</h3></a>
+<h3 style="margin-bottom: 50px;">Add <a href="{% url 'create_user'%}">Profile</a></h3>
 {% endif %}
 </div> 
 
 <div class="row">
     <div class="col">
-        <a href="{% url 'create_experience'%}"><h3 style="margin-bottom: 20px;">Experience</h3></a>
+        <h3 style="margin-bottom: 20px;">Experience<a href="{% url 'create_experience'%}"><span class="material-icons">add</span></a></h3>
 <ul>
     {% for an_experience in experience %}
-    <a href="{% url 'edit_experience' an_experience.pk %}"><li style="padding-right: 50px;"><h5 style="display: inline-block;">{{ an_experience }},</h5></a> {{ an_experience.company_address }}</li>
+
+    <li style="padding-right: 50px;"><h5 style="display: inline-block;">{{ an_experience }} - </h5> {{ an_experience.company_address }}</li>
+
+    <a href="{% url 'edit_experience' an_experience.pk %}"><span class="material-icons">mode_edit</span></a>
+    <a href="{% url 'delete_experience' an_experience.pk %}"> <span class="material-icons">delete</span></a>
+            
     <p style="margin-bottom: 3px; font-weight: 500;">{{ an_experience.post_held }}</p>
     <small>{{ an_experience.year_from }} - {{ an_experience.year_to }}</small>
     <div style="padding-right: 50px; margin-top: 15px; margin-bottom: 30px;">
@@ -43,10 +50,17 @@
     {% endfor %}
 </ul>
 
-<a href="{% url 'create_education'%}"><h3 style="margin-bottom: 20px;">Education</h3></a>
+
+
+<h3 style="margin-bottom: 20px;">Education<a href="{% url 'create_education'%}"><span class="material-icons">add</span></a></h3>
 <ul>
     {% for an_education in education %}
-    <a href="{% url 'edit_education' an_education.pk %}"><li style="padding-right: 50px;"><h5 style="display: inline-block;">{{ an_education }},</h5></a> {{an_education.school_address }} - {{an_education.degree}}</li>
+    <li><h5 style="display: inline-block;">{{ an_education }}  -</h5> {{an_education.school_address }}</li>
+    
+    <a href="{% url 'edit_education' an_education.pk %}"><span class="material-icons">mode_edit</span></a>
+    <a href="{% url 'delete_education' an_education.pk %}"> <span class="material-icons">delete</span></a>
+
+    <p style="margin-bottom: 3px; font-weight: 500;">{{ an_education.degree }}</p>
     <small>{{an_education.year_from }} - {{ an_education.year_to }}</small>
     <div style="padding-right: 50px; margin-top: 15px; margin-bottom: 30px;">
         {{ an_education.info }}
@@ -54,12 +68,16 @@
     {% endfor %}
 </ul>
 
-<a href="{% url 'create_project'%}"><h3 style="margin-bottom: 20px;">Projects</h3></a>
+
+<h3 style="margin-bottom: 20px;">Projects<a href="{% url 'create_project'%}"><span class="material-icons">add</span></a></h3>
 <ul>
     {% for project in projects %}
-    <a href="{% url 'edit_project' project.pk %}"><li style="padding-right: 50px;"><h5>{{ project }}</h5></a></li>
-    <p><a href="{{project.source_code}}">Source Code</a>
-    <a href="{{project.live}}">Live</a></p>
+    <li style="padding-right: 50px;"><h5>{{ project }}</h5></li>
+    <a href="{% url 'edit_project' project.pk %}"><span class="material-icons">mode_edit</span></a>
+    <a href="{% url 'delete_project' project.pk %}"> <span class="material-icons">delete</span></a>
+
+    <p><a href="{{project.source_code}}"><b>Source Code</b></a>
+    <a href="{{project.live}}"><b>Live</b></a></p>
     <div style="padding-right: 50px; margin-top: 15px; margin-bottom: 30px;">
         {{ project.info }}
     </div> 
@@ -68,27 +86,38 @@
 </div>
 
 <div style="padding-left: 70px;" class="col">
-    <a href="{% url 'create_skills'%}"><h3>Skills</h3></a>
+    <h3 style="margin-bottom: 20px;">Skills<a href="{% url 'create_skills'%}"><span class="material-icons">add</span></a></h3>
 <ul>
     {% for a_skill in skills %}
-    <a href="{% url 'edit_skills' a_skill.pk %}"><li>{{ a_skill }}</li></a>
+   <li>{{ a_skill }}
+    <a href="{% url 'edit_skills' a_skill.pk  %}"><span class="material-icons">mode_edit</span></a>   
+    <a href="{% url 'delete_skills'  a_skill.pk %}"> <span class="material-icons">delete</span></a>
+</li>
     {% endfor %}
 </ul>
 
-<a href="{% url 'create_award'%}"><h3>Awards</h3></a>
+
+<h3 style="margin-bottom: 20px;">Awards<a href="{% url 'create_award'%}"><span class="material-icons">add</span></a></h3>
 
 <ul>
     {% for a_award in awards %}
-    <a href="{% url 'edit_award' a_award.pk %}"><li>{{ a_award }}</li>
+    <li>{{ a_award }}
+
+    <a href="{% url 'edit_award' a_award.pk  %}"><span class="material-icons">mode_edit</span></a>   
+    <a href="{% url 'delete_awards' a_award.pk %}"><span id="delete-icon" class="material-icons">delete</span></a>
+
+    </li>
     {% endfor %}
 </ul>
 
-
-<a href="{% url 'create_language'%}"><h3>Languages</h3></a>
+<h3 style="margin-bottom: 20px;">Languages<a href="{% url 'create_language' %}"><span class="material-icons">add</span></a></h3>
 
 <ul>
 {% for a_language in language %}
-<a href="{% url 'edit_language' a_language.pk %}"><li>{{ a_language }}</li></a>
+<li>{{ a_language }}
+  <a href="{% url 'edit_language' a_language.pk %}"><span class="material-icons">mode_edit</span></a>   
+  <a href="{% url 'delete_language' a_language.pk %}"><span id="delete-icon" class="material-icons">delete</span></a>
+</li>
 {% endfor %}
 </ul>
 </div>   
