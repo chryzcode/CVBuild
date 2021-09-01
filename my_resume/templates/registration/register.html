@@ -7,8 +7,14 @@
   </head>
   <body>
     {% block content%}
+    <br/>
+    <h2 style="text-align:center;">Welcome to Resume Builder</h2>
+
+    <div style="font-weight:500 ; font-size: larger; text-align: center; margin-top: 20px;">
+        Build up your resume and get a generated link for a portfolio-resume and your resume.pdf
+    </div>
     <br>
-    <h2>Sign up</h2>
+    <h4 style="text-align:center;">Sign Up</h4>
     <br>
       <form action="" method="post">
         {% csrf_token %}
@@ -18,7 +24,7 @@
         </div>
       </form>
       <br>
-      <h5 style="text-align: center;">Already had an account? <a href="{% url 'login' %}">Log in</a></h5>
+      <h5 style="text-align: center; margin-bottom: 40px;">Already had an account? <a href="{% url 'login' %}">Log in</a></h5>
     {% endblock %}
   </body>
 </html>

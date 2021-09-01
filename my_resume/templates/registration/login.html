@@ -8,9 +8,14 @@
   </head>
   <body>
     {% block content%}
-    <br>
-    <h2 style="margin-left: 25px;">Login</h2>
     <br/>
+    <h2 style="text-align:center;">Welcome to Resume Builder</h2>
+
+    <div style="font-weight:500 ; font-size: larger; text-align: center; margin-top: 20px;">
+        Build up your resume and get a generated link for a portfolio-resume and your resume.pdf
+    </div>
+    <br><br>
+    <h4 style="text-align:center;">Login</h4>
     {% if form.errors %}
         <p style="font-size: 20px; margin-left: 25px;">Your username and password did not match. Please try again. </p>
     {% endif %}
