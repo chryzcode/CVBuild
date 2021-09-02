@@ -6,6 +6,14 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <style>
+        @media all and (max-width: 780px) {
+            .row, .col{
+               display: none;
+               
+            }
+        }
+    </style>
 </head>
 <body>
 {% block content %}
@@ -33,14 +41,10 @@
             </div>
             
     </div>
-    <div class="row">
-        <div class="col">
             <h5 style="margin-top: 15px;">About Me Summary</h5>
-            <div style="width: 500px;">
+            <div style="width: 500px; margin-right: 700px;">
              {{ a_person.summary }}
             </div>
-        </div>
-    </div>
 </div>
 {% endfor %}
 {% else %}
