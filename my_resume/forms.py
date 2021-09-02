@@ -27,13 +27,14 @@ class PersonForm(forms.ModelForm):
     class Meta:
         model= Person
         exclude = ["user"]
-        fields=['name', 'address', 'email', 'mobile_number']
+        fields=['name', 'address', 'email', 'mobile_number', 'summary']
 
         widgets={
                 'name':forms.TextInput(attrs={'class':'form-control', 'placeholder':'My name'}),
                 'address':forms.TextInput(attrs={'class':'form-control', 'placeholder':'Home address'}),
                 'email':forms.EmailInput(attrs={'class':'form-control', 'placeholder':'Email address'}),
                 'mobile_number':forms.TextInput(attrs={'class':'form-control', 'placeholder':'Mobile Number'}),
+                'summary':forms.Textarea(attrs={'class':'form-control', 'placeholder':'About Me'}),
         }
 
 class LanguageForm(forms.ModelForm):

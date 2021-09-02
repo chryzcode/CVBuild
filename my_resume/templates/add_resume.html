@@ -12,22 +12,37 @@
 <div style="margin-top: 20px;">
     {% if person %}
 <div style="margin-bottom: 60px;" class="row">
-    <ul style="list-style: none;">
+    <div class="col">
+    <ul style="list-style: none; padding: 0;">
             {% for a_person in person %}
             <h2 style="display: inline-block;"><li>{{ a_person }}</li></h2>
 
-            
-            <span style="display: inline-block; margin-left: 350px;">
-                {{a_person.address}}<br>
-                {{a_person.email }}<br>
-                 {{ a_person.mobile_number }}
-            </span>
+    
 
             <a href="{% url 'edit_user' a_person.pk %}"><span class="material-icons">mode_edit</span</a>
                 <a href="{% url 'delete_user' a_person.pk %}"><span class="material-icons">delete</span></a>
-        {% endfor %}
+
     </ul>
 </div>
+    <div class="col">
+
+            <div style="margin-left: 20px;">
+            {{a_person.address}}<br>
+            {{a_person.email }}<br>
+            {{ a_person.mobile_number }}
+            </div>
+            
+    </div>
+    <div class="row">
+        <div class="col">
+            <h5 style="margin-top: 15px;">About Me Summary</h5>
+            <div style="width: 500px;">
+             {{ a_person.summary }}
+            </div>
+        </div>
+    </div>
+</div>
+{% endfor %}
 {% else %}
 <h3 style="margin-bottom: 50px;">Add <a href="{% url 'create_user'%}">Profile</a></h3>
 {% endif %}
@@ -100,7 +115,7 @@
 </ul>
 
 
-<h3 style="margin-bottom: 20px;">Awards<a href="{% url 'create_award'%}"><span class="material-icons">add</span></a></h3>
+<h3 style="margin-bottom: 20px; margin-top: 40px; ">Awards<a href="{% url 'create_award'%}"><span class="material-icons">add</span></a></h3>
 
 <ul>
     {% for a_award in awards %}
@@ -113,7 +128,7 @@
     {% endfor %}
 </ul>
 
-<h3 style="margin-bottom: 20px;">Languages<a href="{% url 'create_language' %}"><span class="material-icons">add</span></a></h3>
+<h3 style="margin-bottom: 20px; margin-top: 40px;">Languages<a href="{% url 'create_language' %}"><span class="material-icons">add</span></a></h3>
 
 <ul>
 {% for a_language in language %}
@@ -124,7 +139,7 @@
 {% endfor %}
 </ul>
 
-<h3 style="margin-bottom: 20px;">Volunteering<a href="{% url 'create_volunteer' %}"><span class="material-icons">add</span></a></h3>
+<h3 style="margin-bottom: 20px; margin-top: 40px;">Volunteering<a href="{% url 'create_volunteer' %}"><span class="material-icons">add</span></a></h3>
 
 <ul>
 {% for a_volunteer in volunteer %}

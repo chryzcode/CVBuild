@@ -9,7 +9,7 @@ class Person(models.Model):
     address = models.CharField(max_length=200)
     email = models.EmailField()
     mobile_number = models.CharField(max_length=12)
-    summary = models.TextField(default='About Me')
+    summary = models.TextField()
 
     def get_absolute_url(self):
         return reverse('resume')
