@@ -27,13 +27,15 @@ class PersonForm(forms.ModelForm):
     class Meta:
         model= Person
         exclude = ["user"]
-        fields=['name', 'address', 'email', 'mobile_number', 'summary']
+        fields=['name', 'location', 'email', 'mobile_number', 'occupation', 'site', 'summary']
 
         widgets={
                 'name':forms.TextInput(attrs={'class':'form-control', 'placeholder':'My name'}),
-                'address':forms.TextInput(attrs={'class':'form-control', 'placeholder':'Home address'}),
+                'location':forms.TextInput(attrs={'class':'form-control', 'placeholder':'Location  e.g  Lagos, Nigeria'}),
                 'email':forms.EmailInput(attrs={'class':'form-control', 'placeholder':'Email address'}),
                 'mobile_number':forms.TextInput(attrs={'class':'form-control', 'placeholder':'Mobile Number'}),
+                'occupation':forms.TextInput(attrs={'class':'form-control', 'placeholder':'My occupation'}),
+                'site':forms.TextInput(attrs={'class':'form-control', 'placeholder':'Porfolio Link, Website'}),
                 'summary':forms.Textarea(attrs={'class':'form-control', 'placeholder':'About Me'}),
         }
 
@@ -71,11 +73,11 @@ class ExperienceForm(forms.ModelForm):
     class Meta:
         model= Experience
         exclude = ["user"]
-        fields=['company_name', 'company_address', 'post_held', 'year_from', 'year_to', 'info']
+        fields=['company_name', 'company_location', 'post_held', 'year_from', 'year_to', 'info']
 
         widgets={
                 'company_name':forms.TextInput(attrs={'class':'form-control', 'placeholder':'Company name'}),
-                'company_address':forms.TextInput(attrs={'class':'form-control', 'placeholder':'Company address'}),
+                'company_location':forms.TextInput(attrs={'class':'form-control', 'placeholder':'Company location'}),
                 'post_held':forms.TextInput(attrs={'class':'form-control', 'placeholder':'Position held'}),
                 'year_from':forms.TextInput(attrs={'class':'form-control', 'placeholder':'Month and year started    July 20th 2007'}),
                 'year_to':forms.TextInput(attrs={'class':'form-control', 'placeholder':'Month and year ended  Ongoing'}),
@@ -114,11 +116,11 @@ class EducationForm(forms.ModelForm):
     class Meta:
         model= Education
         exclude = ["user"]
-        fields=['school_name', 'school_address', 'degree', 'year_from', 'year_to', 'info']
+        fields=['school_name', 'school_location', 'degree', 'year_from', 'year_to', 'info']
 
         widgets={
                 'school_name':forms.TextInput(attrs={'class':'form-control', 'placeholder':'School name'}),
-                'school_address':forms.TextInput(attrs={'class':'form-control', 'placeholder':'School Address or Location'}),
+                'school_location':forms.TextInput(attrs={'class':'form-control', 'placeholder':'School Location'}),
                 'degree':forms.TextInput(attrs={'class':'form-control', 'placeholder':'Degree SSCE Neco Bsc'}),
                 'year_from':forms.TextInput(attrs={'class':'form-control', 'placeholder':'Month and year started    July 20th 2007'}),
                 'year_to':forms.TextInput(attrs={'class':'form-control', 'placeholder':'Month and year ended  Ongoing'}),

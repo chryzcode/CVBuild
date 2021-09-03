@@ -6,11 +6,12 @@ from django.contrib.auth.models import User
 class Person(models.Model):
     user = models.ForeignKey(User, on_delete = models.CASCADE)
     name = models.CharField(max_length= 25)
-    address = models.CharField(max_length=200)
+    location = models.CharField(max_length=200)
     email = models.EmailField()
     mobile_number = models.CharField(max_length=12)
+    occupation = models.TextField()
     summary = models.TextField()
-
+    site = models.CharField(max_length=700, null=True, blank=True)
     def get_absolute_url(self):
         return reverse('resume')
 
@@ -30,7 +31,7 @@ class Skills(models.Model):
 class Experience(models.Model):
     user = models.ForeignKey(User, on_delete = models.CASCADE)
     company_name = models.CharField(max_length=100)
-    company_address = models.CharField(max_length=200)
+    company_location = models.CharField(max_length=200)
     post_held = models.CharField(max_length=30)
     year_from = models.CharField(max_length=20)
     year_to = models.CharField(max_length=20)
@@ -45,7 +46,7 @@ class Experience(models.Model):
 class Education(models.Model):
     user = models.ForeignKey(User, on_delete = models.CASCADE)
     school_name = models.CharField(max_length=30)
-    school_address = models.CharField(max_length=150)
+    school_location = models.CharField(max_length=150)
     degree = models.CharField(max_length=30)
     year_from = models.CharField(max_length=20)
     year_to = models.CharField(max_length=20)

@@ -4,7 +4,7 @@ from .views import MyPerson, MyLanguage, MyAward, MyExperience, MyEducation, MyS
 from .views import EditPerson, EditSkills, EditLanguage, EditAward, EditExperience, EditEducation, EditProject
 from .views import CreateAccount, UpdateAccount, UserDelete, PasswordsChangeView
 from .views import DeletePerson, DeleteAwards, DeleteEducation, DeleteExperience, DeleteLanguage, DeleteProject, DeleteSkills, DeleteProject
-from .views import Volunteers, EditVolunteers, DeleteVolunteers
+from .views import Volunteers, EditVolunteers, DeleteVolunteers, ResumePreview
 
 urlpatterns = [
     path('add_person/', MyPerson.as_view(), name = 'create_user'),
@@ -25,6 +25,7 @@ urlpatterns = [
     path('add_project/', MyProject.as_view(), name = 'create_project'),
     path('edit_project/<int:pk>', EditProject, name = 'edit_project'),
     path('', Resume, name='resume'),
+    path('resume_preview/', ResumePreview, name='resume_preview'),
     path('register/', CreateAccount.as_view(), name='register'),
     path('edit_profile/', UpdateAccount.as_view(), name='update_account'),
     path('user_delete/', UserDelete, name = 'user_delete'),

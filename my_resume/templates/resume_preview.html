@@ -4,9 +4,86 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <style>
+        .section{
+            border-bottom: 3px solid black;
+        }
+    </style>
     <title>Document</title>
 </head>
 <body>
-    Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorum autem repellat officia accusamus assumenda perspiciatis ipsa neque excepturi itaque necessitatibus commodi tempora similique quidem voluptates, placeat, dolore illo? Eos, ipsa.
+<div class="container" style="margin-top:45px;">
+    {% if person %}
+    {% for a_person in person %}
+        <ul style="list-style: none; padding: 0;">
+            <h2 style="font-size: 40px; font-weight: 700;"><li>{{ a_person }}</li></h2>
+            <p style="font-size: 25px; font-weight: 600;"> {{ a_person.occupation }}</p>
+        </ul>
+
+        <div class="row">
+            <div class="col">
+                <span class="material-icons">call</span>
+                {{ a_person.mobile_number }}
+                
+            </div>
+
+            <div class="col">
+                <span class="material-icons">alternate_email</span>
+                {{a_person.email }}
+            </div>
+
+            <div class="col">
+                <span class="material-icons">location_on</span>
+                {{a_person.location}}
+            </div>
+
+            <div class="col">
+                <span class="material-icons">link</span>
+                <a href="{{ a_person.site }}">{{ a_person.site }}</a>
+            </div>
+        </div>
+
+
+    <div style="margin-top: 20px;" class="row">
+
+        <div class="col">
+            <h3 class="section"  style="margin-top: 15px;">SUMMARY</h3>
+            <div style="width: 500px; margin-right: 700px;">
+             {{ a_person.summary }}
+            </div>
+            {% endfor %}
+            {% endif %}
+
+            <h3 style="margin-bottom: 20px; margin-top: 20px;">Skills</h3>
+            {% for a_skill in skills %}
+            <ul>         
+                <li>
+                 {{ a_skill }}
+                </li>           
+            </ul>
+            {% endfor %}
+
+
+            <h3 class="section" style="margin-bottom: 20px; margin-top: 20px;">Experience</h3>
+            <ul>
+                {% for an_experience in experience %}
+            
+                <li style="padding-right: 50px;"><h5 style="display: inline-block;">{{ an_experience }} - </h5> {{ an_experience.company_address }}</li> 
+                        
+                <p style="margin-bottom: 0px; font-weight: 500;">{{ an_experience.post_held }}</p>
+                <small>{{ an_experience.year_from }} - {{ an_experience.year_to }}</small>
+                <div style="padding-right: 50px; margin-top: 15px; margin-bottom: 30px;">
+                    {{ an_experience.info }}
+                </div>
+                {% endfor %}
+            </ul>
+
+        </div>
+
+    </div>
+    
+</div>
 </body>
 </html>

@@ -24,7 +24,7 @@
     <ul style="list-style: none; padding: 0;">
             {% for a_person in person %}
             <h2 style="display: inline-block;"><li>{{ a_person }}</li></h2>
-
+            <p style="font-size: 20px;"> {{ a_person.occupation }}</p>
     
 
             <a href="{% url 'edit_user' a_person.pk %}"><span class="material-icons">mode_edit</span</a>
@@ -35,7 +35,8 @@
     <div class="col">
 
             <div style="margin-left: 20px;">
-            {{a_person.address}}<br>
+            <a style="color: black;" href="{{ a_person.site }}">{{ a_person.site }}</a><br>
+            {{a_person.location}}<br>
             {{a_person.email }}<br>
             {{ a_person.mobile_number }}
             </div>
