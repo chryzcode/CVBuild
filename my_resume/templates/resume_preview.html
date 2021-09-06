@@ -10,6 +10,10 @@
         .section{
             border-bottom: 3px solid black;
         }
+
+        .material-icons{
+            font-size: 15px;
+        }
     </style>
     <title>Document</title>
 </head>
@@ -49,28 +53,53 @@
     <div style="margin-top: 20px;" class="row">
 
         <div class="col">
-            <h3 class="section"  style="margin-top: 15px;">SUMMARY</h3>
-            <div style="width: 500px; margin-right: 700px;">
+            <h3 class="section"  style= "margin-bottom: 20px; margin-top: 20px;">SUMMARY</h3>
+            <div >
              {{ a_person.summary }}
             </div>
             {% endfor %}
             {% endif %}
 
-            <h3 style="margin-bottom: 20px; margin-top: 20px;">Skills</h3>
+
+            {% if education %}
+            <h3 class="section"  style= "margin-bottom: 20px; margin-top: 20px;">Education</h3>
+            <ul>
+                {% for an_education in education %}
+                <li><h5 style="display: inline-block;">{{ an_education }}  -</h5> {{an_education.school_location }}</li>
+                
+                <p style="margin-bottom: 3px; font-weight: 500;">{{ an_education.degree }}</p>
+                <small>{{an_education.year_from }} - {{ an_education.year_to }}</small>
+                <div style="padding-right: 50px; margin-top: 15px; margin-bottom: 30px;">
+                    {{ an_education.info }}
+                </div> 
+                {% endfor %}
+            </ul>
+            {% endif %}
+
+
+
+            {% if skills %}
+
+            <h3 class="section" style="margin-bottom: 20px; margin-top: 20px;">SKILLS</h3>
+            <p><b>LANGUAGES AND TOOLS</b></p>
             {% for a_skill in skills %}
             <ul>         
                 <li>
-                 {{ a_skill }}
+                <h5> {{ a_skill }}</h5>
                 </li>           
             </ul>
             {% endfor %}
 
+            {% endif %}
+
+
+            {% if experience %}
 
             <h3 class="section" style="margin-bottom: 20px; margin-top: 20px;">Experience</h3>
             <ul>
                 {% for an_experience in experience %}
             
-                <li style="padding-right: 50px;"><h5 style="display: inline-block;">{{ an_experience }} - </h5> {{ an_experience.company_address }}</li> 
+                <li style="padding-right: 50px;"><h5 style="display: inline-block;">{{ an_experience }} - </h5> {{ an_experience.company_location }}</li> 
                         
                 <p style="margin-bottom: 0px; font-weight: 500;">{{ an_experience.post_held }}</p>
                 <small>{{ an_experience.year_from }} - {{ an_experience.year_to }}</small>
@@ -80,6 +109,54 @@
                 {% endfor %}
             </ul>
 
+            {% endif %}
+
+        </div>
+
+        <div class="col">
+
+        {% if projects %}
+        
+        <h3 class="section" style="margin-bottom: 20px; margin-top: 20px;">Projects</h3>
+        <ul>
+            {% for project in projects %}
+            <li style="padding-right: 50px;"><h5>{{ project }}</h5></li>
+            <p style="display: inline-block;"><a style="padding-right: 10px;" href="{{project.source_code}}">Source Code</a></p>
+            <p style="display: inline-block;"><a href="{{project.live}}">Live</a></p>
+            <div style="padding-right: 50px; margin-bottom: 30px;">
+                {{ project.info }}
+            </div> 
+            {% endfor %}
+        </ul>
+
+        {% endif %}
+
+            {% if awards %}
+            <h3 class="section" style="margin-bottom: 20px; margin-top: 20px;">Awards</h3>
+
+            <ul>
+                {% for a_award in awards %}
+                <li><h5>{{ a_award }}</h5></li>
+                {% endfor %}
+            </ul>
+            {% endif %}
+
+            {% if volunteer %}
+            <h3 class="section" style="margin-bottom: 20px; margin-top: 20px;">Volunteering</h3>
+
+            <ul>
+                {% for a_volunteer in volunteer %}
+                <li><h5  style="display: inline-block; margin-bottom: 0;">{{ a_volunteer }}</h5></li>
+                
+                  <p style="margin-bottom: 3px; font-weight: 500; margin-top: 0;">{{ a_volunteer.organization }}</p>
+                  <small>{{ a_volunteer.year_from }} - {{ a_volunteer.year_to }}</small>
+                  <div style="padding-right: 50px; margin-top: 15px; margin-bottom: 30px;">
+                        {{ a_volunteer.info }}
+                    </div>
+                {% endfor %}
+                </ul>
+
+            {% endif %}
         </div>
 
     </div>

@@ -1,5 +1,5 @@
 from django import forms
-from .models import Person, Languages, Awards, Education, Experience, Skills, Project, Volunteer
+from .models import Person, Awards, Education, Experience, Skills, Project, Volunteer
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm, PasswordChangeForm
 from django.contrib.auth.models import User
 
@@ -39,15 +39,6 @@ class PersonForm(forms.ModelForm):
                 'summary':forms.Textarea(attrs={'class':'form-control', 'placeholder':'About Me'}),
         }
 
-class LanguageForm(forms.ModelForm):
-    class Meta:
-        model= Languages
-        exclude = ["user"]
-        fields=['language']
-
-        widgets={
-                'language':forms.TextInput(attrs={'class':'form-control', 'placeholder':'Languages understood  English, French'}),
-        }
 
 class SkillsForm(forms.ModelForm):
     class Meta:

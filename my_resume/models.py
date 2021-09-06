@@ -68,16 +68,6 @@ class Awards(models.Model):
     def __str__ (self):
         return self.award
 
-class Languages(models.Model):
-    user = models.ForeignKey(User, on_delete = models.CASCADE)
-    language = models.CharField(max_length=40)
-
-    def get_absolute_url(self):
-        return reverse('resume')
-
-    def __str__ (self):
-        return self.language
-
 class Project(models.Model):
     user = models.ForeignKey(User, on_delete = models.CASCADE)
     name = models.CharField(max_length=40)

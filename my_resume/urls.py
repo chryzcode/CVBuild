@@ -1,9 +1,9 @@
 from django.urls import path
 
-from .views import MyPerson, MyLanguage, MyAward, MyExperience, MyEducation, MySkills, Resume , MyProject, CreateAccount
-from .views import EditPerson, EditSkills, EditLanguage, EditAward, EditExperience, EditEducation, EditProject
+from .views import MyPerson, MyAward, MyExperience, MyEducation, MySkills, Resume , MyProject, CreateAccount
+from .views import EditPerson, EditSkills, EditAward, EditExperience, EditEducation, EditProject
 from .views import CreateAccount, UpdateAccount, UserDelete, PasswordsChangeView
-from .views import DeletePerson, DeleteAwards, DeleteEducation, DeleteExperience, DeleteLanguage, DeleteProject, DeleteSkills, DeleteProject
+from .views import DeletePerson, DeleteAwards, DeleteEducation, DeleteExperience, DeleteProject, DeleteSkills, DeleteProject
 from .views import Volunteers, EditVolunteers, DeleteVolunteers, ResumePreview
 
 urlpatterns = [
@@ -12,8 +12,6 @@ urlpatterns = [
     path('edit_volunteer/<int:pk>', EditVolunteers, name = 'edit_volunteer'),
     path('delete_volunteer/<str:pk>/', DeleteVolunteers, name='delete_volunteer'),
     path('edit_person/<int:pk>', EditPerson, name = 'edit_user'),
-    path('add_language/', MyLanguage.as_view(), name = 'create_language'),
-    path('edit_language/<int:pk>', EditLanguage, name = 'edit_language'),
     path('add_award/', MyAward.as_view(), name = 'create_award'),
     path('edit_award/<int:pk>', EditAward, name = 'edit_award'),
     path('add_experience/', MyExperience.as_view(), name = 'create_experience'),
@@ -35,6 +33,5 @@ urlpatterns = [
     path('delete_skills/<str:pk>/', DeleteSkills, name='delete_skills'),
     path('delete_experience/<str:pk>/', DeleteExperience, name='delete_experience'),
     path('delete_awards/<str:pk>/', DeleteAwards, name='delete_awards'),
-    path('delete_language/<str:pk>/', DeleteLanguage, name='delete_language'),
     path('delete_project/<str:pk>/', DeleteProject, name='delete_project'),
 ]

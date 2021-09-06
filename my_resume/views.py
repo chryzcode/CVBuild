@@ -12,8 +12,8 @@ from django.template import loader
 import io
 
 from django.views.generic import DetailView, CreateView, ListView, UpdateView, DeleteView
-from .models import Person, Languages, Awards, Education, Experience, Skills, Project, Volunteer
-from .forms import  PersonForm, LanguageForm, AwardForm, ExperienceForm, EducationForm, SkillsForm, ProjectForm, SignUpForm, EditAccountForm, PasswordChangingForm, VolunteerForm
+from .models import Person, Awards, Education, Experience, Skills, Project, Volunteer
+from .forms import  PersonForm, AwardForm, ExperienceForm, EducationForm, SkillsForm, ProjectForm, SignUpForm, EditAccountForm, PasswordChangingForm, VolunteerForm
 
 
 class MyPerson(LoginRequiredMixin, CreateView):
@@ -66,32 +66,6 @@ def EditSkills(request, pk):
                 return redirect('resume')
         context = {'form':form}
         return render(request, 'create_skills.html', context)
-
- 
-class MyLanguage(LoginRequiredMixin ,CreateView):
-    login_url = 'login'
-    model = Languages
-    form_class = LanguageForm
-    template_name = 'create_language.html'
-
-    def form_valid(self, form):
-        experience = form.save(commit=False)
-        experience.user = self.request.user  
-        experience.save()
-        return redirect('resume')
-
-
-@login_required(login_url='login')
-def EditLanguage(request, pk):
-        language = get_object_or_404(Languages, pk=pk)
-        form = LanguageForm(instance=language)
-        if request.method == 'POST':
-            form = LanguageForm(request.POST, instance=language)
-            if form.is_valid():
-                form.save()
-                return redirect('resume')
-        context = {'form':form}
-        return render(request, 'create_language.html', context)
 
 
 class MyAward(LoginRequiredMixin, CreateView):
@@ -197,7 +171,6 @@ def EditProject(request, pk):
 
 @login_required(login_url='login')
 def Resume(request):
-    language  = Languages.objects.filter(user = request.user)[:5]
     education = Education.objects.filter(user = request.user)[:3]
     experience = Experience.objects.filter(user = request.user)[:5]
     person = Person.objects.filter(user = request.user)[:1]
@@ -206,7 +179,7 @@ def Resume(request):
     projects = Project.objects.filter(user = request.user)[:5]
     volunteer = Volunteer.objects.filter(user = request.user)[:5]
     # template = loader.get_template('add_resume.html')
-    # html = template.render( {'language':language, 'education':education, 'experience':
+    # html = template.render({'education':education, 'experience':
     #     experience, 'person': person, 'skills':skills, 'awards': awards, 'projects': projects})
     # options = {
     #     'page-size':'Letter',
@@ -217,13 +190,12 @@ def Resume(request):
     # response['Content-Disposition'] = 'attachment'
     # filename = 'resume.pdf'
     # return response
-    return render(request, 'add_resume.html', {'language':language, 'education':education, 'experience':
+    return render(request, 'add_resume.html', {'education':education, 'experience':
         experience, 'person': person, 'skills':skills, 'awards': awards, 'projects': projects, 'volunteer':volunteer})
 
 
 @login_required(login_url='login')
 def ResumePreview(request):
-    language  = Languages.objects.filter(user = request.user)[:5]
     education = Education.objects.filter(user = request.user)[:3]
     experience = Experience.objects.filter(user = request.user)[:5]
     person = Person.objects.filter(user = request.user)[:1]
@@ -232,7 +204,7 @@ def ResumePreview(request):
     projects = Project.objects.filter(user = request.user)[:5]
     volunteer = Volunteer.objects.filter(user = request.user)[:5]
     # template = loader.get_template('add_resume.html')
-    # html = template.render( {'language':language, 'education':education, 'experience':
+    # html = template.render({'education':education, 'experience':
     #     experience, 'person': person, 'skills':skills, 'awards': awards, 'projects': projects})
     # options = {
     #     'page-size':'Letter',
@@ -243,7 +215,7 @@ def ResumePreview(request):
     # response['Content-Disposition'] = 'attachment'
     # filename = 'resume.pdf'
     # return response
-    return render(request, 'resume_preview.html', {'language':language, 'education':education, 'experience':
+    return render(request, 'resume_preview.html', {'education':education, 'experience':
         experience, 'person': person, 'skills':skills, 'awards': awards, 'projects': projects, 'volunteer':volunteer})
 
 
@@ -303,12 +275,6 @@ def DeleteEducation(request, pk):
 def DeleteAwards(request, pk):
 	queryset = Awards.objects.get(id=pk)
 	queryset.delete()
-	return redirect('resume')
-
-@login_required(login_url='login')
-def DeleteLanguage(request, pk):
-	language = Languages.objects.get(id=pk)
-	language.delete()
 	return redirect('resume')
 
 @login_required(login_url='login')
