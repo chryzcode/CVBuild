@@ -45,7 +45,6 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'my_resume',
     'crispy_forms',
-    'the_resume',
 ]
 
 MIDDLEWARE = [
