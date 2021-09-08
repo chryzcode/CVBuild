@@ -17,6 +17,17 @@ from .models import Person, Awards, Education, Experience, Skills, Project, Volu
 from .forms import  PersonForm, AwardForm, ExperienceForm, EducationForm, SkillsForm, ProjectForm, SignUpForm, EditAccountForm, PasswordChangingForm, VolunteerForm
 
 
+import os, sys, subprocess, platform
+
+if platform.system() == "Windows":
+        pdfkit_config = pdfkit.configuration(wkhtmltopdf=os.environ.get('WKHTMLTOPDF_BINARY', 'C:\\Program Files\\wkhtmltopdf\\bin\\wkhtmltopdf.exe'))
+else:
+        os.environ['PATH'] += os.pathsep + os.path.dirname(sys.executable) 
+        WKHTMLTOPDF_CMD = subprocess.Popen(['which', os.environ.get('WKHTMLTOPDF_BINARY', 'wkhtmltopdf')], 
+            stdout=subprocess.PIPE).communicate()[0].strip()
+        pdfkit_config = pdfkit.configuration(wkhtmltopdf=WKHTMLTOPDF_CMD)
+
+
 class MyPerson(LoginRequiredMixin, CreateView):
     login_url = 'login'
     model = Person
@@ -333,7 +344,7 @@ def DownloadResume(request):
         'page-size':'Letter',
         'encoding':'UTF-8'
     }
-    pdf = pdfkit.from_string(html, False, options)
+    pdf = pdfkit.from_string(html, False, options, configuration=pdfkit_config)
     response  = HttpResponse(pdf, content_type='application/pdf')
     response['Content-Disposition'] = 'attachment'
     filename = 'resume.pdf'
