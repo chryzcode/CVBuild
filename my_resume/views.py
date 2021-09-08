@@ -11,10 +11,6 @@ from django.http import HttpResponse
 from django.template import loader
 import io
 
-# from io import BytesIO
-# from django.http import HttpResponse
-# from django.template import loader
-# from xhtml2pdf import pisa
 
 from django.views.generic import DetailView, CreateView, ListView, UpdateView, DeleteView
 from .models import Person, Awards, Education, Experience, Skills, Project, Volunteer
