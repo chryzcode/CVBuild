@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+      integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+      crossorigin="anonymous"
+    />
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+    <style>
+      #section {
+        border-bottom: 3px solid black;
+        width: 90%;
+        margin: 0;
+      }
+
+      .section {
+        display: inline-block;
+        margin-top: 20px;
+        font-size: 25px;
+        font-weight: 600;
+        text-decoration: underline;
+      }
+
+      .material-icons {
+        font-size: 15px;
+      }
+    </style>
+    <title>Document</title>
+  </head>
+  <body>
+    <div class="container" style="margin-top: 45px">
+      {% if person %} {% for a_person in person %}
+
+      <div>
+        <span style="font-size: 35px; font-weight: 600">{{ a_person }}</span><br /><br />
+        <span style="font-size: 25px">{{ a_person.occupation }}</span>
+      </div>
+
+      <table style="margin-top: 30px; text-align: center; font-size: 14px">
+        <tr>
+          <th style="padding-right: 30px; padding-left: -10px">{{ a_person.mobile_number }}</th>
+          <th style="padding-right: 30px">{{a_person.email }}</th>
+          <th style="padding-right: 30px">{{a_person.location}}</th>
+          <th><a href="{{ a_person.site }}">{{ a_person.site }}</a></th>
+        </tr>
+      </table>
+
+      <h3 id="section" style="margin-top: 30px; font-size: 18px">SUMMARY</h3>
+      <div style="width: 100%; margin-bottom: 20px">
+        <p style="font-size: 20px">{{ a_person.summary }}</p>
+      </div>
+      {% endfor %} {% endif %}
+      <br />
+
+      {% if education %}
+      <span class="section">Education</span><br /><br />
+      {% for an_education in education %}
+      <span style="font-size: 19px">{{ an_education }} - </span
+      ><span style="font-size: 14px">{{an_education.school_location }}</span><br />
+      <span style="font-weight: 400; font-size: 13px">{{ an_education.degree }}</span><br />
+      <small style="font-size: 11px">{{an_education.year_from }} - {{ an_education.year_to }}</small><br /><br />
+      <span style="font-size: 17px">{{ an_education.info }}</span>
+      {% endfor %}
+      <div></div>
+      {% endif %} {% if skills %} 
+      
+      
+      <span class="section">SKILLS</span><br /><br />
+      <span style="font-size: 19px">LANGUAGES AND TOOLS</span><br />
+      {% for a_skill in skills %}
+      <br /><span style="font-size: 16px">{{ a_skill }}</span><br />
+      {% endfor %}<div></div>{% endif %} 
+      
+      {% if experience %}
+      <span class="section">Experience</span><br /><br />
+      {% for an_experience in experience %}
+      <span style="font-size: 19px">{{ an_experience }} - </span>
+      <span style="font-size: 14px">{{ an_experience.company_location }}</span><br />
+      <span style="font-weight: 400; font-size: 13px">{{ an_experience.post_held }}</span><br />
+      <small style="font-size: 11px">{{ an_experience.year_from }} - {{ an_experience.year_to }}</small><br /><br />
+      <span style="font-size: 17px">{{ an_experience.info }}</span>
+      {% endfor %}
+      <div></div>
+      {% endif %}
+
+
+      {% if projects %}
+        
+        <span class="section">Projects</span><br /><br />
+            {% for project in projects %}
+            <span style="font-size: 19px">{{ project }}</span><br>
+           <span style="font-size: 13px"><a style="text-decoration: none;" href="{{project.source_code}}">Source Code</a></span><br><span style="font-size: 13px"><a style="text-decoration: none;" href="{{project.live}}">Live</a></span><br>
+            <span style="font-size: 17px">
+                {{ project.info }}
+            </span> 
+            {% endfor %} <div></div>{% endif %}
+
+
+            {% if awards %}
+            <span class="section">Awards</span><br /><br />
+          {% for a_award in awards %}
+        <br /><span style="font-size: 16px">{{a_award}}</span><br />
+      {% endfor %}<div></div>{% endif %} 
+
+      {% if volunteer %}
+            <span class="section">Volunteering</span><br /><br />
+                {% for a_volunteer in volunteer %}
+                <span style="font-size: 19px">{{ a_volunteer }} - </span>
+                <span style="font-size: 14px">{{ a_volunteer.organization }}</span><br />
+                <small style="font-size: 11px">{{ a_volunteer.year_from }} - {{ a_volunteer.year_to }}</small><br /><br />
+                  <span style="font-size: 17px">{{ a_volunteer.info }}</span>
+                {% endfor %} <div></div>{% endif %}
+    </div>
+  </body>
+</html>

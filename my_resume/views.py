@@ -5,11 +5,13 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib.auth.views import PasswordChangeView
+from django.views import View
 
-import pdfkit
+# import pdfkit
 from django.http import HttpResponse
-from django.template import loader
-import io
+from django.template.loader import get_template
+from io import BytesIO
+from xhtml2pdf import pisa
 
 
 from django.views.generic import DetailView, CreateView, ListView, UpdateView, DeleteView
@@ -340,6 +342,45 @@ def DownloadResume(request):
     return response
 
 
-# class DownloadResume(views):
-#     def get(self, request, *args, **kwargs):
-#         pdf = render_to_pdf
+def render_to_pdf(template_src, context_dict={}):
+	template = get_template(template_src)
+	html  = template.render(context_dict)
+	result = BytesIO()
+	pdf = pisa.pisaDocument(BytesIO(html.encode("ISO-8859-1")), result)
+	if not pdf.err:
+		return HttpResponse(result.getvalue(), content_type='application/pdf')
+	return None
+
+class ViewPDF(View):
+    def get(self, request, *args, **kwargs):
+        education = Education.objects.filter(user = request.user)[:3]
+        experience = Experience.objects.filter(user = request.user)[:5]
+        person = Person.objects.filter(user = request.user)[:1]
+        skills = Skills.objects.filter(user = request.user)[:5]
+        awards = Awards.objects.filter(user = request.user)[:5]
+        projects = Project.objects.filter(user = request.user)[:5]
+        volunteer = Volunteer.objects.filter(user = request.user)[:5]
+        data = {'education':education, 'experience':
+        experience, 'person': person, 'skills':skills, 'awards': awards, 'projects': projects, 'volunteer':volunteer}
+
+        pdf = render_to_pdf('pdf_template.html', data)
+        return HttpResponse(pdf, content_type='application/pdf')
+
+class DownloadPDF(View):
+    def get(self, request, *args, **kwargs):
+        education = Education.objects.filter(user = request.user)[:3]
+        experience = Experience.objects.filter(user = request.user)[:5]
+        person = Person.objects.filter(user = request.user)[:1]
+        skills = Skills.objects.filter(user = request.user)[:5]
+        awards = Awards.objects.filter(user = request.user)[:5]
+        projects = Project.objects.filter(user = request.user)[:5]
+        volunteer = Volunteer.objects.filter(user = request.user)[:5]
+        data = {'education':education, 'experience':
+        experience, 'person': person, 'skills':skills, 'awards': awards, 'projects': projects, 'volunteer':volunteer}
+
+        pdf = render_to_pdf('pdf_template.html', data)
+        response = HttpResponse(pdf, content_type='application/pdf')
+        filename = 'my_resume.pdf'
+        content = "attachment; filename='%s'" %(filename)
+        response['Content-Disposition'] = content
+        return response

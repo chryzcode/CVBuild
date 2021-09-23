@@ -4,7 +4,7 @@ from .views import MyPerson, MyAward, MyExperience, MyEducation, MySkills, Resum
 from .views import EditPerson, EditSkills, EditAward, EditExperience, EditEducation, EditProject
 from .views import CreateAccount, UpdateAccount, UserDelete, PasswordsChangeView
 from .views import DeletePerson, DeleteAwards, DeleteEducation, DeleteExperience, DeleteProject, DeleteSkills, DeleteProject
-from .views import Volunteers, EditVolunteers, DeleteVolunteers, ResumePreview, DownloadResume
+from .views import Volunteers, EditVolunteers, DeleteVolunteers, ResumePreview, DownloadResume, ViewPDF, DownloadPDF
 
 urlpatterns = [
     path('add_person/', MyPerson.as_view(), name = 'create_user'),
@@ -35,4 +35,6 @@ urlpatterns = [
     path('delete_experience/<str:pk>/', DeleteExperience, name='delete_experience'),
     path('delete_awards/<str:pk>/', DeleteAwards, name='delete_awards'),
     path('delete_project/<str:pk>/', DeleteProject, name='delete_project'),
+    path('view', ViewPDF.as_view(), name='pdf_view'), 
+    path('download', DownloadPDF.as_view(), name='download')
 ]
