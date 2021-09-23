@@ -181,45 +181,9 @@ def Resume(request):
     awards = Awards.objects.filter(user = request.user)[:5]
     projects = Project.objects.filter(user = request.user)[:5]
     volunteer = Volunteer.objects.filter(user = request.user)[:5]
-    # template = loader.get_template('add_resume.html')
-    # html = template.render({'education':education, 'experience':
-    #     experience, 'person': person, 'skills':skills, 'awards': awards, 'projects': projects})
-    # options = {
-    #     'page-size':'Letter',
-    #     'encoding':'UTF-8'
-    # }
-    # pdf = pdfkit.from_string(html, False, options)
-    # response  = HttpResponse(pdf, content_type='application/pdf')
-    # response['Content-Disposition'] = 'attachment'
-    # filename = 'resume.pdf'
-    # return response
     return render(request, 'add_resume.html', {'education':education, 'experience':
         experience, 'person': person, 'skills':skills, 'awards': awards, 'projects': projects, 'volunteer':volunteer})
 
-
-@login_required(login_url='login')
-def ResumePreview(request):
-    education = Education.objects.filter(user = request.user)[:3]
-    experience = Experience.objects.filter(user = request.user)[:5]
-    person = Person.objects.filter(user = request.user)[:1]
-    skills = Skills.objects.filter(user = request.user)[:5]
-    awards = Awards.objects.filter(user = request.user)[:5]
-    projects = Project.objects.filter(user = request.user)[:5]
-    volunteer = Volunteer.objects.filter(user = request.user)[:5]
-    # template = loader.get_template('add_resume.html')
-    # html = template.render({'education':education, 'experience':
-    #     experience, 'person': person, 'skills':skills, 'awards': awards, 'projects': projects})
-    # options = {
-    #     'page-size':'Letter',
-    #     'encoding':'UTF-8'
-    # }
-    # pdf = pdfkit.from_string(html, False, options)
-    # response  = HttpResponse(pdf, content_type='application/pdf')
-    # response['Content-Disposition'] = 'attachment'
-    # filename = 'resume.pdf'
-    # return response
-    return render(request, 'resume_preview.html', {'education':education, 'experience':
-        experience, 'person': person, 'skills':skills, 'awards': awards, 'projects': projects, 'volunteer':volunteer})
 
 
 class CreateAccount(CreateView):
@@ -318,30 +282,6 @@ def DeleteVolunteers(request, pk):
 	volunteer.delete()
 	return redirect('resume')
 
-
-@login_required(login_url='login')
-def DownloadResume(request):
-    education = Education.objects.filter(user = request.user)[:3]
-    experience = Experience.objects.filter(user = request.user)[:5]
-    person = Person.objects.filter(user = request.user)[:1]
-    skills = Skills.objects.filter(user = request.user)[:5]
-    awards = Awards.objects.filter(user = request.user)[:5]
-    projects = Project.objects.filter(user = request.user)[:5]
-    volunteer = Volunteer.objects.filter(user = request.user)[:5]
-    template = loader.get_template('download_resume.html')
-    html = template.render({'education':education, 'experience':
-        experience, 'person': person, 'skills':skills, 'awards': awards, 'projects': projects, 'volunteer':volunteer})
-    options = {
-        'page-size':'Letter',
-        'encoding':'UTF-8'
-    }
-    pdf = pdfkit.from_string(html, False, options)
-    response  = HttpResponse(pdf, content_type='application/pdf')
-    response['Content-Disposition'] = 'attachment'
-    filename = 'resume.pdf'
-    return response
-
-
 def render_to_pdf(template_src, context_dict={}):
 	template = get_template(template_src)
 	html  = template.render(context_dict)
@@ -384,3 +324,6 @@ class DownloadPDF(View):
         content = "attachment; filename='%s'" %(filename)
         response['Content-Disposition'] = content
         return response
+
+def ResumeDone(request):
+    return render(request, 'resume_done.html', {})
