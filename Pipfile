@@ -9,6 +9,9 @@ xhtml2pdf = "*"
 django-heroku = "*"
 dj-database-url = "*"
 django-crispy-forms = "*"
+psycopg2 = "*"
+whitenoise = "*"
+gunicorn = "*"
 
 [dev-packages]
 
