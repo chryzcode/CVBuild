@@ -327,3 +327,23 @@ class DownloadPDF(View):
 
 def ResumeDone(request):
     return render(request, 'resume_done.html', {})
+
+
+def Portfolio(request, username):
+    context = {}
+    username = get_object_or_404(User, username=username)
+    person = Person.objects.filter(user=username.id)
+    education = Education.objects.filter(user=username.id)
+    skills = Skills.objects.filter(user=username.id)
+    experience = Experience.objects.filter(user=username.id)
+    projects = Project.objects.filter(user=username.id)
+    awards = Awards.objects.filter(user=username.id)
+    volunteer = Volunteer.objects.filter(user=username.id)
+    context['username'] = username
+    context['person'] = person
+    context['education'] = education
+    context['skills'] = skills
+    context['experience'] = experience
+    context['projects'] = projects
+    context['awards'] = awards
+    return render(request, "portfolio.html", context)
