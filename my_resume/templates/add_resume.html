@@ -6,14 +6,14 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <style>
+    <!-- <style>
         @media all and (max-width: 780px) {
             .row, .col{
                display: none;
                
             }
         }
-    </style>
+    </style> -->
 </head>
 <body>
 {% block content %}
@@ -70,9 +70,10 @@
     </div>
     {% endfor %}
 </ul>
+</div>
 
 
-
+<div class="col">
 <h3 style="margin-bottom: 20px;">Education<a href="{% url 'create_education'%}"><span class="material-icons">add</span></a></h3>
 <ul>
     {% for an_education in education %}
@@ -88,26 +89,12 @@
     </div> 
     {% endfor %}
 </ul>
-
-
-<h3 style="margin-bottom: 20px;">Projects<a href="{% url 'create_project'%}"><span class="material-icons">add</span></a></h3>
-<ul>
-    {% for project in projects %}
-    <li style="padding-right: 50px;"><h5>{{ project }}</h5></li>
-    <a href="{% url 'edit_project' project.pk %}"><span class="material-icons">mode_edit</span></a>
-    <a href="{% url 'delete_project' project.pk %}"> <span class="material-icons">delete</span></a>
-
-    <p><a href="{{project.source_code}}"><b>Source Code</b></a>
-    <a href="{{project.live}}"><b>Live</b></a></p>
-    <div style="padding-right: 50px; margin-top: 15px; margin-bottom: 30px;">
-        {{ project.info }}
-    </div> 
-    {% endfor %}
-</ul>
+</div>
 </div>
 
-<div
- class="col">
+
+<div class="row">
+<div class="col">
     <h3 style="margin-bottom: 20px;">Skills<a href="{% url 'create_skills'%}"><span class="material-icons">add</span></a></h3>
 <ul>
     {% for a_skill in skills %}
@@ -117,8 +104,9 @@
 </li>
     {% endfor %}
 </ul>
+</div>
 
-
+<div class="col">
 <h3 style="margin-bottom: 20px; margin-top: 40px; ">Awards<a href="{% url 'create_award'%}"><span class="material-icons">add</span></a></h3>
 
 <ul>
@@ -131,8 +119,13 @@
     </li>
     {% endfor %}
 </ul>
+</div>
+</div>
 
-<h3 style="margin-bottom: 20px; margin-top: 40px;">Volunteering<a href="{% url 'create_volunteer' %}"><span class="material-icons">add</span></a></h3>
+
+<div class="row">
+    <div class="col">
+        <h3 style="margin-bottom: 20px; margin-top: 40px;">Volunteering<a href="{% url 'create_volunteer' %}"><span class="material-icons">add</span></a></h3>
 
 <ul>
 {% for a_volunteer in volunteer %}
@@ -147,7 +140,26 @@
     </div>
 {% endfor %}
 </ul>
-</div>   
+
+    </div>
+
+
+<div class="col">
+    <h3 style="margin-bottom: 20px;">Projects<a href="{% url 'create_project'%}"><span class="material-icons">add</span></a></h3>
+<ul>
+    {% for project in projects %}
+    <li style="padding-right: 50px;"><h5>{{ project }}</h5></li>
+    <a href="{% url 'edit_project' project.pk %}"><span class="material-icons">mode_edit</span></a>
+    <a href="{% url 'delete_project' project.pk %}"> <span class="material-icons">delete</span></a>
+
+    <p><a href="{{project.source_code}}"><b>Source Code</b></a>
+    <a href="{{project.live}}"><b>Live</b></a></p>
+    <div style="padding-right: 50px; margin-top: 15px; margin-bottom: 30px;">
+        {{ project.info }}
+    </div> 
+    {% endfor %}
+</ul>
+</div>
 </div>
 
     {% endblock %}

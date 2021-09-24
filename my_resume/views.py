@@ -30,7 +30,7 @@ def MyPerson(request):
         person = form.save(commit=False)
         person.user = self.request.user  
         person.save()
-        return redirect('resume')
+        return redirect('resume_done')
 
     return render(request, 'create_user.html', context)
 
