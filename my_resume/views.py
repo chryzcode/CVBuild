@@ -179,7 +179,7 @@ def Resume(request):
     education = Education.objects.filter(user = request.user)[:3]
     experience = Experience.objects.filter(user = request.user)[:5]
     person = Person.objects.filter(user = request.user)[:1]
-    skills = Skills.objects.filter(user = request.user)[:5]
+    skills = Skills.objects.filter(user = request.user)[:7]
     awards = Awards.objects.filter(user = request.user)[:5]
     projects = Project.objects.filter(user = request.user)[:5]
     volunteer = Volunteer.objects.filter(user = request.user)[:5]
