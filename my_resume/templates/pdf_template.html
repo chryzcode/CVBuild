@@ -30,7 +30,7 @@
         font-size: 15px;
       }
     </style>
-    <title>Document</title>
+    <title>{{user}} Resume.pdf</title>
   </head>
   <body>
     <div class="container" style="margin-top: 45px">
@@ -63,7 +63,7 @@
       <span style="font-size: 19px">{{ an_education }} - </span
       ><span style="font-size: 14px">{{an_education.school_location }}</span><br />
       <span style="font-weight: 400; font-size: 13px">{{ an_education.degree }}</span><br />
-      <small style="font-size: 11px">{{an_education.year_from }} - {{ an_education.year_to }}</small><br /><br />
+       <small style="font-size: 11px;">{{an_education.year_from|date:"M, Y" }} - {% if an_education.year_to is none %}<span style="font-size: 11px;">Ongoing</span>{% else %} {{ an_education.year_to|date:"M, Y" }} {% endif %}</small><br /><br />
       <span style="font-size: 17px">{{ an_education.info }}</span>
       {% endfor %}
       <div></div>
@@ -82,7 +82,7 @@
       <span style="font-size: 19px">{{ an_experience }} - </span>
       <span style="font-size: 14px">{{ an_experience.company_location }}</span><br />
       <span style="font-weight: 400; font-size: 13px">{{ an_experience.post_held }}</span><br />
-      <small style="font-size: 11px">{{ an_experience.year_from }} - {{ an_experience.year_to }}</small><br /><br />
+      <small style="font-size: 11px;">{{an_experience.year_from|date:"M, Y" }} - {% if an_experience.year_to is none %}<span style="font-size: 11px;">Ongoing</span>{% else %} {{ an_experience.year_to|date:"M, Y" }} {% endif %}</small><br /><br />
       <span style="font-size: 17px">{{ an_experience.info }}</span>
       {% endfor %}
       <div></div>
@@ -112,7 +112,7 @@
                 {% for a_volunteer in volunteer %}
                 <span style="font-size: 19px">{{ a_volunteer }} - </span>
                 <span style="font-size: 14px">{{ a_volunteer.organization }}</span><br />
-                <small style="font-size: 11px">{{ a_volunteer.year_from }} - {{ a_volunteer.year_to }}</small><br /><br />
+                <small style="font-size: 11px;">{{a_volunteer.year_from|date:"M, Y" }} - {% if a_volunteer.year_to is none %}<span style="font-size: 11px;">Ongoing</span>{% else %} {{ a_volunteer.year_to|date:"M, Y" }} {% endif %}</small><br /><br />
                   <span style="font-size: 17px">{{ a_volunteer.info }}</span>
                 {% endfor %} <div></div>{% endif %}
     </div>

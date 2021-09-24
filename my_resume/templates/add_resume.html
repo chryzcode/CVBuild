@@ -5,15 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <!-- <style>
-        @media all and (max-width: 780px) {
-            .row, .col{
-               display: none;
-               
-            }
-        }
-    </style> -->
+    <title>Create Resume</title>
 </head>
 <body>
 {% block content %}
@@ -52,8 +44,19 @@
 {% endif %}
 </div> 
 
-<div class="row">
+<div class="row"> 
     <div class="col">
+
+                <h3 style="margin-bottom: 20px;">Skills<a href="{% url 'create_skills'%}"><span class="material-icons">add</span></a></h3>
+<ul>
+    {% for a_skill in skills %}
+   <li><h5 style="display: inline-block;">{{ a_skill }}</h5>
+    <a href="{% url 'edit_skills' a_skill.pk  %}"><span class="material-icons">mode_edit</span></a>   
+    <a href="{% url 'delete_skills'  a_skill.pk %}"> <span class="material-icons">delete</span></a>
+</li>
+    {% endfor %}
+</ul>
+
         <h3 style="margin-bottom: 20px;">Experience<a href="{% url 'create_experience'%}"><span class="material-icons">add</span></a></h3>
 <ul>
     {% for an_experience in experience %}
@@ -64,88 +67,15 @@
     <a href="{% url 'delete_experience' an_experience.pk %}"> <span class="material-icons">delete</span></a>
             
     <p style="margin-bottom: 3px; font-weight: 500;">{{ an_experience.post_held }}</p>
-    <small>{{ an_experience.year_from }} - {{ an_experience.year_to }}</small>
+    <small>{{an_experience.year_from|date:"M, Y" }} - {% if an_experience.year_to is none %}Ongoing{% else %} {{ an_experience.year_to|date:"M, Y" }} {% endif %}</small>
     <div style="padding-right: 50px; margin-top: 15px; margin-bottom: 30px;">
         {{ an_experience.info }}
     </div>
     {% endfor %}
 </ul>
-</div>
 
 
-<div class="col">
-<h3 style="margin-bottom: 20px;">Education<a href="{% url 'create_education'%}"><span class="material-icons">add</span></a></h3>
-<ul>
-    {% for an_education in education %}
-    <li><h5 style="display: inline-block;">{{ an_education }}  -</h5> {{an_education.school_location }}</li>
-    
-    <a href="{% url 'edit_education' an_education.pk %}"><span class="material-icons">mode_edit</span></a>
-    <a href="{% url 'delete_education' an_education.pk %}"> <span class="material-icons">delete</span></a>
-
-    <p style="margin-bottom: 3px; font-weight: 500;">{{ an_education.degree }}</p>
-    <small>{{an_education.year_from }} - {{ an_education.year_to }}</small>
-    <div style="padding-right: 50px; margin-top: 15px; margin-bottom: 30px;">
-        {{ an_education.info }}
-    </div> 
-    {% endfor %}
-</ul>
-</div>
-</div>
-
-
-<div class="row">
-<div class="col">
-    <h3 style="margin-bottom: 20px;">Skills<a href="{% url 'create_skills'%}"><span class="material-icons">add</span></a></h3>
-<ul>
-    {% for a_skill in skills %}
-   <li><h5 style="display: inline-block;">{{ a_skill }}</h5>
-    <a href="{% url 'edit_skills' a_skill.pk  %}"><span class="material-icons">mode_edit</span></a>   
-    <a href="{% url 'delete_skills'  a_skill.pk %}"> <span class="material-icons">delete</span></a>
-</li>
-    {% endfor %}
-</ul>
-</div>
-
-<div class="col">
-<h3 style="margin-bottom: 20px; margin-top: 40px; ">Awards<a href="{% url 'create_award'%}"><span class="material-icons">add</span></a></h3>
-
-<ul>
-    {% for a_award in awards %}
-    <li><h5  style="display: inline-block;">{{ a_award }}</h5>
-
-    <a href="{% url 'edit_award' a_award.pk  %}"><span class="material-icons">mode_edit</span></a>   
-    <a href="{% url 'delete_awards' a_award.pk %}"><span id="delete-icon" class="material-icons">delete</span></a>
-
-    </li>
-    {% endfor %}
-</ul>
-</div>
-</div>
-
-
-<div class="row">
-    <div class="col">
-        <h3 style="margin-bottom: 20px; margin-top: 40px;">Volunteering<a href="{% url 'create_volunteer' %}"><span class="material-icons">add</span></a></h3>
-
-<ul>
-{% for a_volunteer in volunteer %}
-<li><h5  style="display: inline-block;">{{ a_volunteer }}</h5></li>
-  <a href="{% url 'edit_volunteer' a_volunteer.pk %}"><span class="material-icons">mode_edit</span></a>   
-  <a href="{% url 'delete_volunteer' a_volunteer.pk %}"><span id="delete-icon" class="material-icons">delete</span></a>
-
-  <p style="margin-bottom: 3px; font-weight: 500;">{{ a_volunteer.organization }}</p>
-  <small>{{ a_volunteer.year_from }} - {{ a_volunteer.year_to }}</small>
-  <div style="padding-right: 50px; margin-top: 15px; margin-bottom: 30px;">
-        {{ a_volunteer.info }}
-    </div>
-{% endfor %}
-</ul>
-
-    </div>
-
-
-<div class="col">
-    <h3 style="margin-bottom: 20px;">Projects<a href="{% url 'create_project'%}"><span class="material-icons">add</span></a></h3>
+<h3 style="margin-bottom: 20px;">Projects<a href="{% url 'create_project'%}"><span class="material-icons">add</span></a></h3>
 <ul>
     {% for project in projects %}
     <li style="padding-right: 50px;"><h5>{{ project }}</h5></li>
@@ -159,9 +89,70 @@
     </div> 
     {% endfor %}
 </ul>
-</div>
+
+
+    </div>
+
+    
+
+    <div class="col">
+
+<h3 style="margin-bottom: 20px;">Education<a href="{% url 'create_education'%}"><span class="material-icons">add</span></a></h3>
+<ul>
+    {% for an_education in education %}
+    <li><h5 style="display: inline-block;">{{ an_education }}  -</h5> {{an_education.school_location }}</li>
+    
+    <a href="{% url 'edit_education' an_education.pk %}"><span class="material-icons">mode_edit</span></a>
+    <a href="{% url 'delete_education' an_education.pk %}"> <span class="material-icons">delete</span></a>
+
+    <p style="margin-bottom: 3px; font-weight: 500;">{{ an_education.degree }}</p>
+    <small>{{an_education.year_from|date:"M, Y" }} - {% if an_education.year_to is none %}Ongoing{% else %} {{ an_education.year_to|date:"M, Y" }} {% endif %}</small>
+    <div style="padding-right: 50px; margin-top: 15px; margin-bottom: 30px;">
+        {{ an_education.info }}
+    </div> 
+    {% endfor %}
+</ul>
+
+
+
+
+        <h3 style="margin-bottom: 20px; margin-top: 40px; ">Awards<a href="{% url 'create_award'%}"><span class="material-icons">add</span></a></h3>
+
+<ul>
+    {% for a_award in awards %}
+    <li><h5  style="display: inline-block;">{{ a_award }}</h5>
+
+    <a href="{% url 'edit_award' a_award.pk  %}"><span class="material-icons">mode_edit</span></a>   
+    <a href="{% url 'delete_awards' a_award.pk %}"><span id="delete-icon" class="material-icons">delete</span></a>
+
+    </li>
+    {% endfor %}
+</ul>
+
+
+
+
+        <h3 style="margin-bottom: 20px; margin-top: 40px;">Volunteering<a href="{% url 'create_volunteer' %}"><span class="material-icons">add</span></a></h3>
+
+<ul>
+{% for a_volunteer in volunteer %}
+<li><h5  style="display: inline-block;">{{ a_volunteer }}</h5></li>
+  <a href="{% url 'edit_volunteer' a_volunteer.pk %}"><span class="material-icons">mode_edit</span></a>   
+  <a href="{% url 'delete_volunteer' a_volunteer.pk %}"><span id="delete-icon" class="material-icons">delete</span></a>
+
+  <p style="margin-bottom: 3px; font-weight: 500;">{{ a_volunteer.organization }}</p>
+  <small>{{a_volunteer.year_from|date:"M, Y" }} - {% if a_volunteer.year_to is none %}Ongoing{% else %} {{ a_volunteer.year_to|date:"M, Y" }} {% endif %}</small>
+  <div style="padding-right: 50px; margin-top: 15px; margin-bottom: 30px;">
+        {{ a_volunteer.info }}
+    </div>
+{% endfor %}
+</ul>
+
+    </div>
 </div>
 
-    {% endblock %}
+
+{% endblock %}
 </body>
 </html>
+

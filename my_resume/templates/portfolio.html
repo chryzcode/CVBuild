@@ -272,16 +272,16 @@ li a:active {
         <div class="row">
           {% for a_project in projects %}
           <div class="col">
-            <div class="card border-secondary bg-white mb-3" style="max-width: 18rem;">
-              <div class="card-header">{{ a_project }}</div>
+            <div class="card border-secondary bg-white mb-3" style="width: 400px; margin-left: 12%;">
+              <div style="font-size: 18px; font-weight: bold;" class="card-header">{{ a_project }}</div>
               <div class="card-body text-secondary">
                 <div  class="card-title" >
                   {% if a_project.source_code %}
-                  <a style="color: #333;" href="{{a_project.source_code}}" target="_blank"
+                  <a style="color: rgb(46, 104, 191);" href="{{a_project.source_code}}" target="_blank"
                     ><span style="display: inline-block; font-size: 26px;" class="material-icons" class="card-title">code</span></a
                   >
                   {% endif %} {% if a_project.live %}
-                  <a style="color: #333;" href="{{a_project.live}}" target="_blank"
+                  <a style="color: rgb(46, 104, 191);" href="{{a_project.live}}" target="_blank"
                     ><span style="display: inline-block; font-size: 22px;" class="material-icons" class="card-title">public</span></a
                   >
                   {% endif %}

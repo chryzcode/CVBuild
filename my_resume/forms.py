@@ -70,8 +70,8 @@ class ExperienceForm(forms.ModelForm):
                 'company_name':forms.TextInput(attrs={'class':'form-control', 'placeholder':'Company name'}),
                 'company_location':forms.TextInput(attrs={'class':'form-control', 'placeholder':'Company location'}),
                 'post_held':forms.TextInput(attrs={'class':'form-control', 'placeholder':'Position held'}),
-                'year_from':forms.TextInput(attrs={'class':'form-control', 'placeholder':'Month and year started    July 20th 2007'}),
-                'year_to':forms.TextInput(attrs={'class':'form-control', 'placeholder':'Month and year ended  Ongoing'}),
+                'year_from':forms.TextInput(attrs={'class':'form-control', 'placeholder':'Month and year started '}),
+                'year_to':forms.TextInput(attrs={'class':'form-control', 'placeholder':'Month and year ended. If ONGOING, leave it blank'}),
                 'info':forms.Textarea(attrs={'class':'form-control', 'placeholder':'More information'}),
         }
 
@@ -84,8 +84,8 @@ class VolunteerForm(forms.ModelForm):
         widgets={
                 'post_held':forms.TextInput(attrs={'class':'form-control', 'placeholder':'Position held'}),
                 'organization':forms.TextInput(attrs={'class':'form-control', 'placeholder':'Organization name'}),                
-                'year_from':forms.TextInput(attrs={'class':'form-control', 'placeholder':'Month and year started    July 20th 2007'}),
-                'year_to':forms.TextInput(attrs={'class':'form-control', 'placeholder':'Month and year ended  Ongoing'}),
+                'year_from':forms.TextInput(attrs={'class':'form-control', 'placeholder':'Month and year started'}),
+                'year_to':forms.TextInput(attrs={'class':'form-control', 'placeholder':'Month and year ended. If ONGOING, leave it blank'}),
                 'info':forms.Textarea(attrs={'class':'form-control', 'placeholder':'More information'}),
         }
 
@@ -113,8 +113,8 @@ class EducationForm(forms.ModelForm):
                 'school_name':forms.TextInput(attrs={'class':'form-control', 'placeholder':'School name'}),
                 'school_location':forms.TextInput(attrs={'class':'form-control', 'placeholder':'School Location'}),
                 'degree':forms.TextInput(attrs={'class':'form-control', 'placeholder':'Degree SSCE Neco Bsc'}),
-                'year_from':forms.TextInput(attrs={'class':'form-control', 'placeholder':'Month and year started    July 20th 2007'}),
-                'year_to':forms.TextInput(attrs={'class':'form-control', 'placeholder':'Month and year ended  Ongoing'}),
+                'year_from':forms.TextInput(attrs={'class':'form-control', 'placeholder':'Month and year started'}),
+                'year_to':forms.TextInput(attrs={'class':'form-control', 'placeholder':'Month and year ended. If ONGOING, leave it blank'}),
                 'info':forms.Textarea(attrs={'class':'form-control', 'placeholder':'More information'}),
         }
 

@@ -33,8 +33,8 @@ class Experience(models.Model):
     company_name = models.CharField(max_length=100)
     company_location = models.CharField(max_length=200)
     post_held = models.CharField(max_length=30)
-    year_from = models.CharField(max_length=20)
-    year_to = models.CharField(max_length=20)
+    year_from = models.DateField()
+    year_to = models.DateField(null=True, blank=True)
     info = models.TextField()
 
     def get_absolute_url(self):
@@ -48,8 +48,8 @@ class Education(models.Model):
     school_name = models.CharField(max_length=30)
     school_location = models.CharField(max_length=150)
     degree = models.CharField(max_length=30)
-    year_from = models.CharField(max_length=20)
-    year_to = models.CharField(max_length=20)
+    year_from = models.DateField()
+    year_to = models.DateField(null=True, blank=True)
     info = models.TextField()
 
     def get_absolute_url(self):
@@ -85,8 +85,8 @@ class Volunteer(models.Model):
     user = models.ForeignKey(User, on_delete = models.CASCADE)
     post_held = models.CharField(max_length=30)
     organization = models.CharField(max_length=100)
-    year_from = models.CharField(max_length=20)
-    year_to = models.CharField(max_length=20)
+    year_from = models.DateField()
+    year_to = models.DateField(null=True, blank=True)
     info = models.TextField()
 
     def get_absolute_url(self):
