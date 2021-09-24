@@ -66,7 +66,6 @@ nav:after {
 #bars {
   line-height: 80px;
   margin-left: 15px;
-  margin-right: 10%;
   font-size: 22px;
   cursor: pointer;
   color: white;
@@ -87,6 +86,7 @@ nav:after {
   font-size: 22px;
   cursor: pointer;
   color: white;
+  margin-left: 15px;
 }
 
 #check:checked + label i#bars {
@@ -158,6 +158,11 @@ li a:active {
 
 @media all and (max-width: 620px) {
 
+  .name{
+    font-size: 30px;
+    font-weight: 550;
+  }
+
   nav ul {
     position: absolute;
     width: 100%;
@@ -228,46 +233,11 @@ li a:active {
         </ul>
       </nav>
 
-
-    <!-- <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-      <div class="container-fluid">
-        <a class="navbar-brand">{{ user.first_name }} {{ user.last_name }}</a>
-        <button
-          class="navbar-toggler"
-          type="button"
-          data-bs-toggle="collapse"
-          data-bs-target="#navbarContent"
-          aria-controls="navbarSupportedContent"
-          aria-expanded="false"
-          aria-label="Toggle navigation"
-        >
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarContent">
-          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-            {% if person %}
-            <li class="nav-item">
-              <a class="nav-link" href="#about">About</a>
-            </li>
-            {% endif %} {% if skills %}
-            <li class="nav-item">
-              <a class="nav-link" href="#skills">Skills</a>
-            </li>
-            {% endif %} {% if projects %}
-            <li class="nav-item">
-              <a class="nav-link" href="#projects">Project</a>
-            </li>
-            {% endif %}
-          </ul>
-        </div>
-      </div>
-    </nav> -->
-
     <div class="container">
       <br>
       {% if person %} {% for a_person in person %}
       <div style="padding: 0; width: 100%; margin-left: auto; margin-right: auto; float: left; margin-bottom: 60px;">
-        <h4 style="font-size: 40px; font-weight: 550; margin-left: auto; margin-right: auto;"><li>{{ a_person }}</li></h4>
+        <h4 style="font-size: 40px; font-weight: 550; margin-left: auto; margin-right: auto;"><li  class="name">{{ a_person }}</li></h4>
         <p style="font-size: 20px; font-weight: 300; margin-left: auto; margin-right: auto; padding-left: 20%;">{{ a_person.occupation }}</p>
       </div>
      
