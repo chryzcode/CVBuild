@@ -18,19 +18,21 @@ from django.views.generic import DetailView, CreateView, ListView, UpdateView, D
 from .models import Person, Awards, Education, Experience, Skills, Project, Volunteer
 from .forms import  PersonForm, AwardForm, ExperienceForm, EducationForm, SkillsForm, ProjectForm, SignUpForm, EditAccountForm, PasswordChangingForm, VolunteerForm
 
-
-class MyPerson(LoginRequiredMixin, CreateView):
-    login_url = 'login'
-    model = Person
-    form_class = PersonForm
-    template_name = 'create_user.html'
-    success_url = reverse_lazy('resume')
+@login_required(login_url='login')
+def MyPerson(request):
+    context = {}
+    form = PersonForm
+    person = get_object_or_404(Person, user=request.user)
+    context['form'] = form
+    context['person'] = person
 
     def form_valid(self, form):
         person = form.save(commit=False)
         person.user = self.request.user  
         person.save()
         return redirect('resume')
+
+    return render(request, 'create_user.html', context)
 
 @login_required(login_url='login')
 def EditPerson(request, pk):

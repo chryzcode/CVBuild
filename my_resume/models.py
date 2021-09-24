@@ -73,7 +73,7 @@ class Project(models.Model):
     name = models.CharField(max_length=40)
     source_code = models.CharField(max_length=150, null = True, blank = True)
     live = models.CharField(max_length=150, null = True, blank = True)
-    info = models.TextField()
+    info = models.TextField(max_length=200)
 
     def get_absolute_url(self):
         return reverse('resume')

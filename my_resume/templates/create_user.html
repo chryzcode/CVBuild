@@ -2,6 +2,9 @@
 {% block content %}
 
 <h2 style="margin-bottom: 20px;">User Profile</h2>
+{% if person %}
+<p>You have created a profile</p>
+{% else %}
 <div class="form-group">
 <form  method="POST">
     {% csrf_token %}
@@ -9,4 +12,5 @@
     <button class="btn btn-primary" type="submit">Post</button>
 </form>
 </div>
+{% endif %}
 {% endblock %}
