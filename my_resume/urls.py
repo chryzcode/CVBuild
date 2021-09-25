@@ -7,7 +7,7 @@ from .views import DeletePerson, DeleteAwards, DeleteEducation, DeleteExperience
 from .views import Volunteers, EditVolunteers, DeleteVolunteers, ViewPDF, DownloadPDF, ResumeDone, Portfolio
 
 urlpatterns = [
-    path('add_person/', MyPerson, name = 'create_user'),
+    path('add_person/', MyPerson.as_view(), name = 'create_user'),
     path('add_volunteer/', Volunteers.as_view(), name = 'create_volunteer'),
     path('edit_volunteer/<int:pk>', EditVolunteers, name = 'edit_volunteer'),
     path('delete_volunteer/<str:pk>/', DeleteVolunteers, name='delete_volunteer'),

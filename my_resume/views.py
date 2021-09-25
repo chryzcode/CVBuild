@@ -18,19 +18,33 @@ from django.views.generic import DetailView, CreateView, ListView, UpdateView, D
 from .models import Person, Awards, Education, Experience, Skills, Project, Volunteer
 from .forms import  PersonForm, AwardForm, ExperienceForm, EducationForm, SkillsForm, ProjectForm, SignUpForm, EditAccountForm, PasswordChangingForm, VolunteerForm
 
-@login_required(login_url='login')
-def MyPerson(request):
-    context = {}
-    form = PersonForm
-    context['form'] = form
+# @login_required(login_url='login')
+# def MyPerson(request):
+#     context = {}
+#     form = PersonForm
+#     context['form'] = form
+
+#     def form_valid(self, form):
+#         person = form.save(commit=False)
+#         person.user = self.request.user  
+#         person.save()
+#         return redirect('resume_done')
+
+#     return render(request, 'create_user.html', context)
+
+class MyPerson(LoginRequiredMixin, CreateView):
+    login_url = 'login'
+    model = Person
+    form_class= PersonForm
+    template_name= 'create_user.html'
+    success_url= reverse_lazy('resume_done')
 
     def form_valid(self, form):
-        person = form.save(commit=False)
-        person.user = self.request.user  
-        person.save()
-        return redirect('resume_done')
+        form.instance.user = self.request.user
+        return super().form_valid(form)
 
-    return render(request, 'create_user.html', context)
+    def get_queryset(self):
+        return Person.objects.filter(user=self.request.user)
 
 @login_required(login_url='login')
 def EditPerson(request, pk):
