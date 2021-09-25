@@ -269,10 +269,10 @@ li a:active {
       {% endif %} {% if projects %}
       <section id="projects">
         <h3 class="sections">Projects</h3><br><br>
-        <div class="row">
+        <div class="row row-cols-2 row-cols-md-2 g-4 mx-auto" >
           {% for a_project in projects %}
-          <div class="col">
-            <div class="card border-secondary bg-white mb-3" style="width: 400px; margin-left: 12%;">
+          <div class="col d-flex justify-content-center" style="margin-left: 10px;">
+            <div class="card border-secondary bg-white mb-3" style="width: 400px;">
               <div style="font-size: 18px; font-weight: bold;" class="card-header">{{ a_project }}</div>
               <div class="card-body text-secondary">
                 <div  class="card-title" >
