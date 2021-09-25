@@ -12,6 +12,14 @@ class Person(models.Model):
     occupation = models.TextField()
     summary = models.TextField()
     site = models.CharField(max_length=700, null=True, blank=True)
+    twitter_url = models.CharField(max_length=250, null = True, blank = True)
+    github_url = models.CharField(max_length=250, null = True, blank = True)
+    linkedin_url = models.CharField(max_length=250, null = True, blank = True)
+    dribble_url = models.CharField(max_length=250, null = True, blank = True)
+    figma_url = models.CharField(max_length=250, null = True, blank = True)
+    codepen_url = models.CharField(max_length=250, null = True, blank = True)
+    behance_url = models.CharField(max_length=250, null = True, blank = True)
+
     def get_absolute_url(self):
         return reverse('resume')
 

@@ -27,7 +27,7 @@ class PersonForm(forms.ModelForm):
     class Meta:
         model= Person
         exclude = ["user"]
-        fields=['name', 'location', 'email', 'mobile_number', 'occupation', 'site', 'summary']
+        fields=['name', 'location', 'email', 'mobile_number', 'occupation', 'site', 'twitter_url', 'github_url', 'linkedin_url', 'dribble_url', 'figma_url', 'codepen_url', 'behance_url', 'summary']
 
         widgets={
                 'name':forms.TextInput(attrs={'class':'form-control', 'placeholder':'My name'}),
@@ -36,6 +36,13 @@ class PersonForm(forms.ModelForm):
                 'mobile_number':forms.TextInput(attrs={'class':'form-control', 'placeholder':'Mobile Number'}),
                 'occupation':forms.TextInput(attrs={'class':'form-control', 'placeholder':'My occupation'}),
                 'site':forms.TextInput(attrs={'class':'form-control', 'placeholder':'Porfolio Link, Website'}),
+                'twitter_url':forms.TextInput(attrs={'class':'form-control', 'placeholder':'Twitter Account URL. If none leave blank'}),
+                'github_url':forms.TextInput(attrs={'class':'form-control', 'placeholder':'GitHub Account URL. If none leave blank'}),
+                'linkedin_url':forms.TextInput(attrs={'class':'form-control', 'placeholder':'Linkedin Account URL. If none leave blank'}),
+                'dribble_url':forms.TextInput(attrs={'class':'form-control', 'placeholder':'Dribble Account URL. If none leave blank'}),
+                'figma_url':forms.TextInput(attrs={'class':'form-control', 'placeholder':'Figma Account URL. If none leave blank'}),
+                'codepen_url':forms.TextInput(attrs={'class':'form-control', 'placeholder':'CodePen Account URL. If none leave blank'}),
+                'behance_url':forms.TextInput(attrs={'class':'form-control', 'placeholder':'Behance Account URL. If none leave blank'}),
                 'summary':forms.Textarea(attrs={'class':'form-control', 'placeholder':'About Me'}),
         }
 
