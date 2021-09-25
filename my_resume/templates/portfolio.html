@@ -149,9 +149,23 @@ li a:active {
   }
 }
 
-@media screen and (max-width: 885px){
+@media screen and (max-width: 1100px){
   nav ul {
-  margin-left: 60%; 
+  margin-left: 65%; 
+  padding: 0;
+}
+}
+
+@media screen and (max-width: 905px){
+  nav ul {
+  margin-left: 55%; 
+  padding: 0;
+}
+}
+
+@media screen and (max-width: 740px){
+  nav ul {
+  margin-left: 47%; 
   padding: 0;
 }
 }
@@ -181,7 +195,7 @@ li a:active {
 
   nav ul li {
     display: block;
-    margin: 25px 0px;
+    margin: 20px 0px;
     line-height: 30px;
     text-align: left;
   }
@@ -230,6 +244,11 @@ li a:active {
           {% if projects %}
           <li><a href="#projects">Project</a></li>
           {% endif %}
+          {% for a_person in person %}
+          {% if a_person.email %}
+          <li><a href="#contact">Contact</a></li>
+          {% endif %}
+          {% endfor %}
       </nav>
 
     <div class="container">
@@ -292,8 +311,8 @@ li a:active {
           {% endfor %}
         </div>
 
-        <div id="connect">
-          <h3 style="width: 250px;" class="sections">Connect</h3>
+        <div id="contact">
+          <h3 style="width: 250px;" class="sections">Contact</h3>
           {% for a_person in person %}
 
           <div class="col-md-4" style="text-align:center; margin-left: auto; margin-right: auto; margin-bottom: 30px;">
