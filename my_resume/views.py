@@ -22,9 +22,7 @@ from .forms import  PersonForm, AwardForm, ExperienceForm, EducationForm, Skills
 def MyPerson(request):
     context = {}
     form = PersonForm
-    person = get_object_or_404(Person, user=request.user)
     context['form'] = form
-    context['person'] = person
 
     def form_valid(self, form):
         person = form.save(commit=False)
