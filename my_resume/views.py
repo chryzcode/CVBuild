@@ -54,7 +54,7 @@ def EditPerson(request, pk):
             form = PersonForm(request.POST, instance=person)
             if form.is_valid():
                 form.save()
-                return redirect('resume')
+                return redirect('resume_done')
         context = {'form':form}
         return render(request, 'create_user.html', context)
 
@@ -77,10 +77,10 @@ def EditSkills(request, pk):
         skills = get_object_or_404(Skills, pk=pk)
         form = SkillsForm(instance=skills)
         if request.method == 'POST':
-            form = PersonForm(request.POST, instance=skills)
+            form = SkillsForm(request.POST, instance=skills)
             if form.is_valid():
                 form.save()
-                return redirect('resume')
+                return redirect('resume_done')
         context = {'form':form}
         return render(request, 'create_skills.html', context)
 
@@ -105,7 +105,7 @@ def EditAward(request, pk):
             form = AwardForm(request.POST, instance=award)
             if form.is_valid():
                 form.save()
-                return redirect('resume')
+                return redirect('resume_done')
         context = {'form':form}
         return render(request, 'create_award.html', context)
 
@@ -130,7 +130,7 @@ def EditExperience(request, pk):
             form = ExperienceForm(request.POST, instance=experience)
             if form.is_valid():
                 form.save()
-                return redirect('resume')
+                return redirect('resume_done')
         context = {'form':form}
         return render(request, 'create_experience.html', context)
 
@@ -155,7 +155,7 @@ def EditEducation(request, pk):
             form = EducationForm(request.POST, instance=education)
             if form.is_valid():
                 form.save()
-                return redirect('resume')
+                return redirect('resume_done')
         context = {'form':form}
         return render(request, 'create_education.html', context)
 
@@ -181,7 +181,7 @@ def EditProject(request, pk):
             form = ProjectForm(request.POST, instance=project)
             if form.is_valid():
                 form.save()
-                return redirect('resume')
+                return redirect('resume_done')
         context = {'form':form}
         return render(request, 'create_project.html', context)
 
@@ -286,7 +286,7 @@ def EditVolunteers(request, pk):
             form = VolunteerForm(request.POST, instance=volunteer)
             if form.is_valid():
                 form.save()
-                return redirect('resume')
+                return redirect('resume_done')
         context = {'form':form}
         return render(request, 'create_volunteer.html', context)
 
