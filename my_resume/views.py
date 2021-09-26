@@ -333,7 +333,6 @@ class DownloadPDF(View):
         volunteer = Volunteer.objects.filter(user = request.user)[:5]
         data = {'education':education, 'experience':
         experience, 'person': person, 'skills':skills, 'awards': awards, 'projects': projects, 'volunteer':volunteer, 'user':user}
-
         pdf = render_to_pdf('pdf_template.html', data)
         response = HttpResponse(pdf, content_type='application/pdf')
         filename = 'my_resume.pdf'
@@ -345,8 +344,10 @@ def ResumeDone(request):
     return render(request, 'resume_done.html', {})
 
 
+
 def Portfolio(request, username):
     context = {}
+    emma = request.user
     username = get_object_or_404(User, username=username)
     person = Person.objects.filter(user=username.id)
     education = Education.objects.filter(user=username.id)
@@ -363,3 +364,4 @@ def Portfolio(request, username):
     context['projects'] = projects
     context['awards'] = awards
     return render(request, "portfolio.html", context)
+
