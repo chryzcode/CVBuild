@@ -1,24 +1,27 @@
-{% extends 'base.html' %}
-{% block content %}
+{% extends 'base.html' %} {% block content %}
 
-<h2 style="margin-bottom: 20px;">Education Form</h2>
+<h2 style="margin-bottom: 20px">Education Form</h2>
 <div class="form-group">
-<form  method="POST">
-    {% csrf_token %}
-    {{ form.as_p }}
+  <form method="POST">
+    {% csrf_token %} {{ form.as_p }}
     <button class="btn btn-primary" type="submit">Post</button>
-</form>
+  </form>
+  <div style="margin-top: 10px; display: flex; justify-content: space-around; font-size: 18px">
+    <div>Developed by <a href="https://github.com/chryz-code" target="_blank" rel="noopener noreferrer">CODE</a></div>
+    <a href="https://github.com/chryz-code/Resume-Portfolio-Builder"
+      ><i style="font-size: 20px" class="fa fa-github"></i
+    ></a>
+  </div>
 </div>
 <script>
-    $(function () {
-      $("#id_year_from").datepicker();
-    });
-  </script>
+  $(function () {
+    $("#id_year_from").datepicker();
+  });
+</script>
 
-  <script>
-    $(function () {
-      $("#id_year_to").datepicker();
-    });
-  </script>
+<script>
+  $(function () {
+    $("#id_year_to").datepicker();
+  });
+</script>
 {% endblock %}
-

@@ -2,29 +2,34 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
   <head>
-    <meta charset="utf-8">
-    <title>  {% block title %} Sign in {% endblock %}</title>
+    <meta charset="utf-8" />
+    <title>{% block title %} Sign in {% endblock %}</title>
   </head>
   <body>
     {% block content%}
-    <br/>
-    <h2 style="text-align:center;">Welcome to Resume-Portfolio Builder</h2>
+    <br />
+    <h2 style="text-align: center">Welcome to Resume-Portfolio Builder</h2>
 
-    <div style="font-weight:500 ; font-size: larger; text-align: center; margin-top: 20px;">
-        Build up your resume and get a portfolio site
+    <div style="font-weight: 500; font-size: larger; text-align: center; margin-top: 20px">
+      Build up your resume and get a portfolio site
     </div>
-    <br>
-    <h4 style="text-align:center;">Sign Up</h4>
-    <br>
-      <form action="" method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <div id="login-btn">
-          <input class="btn btn-secondary" type="submit" value="Sign in">
-        </div>
-      </form>
-      <br>
-      <h5 style="text-align: center; margin-bottom: 40px;">Already had an account? <a href="{% url 'login' %}">Log in</a></h5>
+    <br />
+    <h4 style="text-align: center">Sign Up</h4>
+    <br />
+    <form action="" method="post">
+      {% csrf_token %} {{ form.as_p }}
+      <div id="login-btn">
+        <input class="btn btn-secondary" type="submit" value="Sign in" />
+      </div>
+    </form>
+    <br />
+    <h5 style="text-align: center; margin-bottom: 40px">
+      Already had an account? <a href="{% url 'login' %}">Log in</a>
+    </h5>
+    <div style="margin-top: 50px; display: flex; justify-content: space-around; font-size: 25px">
+      <div>Developed by <a href="https://github.com/chryz-code" target="_blank" rel="noopener noreferrer">CODE</a></div>
+      <a href="https://github.com/chryz-code/Resume-Portfolio-Builder"><i style="font-size: 40px" class="fa fa-github"></i></a>
+    </div>
     {% endblock %}
   </body>
 </html>
