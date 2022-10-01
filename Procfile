@@ -1,1 +1,1 @@
-web: gunicorn resume_template.wsgi --log-file -
+web: gunicorn cv_build.wsgi --log-file -
