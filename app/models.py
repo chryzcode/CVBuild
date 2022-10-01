@@ -11,6 +11,7 @@ from django.contrib.auth.models import (
     PermissionsMixin,
 )
 from django.utils.translation import gettext_lazy as _
+from ckeditor.fields import RichTextField
 # Create your models here.
 
 
@@ -156,7 +157,7 @@ class Links(models.Model):
 
 class Profile(models.Model):
     personal_detail = models.ForeignKey(Personal_Details, on_delete=models.CASCADE)
-    summary = models.TextField()  
+    summary = RichTextField()  
 
     def __str__(self):
         return self.personal_detail.full_name + ' profile'
@@ -185,7 +186,7 @@ class Experience(models.Model):
     company_location = models.CharField(max_length=200, blank= True, null= True)
     start_date = models.DateField(blank= True, null= True)
     end_date = models.DateField(blank= True, null= True)
-    description = models.TextField(blank= True, null= True)
+    description = RichTextField(blank= True, null= True)
     current = models.BooleanField(default=False)
     link = models.CharField(max_length = 300, blank= True, null= True)
 
@@ -199,7 +200,7 @@ class Project(models.Model):
     subtitle = models.CharField(max_length=100, blank= True, null= True)
     start_date = models.DateField(blank= True, null= True)
     end_date = models.DateField(blank= True, null= True)
-    description = models.TextField(blank= True, null= True)
+    description = RichTextField(blank= True, null= True)
     link = models.CharField(max_length = 300, blank= True, null= True)
 
     def __str__ (self):
@@ -213,7 +214,7 @@ class Education(models.Model):
     country = models.CharField(max_length=100, blank= True, null= True)
     start_date = models.DateField(blank= True, null= True)
     end_date = models.DateField(blank= True, null= True)
-    description = models.TextField(blank= True, null= True)
+    description = RichTextField(blank= True, null= True)
     current = models.BooleanField(default=False)
     link = models.CharField(max_length = 300, blank= True, null= True)
 
@@ -255,7 +256,7 @@ class Award(models.Model):
     user = models.ForeignKey(User, on_delete = models.CASCADE)
     award = models.CharField(max_length=150)
     issuer = models.CharField(max_length=150, blank= True, null= True)
-    description = models.TextField(blank= True, null= True)
+    description = RichTextField(blank= True, null= True)
     date = models.DateField(blank= True, null= True)
     link = models.CharField(max_length=300, blank= True, null= True)
 
@@ -270,7 +271,7 @@ class Organisation(models.Model):
     country = models.CharField(max_length=100, blank= True, null= True)
     start_date = models.DateField(blank= True, null= True)
     end_date = models.DateField(blank= True, null= True)
-    description = models.TextField(blank= True, null= True)
+    description = RichTextField(blank= True, null= True)
     current = models.BooleanField(default=False)
     link = models.CharField(max_length=300, blank= True, null= True)
 
@@ -280,7 +281,7 @@ class Organisation(models.Model):
 class Certificate(models.Model):
     user = models.ForeignKey(User, on_delete = models.CASCADE)
     certificate = models.CharField(max_length = 150)
-    additional_information = models.TextField(blank= True, null= True)
+    additional_information = RichTextField(blank= True, null= True)
     link = models.CharField(max_length = 300, blank= True, null= True)
 
     def __str__ (self):
@@ -290,7 +291,7 @@ class Certificate(models.Model):
 class Interest(models.Model):
     user = models.ForeignKey(User, on_delete = models.CASCADE)
     interest = models.CharField(max_length = 150)
-    additional_information = models.TextField(blank= True, null= True)
+    additional_information = RichTextField(blank= True, null= True)
     link = models.CharField(max_length = 300, blank= True, null= True)
 
     def __str__ (self):
@@ -302,7 +303,7 @@ class Publication(models.Model):
     publisher = models.CharField(max_length=200)
     title = models.CharField(max_length=200)
     date = models.DateField(blank= True, null= True)
-    description = models.TextField(blank= True, null= True)
+    description = RichTextField(blank= True, null= True)
     link = models.CharField(max_length = 300, blank= True, null= True)
 
     def __str__ (self):

@@ -12,6 +12,9 @@ psycopg2 = "*"
 whitenoise = "*"
 gunicorn = "*"
 python-decouple = "*"
+cloudinary = "*"
+django-cloudinary-storage = "*"
+django-ckeditor = "*"
 
 [dev-packages]
 
