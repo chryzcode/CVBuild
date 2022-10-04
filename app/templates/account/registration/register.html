@@ -1,0 +1,49 @@
+{% extends 'navs/base-nav.html' %} {% load static %} {% block title %} <title>CV Build || Sign Up</title> {% endblock %} {% block content %}
+<div class="container">
+  <form action="" method="post">
+    {% csrf_token %}
+    <div class="form-top">
+      <p>Sign Up</p>
+    </div>
+    {% if messages %} {% for message in messages %}
+    <small class="form-errors">{{message}}</small>
+    {% endfor %} {% endif %}
+
+    <div class="form-input-container">
+      <span><label for="first_name">First Name</label> <span class="form-required-field">*</span></span>
+      <p class="form-errors">{{ form.first_name.errors }}</p>
+      <input type="text" name="first_name" id="first_name" placeholder="John" />
+    </div>
+
+    <div class="form-input-container">
+      <span><label for="last_name">Last Name</label> <span class="form-required-field">*</span></span>
+      <p class="form-errors">{{ form.last_name.errors }}</p>
+      <input type="text" name="last_name" id="last_name" placeholder="Doe" />
+    </div>
+
+    <div class="form-input-container">
+      <span><label for="email">Email</label> <span class="form-required-field">*</span></span>
+      <p class="form-errors">{{ form.email.errors }}</p>
+      <input type="text" name="email" id="email" placeholder="johndoe@gmail.com" />
+    </div>
+
+    <div class="form-input-container">
+      <span><label for="password">Password</label> <span class="form-required-field">*</span></span>
+      <p class="form-errors">{{ form.password.errors }}</p>
+      <input type="password" name="password" id="password" placeholder="********" />
+    </div>
+
+    <div class="form-input-container">
+      <span><label for="password2">Confirm Password</label> <span class="form-required-field">*</span></span>
+      <p class="form-errors">{{ form.password2.errors }}</p>
+      <input type="password" name="password2" id="password2" placeholder="********" />
+    </div>
+
+    <button class="form-btn btn" type="submit">Sign Up</button>
+  </form>
+ 
+  <div class="form-bottom">
+    <a href="{% url 'login' %}">Already have an account?</a>
+  </div>
+</div>
+{% endblock %}

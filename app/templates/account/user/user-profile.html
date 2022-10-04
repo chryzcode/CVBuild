@@ -1,0 +1,46 @@
+{% extends 'navs/base-nav.html' %} {% load static %} {% block title %} <title>Shopit - Edit Account</title>
+{% endblock %} {% block content %}
+<div class="store-page-container">
+  {% include 'navs/store-side-nav.html' %}
+
+  <div class="account-form-container">
+    <form action="{% url 'account:user_profile' %}" method="post" enctype="multipart/form-data">
+      {% csrf_token %}
+      <div class="above-create-form">
+        <p>User Profile</p>
+      </div>
+
+      <div class="acc-form-seg">
+        <p>Basic Info</p>
+        <div class="input-container">
+          <label for="avatar">Avatar<span class="form-required">*</span></label>
+          <p>{{ userprofileform.avatar.errors }}</p>
+          <div>{{ userprofileform.avatar }}</div>
+        </div>
+
+        <div class="input-container">
+          <label for="name">Full Name<span class="form-required">*</span></label>
+          <p>{{ userprofileform.full_name.errors }}</p>
+          <div>{{ userprofileform.full_name }}</div>
+        </div>
+
+        <div class="input-container">
+          <label for="phone_number">Phone Number</label>
+          <p>{{ userprofileform.phone_number.errors }}</p>
+          {{userprofileform.phone_number}}
+        </div>
+      </div>
+
+      <div class="form-btn-container">
+        <button class="form-btn" type="submit">Update</button>
+      </div>
+    </form>
+
+    <div class="profile-btm-container">
+      <a class="update-btn" href="{% url 'account:change_password' %}">Forgot Password</a>
+      <a class="delete-btn" href="{% url 'account:delete_account' %}">Delete Account</a>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

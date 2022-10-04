@@ -1,0 +1,39 @@
+div
+#cke_id_body{
+  width: 100% !important;
+}
+
+.django-ckeditor-widget{
+  width: 100% !important;
+}
+
+#cke_id_description{
+   width: 100% !important;
+}
+
+div#cke_id_body
+.cke_1.cke.cke_reset.cke_chrome.cke_editor_id_body.cke_ltr.cke_browser_webkit{
+  width: 100% !important;
+}
+
+div.cke_inner.cke_reset{
+  width: 100% !important;
+}
+
+span#cke_37,#cke_34{
+  display: none;
+}
+
+a#cke_28.cke_button.cke_button__flash.cke_button_off,
+a#cke_29.cke_button.cke_button__table.cke_button_off,
+a#cke_25.cke_button.cke_button__anchor.cke_button_off{
+  display: none;
+}
+
+span#cke_31.cke_toolbar,#cke_26.cke_toolbar,#cke_22.cke_toolbar {
+  display: none !important;; 
+}
+
+#cke_id_product_details{
+  width: 100% !important;
+}

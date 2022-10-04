@@ -1,0 +1,33 @@
+{% extends 'navs/base-nav.html' %} {% load static %} {% block title %} <title>CV Build || Sign In</title> {% endblock %} {%block content %}
+<div class="container">
+  <form action="{% url 'login' %}" method="post">
+    {% csrf_token %}
+    <div class="form-top">
+      <p>Sign In</p>
+    </div>
+    {% if messages %} {% for message in messages %}
+    <p class="form-errors">{{message}}</p>
+    {% endfor %} {% endif %}
+    {% if error %}
+    <p class="form-errors">{{error}}</p>
+    {% endif %}
+    <div class="form-input-container">
+      <span><label for="email">Email</label> <span class="form-required-field">*</span></span>
+      <input type="text" name="email" id="email" placeholder="johndoe@gmail.com" />
+    </div>
+
+    <div class="form-input-container">
+      <span><label for="password">Password</label> <span class="form-required-field">*</span></span>
+      <p class="form-errors">{{ password_error }}</p>
+      <input type="password" name="password" id="password" placeholder="********" />
+    </div>
+
+    <button class="form-btn btn" type="submit">Sign In</button>
+  </form>
+
+  <div class="form-bottom">
+    <a href="{% url 'password_reset' %}">Forgot Your Password?</a>
+  </div>
+</div>
+
+{% endblock %}

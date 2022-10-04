@@ -1,0 +1,90 @@
+{% extends 'navs/base-nav.html' %} {% load static %} {% block title %} <title>CV Build</title>
+{% endblock %} {% block content %}
+<div class="container">
+  {% include 'navs/base-side-nav.html' %}
+  <div class="content-container">
+    <div>
+      <div class="download-pdf-nav">
+        <span>My Resume</span>
+        <a href="" class="btn bg-dark-btn">Download</a>
+      </div>
+      <div class="content-form">
+        <div>
+          {% if personal_details.full_name %}
+          <h4>{{personal_details.full_name}}</h4>
+          {% else %}
+          <h4 class="faint-text">Your name</h4>
+          {% endif %} {% if personal_details.email %}
+          <p>{{personal_details.email}}</p>
+          {% else %}
+          <p class="faint-text">Email</p>
+          {% endif %} {% if personal_details.phone %}
+          <p>{{personal_details.phone}}</p>
+          {% else %}
+          <p class="faint-text">Phone</p>
+          {% endif %} {% if personal_details.address %}
+          <p>{{personal_details.address}}</p>
+          {% else %}
+          <p class="faint-text">Address</p>
+          {% endif %}
+        </div>
+        <form action="" method="post" class="hide">
+          {% csrf_token %}
+          <div class="form-top">
+            <p>Edit Personal Details</p>
+          </div>
+          {% if messages %} {% for message in messages %}
+          <small class="form-errors">{{message}}</small>
+          {% endfor %} {% endif %}
+
+          <div class="form-input-container">
+            <span><label for="full_name">Full Name</label> <span class="form-required-field">*</span></span>
+            <p class="form-errors">{{ form.full_name.errors }}</p>
+            <input type="text" name="full_name" id="full_name" placeholder="John Doe" />
+          </div>
+
+          <div class="form-input-container">
+            <span><label for="job_title">Job Title</label> <span class="faint-text">optional</span></span>
+            <p class="form-errors">{{ form.job_title.errors }}</p>
+            <input type="text" name="job_title" id="job_title" placeholder="Software Engineer" />
+          </div>
+
+          <div class="form-input-container">
+            <span><label for="email">Email</label> <span class="faint-text">recommended</span></span>
+            <p class="form-errors">{{ form.email.errors }}</p>
+            <input type="text" name="email" id="email" placeholder="johndoe@01.com" />
+          </div>
+
+          <div class="form-input-container">
+            <span><label for="phone">Phone</label> <span class="faint-text">recommended</span></span>
+            <p class="form-errors">{{ form.phone.errors }}</p>
+            <input type="text" name="phone" id="phone" placeholder="+201 345 667" />
+          </div>
+
+          <div class="form-input-container">
+            <span><label for="address">Address</label> <span class="faint-text">recommended</span></span>
+            <p class="form-errors">{{ form.address.errors }}</p>
+            <input type="text" name="address" id="address" placeholder="Block 32, wellington avenue" />
+          </div>
+
+          <div>
+            <span id="date_of_birth">Date of Birth</span>
+            <span id="nationality">Nationality</span>
+            <span id="passport_id">Passport or Id</span>
+            <span id="marital_status">Marital Status</span>
+            <span id="military_service">Military Service</span>
+            <span id="driving_license">Driving License</span>
+            <span id="gender_pronoun">Gender or Pronoun</span>
+          </div>
+
+          <div class="flex-spc-bwn">
+            <button class="form-btn btn" type="button" id="content-form-cancel-btn">cancel</button>
+            <button class="form-btn btn" type="submit">Save</button>
+          </div>
+        </form>
+      </div>
+    </div>
+    <div>hey</div>
+  </div>
+</div>
+{% endblock %}

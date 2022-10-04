@@ -31,7 +31,7 @@ SECRET_KEY = str(os.getenv('SECRET_KEY'))
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['portfolio-resume-builder.herokuapp.com', '127.0.0.1', 'localhost']
+ALLOWED_HOSTS = ['cvbuild.herokuapp.com', '127.0.0.1', 'localhost']
 
 
 # Application definition
@@ -160,11 +160,15 @@ CLOUDINARY_STORAGE = {
 }
 
 
+EMAIL_HOST_USER = config("EMAIL_HOST_USER")
+EMAIL_HOST_PASSWORD = config("EMAIL_HOST_PASSWORD")
+
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
-LOGIN_REDIRECT_URL = "resume"
-LOGOUT_REDIRECT_URL = "login"
+# LOGIN_REDIRECT_URL = "/"
+# LOGOUT_REDIRECT_URL = "/"

@@ -1,0 +1,199 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
+
+html,
+body {
+  scroll-behavior: smooth;
+  overflow-x: hidden;
+}
+
+.nav {
+  display: flex;
+  justify-content: space-between;
+  padding: 50px 100px;
+}
+
+.container {
+  width: 95%;
+  display: block;
+  margin: 0 auto;
+}
+
+.btn {
+  width: auto;
+  padding: 5px 20px;
+  text-decoration: none;
+  border-radius: 40px;
+  margin: 0 15px;
+  cursor: pointer;
+  outline: 0;
+  border: 0;
+}
+
+.bg-dark-btn {
+  color: #fff;
+  background-color: #200e32;
+}
+
+.bg-light-btn {
+  box-shadow: rgb(201, 201, 201) 0px 1px 2px 1px;
+  color: #200e32;
+}
+
+.hide {
+  display: none;
+}
+
+form {
+  width: 500px;
+  margin: 0 auto;
+  padding: 50px 30px;
+  border-radius: 10px;
+}
+
+.form-input-container {
+  margin: 30px 0;
+}
+
+.form-input-container > span {
+  margin: 5px 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 19px;
+}
+
+.form-input-container > span > span {
+  font-size: 14px;
+}
+
+.form-input-container > span > label {
+  color: #200e32;
+}
+
+.form-input-container > input {
+  width: 100%;
+  height: 40px;
+  border: 1.5px #200e32 solid;
+  outline: 0;
+  padding: 3% 20px;
+  border-radius: 10px;
+}
+
+.form-input-container > input:hover,
+.form-input-container > input:focus-within {
+  box-shadow: rgb(201, 201, 201) 0px 1px 2px 1px;
+  border: 0;
+}
+
+.form-required-field {
+  color: red;
+}
+
+.form-btn {
+  display: block;
+  margin-left: auto;
+  color: #200e32;
+  border: 1px solid #200e32;
+  background-color: white;
+  border-radius: 0;
+}
+
+.flex-spc-bwn {
+  display: flex;
+  justify-content: space-between;
+}
+
+.flex-spc-bwn > button {
+  margin: 0;
+}
+
+.form-btn:hover {
+  color: white;
+  border: 0;
+  background-color: #200e32;
+}
+
+.form-top {
+  text-align: center;
+}
+
+.form-top > p {
+  color: #200e32;
+  font-size: 30px;
+  margin-bottom: 20px;
+}
+
+.form-bottom {
+  margin: 20px 0;
+  text-align: center;
+}
+
+.form-bottom > a {
+  color: #200e32;
+}
+
+.errorlist > li,
+.form-errors {
+  color: red;
+  list-style: none;
+  font-size: 15px;
+  margin: 0 auto;
+  text-align: center;
+  padding: 0 0 5px 0;
+}
+
+.base-sidenav {
+  display: flex;
+  flex-direction: column;
+  border-radius: 8px;
+  position: fixed;
+  overflow: hidden;
+  height: 80vh;
+  padding: 30px 40px;
+  background: #fff;
+  will-change: transform;
+  box-shadow: 0 0.125rem 9.375rem rgb(90 97 105 / 10%), 0 0.25rem 0.5rem rgb(90 97 105 / 12%),
+    0 0.9375rem 1.375rem rgb(90 97 105 / 10%), 0 0.4375rem 2.1875rem rgb(165 182 201 / 10%);
+  /* z-index: 1070; */
+  width: auto;
+}
+
+.content-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  column-gap: 50px;
+  margin-left: auto;
+  padding: 10px 30px;
+}
+
+.download-pdf-nav {
+  box-shadow: rgb(201, 201, 201) 0px 1px 2px 1px;
+  width: 100%;
+  padding: 30px 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.content-form {
+  box-shadow: rgb(201, 201, 201) 0px 1px 2px 1px;
+  display: block;
+  margin: 20px 0;
+  padding: 20px 10px;
+  text-decoration: none;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.content-form > div > * {
+  padding: 5px 0;
+}
+
+.faint-text {
+  color: #9f9c9c;
+}

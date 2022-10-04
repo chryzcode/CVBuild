@@ -1,0 +1,33 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="{% static 'css/styles.css'%}" />
+  <link rel="stylesheet" href="{% static 'css/mobile-view.css'%}" />
+  <link rel="stylesheet" href="{% static 'css/desktop-view.css'%}" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet" />
+  {% block title %}<title>Shop !t - 404 Error</title> {% endblock %} {% block content %}
+</head>
+<body>  
+<div class="error-page-container">
+  <div class="error-page-content-container">
+    {% if messages %} {% for message in messages %} {% if message %}
+      <small class="error">{{message}}</small>
+      {% endif %} {% endfor %} {% endif %}
+    <p>404</p>
+    <div class="error-image-container">
+      <img class="error-image" src="{% static 'images/error-images/404.jpg' %}" alt="" />
+    </div>
+    <div class="error-page-content">
+      <p>Ooops... It looks like you are lost</p>
+      <a href="/">Return to Hompage</a>
+    </div>
+  </div>
+</div>
+</div>
+{% endblock %}
+</body>
+</html>
