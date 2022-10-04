@@ -8,7 +8,7 @@
         <span>My Resume</span>
         <a href="" class="btn bg-dark-btn">Download</a>
       </div>
-      <div class="content-form">
+      <div class="content-form-container">
         <div>
           {% if personal_details.full_name %}
           <h4>{{personal_details.full_name}}</h4>
@@ -28,7 +28,7 @@
           <p class="faint-text">Address</p>
           {% endif %}
         </div>
-        <form action="" method="post" class="hide">
+        <form action="" method="post" class="hide content-form">
           {% csrf_token %}
           <div class="form-top">
             <p>Edit Personal Details</p>
@@ -67,14 +67,17 @@
             <input type="text" name="address" id="address" placeholder="Block 32, wellington avenue" />
           </div>
 
-          <div>
-            <span id="date_of_birth">Date of Birth</span>
-            <span id="nationality">Nationality</span>
-            <span id="passport_id">Passport or Id</span>
-            <span id="marital_status">Marital Status</span>
-            <span id="military_service">Military Service</span>
-            <span id="driving_license">Driving License</span>
-            <span id="gender_pronoun">Gender or Pronoun</span>
+          <div class="form-section">
+            <p>Personal Information</p>
+            <div class="click-create-form-input">
+              <span id="date_of_birth">Date of Birth</span>
+              <span id="nationality">Nationality</span>
+              <span id="passport_id">Passport or Id</span>
+              <span id="marital_status">Marital Status</span>
+              <span id="military_service">Military Service</span>
+              <span id="driving_license">Driving License</span>
+              <span id="gender_pronoun">Gender or Pronoun</span>
+            </div>
           </div>
 
           <div class="flex-spc-bwn">

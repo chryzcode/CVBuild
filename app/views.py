@@ -120,6 +120,6 @@ def account_activate(request, uidb64, token):
         return render(request, "error-pages/404-page.html")
 
 def home(request):
-    personal_details = Personal_Details.objects.filter(user=request.user).last()
+    personal_details = Personal_Details.objects.filter(user=request.user.id).last()
     context = {'personal_details':personal_details}
     return render(request, 'pages/home.html', context)

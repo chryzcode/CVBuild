@@ -68,7 +68,7 @@ form {
 }
 
 .form-input-container > span > span {
-  font-size: 14px;
+  font-size: 12px;
 }
 
 .form-input-container > span > label {
@@ -180,7 +180,7 @@ form {
   align-items: center;
 }
 
-.content-form {
+.content-form-container {
   box-shadow: rgb(201, 201, 201) 0px 1px 2px 1px;
   display: block;
   margin: 20px 0;
@@ -190,10 +190,37 @@ form {
   cursor: pointer;
 }
 
-.content-form > div > * {
+.content-form-container > div > * {
   padding: 5px 0;
 }
 
 .faint-text {
   color: #9f9c9c;
+}
+
+.content-form > .form-top > p, .form-section > p{
+    font-size: 20px ;
+    text-align: left;
+}
+
+.content-form  > .form-input-container > span > label {
+    font-size: 16px;
+}
+
+.form-section {
+    margin: 20px 0;
+}
+
+.click-create-form-input {
+    margin: 10px 0;
+}
+
+.click-create-form-input > span {
+    background-color: #9f9c9c;
+    color: #200e32;
+    padding: 5px;
+    margin: 5px 5px;
+    display: inline-block;
+    cursor: pointer;
+    font-size: 14px;
 }
