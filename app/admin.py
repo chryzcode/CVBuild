@@ -14,3 +14,5 @@ admin.site.register(Profile)
 admin.site.register(Organisation)
 admin.site.register(Language)
 admin.site.register(Interest)
+admin.site.register(Personal_Details)
+

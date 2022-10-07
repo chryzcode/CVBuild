@@ -24,7 +24,7 @@ body {
 }
 
 .btn {
-  width: auto;
+  width: max-content;
   padding: 5px 20px;
   text-decoration: none;
   border-radius: 40px;
@@ -45,7 +45,7 @@ body {
 }
 
 .hide {
-  display: none;
+  display: none !important;
 }
 
 form {
@@ -69,29 +69,35 @@ form {
 
 .form-input-container > span > span {
   font-size: 12px;
+  align-items: center;
+  display: flex;
 }
 
 .form-input-container > span > label {
   color: #200e32;
 }
 
-.form-input-container > input {
+.form-input-container > input,
+.form-input-container > select {
   width: 100%;
   height: 40px;
-  border: 1.5px #200e32 solid;
   outline: 0;
   padding: 3% 20px;
   border-radius: 10px;
-}
-
-.form-input-container > input:hover,
-.form-input-container > input:focus-within {
-  box-shadow: rgb(201, 201, 201) 0px 1px 2px 1px;
+  background-color: #e0e0e0;
   border: 0;
 }
 
-.form-required-field {
-  color: red;
+.form-input-container > input:hover,
+.form-input-container > input:focus-within,
+.form-input-container > select:hover,
+.form-input-container > select:focus-within {
+  box-shadow: #9f9c9c 0px 1px 2px 1px;
+}
+
+.form-required-field,
+.danger {
+  color: #a51b1b;
 }
 
 .form-btn {
@@ -109,7 +115,13 @@ form {
 }
 
 .flex-spc-bwn > button {
-  margin: 0;
+  margin: 20px 0;
+}
+
+.center {
+  align-items: center;
+  text-align: center;
+  margin: 30px auto;
 }
 
 .form-btn:hover {
@@ -182,11 +194,14 @@ form {
 
 .content-form-container {
   box-shadow: rgb(201, 201, 201) 0px 1px 2px 1px;
-  display: block;
+  /* display: block; */
   margin: 20px 0;
   padding: 20px 10px;
   text-decoration: none;
   border-radius: 10px;
+}
+
+.content-form-container > div:hover {
   cursor: pointer;
 }
 
@@ -198,29 +213,79 @@ form {
   color: #9f9c9c;
 }
 
-.content-form > .form-top > p, .form-section > p{
-    font-size: 20px ;
-    text-align: left;
+.content-form > .form-top > p,
+.form-section > p {
+  font-size: 20px;
+  text-align: left;
 }
 
-.content-form  > .form-input-container > span > label {
-    font-size: 16px;
+.content-form .form-input-container > span > label {
+  font-size: 16px;
 }
 
 .form-section {
-    margin: 20px 0;
+  margin: 20px 0;
 }
 
 .click-create-form-input {
-    margin: 10px 0;
+  margin: 10px 0;
 }
 
+/* #personal-information-btn > *,
+#links-form-container > * {
+  background-color: #e0e0e0;
+  color: #200e32;
+  padding: 5px;
+  margin: 5px 5px;
+  display: inline-flex;
+  cursor: pointer;
+  font-size: 14px;
+  align-items: center;
+  
+} */
+
 .click-create-form-input > span {
-    background-color: #9f9c9c;
-    color: #200e32;
-    padding: 5px;
-    margin: 5px 5px;
-    display: inline-block;
-    cursor: pointer;
-    font-size: 14px;
+  display: inline-flex;
+  justify-content: space-evenly;
+  margin: 5px;
+  padding: 5px;
+  background-color: #e0e0e0;
+  color: #200e32;
+  width: max-content;
+  cursor: pointer !important;
+}
+
+/* .link-create-form-btn > div {
+  display: inline-flex;
+  flex-direction: column;
+} */
+
+.link-create-form-btn label {
+  background-color: #e0e0e0;
+  color: #200e32;
+  padding: 5px;
+  display: inline-flex;
+  margin: 5px 5px;
+  width: max-content;
+  cursor: pointer;
+}
+
+.link-create-form-btn > span > input {
+  width: 100%;
+  height: 40px;
+  outline: 0;
+  padding: 3% 20px;
+  border-radius: 10px;
+  background-color: #e0e0e0;
+  border: 0;
+  margin: 5px 0;
+  display: none;
+}
+
+.icon-pointer {
+  cursor: pointer;
+}
+
+.active {
+  display: block !important;
 }

@@ -37,3 +37,12 @@ span#cke_31.cke_toolbar,#cke_26.cke_toolbar,#cke_22.cke_toolbar {
 #cke_id_product_details{
   width: 100% !important;
 }
+
+#cke_id_summary {
+  width: 100% !important;
+}
+
+#cke_27, #cke_26, #cke_22, #cke_21 {
+  display: none !important;
+}
+

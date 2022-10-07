@@ -68,3 +68,29 @@ class PersonalDetailsForm(ModelForm):
     def __init__(self, *args, **kwargs):
         super(PersonalDetailsForm, self).__init__(*args, **kwargs)
 
+
+class ProfileForm(ModelForm):
+    class Meta:
+        model = Profile
+        exclude =  ['personal_detail']
+    
+    def __init__(self, *args, **kwargs):
+        super(ProfileForm, self).__init__(*args, **kwargs)
+
+class LinkForm(ModelForm):
+    class Meta:
+        model = Personal_Details
+        exclude =  ['user', 'full_name', 'job_title','email', 'phone', 'address', 'date_of_birth', 'nationality', 'passport_id', 'marital_status', 'military_service', 'driving_license', 'gender_pronoun']
+    
+    def __init__(self, *args, **kwargs):
+        super(LinkForm, self).__init__(*args, **kwargs)
+        self.label_suffix = "" 
+
+class SkillForm(ModelForm):
+    class Meta:
+        model = Skill
+        exclude =  ['user']
+    
+    def __init__(self, *args, **kwargs):
+        super(SkillForm, self).__init__(*args, **kwargs)
+

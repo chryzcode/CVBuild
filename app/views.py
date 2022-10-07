@@ -1,3 +1,4 @@
+from gettext import install
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
@@ -120,6 +121,51 @@ def account_activate(request, uidb64, token):
         return render(request, "error-pages/404-page.html")
 
 def home(request):
+    skill_levels = Skill_Level.objects.all()
     personal_details = Personal_Details.objects.filter(user=request.user.id).last()
-    context = {'personal_details':personal_details}
+    profile = Profile.objects.get(personal_detail=personal_details)
+    profile_form = ProfileForm(instance=profile)
+    personal_details_form = PersonalDetailsForm(instance=personal_details)
+    skill_form = SkillForm
+    link_form = LinkForm(instance=personal_details)
+    context = {'personal_details':personal_details, 'profile_form':profile_form, 'personal_details_form':personal_details_form, 'skill_form':skill_form, 'skill_levels':skill_levels, 'link_form':link_form}
     return render(request, 'pages/home.html', context)
+
+def person_details(request):
+    user = request.user
+    if Personal_Details.objects.filter(user=user).exists():
+        person_detail = Personal_Details.objects.get(user=user)
+        personal_details_form = PersonalDetailsForm(instance=person_detail)
+    else:
+        personal_details_form = PersonalDetailsForm()
+    if request.method == "POST":
+        if Personal_Details.objects.filter(user=user).exists():
+            personal_details_form = PersonalDetailsForm(request.POST, instance=person_detail)
+        else:
+            personal_details_form = PersonalDetailsForm(request.POST)
+        if personal_details_form.is_valid():
+            form = personal_details_form.save(commit=False)
+            form.user = user
+            form.save()
+            return redirect('home')
+
+def profile(request):
+    user = request.user
+    if Personal_Details.objects.filter(user=user).exists():
+        person_detail = Personal_Details.objects.get(user=user)
+        if Profile.objects.filter(personal_detail=person_detail).exists():
+            profile = Profile.objects.get(personal_detail=person_detail)
+            profile_form = ProfileForm(instance=profile)
+        else:
+            profile_form = ProfileForm()
+        if request.method == "POST":
+            if Profile.objects.filter(personal_detail=person_detail).exists():
+                profile_form = ProfileForm(request.POST, instance=profile)
+            else:
+                profile_form = ProfileForm(request.POST)
+            if profile_form.is_valid():
+                form = profile_form.save(commit=False)
+                form.personal_detail = person_detail
+                form.save()
+                return redirect('home')
+    

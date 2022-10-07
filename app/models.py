@@ -74,12 +74,8 @@ class Personal_Details(models.Model):
     military_service = models.CharField(max_length=200, null=True, blank=True)
     driving_license = models.CharField(max_length=200, null=True, blank=True)
     gender_pronoun = models.CharField(max_length=200, null=True, blank=True)
+    
 
-    def __str__ (self):
-        return self.full_name + ' personal details' 
-
-class Links(models.Model):
-    personal_detail = models.ForeignKey(Personal_Details, on_delete=models.CASCADE)
     website = models.CharField(max_length=700, null=True, blank=True)
     twitter = models.CharField(max_length=250, null = True, blank = True)
     github = models.CharField(max_length=250, null = True, blank = True)
@@ -151,9 +147,10 @@ class Links(models.Model):
     bitbucket = models.CharField(max_length=250, null = True, blank = True)
     gitea = models.CharField(max_length=250, null = True, blank = True)
     xing = models.CharField(max_length=250, null = True, blank = True)
-    
-    def __str__(self):
-        return self.full_name + ' ' + self.links
+    def __str__ (self):
+        return self.full_name + ' personal details' 
+
+
 
 class Profile(models.Model):
     personal_detail = models.ForeignKey(Personal_Details, on_delete=models.CASCADE)

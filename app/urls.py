@@ -6,6 +6,8 @@ from django.views.generic import TemplateView
 
 urlpatterns = [
     path("", views.home, name="home"),
+    path("personal-details/", views.person_details, name="person_details"),
+    path("profile/", views.profile, name="profile"),
     path("register/", views.account_register, name="register"),
     path("login/", views.account_login, name="login"),
     path("logout/", views.account_logout, name="logout"),
