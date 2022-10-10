@@ -1,14 +1,11 @@
-{% extends 'navs/base-nav.html' %} {% load static %} {% block title %} <title>CV Build || Sign Up</title> {% endblock %} {% block content %}
+{% extends 'navs/base-nav.html' %} {% load static %} {% block title %} <title>CV Build || Sign Up</title> {% endblock %}
+{% block content %}
 <div class="container">
-  <form action="" method="post">
+  <form action="" method="post" class="auth-form">
     {% csrf_token %}
     <div class="form-top">
       <p>Sign Up</p>
     </div>
-    {% if messages %} {% for message in messages %}
-    <small class="form-errors">{{message}}</small>
-    {% endfor %} {% endif %}
-
     <div class="form-input-container">
       <span><label for="first_name">First Name</label> <span class="form-required-field">*</span></span>
       <p class="form-errors">{{ form.first_name.errors }}</p>
@@ -41,7 +38,7 @@
 
     <button class="form-btn btn" type="submit">Sign Up</button>
   </form>
- 
+
   <div class="form-bottom">
     <a href="{% url 'login' %}">Already have an account?</a>
   </div>

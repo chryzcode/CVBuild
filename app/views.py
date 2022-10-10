@@ -11,6 +11,7 @@ from django.core.mail import send_mail
 from django.conf import settings
 from .forms import *
 from .tokens import account_activation_token
+from django.http import JsonResponse
 
 # Create your views here.
 
@@ -23,8 +24,8 @@ def custom_error_500(request):
     
 def account_login(request):
     context = {}
-    if request.user.is_authenticated:
-        return redirect("/")
+    # if request.user.is_authenticated:
+    #     return redirect("/")
 
     if request.method == "POST":
         email = request.POST.get("email")
@@ -71,8 +72,8 @@ def account_delete(request):
 
 
 def account_register(request):
-    if request.user.is_authenticated:
-        return redirect("/")
+    # if request.user.is_authenticated:
+    #     return redirect("/")
     registerform = RegistrationForm
     if request.method == "POST":
         email = request.POST.get("email")
@@ -97,6 +98,7 @@ def account_register(request):
             )
             user.email_user(subject=subject, message=message)
             return render(request, "account/registration/registration-success.html")
+       
     return render(request, "account/registration/register.html", {"form": registerform})
 
 
@@ -121,26 +123,29 @@ def account_activate(request, uidb64, token):
         return render(request, "error-pages/404-page.html")
 
 def home(request):
-    skill_levels = Skill_Level.objects.all()
-    personal_details = Personal_Details.objects.filter(user=request.user.id).last()
-    profile = Profile.objects.get(personal_detail=personal_details)
+    personal_detail = Personal_Details.objects.filter(user=request.user.id).last()
+    profile = Profile.objects.filter(personal_detail=personal_detail).last()
     profile_form = ProfileForm(instance=profile)
-    personal_details_form = PersonalDetailsForm(instance=personal_details)
+    personal_details_form = PersonalDetailsForm(instance=personal_detail)
     skill_form = SkillForm
-    link_form = LinkForm(instance=personal_details)
-    context = {'personal_details':personal_details, 'profile_form':profile_form, 'personal_details_form':personal_details_form, 'skill_form':skill_form, 'skill_levels':skill_levels, 'link_form':link_form}
+    link_form = LinkForm(instance=personal_detail)
+    skill_levels = Skill_Level.objects.all()
+    skills = Skills.objects.filter(personal_detail=personal_detail.id)
+    context = {'personal_details':personal_detail, 'profile_form':profile_form, 'personal_details_form':personal_details_form, 'skill_form':skill_form, 'skill_levels':skill_levels, 'link_form':link_form, 'skills':skills}
     return render(request, 'pages/home.html', context)
+
+
 
 def person_details(request):
     user = request.user
     if Personal_Details.objects.filter(user=user).exists():
-        person_detail = Personal_Details.objects.get(user=user)
-        personal_details_form = PersonalDetailsForm(instance=person_detail)
+        personal_detail = Personal_Details.objects.filter(user=user).last()
+        personal_details_form = PersonalDetailsForm(instance=personal_detail)
     else:
         personal_details_form = PersonalDetailsForm()
     if request.method == "POST":
         if Personal_Details.objects.filter(user=user).exists():
-            personal_details_form = PersonalDetailsForm(request.POST, instance=person_detail)
+            personal_details_form = PersonalDetailsForm(request.POST, instance=personal_detail)
         else:
             personal_details_form = PersonalDetailsForm(request.POST)
         if personal_details_form.is_valid():
@@ -152,20 +157,71 @@ def person_details(request):
 def profile(request):
     user = request.user
     if Personal_Details.objects.filter(user=user).exists():
-        person_detail = Personal_Details.objects.get(user=user)
-        if Profile.objects.filter(personal_detail=person_detail).exists():
-            profile = Profile.objects.get(personal_detail=person_detail)
+        personal_detail = Personal_Details.objects.filter(user=user).last()
+        if Profile.objects.filter(personal_detail=personal_detail).exists():
+            profile = Profile.objects.get(personal_detail=personal_detail)
             profile_form = ProfileForm(instance=profile)
         else:
             profile_form = ProfileForm()
         if request.method == "POST":
-            if Profile.objects.filter(personal_detail=person_detail).exists():
+            if Profile.objects.filter(personal_detail=personal_detail).exists():
                 profile_form = ProfileForm(request.POST, instance=profile)
             else:
                 profile_form = ProfileForm(request.POST)
             if profile_form.is_valid():
                 form = profile_form.save(commit=False)
-                form.personal_detail = person_detail
+                form.personal_detail = personal_detail
                 form.save()
                 return redirect('home')
+
+
+
+
+def addSkill(request):
+    user = request.user
+    if Personal_Details.objects.filter(user=user).exists():
+        personal_detail = Personal_Details.objects.filter(user=user).last()
+        skill_form = SkillForm()
+        if request.method == "POST":
+            skill_form = SkillForm(request.POST)
+        if skill_form.is_valid():
+            form = skill_form.save(commit=False)
+            form.personal_detail = personal_detail
+            form.save()
+            return redirect('home')
+        print(skill_form.errors)
+        messages.error(request, skill_form.errors)
+        return redirect('/')
     
+def getSkill(request, pk):
+    skill = Skills.objects.get(id=pk)
+    skill_name = skill.skill
+    skill_info = skill.information
+    skill_level = skill.level.name
+    skill_level_id = skill.level.id
+    response = JsonResponse(
+        {
+            "skill_name": skill_name ,
+            "skill_info": skill_info,
+            "skill_level": skill_level,
+            "skill_level_id":skill_level_id,
+        }
+        )
+    return response
+
+def updateSkill(request, pk):
+    skill = Skills.objects.get(id=pk)
+    skill_form = SkillForm(request.POST, instance=skill)
+    if skill_form.is_valid():
+        form = skill_form.save(commit=False)  
+        form.save()
+        return redirect('home')
+    messages.error(request, 'an error')
+    return redirect("/")
+
+
+def deleteSkill(request, pk):
+    skill = Skills.objects.get(id=pk)
+    skill.delete()
+    return redirect('/')
+

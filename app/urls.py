@@ -7,7 +7,11 @@ from django.views.generic import TemplateView
 urlpatterns = [
     path("", views.home, name="home"),
     path("personal-details/", views.person_details, name="person_details"),
+    path("skill/", views.addSkill, name="addSkill"),
+    path("skill/<str:pk>", views.getSkill, name="getSkill"),
+    path("update-skill/<str:pk>", views.updateSkill, name="updateSkill"),
     path("profile/", views.profile, name="profile"),
+    path("delete-skill/<str:pk>", views.deleteSkill, name="deleteSkill"),
     path("register/", views.account_register, name="register"),
     path("login/", views.account_login, name="login"),
     path("logout/", views.account_logout, name="logout"),

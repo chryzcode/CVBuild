@@ -1,12 +1,15 @@
 const formFields = document.querySelectorAll(".form-input-container");
+const forms = document.querySelectorAll("form");
 const baseSideNav = document.querySelector(".base-sidenav");
 const container = document.querySelector(".container");
 const contentContainer = document.querySelector(".content-container");
 const contentFormContainers = document.querySelectorAll(".content-form-container");
 const clickCreateFormInputs = document.querySelectorAll(".click-create-form-input");
-const formErrors = document.querySelectorAll(".form-errors");
+const errors = document.querySelectorAll(".errors");
 const allErrorList = document.querySelectorAll(".errorlist");
 const linkClickCreateForms = document.querySelectorAll(".link-create-form-btn");
+const downloadPdfNav = document.querySelector(".download-pdf-nav");
+const errorTopModal = document.querySelector(".error-top-modal");
 
 if (clickCreateFormInputs) {
   clickCreateFormInputs.forEach(clickCreateFormInput => {
@@ -30,9 +33,7 @@ if (clickCreateFormInputs) {
       });
       clickCreateFormInput.addEventListener("click", e => {
         if (e.target.classList.contains("remove-field")) {
-          form = e.currentTarget.querySelector("input");
           const formContainer = e.currentTarget.querySelector(".form-input-container");
-
           formContainer.classList.add("hide");
           aBtn.classList.remove("hide");
         }
@@ -41,75 +42,10 @@ if (clickCreateFormInputs) {
   });
 }
 
-// clickCreateFormInputs.addEventListener("click", e => {
-//   console.log(e.target);
-//   if (e.target.classList.contains("remove-field")) {
-//     const formInput = e.target.parentElement.parentElement.parentElement;
-
-//     const createFormBtnArray =
-//       e.target.parentElement.parentElement.parentElement.parentElement.querySelectorAll(".create-form-btn");
-//     createFormBtnArray.append(formInput);
-//   formInput.style.display = "none";
-//   }
-// });
-
-//   clickCreateFormInputs.forEach(clickCreateFormInput => {
-//     clickCreateFormInput.addEventListener("click", e => {
-//       const id = e.target.id;
-//   if (e.target.classList.contains("remove-field")) {
-//     form = e.target.parentElement.parentElement.parentElement;
-//     formInput = form.querySelector("input");
-//     const formFieldName = form.querySelector("label").textContent;
-//     const formId = formInput.id;
-//     form.classList.add("hide");
-//     createFormBtn = document.createElement("span");
-//     createFormBtn.id = formId;
-//     createFormBtn.innerHTML = `${formFieldName}`;
-//     createFormBtn.classList.add("create-form-btn");
-//     clickCreateFormInput.prepend(createFormBtn);
-//   }
-//   console.log(e.target);
-//   const element = clickCreateFormInput.querySelector(`#${e.target.id}`);
-//   console.log(clickCreateFormInput.querySelector("label"));
-//   if (element) {
-//     if (e.target == element ) {
-//       const name = e.target.textContent;
-//       let formInput = document.createElement("div");
-//       formInput.classList.add("form-input-container");
-//       formInput.innerHTML = `
-//          <span><label for="${id}">${name}</label> <span class="faint-text">recommended
-//           <span class="material-symbols-outlined remove-field danger icon-pointer">delete
-//           </span></span> </span>
-//           <p class="form-errors hide">{{ form.${id}.errors }}</p>
-//           <input type="text" name="${id}" id="${id}" placeholder=""
-//           />
-//         `;
-
-//       element.style.display = "none";
-//       clickCreateFormInput.prepend(formInput);
-//     // }
-//   }
-//     });
-//   });
-
-if (formErrors || allErrorList) {
-  formErrors.forEach(formError => {
-    setTimeout(() => {
-      formError.textContent = "";
-      formError.classList.add("hide");
-    }, 2000);
-  });
-
-  allErrorList.forEach(errorList => {
-    setTimeout(() => {
-      errorList.textContent = "";
-      errorList.classList.add("hide");
-    }, 2000);
-  });
-}
 if (contentFormContainers) {
   contentFormContainers.forEach(contentFormContainer => {
     const contentFormDetails = contentFormContainer.querySelector("#content-form-details");
+
     if (contentFormDetails) {
       contentFormDetails.addEventListener("click", e => {
         if (contentFormContainer == e.currentTarget.parentElement) {
@@ -117,6 +53,7 @@ if (contentFormContainers) {
             formContainer.classList.add("hide");
           });
         }
+
         contentFormContainer.classList.remove("hide");
         const linkCreateFormBtn = contentFormContainer.querySelector("#links-form-container");
 
@@ -153,44 +90,159 @@ if (contentFormContainers) {
     }
 
     const contentFormTop = contentFormContainer.querySelector("#content-form-top");
-
+    const form = contentFormContainer.querySelector(".content-form");
+    form.querySelector('button[type="submit"]').classList.add("disable");
     if (contentFormTop) {
       contentFormTop.addEventListener("click", e => {
-        if (contentFormContainer == e.currentTarget.parentElement) {
-          contentFormContainers.forEach(formContainer => {
-            formContainer.classList.add("hide");
-          });
-          contentFormContainer.classList.remove("hide");
-          const icon = contentFormTop.querySelector(".material-symbols-outlined");
+        const icon = contentFormTop.querySelector(".material-symbols-outlined");
+        const myClick = e.currentTarget;
+        if (e.currentTarget == myClick) {
+          const myClickFormContainer = myClick.parentElement;
+          const contentDetail = myClickFormContainer.querySelector(".form-display-content");
 
-          const form = contentFormTop.parentElement.querySelector("form");
-          const closeBtn = form.querySelector("#content-form-cancel-btn");
+          if (contentDetail) {
+            if (form.classList.contains("hide")) {
+              contentDetail.classList.toggle("hide");
+              const skills = contentDetail.querySelectorAll(".form-display-content-skills");
 
-          if (form.classList.contains("hide")) {
-            form.classList.remove("hide");
-            if (icon) {
-              icon.textContent = "expand_less";
+              skills.forEach(skill => {
+                skill.addEventListener("click", e => {
+                  myClickFormContainer.querySelector(".form-display-content").classList.add("hide");
+                  form.classList.remove("hide");
+                  const formId = e.target.id;
+                  form.action = "update-skill/" + formId;
+                  const deleteBtn = form.querySelector("#content-form-delete-btn");
+
+                  deleteBtn.classList.remove("hide");
+                  deleteBtn.href = "delete-skill/" + formId;
+
+                  const formInputContainers = form.querySelectorAll(".form-input-container");
+                  if (formInputContainers) {
+                    const submitBtn = form.querySelector('button[type="submit"]');
+
+                    formInputContainers.forEach(formInputContainer => {
+                      const formInput = formInputContainer.lastElementChild;
+                      if (formInput.parentElement.querySelector(".form-required-field")) {
+                        formInput.parentElement.querySelector(".form-required-field").classList.add("hide");
+                        if (!formInput.value) {
+                          submitBtn.classList.add("disable");
+                        }
+                      }
+                      submitBtn.classList.add("disable");
+                      form.addEventListener("keyup", e => {
+                        if (formInput.parentElement.querySelector(".form-required-field")) {
+                          if (!formInput.value) {
+                            submitBtn.classList.add("disable");
+                          } else {
+                            submitBtn.classList.remove("disable");
+                          }
+                        }
+                      });
+                      if (formInput.parentElement.querySelector(".form-required-field")) {
+                        if (!formInput.value) {
+                          submitBtn.classList.add("disable");
+                        }
+                      }
+
+                      formInput.addEventListener("change", e => {
+                        const selectInput = e.currentTarget.tagName;
+                        if (selectInput == "SELECT");
+                        {
+                          required = form.querySelector(".form-required-field");
+                          if (required.classList.contains("hide")) {
+                            submitBtn.classList.remove("disable");
+                          }
+                        }
+
+                        //   }
+                      });
+                    });
+                  }
+
+                  contentFormContainers.forEach(formContainer => {
+                    formContainer.classList.add("hide");
+                  });
+
+                  contentFormContainer.classList.remove("hide");
+                  closeContentForm();
+                });
+              });
+            }
+            if (form.classList.contains("hide")) {
+              if (icon.textContent == "expand_less") {
+                icon.textContent = "expand_more";
+              } else {
+                icon.textContent = "expand_less";
+              }
             }
           } else {
-            form.classList.add("hide");
-            contentFormContainers.forEach(formContainer => {
-              formContainer.classList.remove("hide");
-            });
-            if (icon) {
-              icon.textContent = "expand_more";
-            }
+            icon.textContent = "expand_less";
           }
-          form.style.width = "auto";
+        }
+
+        function closeContentForm() {
+          const closeBtn = form.querySelector("#content-form-cancel-btn");
+
+          form.classList.remove("hide");
+          const requriedFieldSymbol = form.querySelector(".form-required-field");
 
           closeBtn.addEventListener("click", e => {
-            form.classList.add("hide");
+            form.id = "";
+            form.action = "skill/";
+            form.reset();
 
-            if (icon) {
-              icon.textContent = "expand_more";
+            if (requriedFieldSymbol) {
+              requriedFieldSymbol.classList.remove("hide");
             }
-
+            form.classList.add("hide");
             contentFormContainers.forEach(formContainer => {
               formContainer.classList.remove("hide");
+              icon.textContent = "expand_more";
+
+              if (form.querySelector("select") && form.querySelector("option")) {
+                if (form.querySelector("option").classList.contains("current_value")) {
+                  form.querySelector("option").classList.add("hide");
+                  form.querySelector("option").innerHTML = "";
+                  form.querySelector("option").value = "";
+                }
+              }
+            });
+          });
+        }
+
+        contentFormContainers.forEach(formContainer => {
+          if (!contentFormContainer.querySelector(".form-display-content")) {
+            formContainer.classList.add("hide");
+          }
+        });
+
+        if (!contentFormContainer.querySelector(".form-display-content")) {
+          contentFormContainer.classList.remove("hide");
+          closeContentForm();
+        } else {
+          const addFormBtn = contentFormContainer.querySelector("#add-display-content-form");
+
+          addFormBtn.addEventListener("click", e => {
+            contentFormContainers.forEach(formContainer => {
+              formContainer.classList.add("hide");
+            });
+            contentFormContainer.classList.remove("hide");
+            contentFormContainer.querySelector(".form-display-content").classList.add("hide");
+            contentFormContainer.querySelector("form").classList.remove("hide");
+
+            const closeBtn = contentFormContainer.querySelector("#content-form-cancel-btn");
+            closeBtn.addEventListener("click", e => {
+              const requriedFieldSymbol = contentFormContainer.querySelector(".form-required-field");
+              if (requriedFieldSymbol) {
+                requriedFieldSymbol.classList.remove("hide");
+              }
+              contentFormTop.classList.remove("hide");
+              contentFormContainer.querySelector(".form-display-content").classList.add("hide");
+              contentFormContainer.querySelector("form").classList.add("hide");
+              icon.textContent = "expand_more";
+              contentFormContainers.forEach(formContainer => {
+                formContainer.classList.remove("hide");
+              });
             });
           });
         }
@@ -199,35 +251,90 @@ if (contentFormContainers) {
   });
 }
 
-function getContentPageWidth(baseSideNav, container) {
-  const containerWidth = container.getBoundingClientRect().width;
+function getContentPageWidth(baseSideNav, page) {
+  const pageWidth = page.getBoundingClientRect().width;
   const baseSideNavWidth = baseSideNav.getBoundingClientRect().width;
-  remainingWidth = containerWidth - baseSideNavWidth;
+  remainingWidth = pageWidth - baseSideNavWidth;
   contentContainer.style.width = `${remainingWidth}px`;
+}
+
+function getBaseSideNavHeight(baseSideNav) {
+  const bodyHeight = document.querySelector("body").getBoundingClientRect().height;
+  baseSideNav.style.height = `${bodyHeight}px`;
 }
 
 window.addEventListener("load", () => {
   if (baseSideNav && container) {
     getContentPageWidth(baseSideNav, container);
   }
+  if (baseSideNav) {
+    getBaseSideNavHeight(baseSideNav);
+  }
+
+  if (errorTopModal) {
+    const allErrorLists = errorTopModal.querySelectorAll("ul");
+
+    allErrorLists.forEach(allErrorList => {
+      const error = allErrorList.querySelector(".errorlist");
+      if (error) {
+        error.classList.remove(".errorlist");
+        error.style.listStyle = "revert";
+        error.style.textAlign = "left";
+      }
+    });
+
+    setTimeout(() => {
+      errorTopModal.classList.add("hide");
+    }, 5000);
+  }
 });
+
+if (!errorTopModal) {
+  if (allErrorList) {
+    allErrorList.forEach(error => {
+      error.style.textTransform = "capitalize";
+      error.style.fontSize = "14px";
+      setTimeout(() => {
+        error.classList.add("hide");
+      }, 5000);
+    });
+  }
+}
 
 window.addEventListener("resize", () => {
   if (baseSideNav && container) {
     getContentPageWidth(baseSideNav, container);
   }
+  if (baseSideNav) {
+    getBaseSideNavHeight(baseSideNav);
+  }
 });
 
-formFields.forEach(formField => {
-  formField.addEventListener("keyup", e => {
-    const requriedFieldSymbol = formField.querySelector(".form-required-field");
-    const formInput = formField.lastElementChild;
-    if (requriedFieldSymbol) {
-      if (formInput.value) {
-        requriedFieldSymbol.style.display = "none";
-      } else {
-        requriedFieldSymbol.style.display = "inline-block";
+if (forms) {
+  forms.forEach(form => {
+    form.addEventListener("mouseover", e => {
+      const formInputContainers = form.querySelectorAll(".form-input-container");
+      if (formInputContainers) {
+        formInputContainers.forEach(formInputContainer => {
+          const requriedFieldSymbol = formInputContainer.querySelector(".form-required-field");
+
+          const submitBtn = form.querySelector('button[type="submit"]');
+          const formInput = formInputContainer.lastElementChild;
+
+          formInput.addEventListener("keyup", e => {
+            if (requriedFieldSymbol) {
+              requriedFieldSymbol.style.fontSize = `${25}px`;
+              if (formInput.value) {
+                requriedFieldSymbol.classList.add("hide");
+                submitBtn.classList.remove("disable");
+              } else {
+                requriedFieldSymbol.classList.remove("hide");
+                submitBtn.classList.add("disable");
+              }
+            }
+          });
+        });
       }
-    }
+    });
   });
-});
+}

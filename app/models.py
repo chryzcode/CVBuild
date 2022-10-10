@@ -1,3 +1,5 @@
+from tkinter import S
+from tkinter.tix import Tree
 from django.db import models
 
 # Create your models here.
@@ -147,6 +149,9 @@ class Personal_Details(models.Model):
     bitbucket = models.CharField(max_length=250, null = True, blank = True)
     gitea = models.CharField(max_length=250, null = True, blank = True)
     xing = models.CharField(max_length=250, null = True, blank = True)
+
+
+
     def __str__ (self):
         return self.full_name + ' personal details' 
 
@@ -165,17 +170,17 @@ class Skill_Level(models.Model):
     def __str__(self):
         return self.name + ' skill level'
 
-class Skill(models.Model):
-    user = models.ForeignKey(User, on_delete = models.CASCADE)
+class Skills(models.Model):
+    personal_detail = models.ForeignKey(Personal_Details, on_delete=models.CASCADE)
+    level = models.ForeignKey(Skill_Level, on_delete=models.SET_NULL, null=True, blank=True)
     skill = models.CharField(max_length=80)
-    information = models.CharField(max_length=200)
-    level = models.ForeignKey(Skill_Level, on_delete=models.CASCADE)
-
+    information = models.CharField(max_length=200, blank=True, null=True)
+   
     def __str__ (self):
-        return self.name
+        return self.skill
 
 class Experience(models.Model):
-    user = models.ForeignKey(User, on_delete = models.CASCADE)
+    personal_detail = models.ForeignKey(Personal_Details, on_delete=models.CASCADE)
     job_title = models.CharField(max_length=200)
     employer = models.CharField(max_length=100)
     city = models.CharField(max_length=100, blank= True, null= True)
@@ -192,7 +197,7 @@ class Experience(models.Model):
 
 
 class Project(models.Model):
-    user = models.ForeignKey(User, on_delete = models.CASCADE)
+    personal_detail = models.ForeignKey(Personal_Details, on_delete=models.CASCADE)
     project_title = models.CharField(max_length=200)
     subtitle = models.CharField(max_length=100, blank= True, null= True)
     start_date = models.DateField(blank= True, null= True)
@@ -204,7 +209,7 @@ class Project(models.Model):
         return self.name
 
 class Education(models.Model):
-    user = models.ForeignKey(User, on_delete = models.CASCADE)
+    personal_detail = models.ForeignKey(Personal_Details, on_delete=models.CASCADE)
     school = models.CharField(max_length=30)
     degree = models.CharField(max_length=100, blank= True, null= True)
     city = models.CharField(max_length=100, blank= True, null= True)
@@ -228,7 +233,7 @@ class Language_Level(models.Model):
         return self.name + ' language level'
 
 class Language(models.Model):
-    user = models.ForeignKey(User, on_delete = models.CASCADE)
+    personal_detail = models.ForeignKey(Personal_Details, on_delete=models.CASCADE)
     language = models.CharField(max_length= 200)
     additional_information = models.CharField(max_length=400)
     level = models.ForeignKey(Language_Level, on_delete=models.CASCADE)
@@ -237,7 +242,7 @@ class Language(models.Model):
         return self.language + ' language'
 
 class Reference(models.Model):
-    user = models.ForeignKey(User, on_delete = models.CASCADE)
+    personal_detail = models.ForeignKey(Personal_Details, on_delete=models.CASCADE)
     name = models.CharField(max_length = 200)
     job_title = models.CharField(max_length=150, blank= True, null= True)
     organisation = models.CharField(max_length=150, blank= True, null= True)
@@ -250,7 +255,7 @@ class Reference(models.Model):
 
 
 class Award(models.Model):
-    user = models.ForeignKey(User, on_delete = models.CASCADE)
+    personal_detail = models.ForeignKey(Personal_Details, on_delete=models.CASCADE)
     award = models.CharField(max_length=150)
     issuer = models.CharField(max_length=150, blank= True, null= True)
     description = RichTextField(blank= True, null= True)
@@ -261,7 +266,7 @@ class Award(models.Model):
         return self.award + ' award'
 
 class Organisation(models.Model):
-    user = models.ForeignKey(User, on_delete = models.CASCADE)
+    personal_detail = models.ForeignKey(Personal_Details, on_delete=models.CASCADE)
     position = models.CharField(max_length=100)
     organization = models.CharField(max_length=100)
     city = models.CharField(max_length=100, blank= True, null= True)
@@ -276,7 +281,7 @@ class Organisation(models.Model):
         return self.positon + ' in f{self.organization}'
 
 class Certificate(models.Model):
-    user = models.ForeignKey(User, on_delete = models.CASCADE)
+    personal_detail = models.ForeignKey(Personal_Details, on_delete=models.CASCADE)
     certificate = models.CharField(max_length = 150)
     additional_information = RichTextField(blank= True, null= True)
     link = models.CharField(max_length = 300, blank= True, null= True)
@@ -286,7 +291,7 @@ class Certificate(models.Model):
 
 
 class Interest(models.Model):
-    user = models.ForeignKey(User, on_delete = models.CASCADE)
+    personal_detail = models.ForeignKey(Personal_Details, on_delete=models.CASCADE)
     interest = models.CharField(max_length = 150)
     additional_information = RichTextField(blank= True, null= True)
     link = models.CharField(max_length = 300, blank= True, null= True)
@@ -296,7 +301,7 @@ class Interest(models.Model):
 
 
 class Publication(models.Model):
-    user = models.ForeignKey(User, on_delete = models.CASCADE)
+    personal_detail = models.ForeignKey(Personal_Details, on_delete=models.CASCADE)
     publisher = models.CharField(max_length=200)
     title = models.CharField(max_length=200)
     date = models.DateField(blank= True, null= True)

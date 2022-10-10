@@ -88,8 +88,14 @@ class LinkForm(ModelForm):
 
 class SkillForm(ModelForm):
     class Meta:
-        model = Skill
-        exclude =  ['user']
+        model = Skills
+        exclude =  ['personal_detail']
+
+    def clean_skill(self):
+        skill = self.cleaned_data["skill"]
+        if skill == None:
+            raise forms.ValidationError("Field is required")
+        return skill
     
     def __init__(self, *args, **kwargs):
         super(SkillForm, self).__init__(*args, **kwargs)
