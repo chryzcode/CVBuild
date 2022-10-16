@@ -6,7 +6,6 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="{% static 'css/styles.css'%}" />
-    <link rel="stylesheet" href="{% static 'css/ckeditor-cleaning.css'%}" />
     <script
       src="https://code.jquery.com/jquery-3.6.0.min.js"
       integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
@@ -21,6 +20,18 @@
       crossorigin="anonymous"
       referrerpolicy="no-referrer"
     />
+     <!-- Fengyuan Chen's Datepicker -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/datepicker/0.6.5/datepicker.min.css"
+      integrity="sha256-b88RdwbRJEzRx95nCuuva+hO5ExvXXnpX+78h8DjyOE="
+      crossorigin="anonymous"
+    />
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/datepicker/0.6.5/datepicker.min.js"
+      integrity="sha256-/7FLTdzP6CfC1VBAj/rsp3Rinuuu9leMRGd354hvk0k="
+      crossorigin="anonymous"
+    ></script>
     {% block title %}
     <title>CV Build</title>
     {% endblock %}
@@ -43,7 +54,9 @@
 
       <div class="download-pdf-nav">
         <span>My Resume</span>
-        <a href="" class="btn bg-dark-btn">Download</a>
+        <a href="" class="btn bg-dark-btn flex-spc-bwn"
+          id="download-pdf-btn"><span>Download</span> <span class="material-symbols-outlined"> file_download </span></a
+        >
       </div>
 
       {% block content %} {% endblock %}

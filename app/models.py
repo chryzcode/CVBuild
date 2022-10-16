@@ -1,3 +1,4 @@
+from pyexpat import model
 from tkinter import S
 from tkinter.tix import Tree
 from django.db import models
@@ -13,7 +14,6 @@ from django.contrib.auth.models import (
     PermissionsMixin,
 )
 from django.utils.translation import gettext_lazy as _
-from ckeditor.fields import RichTextField
 # Create your models here.
 
 
@@ -135,7 +135,7 @@ class Personal_Details(models.Model):
     codechef = models.CharField(max_length=250, null = True, blank = True)
     codeforces = models.CharField(max_length=250, null = True, blank = True)
     vsco = models.CharField(max_length=250, null = True, blank = True)
-    sanpchat = models.CharField(max_length=250, null = True, blank = True)
+    snapchat = models.CharField(max_length=250, null = True, blank = True)
     upwork = models.CharField(max_length=250, null = True, blank = True)
     geeksforgeeks = models.CharField(max_length=250, null = True, blank = True)
     googlescholar = models.CharField(max_length=250, null = True, blank = True)
@@ -159,7 +159,7 @@ class Personal_Details(models.Model):
 
 class Profile(models.Model):
     personal_detail = models.ForeignKey(Personal_Details, on_delete=models.CASCADE)
-    summary = RichTextField()  
+    summary = models.TextField()  
 
     def __str__(self):
         return self.personal_detail.full_name + ' profile'
@@ -185,12 +185,13 @@ class Experience(models.Model):
     employer = models.CharField(max_length=100)
     city = models.CharField(max_length=100, blank= True, null= True)
     country = models.CharField(max_length=100, blank= True, null= True)
-    company_location = models.CharField(max_length=200, blank= True, null= True)
     start_date = models.DateField(blank= True, null= True)
     end_date = models.DateField(blank= True, null= True)
-    description = RichTextField(blank= True, null= True)
+    experience_description = models.TextField(blank= True, null= True)
     current = models.BooleanField(default=False)
     link = models.CharField(max_length = 300, blank= True, null= True)
+    month_year_only = models.BooleanField(default=False)
+    year_only = models.BooleanField(default=False)
 
     def __str__ (self):
         return self.employer + ' experience'
@@ -202,29 +203,32 @@ class Project(models.Model):
     subtitle = models.CharField(max_length=100, blank= True, null= True)
     start_date = models.DateField(blank= True, null= True)
     end_date = models.DateField(blank= True, null= True)
-    description = RichTextField(blank= True, null= True)
+    project_description = models.TextField(blank= True, null= True)
+    current = models.BooleanField(default=False)
     link = models.CharField(max_length = 300, blank= True, null= True)
-
+    month_year_only = models.BooleanField(default=False)
+    year_only = models.BooleanField(default=False)
     def __str__ (self):
-        return self.name
+        return self.project_title
 
 class Education(models.Model):
     personal_detail = models.ForeignKey(Personal_Details, on_delete=models.CASCADE)
-    school = models.CharField(max_length=30)
-    degree = models.CharField(max_length=100, blank= True, null= True)
+    school = models.CharField(max_length=70)
+    degree = models.CharField(max_length=100)
     city = models.CharField(max_length=100, blank= True, null= True)
     country = models.CharField(max_length=100, blank= True, null= True)
     start_date = models.DateField(blank= True, null= True)
     end_date = models.DateField(blank= True, null= True)
-    description = RichTextField(blank= True, null= True)
+    description = models.TextField(blank= True, null= True)
     current = models.BooleanField(default=False)
     link = models.CharField(max_length = 300, blank= True, null= True)
-
+    month_year_only = models.BooleanField(default=False)
+    year_only = models.BooleanField(default=False)
     def get_absolute_url(self):
         return reverse('resume')
 
     def __str__ (self):
-        return self.school_name
+        return self.school
 
 class Language_Level(models.Model):
     name = models.CharField(max_length = 150)
@@ -235,15 +239,15 @@ class Language_Level(models.Model):
 class Language(models.Model):
     personal_detail = models.ForeignKey(Personal_Details, on_delete=models.CASCADE)
     language = models.CharField(max_length= 200)
-    additional_information = models.CharField(max_length=400)
-    level = models.ForeignKey(Language_Level, on_delete=models.CASCADE)
+    additional_information = models.CharField(max_length=400, blank= True, null= True)
+    level = models.ForeignKey(Language_Level, on_delete=models.SET_NULL, null=True, blank=True)
 
     def __str__(self):
         return self.language + ' language'
 
 class Reference(models.Model):
     personal_detail = models.ForeignKey(Personal_Details, on_delete=models.CASCADE)
-    name = models.CharField(max_length = 200)
+    reference_name = models.CharField(max_length = 200)
     job_title = models.CharField(max_length=150, blank= True, null= True)
     organisation = models.CharField(max_length=150, blank= True, null= True)
     phone = models.CharField(max_length=15, blank= True, null= True)
@@ -258,7 +262,7 @@ class Award(models.Model):
     personal_detail = models.ForeignKey(Personal_Details, on_delete=models.CASCADE)
     award = models.CharField(max_length=150)
     issuer = models.CharField(max_length=150, blank= True, null= True)
-    description = RichTextField(blank= True, null= True)
+    description = models.TextField(blank= True, null= True)
     date = models.DateField(blank= True, null= True)
     link = models.CharField(max_length=300, blank= True, null= True)
 
@@ -268,13 +272,15 @@ class Award(models.Model):
 class Organisation(models.Model):
     personal_detail = models.ForeignKey(Personal_Details, on_delete=models.CASCADE)
     position = models.CharField(max_length=100)
-    organization = models.CharField(max_length=100)
+    organisation = models.CharField(max_length=100)
     city = models.CharField(max_length=100, blank= True, null= True)
     country = models.CharField(max_length=100, blank= True, null= True)
     start_date = models.DateField(blank= True, null= True)
     end_date = models.DateField(blank= True, null= True)
-    description = RichTextField(blank= True, null= True)
+    description = models.TextField(blank= True, null= True)
     current = models.BooleanField(default=False)
+    month_year_only = models.BooleanField(default=False)
+    year_only = models.BooleanField(default=False)
     link = models.CharField(max_length=300, blank= True, null= True)
 
     def __str__ (self):
@@ -283,7 +289,7 @@ class Organisation(models.Model):
 class Certificate(models.Model):
     personal_detail = models.ForeignKey(Personal_Details, on_delete=models.CASCADE)
     certificate = models.CharField(max_length = 150)
-    additional_information = RichTextField(blank= True, null= True)
+    additional_information = models.TextField(blank= True, null= True)
     link = models.CharField(max_length = 300, blank= True, null= True)
 
     def __str__ (self):
@@ -293,7 +299,7 @@ class Certificate(models.Model):
 class Interest(models.Model):
     personal_detail = models.ForeignKey(Personal_Details, on_delete=models.CASCADE)
     interest = models.CharField(max_length = 150)
-    additional_information = RichTextField(blank= True, null= True)
+    additional_information = models.TextField(blank= True, null= True)
     link = models.CharField(max_length = 300, blank= True, null= True)
 
     def __str__ (self):
@@ -305,7 +311,7 @@ class Publication(models.Model):
     publisher = models.CharField(max_length=200)
     title = models.CharField(max_length=200)
     date = models.DateField(blank= True, null= True)
-    description = RichTextField(blank= True, null= True)
+    description = models.TextField(blank= True, null= True)
     link = models.CharField(max_length = 300, blank= True, null= True)
 
     def __str__ (self):
