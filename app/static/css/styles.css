@@ -83,14 +83,25 @@ form {
 
 .form-input-container input,
 .form-input-container select,
-.input-text-link-label {
+.input-text-link-label,
+.copy-resume-feedback-link input {
   width: 100%;
-  /* height: 40px; */
   outline: 0;
   padding: 15px 20px;
   border-radius: 10px;
   background-color: #e0e0e0;
   border: 0;
+}
+
+.copy-resume-feedback-link > button {
+  outline: 0;
+  background-color: #200e32;
+  color: #ffffff;
+  border: 0;
+  padding: 5px;
+  border-radius: 9px;
+  cursor: pointer;
+  margin: 0;
 }
 
 .form-input-container > input:hover,
@@ -102,18 +113,6 @@ form {
   box-shadow: #9f9c9c 0px 1px 2px 1px;
 }
 
-.form-input-container input,
-.form-input-container select,
-.input-text-link-label {
-  width: 100%;
-  /* height: 40px; */
-  outline: 0;
-  padding: 15px 20px;
-  border-radius: 10px;
-  background-color: #e0e0e0;
-  border: 0;
-  margin: 5px 0;
-}
 .flex-spc-bwn > * > * {
   display: inline-block;
   margin: 5px auto;
@@ -135,7 +134,6 @@ input[type="checkbox"]:focus-within {
 }
 
 .form-btn {
-  /* display: block; */
   margin-left: auto;
   color: #200e32;
   border: 1px solid #200e32;
@@ -171,7 +169,7 @@ input[type="checkbox"]:focus-within {
 .center {
   align-items: center;
   text-align: center;
-  margin: 30px auto;
+  margin: 20px auto;
 }
 
 .form-btn:hover {
@@ -200,24 +198,28 @@ input[type="checkbox"]:focus-within {
 }
 
 .error-top-modal {
-  position: fixed;
+  position: absolute;
   width: 400px;
+  background-color: white;
   z-index: 1207;
-  display: none;
-  top: 80px;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  background-color: #fff;
+  display: block;
+  margin-top: 10px;
+  margin-left: auto;
+  margin-right: auto;
+  left: 0;
+  right: 0;
+  top: 0;
+  text-align: center;
+  margin-bottom: 70px;
   padding: 20px 40px;
   border-radius: 10px;
-  outline: 1px solid #ccc;
-  display: block;
+  box-shadow: rgb(201, 201, 201) 0px 1px 2px 1px;
   height: max-content;
 }
 
 .error-container {
   margin: 15px;
-  padding-left: 15px;
+  /* padding-left: 15px; */
 }
 
 .errors {
@@ -231,7 +233,8 @@ input[type="checkbox"]:focus-within {
   color: #a51b1b;
   text-align: center;
   text-transform: uppercase;
-  font-size: 16;
+  font-size: 15;
+  margin: 10px 0;
 }
 
 .errorlist > li > :first-child {
@@ -264,7 +267,6 @@ input[type="checkbox"]:focus-within {
   box-shadow: 0 0.125rem 9.375rem rgb(90 97 105 / 10%), 0 0.25rem 0.5rem rgb(90 97 105 / 12%),
     0 0.9375rem 1.375rem rgb(90 97 105 / 10%), 0 0.4375rem 2.1875rem rgb(165 182 201 / 10%);
   width: auto;
-  /* z-index: 1070; */
   margin: 20px 40px;
   justify-content: space-around;
   text-align: center;
@@ -303,7 +305,6 @@ input[type="checkbox"]:focus-within {
 
 .content-form-container {
   box-shadow: rgb(201, 201, 201) 0px 1px 2px 1px;
-  /* display: block; */
   margin: 20px 0;
   padding: 20px 10px;
   text-decoration: none;
@@ -415,7 +416,9 @@ textarea {
 
 .content-container > div::-webkit-scrollbar,
 .link-create-form-btn::-webkit-scrollbar,
-.content-form-container::-webkit-scrollbar {
+.content-form-container::-webkit-scrollbar,
+.resume-pop-up::-webkit-scrollbar,
+#add-content-modal::-webkit-scrollbar {
   display: none;
 }
 
@@ -466,6 +469,130 @@ textarea {
   margin: 5px;
 }
 
+.wrap {
+  flex-wrap: wrap;
+}
+
+#add-content-modal {
+  position: absolute;
+  width: 80%;
+  height: 80vh;
+  background-color: white;
+  z-index: 1207;
+  margin-left: auto;
+  margin-right: auto;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  text-align: center;
+  margin-bottom: 70px;
+  padding: 30px;
+  overflow-y: scroll;
+  border-radius: 10px;
+  box-shadow: rgb(201, 201, 201) 0px 1px 2px 1px;
+}
+
+#add-content-modal > div {
+  display: grid;
+  grid-column-gap: 10px;
+  grid-row-gap: 10px;
+  margin: 20px 0;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+}
+
+.add-modal-content {
+  background-color: #f3f4f6;
+  border-radius: 7px;
+  padding: 25px 15px;
+  cursor: pointer;
+}
+
+.add-modal-content:hover {
+  background-color: #d3d3d3;
+  transform: scale(1.02);
+}
+
+.overlay {
+  filter: blur(1.5px);
+  opacity: 0.4;
+}
+
+.add-modal-content > p {
+  margin: 15px 0;
+  font-size: 15px;
+}
+
+.resume-pop-up {
+  position: absolute;
+  width: 400px;
+  height: auto;
+  background-color: #f3f4f6;
+  z-index: 1207;
+  bottom: 0;
+  margin-left: 40px;
+  margin-bottom: 20px;
+  padding: 20px 10px;
+  overflow-y: scroll;
+  border-radius: 9px;
+  max-height: 80vh;
+}
+
+.resume-list-container {
+  display: inline-flex;
+  width: 100%;
+  box-shadow: rgb(201, 201, 201) 0px 1px 2px 1px;
+  margin: 10px 0;
+  padding: 20px 10px;
+  text-decoration: none;
+  border-radius: 10px;
+  background-color: white;
+  justify-content: space-between;
+}
+
+.resume-list-container a {
+  text-decoration: none;
+  color: #200e32;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  color: #200e32;
+  font-weight: 500;
+}
+
+.side-nav-content:hover {
+  cursor: pointer;
+}
+
+#check-nav-content .feedback-container {
+  cursor: default;
+  background-color: #e0e0e0;
+}
+
+#check-nav-content,
+.feedback-container > div {
+  cursor: default;
+}
+
+.feedback-container > div > span:first-child {
+  color: #200e32;
+  font-size: 17px;
+}
+
+.feedback-container > p {
+  margin: 5px 0;
+  padding: 0 7px;
+  font-size: 14px;
+}
+
+#check-nav-content > div > div {
+  margin: 25px 0;
+}
+
 @media all and (max-width: 950px) {
   .content-container > div:last-child {
     display: none;
@@ -504,6 +631,24 @@ textarea {
 
   .flex-spc-bwn > span > span:last-child {
     display: none;
+  }
+
+  #add-display-content-form > span:last-child,
+  #add-content-btn > span:last-child {
+    display: none;
+  }
+
+  .content-container {
+    padding: 10px;
+  }
+
+  .download-pdf-nav {
+    margin: 5px 30px 5px auto;
+  }
+
+  .error-top-modal {
+    width: 80%;
+    padding: 10px;
   }
 }
 

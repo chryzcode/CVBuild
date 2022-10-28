@@ -1,34 +1,105 @@
 {% extends 'navs/head-content.html' %} {% load static %} {% block title %} <title>CV Build</title>
 {% endblock %} {% block content %}
-
-<div class="content-container">
+<div id="add-content-modal" class="hide">
+  <h2>Add Content</h2>
   <div>
+    {% if not educations %}
+    <div class="add-modal-content" id="education-section">
+      <span class="material-symbols-outlined"> school </span>
+      <h3>Education</h3>
+      <p>Show off your primary education, college degrees & exchange semesters.</p>
+    </div>
+    {% endif %} {% if not experiences %}
+    <div class="add-modal-content" id="experience-section">
+      <span class="material-symbols-outlined"> business_center </span>
+      <h3>Experience</h3>
+      <p>A place to highlight your professional experience - including internships.</p>
+    </div>
+    {% endif %} {% if not skills %}
+    <div class="add-modal-content" id="skill-section">
+      <span class="material-symbols-outlined"> psychology </span>
+      <h3>Skill</h3>
+      <p>List your technical, managerial or soft skills in this section.</p>
+    </div>
+    {% endif %} {% if not certificates %}
+    <div class="add-modal-content" id="certificate-section">
+      <span class="material-symbols-outlined"> badge </span>
+      <h3>Certificate</h3>
+      <p>Drivers licenses and other industry-specific certificates you have belong here.</p>
+    </div>
+    {% endif %} {% if not languages %}
+    <div class="add-modal-content" id="language-section">
+      <span class="material-symbols-outlined"> language </span>
+      <h3>Language</h3>
+      <p>You speak more than one language? Make sure to list them here.</p>
+    </div>
+    {% endif %} {% if not interests %}
+    <div class="add-modal-content" id="interest-section">
+      <span class="material-symbols-outlined"> interests </span>
+      <h3>Interest</h3>
+      <p>Do you have interests that align with your career aspiration?</p>
+    </div>
+    {% endif %} {% if not projects %}
+    <div class="add-modal-content" id="project-section">
+      <span class="material-symbols-outlined"> folder_open </span>
+      <h3>Project</h3>
+      <p>Worked on a particular challenging project in the past? Mention it here.</p>
+    </div>
+    {% endif %} {% if not awards %}
+    <div class="add-modal-content" id="award-section">
+      <span class="material-symbols-outlined"> workspace_premium </span>
+      <h3>Award</h3>
+      <p>Awards like student competitions or industry accolades belong here.</p>
+    </div>
+    {% endif %} {% if not organisations %}
+    <div class="add-modal-content" id="organisation-section">
+      <span class="material-symbols-outlined"> home </span>
+      <h3>Organisation</h3>
+      <p>If you volunteer or participate in a good cause, why not state it?</p>
+    </div>
+    {% endif %} {% if not publications %}
+    <div class="add-modal-content" id="publication-section">
+      <span class="material-symbols-outlined"> library_books </span>
+      <h3>Publication</h3>
+      <p>Academic publications or book releases have a dedicated place here.</p>
+    </div>
+    {% endif %} {% if not references %}
+    <div class="add-modal-content" id="reference-section">
+      <span class="material-symbols-outlined"> hub </span>
+      <h3>Reference</h3>
+      <p>If you have former colleagues or bosses that vouch for you, list them.</p>
+    </div>
+    {% endif %}
+  </div>
+</div>
+<div class="content-container">
+  <div id="content-nav-content" class="nav-page-content">
     <div class="content-form-container">
       <div class="content-form-detail" id="content-form-details">
-        {% if personal_details.full_name %}
-        <h4>{{personal_details.full_name}}</h4>
+        {% if personal_detail.full_name %}
+        <h4>{{personal_detail.full_name}}</h4>
         {% else %}
         <h4 class="faint-text">Your name</h4>
-        {% endif %} {% if personal_details.email %}
-        <p>{{personal_details.email}}</p>
+        {% endif %} {% if personal_detail.email %}
+        <p>{{personal_detail.email}}</p>
         {% else %}
         <p class="faint-text">Email</p>
-        {% endif %} {% if personal_details.phone %}
-        <p>{{personal_details.phone}}</p>
+        {% endif %} {% if personal_detail.phone %}
+        <p>{{personal_detail.phone}}</p>
         {% else %}
         <p class="faint-text">Phone</p>
-        {% endif %} {% if personal_details.address %}
-        <p>{{personal_details.address}}</p>
+        {% endif %} {% if personal_detail.address %}
+        <p>{{personal_detail.address}}</p>
         {% else %}
         <p class="faint-text">Address</p>
         {% endif %}
       </div>
       <form
-        action="{% url 'person_details' %}"
+        action="{% url 'person_details' personal_detail.pk %}"
         method="post"
         class="hide content-form"
         enctype="multipart/form-data"
-        id="personal_details"
+        id="personal_detail"
       >
         {% csrf_token %}
         <div class="form-top">
@@ -40,107 +111,107 @@
 
         <div class="form-input-container">
           <span><label for="full_name">Full Name</label> <span class="form-required-field">*</span></span>
-          <p class="form-errors">{{ personal_details_form.full_name.errors }}</p>
-          {{personal_details_form.full_name}}
+          <p class="form-errors">{{ personal_detail_form.full_name.errors }}</p>
+          {{personal_detail_form.full_name}}
         </div>
 
         <div class="form-input-container">
           <span><label for="job_title">Job Title</label> <span class="faint-text">optional</span></span>
-          <p class="form-errors">{{ personal_details_form.job_title.errors }}</p>
-          {{personal_details_form.job_title}}
+          <p class="form-errors">{{ personal_detail_form.job_title.errors }}</p>
+          {{personal_detail_form.job_title}}
         </div>
 
         <div class="form-input-container">
           <span><label for="email">Email</label> <span class="faint-text">recommended</span></span>
-          <p class="form-errors">{{ personal_details_form.email.errors }}</p>
-          {{personal_details_form.email}}
+          <p class="form-errors">{{ personal_detail_form.email.errors }}</p>
+          {{personal_detail_form.email}}
         </div>
 
         <div class="form-input-container">
           <span><label for="phone">Phone</label> <span class="faint-text">recommended</span></span>
-          <p class="form-errors">{{ personal_details_form.phone.errors }}</p>
-          {{personal_details_form.phone}}
+          <p class="form-errors">{{ personal_detail_form.phone.errors }}</p>
+          {{personal_detail_form.phone}}
         </div>
 
         <div class="form-input-container">
           <span><label for="address">Address</label> <span class="faint-text">recommended</span></span>
-          <p class="form-errors">{{ personal_details_form.address.errors }}</p>
-          {{personal_details_form.address}}
+          <p class="form-errors">{{ personal_detail_form.address.errors }}</p>
+          {{personal_detail_form.address}}
         </div>
 
         <div class="form-section">
           <p>Personal Information</p>
 
-          {% if personal_details.nationality %}
+          {% if personal_detail.nationality %}
           <div class="form-input-container">
             <span><label for="nationality">Nationality</label> <span class="faint-text">recommended</span></span>
-            <p class="form-errors">{{ personal_details_form.nationality.errors }}</p>
-            {{personal_details_form.nationality}}
+            <p class="form-errors">{{ personal_detail_form.nationality.errors }}</p>
+            {{personal_detail_form.nationality}}
           </div>
-          {% endif %} {% if personal_details.date_of_birth %}
+          {% endif %} {% if personal_detail.date_of_birth %}
           <div class="form-input-container">
             <span><label for="date_of_birth">Date Of Birth</label> <span class="faint-text">recommended</span></span>
-            <p class="form-errors">{{ personal_details_form.date_of_birth.errors }}</p>
-            {{personal_details_form.date_of_birth}}
+            <p class="form-errors">{{ personal_detail_form.date_of_birth.errors }}</p>
+            {{personal_detail_form.date_of_birth}}
           </div>
-          {% endif %} {% if personal_details.marital_status %}
+          {% endif %} {% if personal_detail.marital_status %}
           <div class="form-input-container">
             <span><label for="marital_status">Marital Status</label> <span class="faint-text">recommended</span></span>
-            <p class="form-errors">{{ personal_details_form.marital_status.errors }}</p>
-            {{personal_details_form.marital_status}}
+            <p class="form-errors">{{ personal_detail_form.marital_status.errors }}</p>
+            {{personal_detail_form.marital_status}}
           </div>
-          {% endif %} {% if personal_details.military_service %}
+          {% endif %} {% if personal_detail.military_service %}
           <div class="form-input-container">
             <span
               ><label for="military_service">Military Service</label> <span class="faint-text">recommended</span></span
             >
-            <p class="form-errors">{{ personal_details_form.military_service.errors }}</p>
-            {{personal_details_form.military_service}}
+            <p class="form-errors">{{ personal_detail_form.military_service.errors }}</p>
+            {{personal_detail_form.military_service}}
           </div>
-          {% endif %} {% if personal_details.driving_license %}
+          {% endif %} {% if personal_detail.driving_license %}
           <div class="form-input-container">
             <span
               ><label for="driving_license">Driving Lincense</label> <span class="faint-text">recommended</span></span
             >
-            <p class="form-errors">{{ personal_details_form.driving_license.errors }}</p>
-            {{personal_details_form.driving_license}}
+            <p class="form-errors">{{ personal_detail_form.driving_license.errors }}</p>
+            {{personal_detail_form.driving_license}}
           </div>
-          {% endif %} {% if personal_details.gender_pronoun %}
+          {% endif %} {% if personal_detail.gender_pronoun %}
           <div class="form-input-container">
             <span
               ><label for="gender_pronoun">Gender or Pronoun</label> <span class="faint-text">recommended</span></span
             >
-            <p class="form-errors">{{ personal_details_form.gender_pronoun.errors }}</p>
-            {{personal_details_form.gender_pronoun}}
+            <p class="form-errors">{{ personal_detail_form.gender_pronoun.errors }}</p>
+            {{personal_detail_form.gender_pronoun}}
           </div>
-          {% endif %} {% if personal_details.passport_id %}
+          {% endif %} {% if personal_detail.passport_id %}
           <div class="form-input-container">
             <span><label for="passport_id">Passport or Id</label> <span class="faint-text">recommended</span></span>
-            <p class="form-errors">{{ personal_details_form.passport_id.errors }}</p>
+            <p class="form-errors">{{ personal_detail_form.passport_id.errors }}</p>
             <input
               type="text"
               name="passport_id"
               id="passport_id"
               placeholder=""
-              value="{{personal_details.passport_id}}"
+              value="{{personal_detail.passport_id}}"
             />
           </div>
           {% endif %}
 
           <div class="click-create-form-input" id="personal-information-btn">
-            {% if not personal_details.date_of_birth %}
+            {% if not personal_detail.date_of_birth %}
             <span class="create-form-btn" id="date_of_birth">Date of Birth</span>
-            {% endif %} {% if not personal_details.nationality %}
+            {% endif %} {% if not personal_detail.nationality %}
             <span class="create-form-btn" id="nationality">Nationality</span>
-            {% endif %} {% if not personal_details.passport_id %}
+            {% endif %} {% if not personal_detail.passport_id %}
             <span class="create-form-btn" id="passport_id">Passport or Id</span>
-            {% endif %} {% if not personal_details.marital_status %}
+            {% endif %} {% if not personal_detail.marital_status %}
             <span class="create-form-btn" id="marital_status">Marital Status</span>
-            {% endif %} {% if not personal_details.military_service %}
+            {% endif %} {% if not personal_detail.military_service %}
             <span class="create-form-btn" id="military_service">Military Service</span>
-            {% endif %} {% if not personal_details.driving_license %}
+            {% endif %} {% if not personal_detail.driving_license %}
             <span class="create-form-btn" id="driving_license">Driving License</span>
-            {% endif %} {% if not personal_details.gender_pronoun %}
+            {% endif %} {% if not personal_detail.gender_pronoun %}
             <span id="gender_pronoun">Gender or Pronoun</span>
             {% endif %}
           </div>
@@ -175,19 +246,18 @@
       </form>
     </div>
 
-    <div class="content-form-container">
-      <div class="flex-spc-bwn" id="content-form-top">
-        <span><span class="material-symbols-outlined"> person </span><span>Profile</span></span>
+    <div class="content-form-container" id="person-section">
+      <div class="flex-spc-bwn wrap" id="content-form-top">
+        <span><span class="material-symbols-outlined center wrap"> person </span><span>Profile</span></span>
         <span id="toggle-icon" class="material-symbols-outlined"> expand_more </span>
       </div>
 
-      <form action="{% url 'profile' %}" method="post" class="hide content-form">
+      <form action="{% url 'profile' personal_detail.pk %}" method="post" class="hide content-form">
         {% csrf_token %}
         <div class="form-input-container">
           <span><label for="summary">Summary</label> <span class="faint-text">recommended</span></span>
           <p class="form-errors">{{ profile_form.summary.errors }}</p>
           <textarea name="summary" id="summary" cols="100" rows="10"></textarea>
-        
         </div>
 
         <div class="flex-spc-bwn">
@@ -197,9 +267,12 @@
       </form>
     </div>
 
-    <div class="content-form-container">
-      <div class="flex-spc-bwn" id="content-form-top">
-        <span><span class="material-symbols-outlined"> psychology </span><span>Skills and Technology</span></span>
+    <div class="content-form-container {% if not skills %} hide {% endif %}" id="skill-section-content">
+      <div class="flex-spc-bwn wrap" id="content-form-top">
+        <span
+          ><span class="material-symbols-outlined center wrap"> psychology </span
+          ><span>Skills and Technology</span></span
+        >
         <span id="toggle-icon" class="material-symbols-outlined"> expand_more </span>
       </div>
 
@@ -208,11 +281,13 @@
         <div id="{{skill.id}}" class="form-display-content" data-index="skill">{{skill}}</div>
         {% endfor %} {% endif %}
         <div class="center">
-          <span class="btn bg-dark-btn" id="add-display-content-form"> Add Skill </span>
+          <span class="btn bg-dark-btn flex-spc-bwn center" id="add-display-content-form"
+            ><span class="material-symbols-outlined">add </span><span> Add Skill </span></span
+          >
         </div>
       </div>
 
-      <form name="skill" action="{% url 'addSkill' %}" method="post" class="hide content-form">
+      <form name="skill" action="{% url 'addSkill'  personal_detail.pk %}" method="post" class="hide content-form">
         {% csrf_token %}
         <div class="form-input-container">
           <span><label for="skill">Skill</label> <span class="form-required-field">*</span></span>
@@ -237,7 +312,7 @@
           </select>
         </div>
 
-        <div class="flex-spc-bwn">
+        <div class="flex-spc-bwn center wrap">
           <div class="hide">
             <a href="" class="form-btn btn hide" id="content-form-delete-btn">Delete</a>
           </div>
@@ -249,25 +324,38 @@
       </form>
     </div>
 
-    <div class="content-form-container">
-      <div class="flex-spc-bwn" id="content-form-top">
+    <div class="content-form-container {% if not experiences %} hide {% endif %}" id="experience-section-content">
+      <div class="flex-spc-bwn wrap" id="content-form-top">
         <span
-          ><span class="material-symbols-outlined"> business_center </span><span>Professional Experience</span></span
+          ><span class="material-symbols-outlined center wrap"> business_center </span
+          ><span>Professional Experience</span></span
         >
         <span id="toggle-icon" class="material-symbols-outlined"> expand_more </span>
       </div>
 
       <div class="hide form-display-content-container">
         {% if experiences %} {% for experience in experiences %}
-        <div id="{{experience.id}}" class="form-display-content" data-index="experience"><span class="flex-spc-bwn"><span>{{experience.employer}}</span><span>{{experience.job_title}}</span></span>
+        <div id="{{experience.id}}" class="form-display-content" data-index="experience">
+          <span class="flex-spc-bwn wrap">
+            <span>{{experience.employer}}</span>
+            <span>{{experience.job_title}}</span></span
+          >
         </div>
         {% endfor %} {% endif %}
         <div class="center">
-          <span class="btn bg-dark-btn" id="add-display-content-form"> Add Experience </span>
+          <span class="btn bg-dark-btn flex-spc-bwn center" id="add-display-content-form">
+            <span class="material-symbols-outlined">add </span>
+            <span>Add Experience</span>
+          </span>
         </div>
       </div>
 
-      <form name="experience" action="{% url 'addExperience' %}" method="post" class="hide content-form">
+      <form
+        name="experience"
+        action="{% url 'addExperience'  personal_detail.pk %}"
+        method="post"
+        class="hide content-form"
+      >
         {% csrf_token %}
         <div class="form-input-container">
           <span><label for="job_title">Job Title</label> <span class="form-required-field">*</span></span>
@@ -281,9 +369,9 @@
 
           <div class="flex-spc-bwn">
             <label class="input-text-link-label" for="link">Link</label>
-           <input type="text" name="link" id="link" class="hide" placeholder="www.google.com"/>
+            <input type="text" name="link" id="link" class="hide" placeholder="www.google.com" />
           </div>
-         </span>
+
           <input type="text" name="employer" id="employer" placeholder="Google" />
         </div>
 
@@ -312,60 +400,60 @@
         </div>
 
         <div class="flex-spc-bwn center">
-            <span> <label for="year_only">Current</label> </span>
-            <input type="checkbox" name="current" id="current" />
-          </div>
+          <span> <label for="year_only">Current</label> </span>
+          <input type="checkbox" name="current" id="current" />
+        </div>
 
-    
-          <div class="flex-spc-bwn center">
-            <span> <label for="month_year_only">Month & Year Only</label> </span>
-            <input type="checkbox" name="month_year_only" id="month_year_only" />
-          </div>
+        <div class="flex-spc-bwn center">
+          <span> <label for="month_year_only">Month & Year Only</label> </span>
+          <input type="checkbox" name="month_year_only" id="month_year_only" />
+        </div>
 
-          <div class="flex-spc-bwn center">
-            <span> <label for="year_only">Year Only</label> </span>
-            <input type="checkbox" name="year_only" id="year_only" />
-          </div>
+        <div class="flex-spc-bwn center">
+          <span> <label for="year_only">Year Only</label> </span>
+          <input type="checkbox" name="year_only" id="year_only" />
+        </div>
 
-       
-        <div class="form-input-container"> 
-          <span><label for="experience_description">Description</label> <span class="faint-text">recommended</span></span>
+        <div class="form-input-container">
+          <span
+            ><label for="experience_description">Description</label> <span class="faint-text">recommended</span></span
+          >
           <p class="form-errors">{{ experience_form.experience_description.errors }}</p>
-          <textarea name="experience_description" id="experience_description" cols="100" rows="10"></textarea></div>
+          <textarea name="experience_description" id="experience_description" cols="100" rows="10"></textarea>
+        </div>
 
-        <div class="flex-spc-bwn">
+        <div class="flex-spc-bwn center wrap">
           <div class="hide">
             <a href="" class="form-btn btn hide" id="content-form-delete-btn">Delete</a>
           </div>
-          <div>
-            <button class="form-btn btn" type="button" id="content-form-cancel-btn">cancel</button>
-            <button class="form-btn btn disable" type="submit">Save</button>
-          </div>
+        </div>
+
+        <div>
+          <button class="form-btn btn" type="button" id="content-form-cancel-btn">cancel</button>
+          <button class="form-btn btn disable" type="submit">Save</button>
         </div>
       </form>
     </div>
 
-    <div class="content-form-container">
-      <div class="flex-spc-bwn" id="content-form-top">
-        <span
-          ><span class="material-symbols-outlined">
-        folder_open
-          </span><span>Projects</span></span
-        >
+    <div class="content-form-container {% if not projects %} hide {% endif %}" id="project-section-content">
+      <div class="flex-spc-bwn wrap" id="content-form-top">
+        <span><span class="material-symbols-outlined center wrap"> folder_open </span><span>Projects</span></span>
         <span id="toggle-icon" class="material-symbols-outlined"> expand_more </span>
       </div>
 
       <div class="hide form-display-content-container">
         {% if projects %} {% for project in projects %}
-        <div id="{{project.id}}" class="form-display-content" data-index="project">{{project.project_title}}
-        </div>
+        <div id="{{project.id}}" class="form-display-content" data-index="project">{{project.project_title}}</div>
         {% endfor %} {% endif %}
         <div class="center">
-          <span class="btn bg-dark-btn" id="add-display-content-form"> Add Project </span>
+          <span class="btn bg-dark-btn flex-spc-bwn center" id="add-display-content-form">
+            <span class="material-symbols-outlined">add </span>
+            <span>Add Project</span>
+          </span>
         </div>
       </div>
 
-      <form name="project" action="{% url 'addProject' %}" method="post" class="hide content-form">
+      <form name="project" action="{% url 'addProject'  personal_detail.pk %}" method="post" class="hide content-form">
         {% csrf_token %}
 
         <div class="form-input-container">
@@ -374,23 +462,22 @@
 
           <div class="flex-spc-bwn">
             <label class="input-text-link-label" for="link">Link</label>
-           <input type="text" name="link" id="link" class="hide" placeholder="https://*******cvbuild.******"/>
+            <input type="text" name="link" id="link" class="hide" placeholder="https://*******cvbuild.******" />
           </div>
-         </span>
+
           <input type="text" name="project_title" id="project_title" placeholder="CV Build" />
         </div>
-        
+
         <div class="form-input-container">
           <span><label for="subtitle">Subtitle</label> <span class="faint-text">optional</span></span>
           <p class="form-errors">{{ project_form.subtitle.errors }}</p>
           <input type="text" name="subtitle" id="subtitle" placeholder="Optional" />
         </div>
 
-
         <div class="form-input-container">
           <span><label for="start_date">Start Date</label> <span class="faint-text">optional</span></span>
           <p class="form-errors">{{ project_form.start_date.errors }}</p>
-          <input  readonly name="start_date" id="project_start_date" placeholder="" />
+          <input readonly name="start_date" id="project_start_date" placeholder="" />
         </div>
 
         <div class="form-input-container">
@@ -400,30 +487,27 @@
         </div>
 
         <div class="flex-spc-bwn center">
-            <span> <label for="year_only">Current</label> </span>
-            <input type="checkbox" name="current" id="current" />
-          </div>
+          <span> <label for="year_only">Current</label> </span>
+          <input type="checkbox" name="current" id="current" />
+        </div>
 
-    
-          <div class="flex-spc-bwn center">
-            <span> <label for="month_year_only">Month & Year Only</label> </span>
-            <input type="checkbox" name="month_year_only" id="month_year_only" />
-          </div>
+        <div class="flex-spc-bwn center">
+          <span> <label for="month_year_only">Month & Year Only</label> </span>
+          <input type="checkbox" name="month_year_only" id="month_year_only" />
+        </div>
 
-          <div class="flex-spc-bwn center">
-            <span> <label for="year_only">Year Only</label> </span>
-            <input type="checkbox" name="year_only" id="year_only" />
-          </div>
-    
-   
-    
+        <div class="flex-spc-bwn center">
+          <span> <label for="year_only">Year Only</label> </span>
+          <input type="checkbox" name="year_only" id="year_only" />
+        </div>
+
         <div class="form-input-container">
-      <span><label for="description">Description</label><span  class="faint-text">optional</span></span>
-        <p class="form-errors">{{ project_form.project_description.errors }}</p>
-        <textarea name="project_description" id="project_description" cols="100" rows="10"></textarea>
-      </div>
+          <span><label for="description">Description</label><span class="faint-text">optional</span></span>
+          <p class="form-errors">{{ project_form.project_description.errors }}</p>
+          <textarea name="project_description" id="project_description" cols="100" rows="10"></textarea>
+        </div>
 
-        <div class="flex-spc-bwn">
+        <div class="flex-spc-bwn center wrap">
           <div class="hide">
             <a href="" class="form-btn btn hide" id="content-form-delete-btn">Delete</a>
           </div>
@@ -435,28 +519,30 @@
       </form>
     </div>
 
-
-    <div class="content-form-container">
-      <div class="flex-spc-bwn" id="content-form-top">
-        <span
-          ><span class="material-symbols-outlined">
-        school
-          </span><span>Education</span></span
-        >
+    <div class="content-form-container {% if not educations %} hide {% endif %}" id="education-section-content">
+      <div class="flex-spc-bwn wrap" id="content-form-top">
+        <span><span class="material-symbols-outlined center wrap"> school </span><span>Education</span></span>
         <span id="toggle-icon" class="material-symbols-outlined"> expand_more </span>
       </div>
 
       <div class="hide form-display-content-container">
         {% if educations %} {% for education in educations %}
-        <div id="{{education.id}}" class="form-display-content" data-index="education">{{education.school}}
-        </div>
+        <div id="{{education.id}}" class="form-display-content" data-index="education">{{education.school}}</div>
         {% endfor %} {% endif %}
         <div class="center">
-          <span class="btn bg-dark-btn" id="add-display-content-form"> Add Education </span>
+          <span class="btn bg-dark-btn flex-spc-bwn center" id="add-display-content-form">
+            <span class="material-symbols-outlined">add </span>
+            <span>Add Education</span>
+          </span>
         </div>
       </div>
 
-      <form name="education" action="{% url 'addEducation' %}" method="post" class="hide content-form">
+      <form
+        name="education"
+        action="{% url 'addEducation'  personal_detail.pk %}"
+        method="post"
+        class="hide content-form"
+      >
         {% csrf_token %}
 
         <div class="form-input-container">
@@ -465,18 +551,17 @@
 
           <div class="flex-spc-bwn">
             <label class="input-text-link-label" for="link">Link</label>
-           <input type="text" name="link" id="link" class="hide" placeholder="https://havard***.***"/>
+            <input type="text" name="link" id="link" class="hide" placeholder="https://havard***.***" />
           </div>
-         </span>
+
           <input type="text" name="school" id="school" placeholder="Havard" />
         </div>
-        
+
         <div class="form-input-container">
           <span><label for="degree">Degree</label> <span class="form-required-field">*</span></span>
           <p class="form-errors">{{ education_form.degree.errors }}</p>
           <input type="text" name="degree" id="degree" placeholder="Masters" />
         </div>
-
 
         <div class="form-input-container">
           <span><label for="city">City</label> <span class="faint-text">optional</span></span>
@@ -490,12 +575,10 @@
           <input type="text" name="country" id="country" placeholder="United States of America" />
         </div>
 
-      
-
         <div class="form-input-container">
           <span><label for="start_date">Start Date</label> <span class="faint-text">optional</span></span>
           <p class="form-errors">{{ education_form.start_date.errors }}</p>
-          <input  readonly name="start_date" id="education_start_date" placeholder="" />
+          <input readonly name="start_date" id="education_start_date" placeholder="" />
         </div>
 
         <div class="form-input-container">
@@ -505,30 +588,27 @@
         </div>
 
         <div class="flex-spc-bwn center">
-            <span> <label for="year_only">Current</label> </span>
-            <input type="checkbox" name="current" id="current" />
-          </div>
+          <span> <label for="year_only">Current</label> </span>
+          <input type="checkbox" name="current" id="current" />
+        </div>
 
-    
-          <div class="flex-spc-bwn center">
-            <span> <label for="month_year_only">Month & Year Only</label> </span>
-            <input type="checkbox" name="month_year_only" id="month_year_only" />
-          </div>
+        <div class="flex-spc-bwn center">
+          <span> <label for="month_year_only">Month & Year Only</label> </span>
+          <input type="checkbox" name="month_year_only" id="month_year_only" />
+        </div>
 
-          <div class="flex-spc-bwn center">
-            <span> <label for="year_only">Year Only</label> </span>
-            <input type="checkbox" name="year_only" id="year_only" />
-          </div>
-    
-   
-    
+        <div class="flex-spc-bwn center">
+          <span> <label for="year_only">Year Only</label> </span>
+          <input type="checkbox" name="year_only" id="year_only" />
+        </div>
+
         <div class="form-input-container">
-      <span><label for="description">Description</label><span  class="faint-text">optional</span></span>
-        <p class="form-errors">{{ education_form.description.errors }}</p>
-        <textarea name="description" id="description" cols="100" rows="10"></textarea>
-      </div>
+          <span><label for="description">Description</label><span class="faint-text">optional</span></span>
+          <p class="form-errors">{{ education_form.description.errors }}</p>
+          <textarea name="description" id="description" cols="100" rows="10"></textarea>
+        </div>
 
-        <div class="flex-spc-bwn">
+        <div class="flex-spc-bwn center wrap">
           <div class="hide">
             <a href="" class="form-btn btn hide" id="content-form-delete-btn">Delete</a>
           </div>
@@ -540,10 +620,9 @@
       </form>
     </div>
 
-
-    <div class="content-form-container">
-      <div class="flex-spc-bwn" id="content-form-top">
-        <span><span class="material-symbols-outlined"> language </span><span>Language</span></span>
+    <div class="content-form-container {% if not languages %} hide {% endif %}" id="language-section-content">
+      <div class="flex-spc-bwn wrap" id="content-form-top">
+        <span><span class="material-symbols-outlined center wrap"> language </span><span>Language</span></span>
         <span id="toggle-icon" class="material-symbols-outlined"> expand_more </span>
       </div>
 
@@ -552,11 +631,19 @@
         <div id="{{language.id}}" class="form-display-content" data-index="language">{{language.language}}</div>
         {% endfor %} {% endif %}
         <div class="center">
-          <span class="btn bg-dark-btn" id="add-display-content-form"> Add Language </span>
+          <span class="btn bg-dark-btn flex-spc-bwn center" id="add-display-content-form">
+            <span class="material-symbols-outlined">add </span>
+            <span>Add Language</span>
+          </span>
         </div>
       </div>
 
-      <form name="language" action="{% url 'addLanguage' %}" method="post" class="hide content-form">
+      <form
+        name="language"
+        action="{% url 'addLanguage'  personal_detail.pk %}"
+        method="post"
+        class="hide content-form"
+      >
         {% csrf_token %}
         <div class="form-input-container">
           <span><label for="language">Language</label> <span class="form-required-field">*</span></span>
@@ -565,9 +652,16 @@
         </div>
 
         <div class="form-input-container">
-          <span><label for="additional_information">Information</label> <span class="faint-text">recommended</span></span>
+          <span
+            ><label for="additional_information">Information</label> <span class="faint-text">recommended</span></span
+          >
           <p class="form-errors">{{ language_form.additional_information.errors }}</p>
-          <input type="text" name="additional_information" id="additional_information" placeholder="Enter additional information" />
+          <input
+            type="text"
+            name="additional_information"
+            id="additional_information"
+            placeholder="Enter additional information"
+          />
         </div>
 
         <div class="form-input-container">
@@ -581,7 +675,7 @@
           </select>
         </div>
 
-        <div class="flex-spc-bwn">
+        <div class="flex-spc-bwn center wrap">
           <div class="hide">
             <a href="" class="form-btn btn hide" id="content-form-delete-btn">Delete</a>
           </div>
@@ -593,28 +687,32 @@
       </form>
     </div>
 
-
-    <div class="content-form-container">
-      <div class="flex-spc-bwn" id="content-form-top">
-        <span
-          ><span class="material-symbols-outlined">
-        hub
-          </span><span>Reference</span></span
-        >
+    <div class="content-form-container {% if not references %} hide {% endif %}" id="reference-section-content">
+      <div class="flex-spc-bwn flex" id="content-form-top">
+        <span><span class="material-symbols-outlined center wrap"> hub </span><span>Reference</span></span>
         <span id="toggle-icon" class="material-symbols-outlined"> expand_more </span>
       </div>
 
       <div class="hide form-display-content-container">
         {% if references %} {% for reference in references %}
-        <div id="{{reference.id}}" class="form-display-content" data-index="reference">{{reference.reference_name}}
+        <div id="{{reference.id}}" class="form-display-content" data-index="reference">
+          {{reference.reference_name}}
         </div>
         {% endfor %} {% endif %}
         <div class="center">
-          <span class="btn bg-dark-btn" id="add-display-content-form"> Add Reference </span>
+          <span class="btn bg-dark-btn flex-spc-bwn center" id="add-display-content-form">
+            <span class="material-symbols-outlined">add </span>
+            <span>Add Reference</span>
+          </span>
         </div>
       </div>
 
-      <form name="reference" action="{% url 'addReference' %}" method="post" class="hide content-form">
+      <form
+        name="reference"
+        action="{% url 'addReference'  personal_detail.pk %}"
+        method="post"
+        class="hide content-form"
+      >
         {% csrf_token %}
 
         <div class="form-input-container">
@@ -623,18 +721,17 @@
 
           <div class="flex-spc-bwn">
             <label class="input-text-link-label" for="link">Link</label>
-           <input type="text" name="link" id="link" class="hide"/>
+            <input type="text" name="link" id="link" class="hide" />
           </div>
-         </span>
+
           <input type="text" name="reference_name" id="reference_name" />
         </div>
-        
+
         <div class="form-input-container">
           <span><label for="job_title">Job Title</label> <span class="faint-text">optional</span></span>
           <p class="form-errors">{{ reference_form.job_title.errors }}</p>
           <input type="text" name="job_title" id="job_title" placeholder="Full Stack Developer" />
         </div>
-
 
         <div class="form-input-container">
           <span><label for="organisation">Organisation</label> <span class="faint-text">optional</span></span>
@@ -654,10 +751,7 @@
           <input type="email" name="email" id="email" placeholder="johndoe01@gmail.com" />
         </div>
 
-    
-        
-
-        <div class="flex-spc-bwn">
+        <div class="flex-spc-bwn center wrap">
           <div class="hide">
             <a href="" class="form-btn btn hide" id="content-form-delete-btn">Delete</a>
           </div>
@@ -669,29 +763,25 @@
       </form>
     </div>
 
-
-
-    <div class="content-form-container">
-      <div class="flex-spc-bwn" id="content-form-top">
-        <span
-          ><span class="material-symbols-outlined">
-        workspace_premium
-          </span><span>Award</span></span
-        >
+    <div class="content-form-container {% if not awards %} hide {% endif %}" id="award-section-content">
+      <div class="flex-spc-bwn flex" id="content-form-top">
+        <span><span class="material-symbols-outlined center wrap"> workspace_premium </span><span>Award</span></span>
         <span id="toggle-icon" class="material-symbols-outlined"> expand_more </span>
       </div>
 
       <div class="hide form-display-content-container">
         {% if awards %} {% for award in awards %}
-        <div id="{{award.id}}" class="form-display-content" data-index="award">{{award.award}}
-        </div>
+        <div id="{{award.id}}" class="form-display-content" data-index="award">{{award.award}}</div>
         {% endfor %} {% endif %}
         <div class="center">
-          <span class="btn bg-dark-btn" id="add-display-content-form"> Add Award </span>
+          <span class="btn bg-dark-btn flex-spc-bwn center" id="add-display-content-form">
+            <span class="material-symbols-outlined">add </span>
+            <span>Add Award</span>
+          </span>
         </div>
       </div>
 
-      <form name="award" action="{% url 'addAward' %}" method="post" class="hide content-form">
+      <form name="award" action="{% url 'addAward'  personal_detail.pk %}" method="post" class="hide content-form">
         {% csrf_token %}
 
         <div class="form-input-container">
@@ -700,12 +790,12 @@
 
           <div class="flex-spc-bwn">
             <label class="input-text-link-label" for="link">Link</label>
-           <input type="text" name="link" id="link" class="hide"/>
+            <input type="text" name="link" id="link" class="hide" />
           </div>
-         </span>
+
           <input type="text" name="award" id="award" />
         </div>
-        
+
         <div class="form-input-container">
           <span><label for="issuer">Issuer</label> <span class="faint-text">optional</span></span>
           <p class="form-errors">{{ award_form.issuer.errors }}</p>
@@ -718,18 +808,13 @@
           <input readonly name="date" id="award_date" placeholder="" />
         </div>
 
-        
-         <div class="form-input-container">
+        <div class="form-input-container">
           <span><label for="description">Description</label> <span class="faint-text">optional</span></span>
           <p class="form-errors">{{ award_form.description.errors }}</p>
           <textarea name="description" id="description" cols="100" rows="10"></textarea>
         </div>
 
-        
-    
-        
-
-        <div class="flex-spc-bwn">
+        <div class="flex-spc-bwn center wrap">
           <div class="hide">
             <a href="" class="form-btn btn hide" id="content-form-delete-btn">Delete</a>
           </div>
@@ -741,28 +826,32 @@
       </form>
     </div>
 
-
-    <div class="content-form-container">
-      <div class="flex-spc-bwn" id="content-form-top">
-        <span
-          ><span class="material-symbols-outlined">
-        home
-          </span><span>Organisation</span></span
-        >
+    <div class="content-form-container {% if not organisations %} hide {% endif %}" id="organisation-section-content">
+      <div class="flex-spc-bwn wrap" id="content-form-top">
+        <span><span class="material-symbols-outlined center wrap"> home </span><span>Organisation</span></span>
         <span id="toggle-icon" class="material-symbols-outlined"> expand_more </span>
       </div>
 
       <div class="hide form-display-content-container">
         {% if organisations %} {% for organisation in organisations %}
-        <div id="{{organisation.id}}" class="form-display-content" data-index="organisation">{{organisation.organisation}}
+        <div id="{{organisation.id}}" class="form-display-content" data-index="organisation">
+          {{organisation.organisation}}
         </div>
         {% endfor %} {% endif %}
         <div class="center">
-          <span class="btn bg-dark-btn" id="add-display-content-form"> Add Organisation </span>
+          <span class="btn bg-dark-btn flex-spc-bwn center" id="add-display-content-form">
+            <span class="material-symbols-outlined">add </span>
+            <span>Add Organisation</span>
+          </span>
         </div>
       </div>
 
-      <form name="organisation" action="{% url 'addOrganisation' %}" method="post" class="hide content-form">
+      <form
+        name="organisation"
+        action="{% url 'addOrganisation'  personal_detail.pk %}"
+        method="post"
+        class="hide content-form"
+      >
         {% csrf_token %}
 
         <div class="form-input-container">
@@ -771,18 +860,17 @@
 
           <div class="flex-spc-bwn">
             <label class="input-text-link-label" for="link">Link</label>
-           <input type="text" name="link" id="link" class="hide" placeholder=""/>
+            <input type="text" name="link" id="link" class="hide" placeholder="" />
           </div>
-         </span>
+
           <input type="text" name="organisation" id="organisation" placeholder="" />
         </div>
-        
+
         <div class="form-input-container">
           <span><label for="position">Position</label> <span class="form-required-field">*</span></span>
           <p class="form-errors">{{ organisation_form.position.errors }}</p>
           <input type="text" name="position" id="position" placeholder="" />
         </div>
-
 
         <div class="form-input-container">
           <span><label for="city">City</label> <span class="faint-text">optional</span></span>
@@ -796,12 +884,10 @@
           <input type="text" name="country" id="country" placeholder="" />
         </div>
 
-      
-
         <div class="form-input-container">
           <span><label for="start_date">Start Date</label> <span class="faint-text">optional</span></span>
           <p class="form-errors">{{ organisation_form.start_date.errors }}</p>
-          <input  readonly name="start_date" id="organisation_start_date" placeholder="" />
+          <input readonly name="start_date" id="organisation_start_date" placeholder="" />
         </div>
 
         <div class="form-input-container">
@@ -811,30 +897,27 @@
         </div>
 
         <div class="flex-spc-bwn center">
-            <span> <label for="year_only">Current</label> </span>
-            <input type="checkbox" name="current" id="current" />
-          </div>
+          <span> <label for="year_only">Current</label> </span>
+          <input type="checkbox" name="current" id="current" />
+        </div>
 
-    
-          <div class="flex-spc-bwn center">
-            <span> <label for="month_year_only">Month & Year Only</label> </span>
-            <input type="checkbox" name="month_year_only" id="month_year_only" />
-          </div>
+        <div class="flex-spc-bwn center">
+          <span> <label for="month_year_only">Month & Year Only</label> </span>
+          <input type="checkbox" name="month_year_only" id="month_year_only" />
+        </div>
 
-          <div class="flex-spc-bwn center">
-            <span> <label for="year_only">Year Only</label> </span>
-            <input type="checkbox" name="year_only" id="year_only" />
-          </div>
-    
-   
-    
+        <div class="flex-spc-bwn center">
+          <span> <label for="year_only">Year Only</label> </span>
+          <input type="checkbox" name="year_only" id="year_only" />
+        </div>
+
         <div class="form-input-container">
-      <span><label for="description">Description</label><span  class="faint-text">optional</span></span>
-        <p class="form-errors">{{ organisation_form.description.errors }}</p>
-        <textarea name="description" id="description" cols="100" rows="10"></textarea>
-      </div>
+          <span><label for="description">Description</label><span class="faint-text">optional</span></span>
+          <p class="form-errors">{{ organisation_form.description.errors }}</p>
+          <textarea name="description" id="description" cols="100" rows="10"></textarea>
+        </div>
 
-        <div class="flex-spc-bwn">
+        <div class="flex-spc-bwn center wrap">
           <div class="hide">
             <a href="" class="form-btn btn hide" id="content-form-delete-btn">Delete</a>
           </div>
@@ -846,27 +929,32 @@
       </form>
     </div>
 
-<div class="content-form-container">
-      <div class="flex-spc-bwn" id="content-form-top">
-        <span
-          ><span class="material-symbols-outlined">
-        badge
-          </span><span>Certificate</span></span
-        >
+    <div class="content-form-container {% if not certificates %} hide {% endif %}" id="certificate-section-content">
+      <div class="flex-spc-bwn wrap" id="content-form-top">
+        <span><span class="material-symbols-outlined center wrap"> badge </span><span>Certificate</span></span>
         <span id="toggle-icon" class="material-symbols-outlined"> expand_more </span>
       </div>
 
       <div class="hide form-display-content-container">
         {% if certificate %} {% for certificate in certificates %}
-        <div id="{{certificate.id}}" class="form-display-content" data-index="certificate">{{certificate.certificate}}
+        <div id="{{certificate.id}}" class="form-display-content" data-index="certificate">
+          {{certificate.certificate}}
         </div>
         {% endfor %} {% endif %}
         <div class="center">
-          <span class="btn bg-dark-btn" id="add-display-content-form"> Add Certificate </span>
+          <span class="btn bg-dark-btn flex-spc-bwn center" id="add-display-content-form">
+            <span class="material-symbols-outlined">add </span>
+            <span>Add Certificate</span>
+          </span>
         </div>
       </div>
 
-      <form name="certificate" action="{% url 'addCertificate' %}" method="post" class="hide content-form">
+      <form
+        name="certificate"
+        action="{% url 'addCertificate'  personal_detail.pk %}"
+        method="post"
+        class="hide content-form"
+      >
         {% csrf_token %}
 
         <div class="form-input-container">
@@ -875,21 +963,19 @@
 
           <div class="flex-spc-bwn">
             <label class="input-text-link-label" for="link">Link</label>
-           <input type="text" name="link" id="link" class="hide"/>
+            <input type="text" name="link" id="link" class="hide" />
           </div>
-         </span>
+
           <input type="text" name="certificate" id="certificate" />
         </div>
-        
-        
-         <div class="form-input-container">
-          <span><label for="additional_information">Information/label> <span class="faint-text">optional</span></span>
+
+        <div class="form-input-container">
+          <span><label for="additional_information">Information </label> <span class="faint-text">optional</span></span>
           <p class="form-errors">{{ certificate_form.additional_information.errors }}</p>
           <textarea name="additional_information" id="additional_information" cols="100" rows="10"></textarea>
         </div>
 
-
-        <div class="flex-spc-bwn">
+        <div class="flex-spc-bwn center wrap">
           <div class="hide">
             <a href="" class="form-btn btn hide" id="content-form-delete-btn">Delete</a>
           </div>
@@ -901,28 +987,30 @@
       </form>
     </div>
 
-
-    <div class="content-form-container">
-      <div class="flex-spc-bwn" id="content-form-top">
-        <span
-          ><span class="material-symbols-outlined">
-        interests
-          </span><span>Interest</span></span
-        >
+    <div class="content-form-container {% if not interests %} hide {% endif %}" id="interest-section-content">
+      <div class="flex-spc-bwn wrap" id="content-form-top">
+        <span><span class="material-symbols-outlined center wrap"> interests </span><span>Interest</span></span>
         <span id="toggle-icon" class="material-symbols-outlined"> expand_more </span>
       </div>
 
       <div class="hide form-display-content-container">
-        {% if certificate %} {% for interest in interests %}
-        <div id="{{interest.id}}" class="form-display-content" data-index="interest">{{interest.interest}}
-        </div>
+        {% if interests %} {% for interest in interests %}
+        <div id="{{interest.id}}" class="form-display-content" data-index="interest">{{interest.interest}}</div>
         {% endfor %} {% endif %}
         <div class="center">
-          <span class="btn bg-dark-btn" id="add-display-content-form"> Add Interest </span>
+          <span class="btn bg-dark-btn flex-spc-bwn center" id="add-display-content-form">
+            <span class="material-symbols-outlined">add </span>
+            <span>Add Interest</span>
+          </span>
         </div>
       </div>
 
-      <form name="interest" action="{% url 'addInterest' %}" method="post" class="hide content-form">
+      <form
+        name="interest"
+        action="{% url 'addInterest'  personal_detail.pk %}"
+        method="post"
+        class="hide content-form"
+      >
         {% csrf_token %}
 
         <div class="form-input-container">
@@ -931,21 +1019,19 @@
 
           <div class="flex-spc-bwn">
             <label class="input-text-link-label" for="link">Link</label>
-           <input type="text" name="link" id="link" class="hide"/>
+            <input type="text" name="link" id="link" class="hide" />
           </div>
-         </span>
+
           <input type="text" name="interest" id="interest" />
         </div>
-        
-        
-         <div class="form-input-container">
+
+        <div class="form-input-container">
           <span><label for="additional_information">Information</label> <span class="faint-text">optional</span></span>
           <p class="form-errors">{{ interest_form.additional_information.errors }}</p>
           <textarea name="additional_information" id="additional_information" cols="100" rows="10"></textarea>
         </div>
 
-
-        <div class="flex-spc-bwn">
+        <div class="flex-spc-bwn center wrap">
           <div class="hide">
             <a href="" class="form-btn btn hide" id="content-form-delete-btn">Delete</a>
           </div>
@@ -957,28 +1043,30 @@
       </form>
     </div>
 
-
-    <div class="content-form-container">
-      <div class="flex-spc-bwn" id="content-form-top">
-        <span
-          ><span class="material-symbols-outlined">
-        library_books
-          </span><span>Publication</span></span
-        >
+    <div class="content-form-container {% if not publications %} hide {% endif %}" id="publication-section-content">
+      <div class="flex-spc-bwn wrap" id="content-form-top">
+        <span><span class="material-symbols-outlined center wrap"> library_books </span><span>Publication</span></span>
         <span id="toggle-icon" class="material-symbols-outlined"> expand_more </span>
       </div>
 
       <div class="hide form-display-content-container">
         {% if publications %} {% for publication in publications %}
-        <div id="{{publication.id}}" class="form-display-content" data-index="publication">{{publication.title}}
-        </div>
+        <div id="{{publication.id}}" class="form-display-content" data-index="publication">{{publication.title}}</div>
         {% endfor %} {% endif %}
         <div class="center">
-          <span class="btn bg-dark-btn" id="add-display-content-form"> Add Publication </span>
+          <span class="btn bg-dark-btn flex-spc-bwn center" id="add-display-content-form">
+            <span class="material-symbols-outlined">add </span>
+            <span> Add Publication</span>
+          </span>
         </div>
       </div>
 
-      <form name="publication" action="{% url 'addPublication' %}" method="post" class="hide content-form">
+      <form
+        name="publication"
+        action="{% url 'addPublication'  personal_detail.pk %}"
+        method="post"
+        class="hide content-form"
+      >
         {% csrf_token %}
 
         <div class="form-input-container">
@@ -987,12 +1075,12 @@
 
           <div class="flex-spc-bwn">
             <label class="input-text-link-label" for="link">Link</label>
-           <input type="text" name="link" id="link" class="hide" placeholder=""/>
+            <input type="text" name="link" id="link" class="hide" placeholder="" />
           </div>
-         </span>
+
           <input type="text" name="title" id="title" placeholder="" />
         </div>
-        
+
         <div class="form-input-container">
           <span><label for="publisher">Publisher</label> <span class="form-required-field">*</span></span>
           <p class="form-errors">{{ publication_form.publisher.errors }}</p>
@@ -1002,17 +1090,16 @@
         <div class="form-input-container">
           <span><label for="date">Date</label> <span class="faint-text">optional</span></span>
           <p class="form-errors">{{ publication_form.date.errors }}</p>
-          <input  readonly name="date" id="publication_date" placeholder="" />
+          <input readonly name="date" id="publication_date" placeholder="" />
         </div>
 
-    
         <div class="form-input-container">
-      <span><label for="description">Description</label><span  class="faint-text">optional</span></span>
-        <p class="form-errors">{{ publication_form.description.errors }}</p>
-        <textarea name="description" id="description" cols="100" rows="10"></textarea>
-      </div>
+          <span><label for="description">Description</label><span class="faint-text">optional</span></span>
+          <p class="form-errors">{{ publication_form.description.errors }}</p>
+          <textarea name="description" id="description" cols="100" rows="10"></textarea>
+        </div>
 
-        <div class="flex-spc-bwn">
+        <div class="flex-spc-bwn center wrap">
           <div class="hide">
             <a href="" class="form-btn btn hide" id="content-form-delete-btn">Delete</a>
           </div>
@@ -1023,230 +1110,269 @@
         </div>
       </form>
     </div>
-    
 
-    <div class="center">
-      <span class="btn bg-dark-btn" id="add-content-btn"> Add Content </span>
+    <span class="btn bg-dark-btn flex-spc-bwn center" id="add-content-btn">
+      <span class="material-symbols-outlined">add </span>
+      <span> Add Content </span></span
+    >
+  </div>
+
+  <div id="check-nav-content" class="nav-page-content hide">
+    <div class="content-form-container">
+      <h2>Collect Feedback</h2>
+      <div>
+        <div class="check-content-container">
+          We talked to recruiters: a single typo might get in the way of landing your dream job. Pass the resume stage
+          by privately asking your friends to check your resume for mistakes. No worries, only people who receive the
+          link can view your resume.
+        </div>
+      </div>
+
+      <div>
+        <h3>Private Share Link</h3>
+
+        <div class="flex-spc-bwn copy-resume-feedback-link">
+          <input
+            readonly
+            type="text"
+            value="{{ request.META.HTTP_HOST }}/resume-feedback/{{personal_detail.feedback_id}}"
+            id="copy-resume-feedback-link"
+          />
+          <button onclick="copyResumeFeedbackLink()">Copy Link</button>
+        </div>
+      </div>
+
+      <div>
+        <h3>Comments</h3>
+        {% for feedback in feedbacks %}
+        <div class="content-form-container feedback-container">
+          <div class="flex-spc-bwn">
+            <span>{{feedback.name}}</span> <small>{{feedback.time_created|timesince}} ago</small>
+          </div>
+          <p>{{feedback.comment}}</p>
+        </div>
+        {% endfor %} {% if feedbacks.count > 1 %}
+        <div class="center">
+          <span class="btn bg-dark-btn flex-spc-bwn center" id="view-more-feedback-btn"> <span>View More</span></span>
+        </div>
+        {% endif %}
+      </div>
     </div>
   </div>
   <div>hey</div>
 </div>
-<script>
+
+<!-- <script>
+  const href = window.location.href;
+  console.log(href.lastIndexOf("/") + 2);
   $(document).on("click", ".form-display-content", function (e) {
     const id = $(this).attr("id");
     const urlName = $(this).data("index");
-    if (urlName == 'skill') {
-    $.ajax({
-      type: "GET",
-      url: urlName + "/" + id,
-      data: {},
-      success: function (json) {
-        document.querySelector("#skill_name").value = json.skill_name;
-         document.querySelector("#skill_information").value = json.skill_info;
-        document.querySelector("#current_skill_level").innerHTML = json.skill_level;
-        document.querySelector("#current_skill_level").value = json.skill_level_id;
-
-
-      },
-      error: function (xhr, errmsg, err) {},
-    }); 
-  } 
-  else if( urlName == 'experience') {
-    const id = $(this).attr("id");
-    const urlName = $(this).data("index");
-     $.ajax({
-      type: "GET",
-      url: urlName + "/" + id,
-      data: {},
-      success: function (json) {
-        document.querySelector("#job_title").value = json.experience_job_title;
-       document.querySelector("#employer").value = json.experience_employer;
-        document.querySelector("#city").value = json.experience_city;
-        document.querySelector("#country").value = json.experience_country;
-        document.querySelector("#experience_start_date").value = json.experience_start_date;
-        document.querySelector("#experience_end_date").value = json.experience_end_date;
-        document.querySelector("#experience_description").value = json.experience_description;
-        document.querySelector("#current").value = json.experience_current;
-        document.querySelector("#link").value = json.experience_link;
-        document.querySelector("#month_year_only").value = json.experience_month_year_only;
-        document.querySelector("#year_only").value = json.experience_year_only;
-      },
-      error: function (xhr, errmsg, err) {},
-    });
-  } 
-    else if( urlName == 'project') {
-    const id = $(this).attr("id");
-    const urlName = $(this).data("index");
-     $.ajax({
-      type: "GET",
-      url: urlName + "/" + id,
-      data: {},
-      success: function (json) {
-      document.querySelector("#project_title").value = json.project_project_title;
-       document.querySelector("#subtitle").value = json.project_subtitle;
-        document.querySelector("#project_start_date").value = json.project_start_date;
-        document.querySelector("#project_end_date").value = json.project_end_date;
-        document.querySelector("#project_description").value = json.project_description;
-        document.querySelector("#current").value = json.project_current;
-        document.querySelector("#link").value = json.project_link;
-        document.querySelector("#month_year_only").value = json.project_month_year_only;
-        document.querySelector("#year_only").value = json.project_year_only;
-      },
-      error: function (xhr, errmsg, err) {},
-    });
-  } else if (urlName == "education") {
-    const id = $(this).attr("id");
-    const urlName = $(this).data("index");
-     $.ajax({
-      type: "GET",
-      url: urlName + "/" + id,
-      data: {},
-      success: function (json) {
-        document.querySelector("#school").value = json.education_school;
-       document.querySelector("#degree").value = json.education_degree;
-        document.querySelector("#city").value = json.education_city;
-        document.querySelector("#country").value = json.education_country;
-        document.querySelector("#education_start_date").value = json.education_start_date;
-        document.querySelector("#education_end_date").value = json.education_end_date;
-        document.querySelector("#description").value = json.education_description;
-        document.querySelector("#current").value = json.education_current;
-        document.querySelector("#link").value = json.education_link;
-        document.querySelector("#month_year_only").value = json.education_month_year_only;
-        document.querySelector("#year_only").value = json.education_year_only;
-      },
-      error: function (xhr, errmsg, err) {},
-    });
-  } else if (urlName == "language") {
-    const id = $(this).attr("id");
-    const urlName = $(this).data("index");
-    $.ajax({
-      type: "GET",
-      url: urlName + "/" + id,
-      data: {},
-      success: function (json) {
-        document.querySelector("#language").value = json.language_name;
-         document.querySelector("#additional_information").value = json.language_additional_information;
-        document.querySelector("#current_language_level").innerHTML = json.language_level;
-        document.querySelector("#current_language_level").value = json.language_level_id;
-      },
-      error: function (xhr, errmsg, err) {},
-    }); 
-  } else if( urlName == 'reference') {
-    const id = $(this).attr("id");
-    const urlName = $(this).data("index");
-     $.ajax({
-      type: "GET",
-      url: urlName + "/" + id,
-      data: {},
-      success: function (json) {
-      document.querySelector("#reference_name").value = json.reference_name;
-       document.querySelector("#job_title").value = json.reference_job_title;
-        document.querySelector("#organisation").value = json.reference_organisation;
-        document.querySelector("#phone").value = json.reference_phone;
-        document.querySelector("#email").value = json.reference_email;
-        document.querySelector("#link").value = json.reference_link;
-      },
-      error: function (xhr, errmsg, err) {},
-    });
-  } else if( urlName == 'award') {
-    const id = $(this).attr("id");
-    const urlName = $(this).data("index");
-     $.ajax({
-      type: "GET",
-      url: urlName + "/" + id,
-      data: {},
-      success: function (json) {
-      document.querySelector("#award").value = json.award_name;
-       document.querySelector("#issuer").value = json.award_issuer;
-        document.querySelector("#description").value = json.award_description;
-        document.querySelector("#award_date").value = json.award_date;
-        document.querySelector("#link").value = json.award_date;
-      },
-      error: function (xhr, errmsg, err) {},
-    });
-  } else if (urlName == "organisation") {
-    const id = $(this).attr("id");
-    const urlName = $(this).data("index");
-     $.ajax({
-      type: "GET",
-      url: urlName + "/" + id,
-      data: {},
-      success: function (json) {
-        document.querySelector("#position").value = json.organisation_position;
-       document.querySelector("#organisation").value = json.organisation_organization;
-        document.querySelector("#city").value = json.organisation_city;
-        document.querySelector("#country").value = json.organisation_country;
-        document.querySelector("#organisation_start_date").value = json.organisation_start_date;
-        document.querySelector("#organisation_end_date").value = json.organisation_end_date;
-        document.querySelector("#description").value = json.organisation_description;
-        document.querySelector("#current").value = json.organisation_current;
-        document.querySelector("#link").value = json.organisation_link;
-        document.querySelector("#month_year_only").value = json.organisation_month_year_only;
-        document.querySelector("#year_only").value = json.organisation_year_only;
-      },
-      error: function (xhr, errmsg, err) {},
-    });
-  } else if( urlName == 'certificate') {
-    const id = $(this).attr("id");
-    const urlName = $(this).data("index");
-     $.ajax({
-      type: "GET",
-      url: urlName + "/" + id,
-      data: {},
-      success: function (json) {
-      document.querySelector("#certificate").value = json.ceritficate_name;
-       document.querySelector("#additional_information").value = json.ceritficate_additional_information;
-        document.querySelector("#link").value = json.ceritficate_link;
-      },
-      error: function (xhr, errmsg, err) {},
-    });
-  } else if( urlName == 'interest') {
-    const id = $(this).attr("id");
-    const urlName = $(this).data("index");
-     $.ajax({
-      type: "GET",
-      url: urlName + "/" + id,
-      data: {},
-      success: function (json) {
-      document.querySelector("#interest").value = json.interest_name;
-       document.querySelector("#additional_information").value = json.interest_additional_information;
-        document.querySelector("#link").value = json.interest_link;
-      },
-      error: function (xhr, errmsg, err) {},
-    });
-  } else if( urlName == 'publication') {
-    const id = $(this).attr("id");
-    const urlName = $(this).data("index");
-     $.ajax({
-      type: "GET",
-      url: urlName + "/" + id,
-      data: {},
-      success: function (json) {
-       document.querySelector("#publisher").value = json.publication_publisher;
-        document.querySelector("#title").value = json.publication_name;
-        document.querySelector("#publication_date").value = json.publication_date;
-        document.querySelector("#description").value = json.publication_description;
-        document.querySelector("#link").value = json.publication_link;
-      },
-      error: function (xhr, errmsg, err) {},
-    });
-  }
+    if (urlName == "skill") {
+      $.ajax({
+        type: "GET",
+        url: urlName + "/" + id,
+        data: {},
+        success: function (json) {
+          document.querySelector("#skill_name").value = json.skill_name;
+          document.querySelector("#skill_information").value = json.skill_info;
+          document.querySelector("#current_skill_level").innerHTML = json.skill_level;
+          document.querySelector("#current_skill_level").value = json.skill_level_id;
+        },
+        error: function (xhr, errmsg, err) {},
+      });
+    } else if (urlName == "experience") {
+      const id = $(this).attr("id");
+      const urlName = $(this).data("index");
+      $.ajax({
+        type: "GET",
+        url: urlName + "/" + id,
+        data: {},
+        success: function (json) {
+          document.querySelector("#job_title").value = json.experience_job_title;
+          document.querySelector("#employer").value = json.experience_employer;
+          document.querySelector("#city").value = json.experience_city;
+          document.querySelector("#country").value = json.experience_country;
+          document.querySelector("#experience_start_date").value = json.experience_start_date;
+          document.querySelector("#experience_end_date").value = json.experience_end_date;
+          document.querySelector("#experience_description").value = json.experience_description;
+          document.querySelector("#current").value = json.experience_current;
+          document.querySelector("#link").value = json.experience_link;
+          document.querySelector("#month_year_only").value = json.experience_month_year_only;
+          document.querySelector("#year_only").value = json.experience_year_only;
+        },
+        error: function (xhr, errmsg, err) {},
+      });
+    } else if (urlName == "project") {
+      const id = $(this).attr("id");
+      const urlName = $(this).data("index");
+      $.ajax({
+        type: "GET",
+        url: urlName + "/" + id,
+        data: {},
+        success: function (json) {
+          document.querySelector("#project_title").value = json.project_project_title;
+          document.querySelector("#subtitle").value = json.project_subtitle;
+          document.querySelector("#project_start_date").value = json.project_start_date;
+          document.querySelector("#project_end_date").value = json.project_end_date;
+          document.querySelector("#project_description").value = json.project_description;
+          document.querySelector("#current").value = json.project_current;
+          document.querySelector("#link").value = json.project_link;
+          document.querySelector("#month_year_only").value = json.project_month_year_only;
+          document.querySelector("#year_only").value = json.project_year_only;
+        },
+        error: function (xhr, errmsg, err) {},
+      });
+    } else if (urlName == "education") {
+      const id = $(this).attr("id");
+      const urlName = $(this).data("index");
+      $.ajax({
+        type: "GET",
+        url: urlName + "/" + id,
+        data: {},
+        success: function (json) {
+          document.querySelector("#school").value = json.education_school;
+          document.querySelector("#degree").value = json.education_degree;
+          document.querySelector("#city").value = json.education_city;
+          document.querySelector("#country").value = json.education_country;
+          document.querySelector("#education_start_date").value = json.education_start_date;
+          document.querySelector("#education_end_date").value = json.education_end_date;
+          document.querySelector("#description").value = json.education_description;
+          document.querySelector("#current").value = json.education_current;
+          document.querySelector("#link").value = json.education_link;
+          document.querySelector("#month_year_only").value = json.education_month_year_only;
+          document.querySelector("#year_only").value = json.education_year_only;
+        },
+        error: function (xhr, errmsg, err) {},
+      });
+    } else if (urlName == "language") {
+      const id = $(this).attr("id");
+      const urlName = $(this).data("index");
+      $.ajax({
+        type: "GET",
+        url: urlName + "/" + id,
+        data: {},
+        success: function (json) {
+          document.querySelector("#language").value = json.language_name;
+          document.querySelector("#additional_information").value = json.language_additional_information;
+          document.querySelector("#current_language_level").innerHTML = json.language_level;
+          document.querySelector("#current_language_level").value = json.language_level_id;
+        },
+        error: function (xhr, errmsg, err) {},
+      });
+    } else if (urlName == "reference") {
+      const id = $(this).attr("id");
+      const urlName = $(this).data("index");
+      $.ajax({
+        type: "GET",
+        url: urlName + "/" + id,
+        data: {},
+        success: function (json) {
+          document.querySelector("#reference_name").value = json.reference_name;
+          document.querySelector("#job_title").value = json.reference_job_title;
+          document.querySelector("#organisation").value = json.reference_organisation;
+          document.querySelector("#phone").value = json.reference_phone;
+          document.querySelector("#email").value = json.reference_email;
+          document.querySelector("#link").value = json.reference_link;
+        },
+        error: function (xhr, errmsg, err) {},
+      });
+    } else if (urlName == "award") {
+      const id = $(this).attr("id");
+      const urlName = $(this).data("index");
+      $.ajax({
+        type: "GET",
+        url: urlName + "/" + id,
+        data: {},
+        success: function (json) {
+          document.querySelector("#award").value = json.award_name;
+          document.querySelector("#issuer").value = json.award_issuer;
+          document.querySelector("#description").value = json.award_description;
+          document.querySelector("#award_date").value = json.award_date;
+          document.querySelector("#link").value = json.award_date;
+        },
+        error: function (xhr, errmsg, err) {},
+      });
+    } else if (urlName == "organisation") {
+      const id = $(this).attr("id");
+      const urlName = $(this).data("index");
+      $.ajax({
+        type: "GET",
+        url: urlName + "/" + id,
+        data: {},
+        success: function (json) {
+          document.querySelector("#position").value = json.organisation_position;
+          document.querySelector("#organisation").value = json.organisation_organization;
+          document.querySelector("#city").value = json.organisation_city;
+          document.querySelector("#country").value = json.organisation_country;
+          document.querySelector("#organisation_start_date").value = json.organisation_start_date;
+          document.querySelector("#organisation_end_date").value = json.organisation_end_date;
+          document.querySelector("#description").value = json.organisation_description;
+          document.querySelector("#current").value = json.organisation_current;
+          document.querySelector("#link").value = json.organisation_link;
+          document.querySelector("#month_year_only").value = json.organisation_month_year_only;
+          document.querySelector("#year_only").value = json.organisation_year_only;
+        },
+        error: function (xhr, errmsg, err) {},
+      });
+    } else if (urlName == "certificate") {
+      const id = $(this).attr("id");
+      const urlName = $(this).data("index");
+      $.ajax({
+        type: "GET",
+        url: urlName + "/" + id,
+        data: {},
+        success: function (json) {
+          document.querySelector("#certificate").value = json.ceritficate_name;
+          document.querySelector("#additional_information").value = json.ceritficate_additional_information;
+          document.querySelector("#link").value = json.ceritficate_link;
+        },
+        error: function (xhr, errmsg, err) {},
+      });
+    } else if (urlName == "interest") {
+      const id = $(this).attr("id");
+      const urlName = $(this).data("index");
+      $.ajax({
+        type: "GET",
+        url: urlName + "/" + id,
+        data: {},
+        success: function (json) {
+          document.querySelector("#interest").value = json.interest_name;
+          document.querySelector("#additional_information").value = json.interest_additional_information;
+          document.querySelector("#link").value = json.interest_link;
+        },
+        error: function (xhr, errmsg, err) {},
+      });
+    } else if (urlName == "publication") {
+      const id = $(this).attr("id");
+      const urlName = $(this).data("index");
+      $.ajax({
+        type: "GET",
+        url: urlName + "/" + id,
+        data: {},
+        success: function (json) {
+          document.querySelector("#publisher").value = json.publication_publisher;
+          document.querySelector("#title").value = json.publication_name;
+          document.querySelector("#publication_date").value = json.publication_date;
+          document.querySelector("#description").value = json.publication_description;
+          document.querySelector("#link").value = json.publication_link;
+        },
+        error: function (xhr, errmsg, err) {},
+      });
+    }
   });
 
-
-    $(function () {
-          $("#experience_end_date").datepicker();
-           $("#experience_start_date").datepicker();
-           $("#project_end_date").datepicker();
-           $("#project_start_date").datepicker();
-           $("#education_end_date").datepicker();
-           $("#education_start_date").datepicker();
-           $("#award_date").datepicker();
-            $("#organisation_end_date").datepicker();
-           $("#organisation_start_date").datepicker();
-           $("#publication_date").datepicker();
-    });
- 
-
-</script>
+  $(function () {
+    $("#experience_end_date").datepicker();
+    $("#experience_start_date").datepicker();
+    $("#project_end_date").datepicker();
+    $("#project_start_date").datepicker();
+    $("#education_end_date").datepicker();
+    $("#education_start_date").datepicker();
+    $("#award_date").datepicker();
+    $("#organisation_end_date").datepicker();
+    $("#organisation_start_date").datepicker();
+    $("#publication_date").datepicker();
+  });
+</script> -->
 {% endblock %}

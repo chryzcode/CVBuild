@@ -1,23 +1,35 @@
-<div>
+<div class="side-nav">
   <span class="base-sidenav">
-    <div>
+    <div class="side-nav-content">
       <div>CV Build</div>
     </div>
-    <div>
+    <div class="side-nav-content" id="content-nav">
       <span class="material-symbols-outlined"> description </span>
       <div>Content</div>
     </div>
-    <div>
+    <div class="side-nav-content" id="customize-nav">
       <span class="material-symbols-outlined"> edit_note </span>
       <div>Customize</div>
     </div>
-    <div>
+    <div class="side-nav-content" id="check-nav">
       <span class="material-symbols-outlined"> priority </span>
       <div>Check</div>
     </div>
-    <div>
+    <div class="side-nav-content" id="myresumes-nav">
       <span class="material-symbols-outlined"> notes </span>
       <div>My Resumes</div>
     </div>
   </span>
+  <div class="resume-pop-up hide">
+    {% for resume in userResumes %}
+    <div class="resume-list-container">
+      <a href="{% url 'otherResume' resume.feedback_id %}">{{resume.resume_name}}</a>
+      {% if userResumes.count > 1 %}
+      <a href="{% url 'deleteResume' resume.feedback_id %}"
+        ><span class="material-symbols-outlined icon-pointer danger"> delete </span></a
+      >
+      {% endif %}
+    </div>
+    {% endfor %}
+  </div>
 </div>

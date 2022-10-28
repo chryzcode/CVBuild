@@ -183,6 +183,15 @@ class PublicationForm(ModelForm):
     def __init__(self, *args, **kwargs):
         super(PublicationForm, self).__init__(*args, **kwargs)
 
+
+class FeedbackForm(ModelForm):
+    class Meta:
+        model = Feedback
+        exclude = ['personal_detail']
+    
+    def __init__(self, *args, **kwargs):
+        super(FeedbackForm, self).__init__(*args, **kwargs)
+
 class LinkForm(ModelForm):
     class Meta:
         model = Personal_Details

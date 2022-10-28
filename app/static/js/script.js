@@ -12,6 +12,98 @@ const downloadPdfNav = document.querySelector(".download-pdf-nav");
 const errorTopModal = document.querySelector(".error-top-modal");
 const mobileMediaQuery = window.matchMedia("(max-width: 950px)");
 const inputTextLinkForms = document.querySelectorAll(".input-text-link-form");
+const sideNavContents = document.querySelectorAll(".side-nav-content");
+const navPageContents = document.querySelectorAll(".nav-page-content");
+const addContentBtn = document.querySelector("#add-content-btn");
+const feedbacks = document.querySelectorAll(".feedback-container");
+const viewMoreFeedbackBtn = document.querySelector("#view-more-feedback-btn");
+const addContentModal = document.querySelector("#add-content-modal");
+const allModelContents = document.querySelectorAll(".add-modal-content");
+
+if (allModelContents) {
+  allModelContents.forEach(allModelContent => {
+    allModelContent.addEventListener("click", e => {
+      e.preventDefault();
+      if (document.querySelector(`#${allModelContent.id}-content`)) {
+        const content = document.querySelector(`#${allModelContent.id}-content`);
+        content.classList.remove('hide')
+      }
+    });
+  });
+}
+
+if (feedbacks) {
+  if (feedbacks.length > 5) {
+    for (var i = 5; i < feedbacks.length; i++) {
+      feedbacks[i].style.display = "none";
+    }
+  } else {
+    viewMoreFeedbackBtn.style.display = "none";
+  }
+
+  $(viewMoreFeedbackBtn).click(function () {
+    $(".feedback-container:hidden").slice(0, 5).slideDown();
+    if ($(".feedback-container:hidden").length == 0) {
+      $(viewMoreFeedbackBtn).fadeOut("slow");
+    }
+  });
+}
+
+function copyResumeFeedbackLink() {
+  var copyText = document.getElementById("copy-resume-feedback-link");
+  copyText.select();
+  copyText.setSelectionRange(0, 99999);
+  navigator.clipboard.writeText(copyText.value);
+}
+
+document.onclick = e => {
+  e.preventDefault;
+  if (document.querySelector(".resume-pop-up").classList.contains("hide")) {
+    if (e.target.parentElement) {
+      if (e.target.parentElement.id == "myresumes-nav") {
+        document.querySelector(".resume-pop-up").classList.remove("hide");
+        document.querySelector(".content-container").classList.add("overlay");
+      }
+    }
+  } else {
+    if (!document.querySelector(".resume-pop-up").classList.contains("hide")) {
+      if (e.target !== document.querySelector(".resume-list-container")) {
+        document.querySelector(".resume-pop-up").classList.add("hide");
+        document.querySelector(".content-container").classList.remove("overlay");
+      }
+    }
+  }
+
+  if (addContentModal.classList.contains("hide")) {
+    if (e.target.parentElement == addContentBtn) {
+      document.querySelector(".content-container").classList.add("overlay");
+      document.querySelector(".base-sidenav").classList.add("overlay");
+      document.querySelector(".download-pdf-nav").classList.add("overlay");
+      addContentModal.classList.remove("hide");
+    }
+  } else {
+    if (e.target.parentElement !== document.querySelector("#add-content-modal")) {
+      addContentModal.classList.add("hide");
+      document.querySelector(".content-container").classList.remove("overlay");
+      document.querySelector(".base-sidenav").classList.remove("overlay");
+      document.querySelector(".download-pdf-nav").classList.remove("overlay");
+    }
+  }
+};
+
+if (sideNavContents) {
+  sideNavContents.forEach(sideNavContent => {
+    sideNavContent.addEventListener("click", e => {
+      const theClick = document.querySelector(`#${e.currentTarget.id}-content`);
+      if (theClick) {
+        navPageContents.forEach(navPageContent => {
+          navPageContent.classList.add("hide");
+        });
+        theClick.classList.remove("hide");
+      }
+    });
+  });
+}
 
 if (inputTextLinkForms) {
   inputTextLinkForms.forEach(inputTextLinkForm => {
@@ -150,7 +242,6 @@ if (contentFormContainers) {
                     const deleteBtn = form.querySelector("#content-form-delete-btn");
                     deleteBtn.parentElement.classList.remove("hide");
                     deleteBtn.classList.remove("hide");
-                    console.log(form.name);
                     deleteBtn.href = "delete-" + form.name + "/" + formId;
                     const formInputContainers = form.querySelectorAll(".form-input-container");
                     if (formInputContainers) {
@@ -381,10 +472,8 @@ if (forms) {
               requriedFieldSymbol.style.fontSize = `${25}px`;
               if (formInput.value) {
                 requriedFieldSymbol.classList.add("hide");
-          
               } else {
                 requriedFieldSymbol.classList.remove("hide");
-              
               }
             }
           });

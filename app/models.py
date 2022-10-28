@@ -1,11 +1,5 @@
-from pyexpat import model
-from tkinter import S
-from tkinter.tix import Tree
-from django.db import models
 
-# Create your models here.
-from email.policy import default
-from os import link
+from django.db import models
 from django.db import models
 from django.urls import reverse_lazy, reverse
 from django.contrib.auth.models import (
@@ -14,7 +8,7 @@ from django.contrib.auth.models import (
     PermissionsMixin,
 )
 from django.utils.translation import gettext_lazy as _
-# Create your models here.
+import uuid
 
 
 class CustomAccountManager(BaseUserManager):
@@ -40,6 +34,13 @@ class CustomAccountManager(BaseUserManager):
         user = self.model(email=email, **other_fields)
         user.set_password(password)
         user.save()
+        if not Personal_Details.objects.filter(user=user):
+            Personal_Details.objects.create(
+                user = user,
+                full_name = user.first_name + ' ' + user.last_name,
+                email = user.email,
+                resume_name = 'Resume 1',
+            )
         return user
 
 class User(AbstractBaseUser, PermissionsMixin):
@@ -63,6 +64,10 @@ class User(AbstractBaseUser, PermissionsMixin):
 
 
 class Personal_Details(models.Model):
+    feedback_id = models.UUIDField(
+         default = uuid.uuid4,
+         editable = False)
+    resume_name = models.CharField(max_length = 100, null=True, blank=True)
     user = models.ForeignKey(User, on_delete = models.CASCADE)
     full_name = models.CharField(max_length=300)
     job_title = models.CharField(max_length=100, null=True, blank=True)
@@ -150,7 +155,11 @@ class Personal_Details(models.Model):
     gitea = models.CharField(max_length=250, null = True, blank = True)
     xing = models.CharField(max_length=250, null = True, blank = True)
 
-
+    def save(self, *args, **kwargs):
+        if not self.resume_name:
+            count = int(Personal_Details.objects.filter(user=self.user).count()) + 1
+            self.resume_name = f'Resume {count}'
+        super().save(*args, **kwargs)
 
     def __str__ (self):
         return self.full_name + ' personal details' 
@@ -316,3 +325,13 @@ class Publication(models.Model):
 
     def __str__ (self):
         return self.publisher + ' ' + self.title
+
+
+class Feedback(models.Model):
+    personal_detail = models.ForeignKey(Personal_Details, on_delete=models.CASCADE)
+    name = models.CharField(max_length=150)
+    comment = models.TextField()
+    time_created = models.DateTimeField(auto_now_add=True)
+
+    def __str__ (self):
+        return self.name + ' resume feedback'

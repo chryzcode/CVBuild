@@ -1,4 +1,4 @@
-from gettext import install
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
@@ -12,8 +12,43 @@ from django.conf import settings
 from .forms import *
 from .tokens import account_activation_token
 from django.http import JsonResponse
+from django.views import View
+
+# import pdfkit
+from django.http import HttpResponse
+from django.template.loader import get_template
+from io import BytesIO
+from xhtml2pdf import pisa
 
 # Create your views here.
+
+
+def render_to_pdf(template_src, context_dict={}):
+	template = get_template(template_src)
+	html  = template.render(context_dict)
+	result = BytesIO()
+	pdf = pisa.pisaDocument(BytesIO(html.encode("ISO-8859-1")), result)
+	if not pdf.err:
+		return HttpResponse(result.getvalue(), content_type='application/pdf')
+	return None
+
+class ViewPdf(View):
+    def get(self, request, *args, **kwargs):
+        resume = Personal_Details.objects.get(pk= self.kwargs['id'])
+        data = {'resume': resume}
+        pdf = render_to_pdf('pdf-template.html', data)
+        return HttpResponse(pdf, content_type='application/pdf')
+
+class DownloadPdf(View):
+    def get(self, request, *args, **kwargs):
+        resume = Personal_Details.objects.get(pk= self.kwargs['id'])
+        data = {'resume': resume}
+        pdf = render_to_pdf('pdf-template.html', data)
+        response = HttpResponse(pdf, content_type='application/pdf')
+        filename = resume.resume_name
+        content = "attachment; filename='%s'" %(filename)
+        response['Content-Disposition'] = content
+        return response
 
 def custom_error_404(request, exception):
     return render(request, "error-pages/404-page.html")
@@ -48,13 +83,15 @@ def account_login(request):
     return render(request, "account/registration/login.html", context)
 
 
-@login_required(login_url="/account/login/")
+
+@login_required(login_url="login")
 def account_logout(request):
     logout(request)
     return redirect("/")
 
 
-@login_required(login_url="/account/login/")
+
+@login_required(login_url="login")
 def account_delete(request):
     user = User.objects.get(email=request.user.email)
     subject = f"Request for Your CV Build Account to be Deleted"
@@ -112,6 +149,13 @@ def account_activate(request, uidb64, token):
     if user is not None and account_activation_token.check_token(user, token):
         user.is_active = True
         user.save()
+        if not Personal_Details.objects.filter(user=user):
+            Personal_Details.objects.create(
+                user = user,
+                full_name = user.first_name + ' ' + user.last_name,
+                email = user.email,
+                resume_name = 'Resume 1',
+            )
         login(request, user)
         return redirect("/")
     else:
@@ -122,11 +166,14 @@ def account_activate(request, uidb64, token):
             messages.messages.error(request, "User/Account does not exist")
         return render(request, "error-pages/404-page.html")
 
+
+@login_required(login_url="login")
 def home(request):
     personal_detail = Personal_Details.objects.filter(user=request.user.id).last()
     profile = Profile.objects.filter(personal_detail=personal_detail).last()
     profile_form = ProfileForm(instance=profile)
-    personal_details_form = PersonalDetailsForm(instance=personal_detail)
+    personal_detail_form = PersonalDetailsForm(instance=personal_detail)
+    feedbacks = Feedback.objects.filter(personal_detail=personal_detail)
     skill_form = SkillForm()
     link_form = LinkForm(instance=personal_detail)
     skill_levels = Skill_Level.objects.all()
@@ -152,15 +199,61 @@ def home(request):
     interest_form = InterestForm()
     publications = Publication.objects.filter(personal_detail=personal_detail)
     publication_form = PublicationForm()
-    context = {'personal_details':personal_detail, 'profile_form':profile_form, 'personal_details_form':personal_details_form, 'skill_form':skill_form, 'skill_levels':skill_levels, 'link_form':link_form, 'skills':skills, 'experiences':experiences, 'experience_form':experience_form, 'projects':projects, 'project_form':project_form, 'educations':educations, 'education_form':education_form, 'language_levels':language_levels, 'languages':languages, 'language_form':language_form, 'references':references, 'reference_form':reference_form, 'awards':awards, 'award_form':award_form, 'organisations':organisations, 'organisation_form':organisation_form, 'certificates':certificates, 'certificate_form':certificate_form, 'interests':interests, 'interest_form':interest_form, 'publications':publications, 'publication_form':publication_form}
+    context = {'personal_detail':personal_detail, 'profile_form':profile_form, 'personal_detail_form':personal_detail_form, 'skill_form':skill_form, 'skill_levels':skill_levels, 'link_form':link_form, 'skills':skills, 'experiences':experiences, 'experience_form':experience_form, 'projects':projects, 'project_form':project_form, 'educations':educations, 'education_form':education_form, 'language_levels':language_levels, 'languages':languages, 'language_form':language_form, 'references':references, 'reference_form':reference_form, 'awards':awards, 'award_form':award_form, 'organisations':organisations, 'organisation_form':organisation_form, 'certificates':certificates, 'certificate_form':certificate_form, 'interests':interests, 'interest_form':interest_form, 'publications':publications, 'publication_form':publication_form, 'feedbacks':feedbacks}
     return render(request, 'pages/home.html', context)
 
 
 
-def person_details(request):
+@login_required(login_url="login")
+def otherResume(request, feedback_id):
+    if Personal_Details.objects.filter(feedback_id=feedback_id, user=request.user).exists():
+        personal_detail = Personal_Details.objects.get(feedback_id=feedback_id, user=request.user)
+        feedbacks = Feedback.objects.filter(personal_detail=personal_detail)
+        profile = Profile.objects.filter(personal_detail=personal_detail).last()
+        profile_form = ProfileForm(instance=profile)
+        personal_detail_form = PersonalDetailsForm(instance=personal_detail)
+        skill_form = SkillForm()
+        link_form = LinkForm(instance=personal_detail)
+        skill_levels = Skill_Level.objects.all()
+        skills = Skills.objects.filter(personal_detail=personal_detail)
+        experiences = Experience.objects.filter(personal_detail=personal_detail)
+        experience_form = ExperienceForm()
+        projects = Project.objects.filter(personal_detail=personal_detail)
+        project_form = ProjectForm()
+        educations = Education.objects.filter(personal_detail=personal_detail)
+        education_form = EducationForm()
+        language_levels = Language_Level.objects.all()
+        languages = Language.objects.filter(personal_detail=personal_detail)
+        language_form = LanguageForm()
+        references = Reference.objects.filter(personal_detail=personal_detail)
+        reference_form = ReferenceForm()
+        awards = Award.objects.filter(personal_detail=personal_detail)
+        award_form = AwardForm()
+        organisations = Organisation.objects.filter(personal_detail=personal_detail)
+        organisation_form = OrganisationForm
+        certificates = Certificate.objects.filter(personal_detail=personal_detail)
+        certificate_form = CertificateForm()
+        interests = Interest.objects.filter(personal_detail=personal_detail)
+        interest_form = InterestForm()
+        publications = Publication.objects.filter(personal_detail=personal_detail)
+        publication_form = PublicationForm()
+        context = {'personal_detail':personal_detail, 'profile_form':profile_form, 'personal_detail_form':personal_detail_form, 'skill_form':skill_form, 'skill_levels':skill_levels, 'link_form':link_form, 'skills':skills, 'experiences':experiences, 'experience_form':experience_form, 'projects':projects, 'project_form':project_form, 'educations':educations, 'education_form':education_form, 'language_levels':language_levels, 'languages':languages, 'language_form':language_form, 'references':references, 'reference_form':reference_form, 'awards':awards, 'award_form':award_form, 'organisations':organisations, 'organisation_form':organisation_form, 'certificates':certificates, 'certificate_form':certificate_form, 'interests':interests, 'interest_form':interest_form, 'publications':publications, 'publication_form':publication_form, 'feedbacks':feedbacks}
+        return render(request, 'pages/home.html', context)
+
+def deleteResume(request, feedback_id):
+    if Personal_Details.objects.filter(user=request.user).count() > 1:
+        resume = Personal_Details.objects.get(feedback_id=feedback_id)
+        resume.delete()
+        return redirect('/')
+    else:
+        messages.error(request, 'There must be at least a resume remaining.')
+        return redirect('/')
+
+
+def person_details(request, pk):
     user = request.user
-    if Personal_Details.objects.filter(user=user).exists():
-        personal_detail = Personal_Details.objects.filter(user=user).last()
+    if Personal_Details.objects.filter(user=user, pk=pk).exists():
+        personal_detail = Personal_Details.objects.get(user=user, pk=pk)
         personal_details_form = PersonalDetailsForm(instance=personal_detail)
     else:
         personal_details_form = PersonalDetailsForm()
@@ -180,10 +273,10 @@ def person_details(request):
 
         
 
-def profile(request):
+def profile(request, pk):
     user = request.user
-    if Personal_Details.objects.filter(user=user).exists():
-        personal_detail = Personal_Details.objects.filter(user=user).last()
+    if Personal_Details.objects.filter(user=user, pk=pk).exists():
+        personal_detail = Personal_Details.objects.get(user=user, pk=pk)
         if Profile.objects.filter(personal_detail=personal_detail).exists():
             profile = Profile.objects.get(personal_detail=personal_detail)
             profile_form = ProfileForm(instance=profile)
@@ -206,10 +299,10 @@ def profile(request):
 
 
 
-def addSkill(request):
+def addSkill(request, pk):
     user = request.user
-    if Personal_Details.objects.filter(user=user).exists():
-        personal_detail = Personal_Details.objects.filter(user=user).last()
+    if Personal_Details.objects.filter(user=user, pk=pk).exists():
+        personal_detail = Personal_Details.objects.get(user=user, pk=pk)
         skill_form = SkillForm()
         if request.method == "POST":
             skill_form = SkillForm(request.POST)
@@ -260,10 +353,10 @@ def deleteSkill(request, pk):
     return redirect('/')
 
 
-def addExperience(request):
+def addExperience(request, pk):
     user = request.user
-    if Personal_Details.objects.filter(user=user).exists():
-        personal_detail = Personal_Details.objects.filter(user=user).last()
+    if Personal_Details.objects.filter(user=user, pk=pk).exists():
+        personal_detail = Personal_Details.objects.get(id=pk, user=user)
         experience_form = ExperienceForm()
         if request.method == "POST":
             experience_form = ExperienceForm(request.POST)
@@ -325,10 +418,10 @@ def deleteExperience(request, pk):
     return redirect('/')
 
 
-def addProject(request):
+def addProject(request, pk):
     user = request.user
-    if Personal_Details.objects.filter(user=user).exists():
-        personal_detail = Personal_Details.objects.filter(user=user).last()
+    if Personal_Details.objects.filter(user=user, pk=pk).exists():
+        personal_detail = Personal_Details.objects.get(user=user, pk=pk)  
         project_form = ProjectForm()
         if request.method == "POST":
             project_form = ProjectForm(request.POST)
@@ -385,10 +478,10 @@ def deleteProject(request, pk):
     return redirect('/')
 
 
-def addEducation(request):
+def addEducation(request, pk):
     user = request.user
-    if Personal_Details.objects.filter(user=user).exists():
-        personal_detail = Personal_Details.objects.filter(user=user).last()
+    if Personal_Details.objects.filter(user=user, pk=pk).exists():
+        personal_detail = Personal_Details.objects.get(id=pk, user=user)
         education_form = EducationForm()
         if request.method == "POST":
             education_form = EducationForm(request.POST)
@@ -399,71 +492,6 @@ def addEducation(request):
             return redirect('home')
         else:
             messages.error(request, education_form.errors)
-            return redirect('/')
-
-
-def getExperience(request, pk):
-    experience = Experience.objects.get(id=pk)
-    experience_job_title = experience.job_title
-    experience_employer = experience.employer
-    experience_city = experience.city
-    experience_country = experience.country
-    experience_start_date = experience.start_date
-    experience_end_date = experience.end_date
-    experience_description = experience.experience_description
-    experience_current = experience.current
-    experience_link = experience.link
-    experience_month_year_only = experience.month_year_only
-    experience_year_only = experience.year_only
-    response = JsonResponse(
-        {
-            "experience_job_title": experience_job_title ,
-            "experience_employer": experience_employer,
-            "experience_city": experience_city,
-            "experience_country":experience_country,
-            "experience_start_date":experience_start_date,
-            "experience_end_date": experience_end_date,
-            "experience_description":experience_description,
-            "experience_current": experience_current,
-            "experience_link": experience_link,
-            "experience_month_year_only": experience_month_year_only,
-            "experience_year_only": experience_year_only,
-        }
-        )
-    return response
-
-
-def updateExperience(request, pk):
-    experience = Experience.objects.get(id=pk)
-    experience_form = ExperienceForm(request.POST, instance=experience)
-    if experience_form.is_valid():
-        form = experience_form.save(commit=False)  
-        form.save()
-        return redirect('home')
-    messages.error(request, experience_form.errors)
-    return redirect("/")
-
-
-def deleteExperience(request, pk):
-    experience = Experience.objects.get(id=pk)
-    experience.delete()
-    return redirect('/')
-
-
-def addProject(request):
-    user = request.user
-    if Personal_Details.objects.filter(user=user).exists():
-        personal_detail = Personal_Details.objects.filter(user=user).last()
-        project_form = ProjectForm()
-        if request.method == "POST":
-            project_form = ProjectForm(request.POST)
-        if project_form.is_valid():
-            form = project_form.save(commit=False)
-            form.personal_detail = personal_detail
-            form.save()
-            return redirect('/')
-        else:
-            messages.error(request, project_form.errors)
             return redirect('/')
 
 def getEducation(request, pk):
@@ -514,10 +542,10 @@ def deleteEducation(request, pk):
     return redirect('/')
 
 
-def addLanguage(request):
+def addLanguage(request, pk):
     user = request.user
-    if Personal_Details.objects.filter(user=user).exists():
-        personal_detail = Personal_Details.objects.filter(user=user).last()
+    if Personal_Details.objects.filter(user=user, pk=pk).exists():
+        personal_detail = Personal_Details.objects.get(id=pk, user=user)
         language_form = LanguageForm()
         if request.method == "POST":
             language_form = LanguageForm(request.POST)
@@ -568,10 +596,10 @@ def deleteLanguage(request, pk):
     return redirect('/')
 
 
-def addReference(request):
+def addReference(request, pk):
     user = request.user
-    if Personal_Details.objects.filter(user=user).exists():
-        personal_detail = Personal_Details.objects.filter(user=user).last()
+    if Personal_Details.objects.filter(user=user, pk=pk).exists():
+        personal_detail = Personal_Details.objects.get(id=pk, user=user)
         reference_form = ReferenceForm()
         if request.method == "POST":
             reference_form = ReferenceForm(request.POST)
@@ -622,10 +650,10 @@ def deleteReference(request, pk):
     return redirect('/')
 
 
-def addAward(request):
+def addAward(request, pk):
     user = request.user
     if Personal_Details.objects.filter(user=user).exists():
-        personal_detail = Personal_Details.objects.filter(user=user).last()
+        personal_detail = Personal_Details.objects.get(id=pk, user=user)
         award_form = AwardForm()
         if request.method == "POST":
             award_form = AwardForm(request.POST)
@@ -674,10 +702,10 @@ def deleteAward(request, pk):
     return redirect('/')
 
 
-def addOrganisation(request):
+def addOrganisation(request, pk):
     user = request.user
-    if Personal_Details.objects.filter(user=user).exists():
-        personal_detail = Personal_Details.objects.filter(user=user).last()
+    if Personal_Details.objects.filter(user=user, pk=pk).exists():
+        personal_detail = Personal_Details.objects.get(id=pk, user=user)
         organisation_form = OrganisationForm()
         if request.method == "POST":
             organisation_form = OrganisationForm(request.POST)
@@ -739,10 +767,10 @@ def deleteOrganisation(request, pk):
     return redirect('/')
 
 
-def addCertificate(request):
+def addCertificate(request, pk):
     user = request.user
-    if Personal_Details.objects.filter(user=user).exists():
-        personal_detail = Personal_Details.objects.filter(user=user).last()
+    if Personal_Details.objects.filter(user=user, pk=pk).exists():
+        personal_detail = Personal_Details.objects.get(id=pk, user=user)
         certificate_form = CertificateForm()
         if request.method == "POST":
             certificate_form = CertificateForm(request.POST)
@@ -787,10 +815,10 @@ def deleteCertificate(request, pk):
     return redirect('/')
 
 
-def addInterest(request):
+def addInterest(request, pk):
     user = request.user
-    if Personal_Details.objects.filter(user=user).exists():
-        personal_detail = Personal_Details.objects.filter(user=user).last()
+    if Personal_Details.objects.filter(user=user, pk=pk).exists():
+        personal_detail = Personal_Details.objects.get(id=pk, user=user)
         interest_form = InterestForm()
         if request.method == "POST":
             interest_form = InterestForm(request.POST)
@@ -835,10 +863,10 @@ def deleteInterest(request, pk):
     return redirect('/')
 
     
-def addPublication(request):
+def addPublication(request, pk):
     user = request.user
-    if Personal_Details.objects.filter(user=user).exists():
-        personal_detail = Personal_Details.objects.filter(user=user).last()
+    if Personal_Details.objects.filter(user=user, pk=pk).exists():
+        personal_detail = Personal_Details.objects.get(id=pk, user=user)
         publication_form = PublicationForm()
         if request.method == "POST":
             publication_form = PublicationForm(request.POST)
@@ -885,3 +913,8 @@ def deletePublication(request, pk):
     publication = Publication.objects.get(id=pk)
     publication.delete()
     return redirect('/')
+
+def resumeFeedback(request, feedback_id):
+    if Personal_Details.objects.filter(feedback_id=feedback_id).exists():
+        Personal_Details.objects.get(feedback_id=feedback_id)
+        return render(request, 'pages/resume-feedback.html')
