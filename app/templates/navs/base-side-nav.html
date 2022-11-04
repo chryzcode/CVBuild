@@ -21,15 +21,15 @@
     </div>
   </span>
   <div class="resume-pop-up hide">
-    {% for resume in userResumes %}
+    {% if userResumes.count > 1 %} {% for resume in userResumes %}
     <div class="resume-list-container">
-      <a href="{% url 'otherResume' resume.feedback_id %}">{{resume.resume_name}}</a>
+      <a href="{% url 'Resume' resume.feedback_id %}">{{resume.resume_name}}</a>
       {% if userResumes.count > 1 %}
       <a href="{% url 'deleteResume' resume.feedback_id %}"
         ><span class="material-symbols-outlined icon-pointer danger"> delete </span></a
       >
       {% endif %}
     </div>
-    {% endfor %}
+    {% endfor %} {% else %} <div class="resume-list-container">Nil</div> {% endif %}
   </div>
 </div>

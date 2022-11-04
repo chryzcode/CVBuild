@@ -91,6 +91,7 @@ form {
   border-radius: 10px;
   background-color: #e0e0e0;
   border: 0;
+  margin: 5px 0;
 }
 
 .copy-resume-feedback-link > button {
@@ -331,7 +332,7 @@ input[type="checkbox"]:focus-within {
   text-align: left;
 }
 
-.content-form .form-input-container > span > label {
+.content-form .form-input-container > span > label, input[type='checkbox'] label {
   font-size: 16px;
 }
 
@@ -430,10 +431,8 @@ textarea {
 
 .form-display-content {
   margin: 5px 0;
-  border-top: 5px solid #f2f3f5;
   border-bottom: 5px solid #f2f3f5;
   padding: 10px 10px;
-  border-radius: 7px;
 }
 
 .search-input {

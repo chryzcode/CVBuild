@@ -26,7 +26,7 @@ if (allModelContents) {
       e.preventDefault();
       if (document.querySelector(`#${allModelContent.id}-content`)) {
         const content = document.querySelector(`#${allModelContent.id}-content`);
-        content.classList.remove('hide')
+        content.classList.remove("hide");
       }
     });
   });
@@ -38,7 +38,9 @@ if (feedbacks) {
       feedbacks[i].style.display = "none";
     }
   } else {
-    viewMoreFeedbackBtn.style.display = "none";
+    if (viewMoreFeedbackBtn) {
+      viewMoreFeedbackBtn.style.display = "none";
+    }
   }
 
   $(viewMoreFeedbackBtn).click(function () {
@@ -58,35 +60,38 @@ function copyResumeFeedbackLink() {
 
 document.onclick = e => {
   e.preventDefault;
-  if (document.querySelector(".resume-pop-up").classList.contains("hide")) {
-    if (e.target.parentElement) {
-      if (e.target.parentElement.id == "myresumes-nav") {
-        document.querySelector(".resume-pop-up").classList.remove("hide");
-        document.querySelector(".content-container").classList.add("overlay");
+  if (document.querySelector(".resume-pop-up")) {
+    if (document.querySelector(".resume-pop-up").classList.contains("hide")) {
+      if (e.target.parentElement) {
+        if (e.target.parentElement.id == "myresumes-nav") {
+          document.querySelector(".resume-pop-up").classList.remove("hide");
+          document.querySelector(".content-container").classList.add("overlay");
+        }
       }
-    }
-  } else {
-    if (!document.querySelector(".resume-pop-up").classList.contains("hide")) {
-      if (e.target !== document.querySelector(".resume-list-container")) {
-        document.querySelector(".resume-pop-up").classList.add("hide");
-        document.querySelector(".content-container").classList.remove("overlay");
+    } else {
+      if (!document.querySelector(".resume-pop-up").classList.contains("hide")) {
+        if (e.target !== document.querySelector(".resume-list-container")) {
+          document.querySelector(".resume-pop-up").classList.add("hide");
+          document.querySelector(".content-container").classList.remove("overlay");
+        }
       }
     }
   }
-
-  if (addContentModal.classList.contains("hide")) {
-    if (e.target.parentElement == addContentBtn) {
-      document.querySelector(".content-container").classList.add("overlay");
-      document.querySelector(".base-sidenav").classList.add("overlay");
-      document.querySelector(".download-pdf-nav").classList.add("overlay");
-      addContentModal.classList.remove("hide");
-    }
-  } else {
-    if (e.target.parentElement !== document.querySelector("#add-content-modal")) {
-      addContentModal.classList.add("hide");
-      document.querySelector(".content-container").classList.remove("overlay");
-      document.querySelector(".base-sidenav").classList.remove("overlay");
-      document.querySelector(".download-pdf-nav").classList.remove("overlay");
+  if (addContentModal) {
+    if (addContentModal.classList.contains("hide")) {
+      if (e.target.parentElement == addContentBtn) {
+        document.querySelector(".content-container").classList.add("overlay");
+        document.querySelector(".base-sidenav").classList.add("overlay");
+        document.querySelector(".download-pdf-nav").classList.add("overlay");
+        addContentModal.classList.remove("hide");
+      }
+    } else {
+      if (e.target.parentElement !== document.querySelector("#add-content-modal")) {
+        addContentModal.classList.add("hide");
+        document.querySelector(".content-container").classList.remove("overlay");
+        document.querySelector(".base-sidenav").classList.remove("overlay");
+        document.querySelector(".download-pdf-nav").classList.remove("overlay");
+      }
     }
   }
 };
@@ -180,6 +185,7 @@ if (contentFormContainers) {
         }
 
         contentFormContainer.classList.remove("hide");
+
         const linkCreateFormBtn = contentFormContainer.querySelector("#links-form-container");
 
         linkCreateFormBtn.addEventListener("click", e => {
@@ -209,7 +215,9 @@ if (contentFormContainers) {
           form.classList.add("hide");
           contentFormDetails.classList.remove("hide");
           contentFormContainers.forEach(formContainer => {
-            formContainer.classList.remove("hide");
+            if (formContainer.classList.contains("container-active")) {
+              formContainer.classList.remove("hide");
+            }
             document.querySelector("#add-content-btn").classList.remove("hide");
           });
         });
@@ -236,9 +244,10 @@ if (contentFormContainers) {
                   content.addEventListener("click", e => {
                     myClickFormContainer.querySelector(".form-display-content-container").classList.add("hide");
                     form.classList.remove("hide");
+
                     document.querySelector("#add-content-btn").classList.add("hide");
-                    const formId = e.target.id;
-                    form.action = "update-" + form.name + "/" + formId;
+                    const formId = content.id;
+                    form.action = "update-" + form.name + "/" + formId + "/";
                     const deleteBtn = form.querySelector("#content-form-delete-btn");
                     deleteBtn.parentElement.classList.remove("hide");
                     deleteBtn.classList.remove("hide");
@@ -313,6 +322,9 @@ if (contentFormContainers) {
             const requriedFieldSymbol = form.querySelector(".form-required-field");
 
             closeBtn.addEventListener("click", e => {
+              if (contentFormContainer.querySelector(".form-display-content-container")) {
+                contentFormContainer.querySelector(".form-display-content-container").classList.remove("hide");
+              }
               form.id = "";
               form.action = "skill/";
               form.reset();
@@ -323,7 +335,9 @@ if (contentFormContainers) {
               }
               form.classList.add("hide");
               contentFormContainers.forEach(formContainer => {
-                formContainer.classList.remove("hide");
+                if (formContainer.classList.contains("container-active")) {
+                  formContainer.classList.remove("hide");
+                }
                 icon.textContent = "expand_more";
 
                 if (form.querySelector("select") && form.querySelector("option")) {
@@ -366,11 +380,13 @@ if (contentFormContainers) {
                   requriedFieldSymbol.classList.remove("hide");
                 }
                 contentFormTop.classList.remove("hide");
-                contentFormContainer.querySelector(".form-display-content-container").classList.add("hide");
+                contentFormContainer.querySelector(".form-display-content-container").classList.remove("hide");
                 contentFormContainer.querySelector("form").classList.add("hide");
                 icon.textContent = "expand_more";
                 contentFormContainers.forEach(formContainer => {
-                  formContainer.classList.remove("hide");
+                  if (formContainer.classList.contains("container-active")) {
+                    formContainer.classList.remove("hide");
+                  }
                 });
               });
             });
@@ -401,11 +417,13 @@ window.addEventListener("load", () => {
     getBaseSideNavHeight(baseSideNav);
   }
 
-  if (mobileMediaQuery.matches) {
-    const desiredWidth = document.querySelector(".content-form-container").getBoundingClientRect().width;
-    downloadPdfNav.style.width = `${desiredWidth}px`;
-  } else {
-    downloadPdfNav.style.width = `${500}px`;
+  if (downloadPdfNav) {
+    if (mobileMediaQuery.matches) {
+      const desiredWidth = document.querySelector(".content-form-container").getBoundingClientRect().width;
+      downloadPdfNav.style.width = `${desiredWidth}px`;
+    } else {
+      downloadPdfNav.style.width = `${500}px`;
+    }
   }
 
   if (errorTopModal) {
@@ -446,18 +464,62 @@ window.addEventListener("resize", () => {
     getBaseSideNavHeight(baseSideNav);
   }
 
-  if (mobileMediaQuery.matches) {
-    const desiredWidth = document.querySelector(".content-form-container").getBoundingClientRect().width;
-    downloadPdfNav.style.width = `${desiredWidth}px`;
-  } else {
-    downloadPdfNav.style.width = `${500}px`;
+  if (downloadPdfNav) {
+    if (mobileMediaQuery.matches) {
+      const desiredWidth = document.querySelector(".content-form-container").getBoundingClientRect().width;
+      downloadPdfNav.style.width = `${desiredWidth}px`;
+    } else {
+      downloadPdfNav.style.width = `${500}px`;
+    }
   }
 });
 
 if (forms) {
   forms.forEach(form => {
+    form.querySelectorAll('input[type="checkbox"]').forEach(checkBox => {
+      checkBox.previousElementSibling.style.fontSize = `${16}px`;
+      checkBox.previousElementSibling.style.color = `#200e32`;
+    });
+
     form.addEventListener("mouseover", e => {
       const submitBtn = form.querySelector('button[type="submit"]');
+
+      const currentToggleInput = form.querySelector(".current-toggle-checkbox");
+      const endDateInput = form.querySelector(".end-date-input");
+
+      if (currentToggleInput) {
+        currentToggleInput.addEventListener("change", e => {
+          if (currentToggleInput.checked == true) {
+            if (endDateInput) {
+              endDateInput.classList.add("disable");
+            }
+          } else {
+            if (endDateInput) {
+              endDateInput.classList.remove("disable");
+            }
+          }
+        });
+      }
+
+      const durationToggleChecks = form.querySelectorAll(".duration-toggle-checkbox");
+      if (durationToggleChecks) {
+        durationToggleChecks.forEach(durationToggleCheck => {
+          durationToggleCheck.previousElementSibling.style.fontSize = `${16}px`;
+          durationToggleCheck.addEventListener("change", e => {
+            for (var i = 0; i < durationToggleChecks.length; i++) {
+              if (durationToggleChecks[i].checked == true) {
+                durationToggleChecks[i].checked = false;
+              }
+            }
+
+            if (durationToggleCheck.checked == true) {
+              durationToggleCheck.checked = false;
+            } else {
+              durationToggleCheck.checked = true;
+            }
+          });
+        });
+      }
 
       const formInputContainers = form.querySelectorAll(".form-input-container");
       if (formInputContainers) {
@@ -465,11 +527,21 @@ if (forms) {
           const requriedFieldSymbol = formInputContainer.querySelector(".form-required-field");
 
           const formInput = formInputContainer.lastElementChild;
-          const allFormRequiredSymbol = form.querySelectorAll(".form-required-field");
+
+          // const allFormRequiredSymbol = form.querySelectorAll(".form-required-field");
+
+          if (requriedFieldSymbol) {
+            if (formInput.value) {
+              requriedFieldSymbol.classList.add("hide");
+            } else {
+              requriedFieldSymbol.classList.remove("hide");
+            }
+          }
 
           formInput.addEventListener("keyup", e => {
             if (requriedFieldSymbol) {
               requriedFieldSymbol.style.fontSize = `${25}px`;
+              console.log(formInput);
               if (formInput.value) {
                 requriedFieldSymbol.classList.add("hide");
               } else {

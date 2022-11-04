@@ -34,9 +34,21 @@ def render_to_pdf(template_src, context_dict={}):
 
 class ViewPdf(View):
     def get(self, request, *args, **kwargs):
-        resume = Personal_Details.objects.get(pk= self.kwargs['id'])
-        data = {'resume': resume}
-        pdf = render_to_pdf('pdf-template.html', data)
+        personal_detail = Personal_Details.objects.get(pk= self.kwargs['pk'])
+        profile = Profile.objects.filter(personal_detail=personal_detail).last()
+        skills = Skills.objects.filter(personal_detail=personal_detail)
+        experiences = Experience.objects.filter(personal_detail=personal_detail)
+        projects = Project.objects.filter(personal_detail=personal_detail)
+        educations = Education.objects.filter(personal_detail=personal_detail)
+        languages = Language.objects.filter(personal_detail=personal_detail)
+        references = Reference.objects.filter(personal_detail=personal_detail)
+        awards = Award.objects.filter(personal_detail=personal_detail)
+        organisations = Organisation.objects.filter(personal_detail=personal_detail)
+        certificates = Certificate.objects.filter(personal_detail=personal_detail)
+        interests = Interest.objects.filter(personal_detail=personal_detail)
+        publications = Publication.objects.filter(personal_detail=personal_detail)
+        data = {'personal_detail':personal_detail, 'skills':skills, 'profile':profile, 'experiences':experiences, 'projects':projects, 'educations':educations, 'languages':languages,  'references':references, 'awards':awards, 'organisations':organisations, 'certificates':certificates,  'interests':interests, 'publications':publications}
+        pdf = render_to_pdf('pages/pdf-template.html', data)
         return HttpResponse(pdf, content_type='application/pdf')
 
 class DownloadPdf(View):
@@ -169,43 +181,44 @@ def account_activate(request, uidb64, token):
 
 @login_required(login_url="login")
 def home(request):
-    personal_detail = Personal_Details.objects.filter(user=request.user.id).last()
-    profile = Profile.objects.filter(personal_detail=personal_detail).last()
-    profile_form = ProfileForm(instance=profile)
-    personal_detail_form = PersonalDetailsForm(instance=personal_detail)
-    feedbacks = Feedback.objects.filter(personal_detail=personal_detail)
-    skill_form = SkillForm()
-    link_form = LinkForm(instance=personal_detail)
-    skill_levels = Skill_Level.objects.all()
-    skills = Skills.objects.filter(personal_detail=personal_detail)
-    experiences = Experience.objects.filter(personal_detail=personal_detail)
-    experience_form = ExperienceForm()
-    projects = Project.objects.filter(personal_detail=personal_detail)
-    project_form = ProjectForm()
-    educations = Education.objects.filter(personal_detail=personal_detail)
-    education_form = EducationForm()
-    language_levels = Language_Level.objects.all()
-    languages = Language.objects.filter(personal_detail=personal_detail)
-    language_form = LanguageForm()
-    references = Reference.objects.filter(personal_detail=personal_detail)
-    reference_form = ReferenceForm()
-    awards = Award.objects.filter(personal_detail=personal_detail)
-    award_form = AwardForm()
-    organisations = Organisation.objects.filter(personal_detail=personal_detail)
-    organisation_form = OrganisationForm
-    certificates = Certificate.objects.filter(personal_detail=personal_detail)
-    certificate_form = CertificateForm()
-    interests = Interest.objects.filter(personal_detail=personal_detail)
-    interest_form = InterestForm()
-    publications = Publication.objects.filter(personal_detail=personal_detail)
-    publication_form = PublicationForm()
-    context = {'personal_detail':personal_detail, 'profile_form':profile_form, 'personal_detail_form':personal_detail_form, 'skill_form':skill_form, 'skill_levels':skill_levels, 'link_form':link_form, 'skills':skills, 'experiences':experiences, 'experience_form':experience_form, 'projects':projects, 'project_form':project_form, 'educations':educations, 'education_form':education_form, 'language_levels':language_levels, 'languages':languages, 'language_form':language_form, 'references':references, 'reference_form':reference_form, 'awards':awards, 'award_form':award_form, 'organisations':organisations, 'organisation_form':organisation_form, 'certificates':certificates, 'certificate_form':certificate_form, 'interests':interests, 'interest_form':interest_form, 'publications':publications, 'publication_form':publication_form, 'feedbacks':feedbacks}
+    # personal_detail = Personal_Details.objects.filter(user=request.user.id).last()
+    # profile = Profile.objects.filter(personal_detail=personal_detail).last()
+    # profile_form = ProfileForm(instance=profile)
+    # personal_detail_form = PersonalDetailsForm(instance=personal_detail)
+    # feedbacks = Feedback.objects.filter(personal_detail=personal_detail)
+    # skill_form = SkillForm()
+    # link_form = LinkForm(instance=personal_detail)
+    # skill_levels = Skill_Level.objects.all()
+    # skills = Skills.objects.filter(personal_detail=personal_detail)
+    # experiences = Experience.objects.filter(personal_detail=personal_detail)
+    # experience_form = ExperienceForm()
+    # projects = Project.objects.filter(personal_detail=personal_detail)
+    # project_form = ProjectForm()
+    # educations = Education.objects.filter(personal_detail=personal_detail)
+    # education_form = EducationForm()
+    # language_levels = Language_Level.objects.all()
+    # languages = Language.objects.filter(personal_detail=personal_detail)
+    # language_form = LanguageForm()
+    # references = Reference.objects.filter(personal_detail=personal_detail)
+    # reference_form = ReferenceForm()
+    # awards = Award.objects.filter(personal_detail=personal_detail)
+    # award_form = AwardForm()
+    # organisations = Organisation.objects.filter(personal_detail=personal_detail)
+    # organisation_form = OrganisationForm
+    # certificates = Certificate.objects.filter(personal_detail=personal_detail)
+    # certificate_form = CertificateForm()
+    # interests = Interest.objects.filter(personal_detail=personal_detail)
+    # interest_form = InterestForm()
+    # publications = Publication.objects.filter(personal_detail=personal_detail)
+    # publication_form = PublicationForm()
+    # context = {'personal_detail':personal_detail, 'profile_form':profile_form, 'personal_detail_form':personal_detail_form, 'skill_form':skill_form, 'skill_levels':skill_levels, 'link_form':link_form, 'skills':skills, 'experiences':experiences, 'experience_form':experience_form, 'projects':projects, 'project_form':project_form, 'educations':educations, 'education_form':education_form, 'language_levels':language_levels, 'languages':languages, 'language_form':language_form, 'references':references, 'reference_form':reference_form, 'awards':awards, 'award_form':award_form, 'organisations':organisations, 'organisation_form':organisation_form, 'certificates':certificates, 'certificate_form':certificate_form, 'interests':interests, 'interest_form':interest_form, 'publications':publications, 'publication_form':publication_form, 'feedbacks':feedbacks, 'profile':profile }
+    context = {}
     return render(request, 'pages/home.html', context)
 
 
 
 @login_required(login_url="login")
-def otherResume(request, feedback_id):
+def Resume(request, feedback_id):
     if Personal_Details.objects.filter(feedback_id=feedback_id, user=request.user).exists():
         personal_detail = Personal_Details.objects.get(feedback_id=feedback_id, user=request.user)
         feedbacks = Feedback.objects.filter(personal_detail=personal_detail)
@@ -237,7 +250,7 @@ def otherResume(request, feedback_id):
         interest_form = InterestForm()
         publications = Publication.objects.filter(personal_detail=personal_detail)
         publication_form = PublicationForm()
-        context = {'personal_detail':personal_detail, 'profile_form':profile_form, 'personal_detail_form':personal_detail_form, 'skill_form':skill_form, 'skill_levels':skill_levels, 'link_form':link_form, 'skills':skills, 'experiences':experiences, 'experience_form':experience_form, 'projects':projects, 'project_form':project_form, 'educations':educations, 'education_form':education_form, 'language_levels':language_levels, 'languages':languages, 'language_form':language_form, 'references':references, 'reference_form':reference_form, 'awards':awards, 'award_form':award_form, 'organisations':organisations, 'organisation_form':organisation_form, 'certificates':certificates, 'certificate_form':certificate_form, 'interests':interests, 'interest_form':interest_form, 'publications':publications, 'publication_form':publication_form, 'feedbacks':feedbacks}
+        context = {'personal_detail':personal_detail, 'profile_form':profile_form, 'personal_detail_form':personal_detail_form, 'skill_form':skill_form, 'skill_levels':skill_levels, 'link_form':link_form, 'skills':skills, 'experiences':experiences, 'experience_form':experience_form, 'projects':projects, 'project_form':project_form, 'educations':educations, 'education_form':education_form, 'language_levels':language_levels, 'languages':languages, 'language_form':language_form, 'references':references, 'reference_form':reference_form, 'awards':awards, 'award_form':award_form, 'organisations':organisations, 'organisation_form':organisation_form, 'certificates':certificates, 'certificate_form':certificate_form, 'interests':interests, 'interest_form':interest_form, 'publications':publications, 'publication_form':publication_form, 'feedbacks':feedbacks, 'profile':profile}
         return render(request, 'pages/home.html', context)
 
 def deleteResume(request, feedback_id):
@@ -266,10 +279,10 @@ def person_details(request, pk):
             form = personal_details_form.save(commit=False)
             form.user = user
             form.save()
-            return redirect('home')
+            return redirect('Resume', feedback_id=personal_detail.feedback_id)
         else:
             messages.error(request, personal_details_form.errors)
-            return redirect('/')
+            return redirect('Resume', feedback_id=personal_detail.feedback_id)
 
         
 
@@ -291,10 +304,10 @@ def profile(request, pk):
                 form = profile_form.save(commit=False)
                 form.personal_detail = personal_detail
                 form.save()
-                return redirect('home')
+                return redirect('Resume', feedback_id=personal_detail.feedback_id)
             else:
                 messages.error(request, profile_form.errors)
-                return redirect('/')
+                return redirect('Resume', feedback_id=personal_detail.feedback_id)
 
 
 
@@ -310,17 +323,17 @@ def addSkill(request, pk):
             form = skill_form.save(commit=False)
             form.personal_detail = personal_detail
             form.save()
-            return redirect('home')
+            return redirect('Resume', feedback_id=personal_detail.feedback_id)
         else:
             messages.error(request, skill_form.errors)
-            return redirect('/')
+            return redirect('Resume', feedback_id=personal_detail.feedback_id)
     
-def getSkill(request, pk):
+def getSkill(request, pk, feedback_id):
     skill = Skills.objects.get(id=pk)
-    skill_name = skill.skill
-    skill_info = skill.information
-    if skill.level:
-        skill_level_id = skill.level.id
+    skill_name = skill.skill_name
+    skill_info = skill.skill_information
+    if skill.skill_level:
+        skill_level_id = skill.skill_level.id
         skill_level = Skill_Level.objects.get(id=skill_level_id).name
     else:
         skill_level_id = ''
@@ -336,21 +349,21 @@ def getSkill(request, pk):
         )
     return response
 
-def updateSkill(request, pk):
+def updateSkill(request, pk, feedback_id):
     skill = Skills.objects.get(id=pk)
     skill_form = SkillForm(request.POST, instance=skill)
     if skill_form.is_valid():
         form = skill_form.save(commit=False)  
         form.save()
-        return redirect('home')
+        return redirect('Resume', feedback_id=feedback_id)
     messages.error(request, skill_form.errors)
-    return redirect("/")
+    return redirect('Resume', feedback_id=feedback_id)
 
 
-def deleteSkill(request, pk):
+def deleteSkill(request, pk, feedback_id):
     skill = Skills.objects.get(id=pk)
     skill.delete()
-    return redirect('/')
+    return redirect('Resume', feedback_id=feedback_id)
 
 
 def addExperience(request, pk):
@@ -364,25 +377,25 @@ def addExperience(request, pk):
             form = experience_form.save(commit=False)
             form.personal_detail = personal_detail
             form.save()
-            return redirect('/')
+            return redirect('Resume', feedback_id=personal_detail.feedback_id)
         else:
             messages.error(request, experience_form.errors)
-            return redirect('/')
+            return redirect('Resume', feedback_id=personal_detail.feedback_id)
 
 
-def getExperience(request, pk):
+def getExperience(request, pk, feedback_id):
     experience = Experience.objects.get(id=pk)
-    experience_job_title = experience.job_title
+    experience_job_title = experience.experience_job_title
     experience_employer = experience.employer
-    experience_city = experience.city
-    experience_country = experience.country
-    experience_start_date = experience.start_date
-    experience_end_date = experience.end_date
+    experience_city = experience.experience_city
+    experience_country = experience.experience_country
+    experience_start_date = experience.experience_start_date
+    experience_end_date = experience.experience_end_date
     experience_description = experience.experience_description
-    experience_current = experience.current
-    experience_link = experience.link
-    experience_month_year_only = experience.month_year_only
-    experience_year_only = experience.year_only
+    experience_current = experience.experience_current
+    experience_link = experience.experience_link
+    experience_month_year_only = experience.experience_month_year_only
+    experience_year_only = experience.experience_year_only
     response = JsonResponse(
         {
             "experience_job_title": experience_job_title ,
@@ -401,21 +414,21 @@ def getExperience(request, pk):
     return response
 
 
-def updateExperience(request, pk):
+def updateExperience(request, pk, feedback_id):
     experience = Experience.objects.get(id=pk)
     experience_form = ExperienceForm(request.POST, instance=experience)
     if experience_form.is_valid():
         form = experience_form.save(commit=False)  
         form.save()
-        return redirect('home')
+        return redirect('Resume', feedback_id=feedback_id)
     messages.error(request, experience_form.errors)
-    return redirect("/")
+    return redirect('Resume', feedback_id=feedback_id)
 
 
-def deleteExperience(request, pk):
+def deleteExperience(request, pk, feedback_id):
     experience = Experience.objects.get(id=pk)
     experience.delete()
-    return redirect('/')
+    return redirect('Resume', feedback_id=feedback_id)
 
 
 def addProject(request, pk):
@@ -429,22 +442,22 @@ def addProject(request, pk):
             form = project_form.save(commit=False)
             form.personal_detail = personal_detail
             form.save()
-            return redirect('/')
+            return redirect('Resume', feedback_id=personal_detail.feedback_id)
         else:
             messages.error(request, project_form.errors)
-            return redirect('/')
+            return redirect('Resume', feedback_id=personal_detail.feedback_id)
 
-def getProject(request, pk):
+def getProject(request, pk, feedback_id):
     project = Project.objects.get(id=pk)
     project_project_title = project.project_title
     project_subtitle = project.subtitle
-    project_start_date = project.start_date
-    project_end_date = project.end_date
+    project_start_date = project.project_start_date
+    project_end_date = project.project_end_date
     project_description = project.project_description
-    project_current = project.current
-    project_link = project.link
-    project_month_year_only = project.month_year_only
-    project_year_only = project.year_only
+    project_current = project.project_current
+    project_link = project.project_link
+    project_month_year_only = project.project_month_year_only
+    project_year_only = project.project_year_only
     response = JsonResponse(
         {
             "project_project_title": project_project_title ,
@@ -461,21 +474,21 @@ def getProject(request, pk):
     return response
 
 
-def updateProject(request, pk):
+def updateProject(request, pk, feedback_id):
     project = Project.objects.get(id=pk)
     project_form = ProjectForm(request.POST, instance=project)
     if project_form.is_valid():
         form = project_form.save(commit=False)  
         form.save()
-        return redirect('home')
+        return redirect('Resume', feedback_id=feedback_id)
     messages.error(request, project_form.errors)
-    return redirect("/")
+    return redirect('Resume', feedback_id=feedback_id)
 
 
-def deleteProject(request, pk):
+def deleteProject(request, pk, feedback_id):
     project = Project.objects.get(id=pk)
     project.delete()
-    return redirect('/')
+    return redirect('Resume', feedback_id=feedback_id)
 
 
 def addEducation(request, pk):
@@ -489,24 +502,24 @@ def addEducation(request, pk):
             form = education_form.save(commit=False)
             form.personal_detail = personal_detail
             form.save()
-            return redirect('home')
+            return redirect('Resume', feedback_id=personal_detail.feedback_id)
         else:
             messages.error(request, education_form.errors)
-            return redirect('/')
+            return redirect('Resume', feedback_id=personal_detail.feedback_id)
 
-def getEducation(request, pk):
+def getEducation(request, pk, feedback_id):
     education = Education.objects.get(id=pk)
     education_school = education.school
     education_degree = education.degree
-    education_city = education.city
-    education_country = education.country
-    education_start_date = education.start_date
-    education_end_date = education.end_date
-    education_description = education.description
-    education_current = education.current
-    education_link = education.link
-    education_month_year_only = education.month_year_only
-    education_year_only = education.year_only
+    education_city = education.education_city
+    education_country = education.education_country
+    education_start_date = education.education_start_date
+    education_end_date = education.education_end_date
+    education_description = education.education_description
+    education_current = education.education_current
+    education_link = education.education_link
+    education_month_year_only = education.education_month_year_only
+    education_year_only = education.education_year_only
     response = JsonResponse(
         {
             "education_school": education_school ,
@@ -525,21 +538,21 @@ def getEducation(request, pk):
     return response
 
 
-def updateEducation(request, pk):
+def updateEducation(request, pk, feedback_id):
     education = Education.objects.get(id=pk)
     education_form = EducationForm(request.POST, instance=education)
     if education_form.is_valid():
         form = education_form.save(commit=False)  
         form.save()
-        return redirect('home')
+        return redirect('Resume', feedback_id=feedback_id)
     messages.error(request, education_form.errors)
-    return redirect("/")
+    return redirect('Resume', feedback_id=feedback_id)
 
 
-def deleteEducation(request, pk):
+def deleteEducation(request, pk, feedback_id):
     education = Education.objects.get(id=pk)
     education.delete()
-    return redirect('/')
+    return redirect('Resume', feedback_id=feedback_id)
 
 
 def addLanguage(request, pk):
@@ -553,17 +566,17 @@ def addLanguage(request, pk):
             form = language_form.save(commit=False)
             form.personal_detail = personal_detail
             form.save()
-            return redirect('home')
+            return redirect('Resume', feedback_id=personal_detail.feedback_id)
         else:
             messages.error(request, language_form.errors)
-            return redirect('/')
+            return redirect('Resume', feedback_id=personal_detail.feedback_id)
     
-def getLanguage(request, pk):
+def getLanguage(request, pk, feedback_id):
     language = Language.objects.get(id=pk)
     language_name = language.language
-    language_additional_information = language.additional_information
-    if language.level:
-        language_level_id = language.level.id
+    language_additional_information = language.language_additional_information
+    if language.language_level:
+        language_level_id = language.language_level.id
         language_level = Language_Level.objects.get(id=language_level_id).name
     else:
         language_level_id = ''
@@ -579,21 +592,21 @@ def getLanguage(request, pk):
         )
     return response
 
-def updateLanguage(request, pk):
+def updateLanguage(request, pk, feedback_id):
     language = Language.objects.get(id=pk)
     language_form = LanguageForm(request.POST, instance=language)
     if language_form.is_valid():
         form = language_form.save(commit=False)  
         form.save()
-        return redirect('home')
+        return redirect('Resume', feedback_id=feedback_id)
     messages.error(request, language_form.errors)
-    return redirect("/")
+    return redirect('Resume', feedback_id=feedback_id)
 
 
-def deleteLanguage(request, pk):
+def deleteLanguage(request, pk, feedback_id):
     language = Language.objects.get(id=pk)
     language.delete()
-    return redirect('/')
+    return redirect('Resume', feedback_id=feedback_id)
 
 
 def addReference(request, pk):
@@ -607,19 +620,19 @@ def addReference(request, pk):
             form = reference_form.save(commit=False)
             form.personal_detail = personal_detail
             form.save()
-            return redirect('/')
+            return redirect('Resume', feedback_id=personal_detail.feedback_id)
         else:
             messages.error(request, reference_form.errors)
-            return redirect('/')
+            return redirect('Resume', feedback_id=personal_detail.feedback_id)
 
-def getReference(request, pk):
+def getReference(request, pk, feedback_id):
     reference = Reference.objects.get(id=pk)
     reference_name = reference.reference_name
-    reference_job_title = reference.job_title
-    reference_organisation = reference.organisation
-    reference_phone = reference.phone
-    reference_email = reference.email
-    reference_link = reference.link
+    reference_job_title = reference.reference_job_title
+    reference_organisation = reference.reference_organisation
+    reference_phone = reference.reference_phone
+    reference_email = reference.reference_email
+    reference_link = reference.reference_link
     response = JsonResponse(
         {
             "reference_name": reference_name ,
@@ -633,22 +646,21 @@ def getReference(request, pk):
     return response
 
 
-def updateReference(request, pk):
+def updateReference(request, pk, feedback_id):
     reference = Reference.objects.get(id=pk)
     reference_form = ReferenceForm(request.POST, instance=reference)
     if reference_form.is_valid():
         form = reference_form.save(commit=False)  
         form.save()
-        return redirect('home')
+        return redirect('Resume', feedback_id=feedback_id)
     messages.error(request, reference_form.errors)
-    return redirect("/")
+    return redirect('Resume', feedback_id=feedback_id)
 
 
-def deleteReference(request, pk):
+def deleteReference(request, pk, feedback_id):
     reference = Reference.objects.get(id=pk)
     reference.delete()
-    return redirect('/')
-
+    return redirect('Resume', feedback_id=feedback_id)
 
 def addAward(request, pk):
     user = request.user
@@ -661,18 +673,18 @@ def addAward(request, pk):
             form = award_form.save(commit=False)
             form.personal_detail = personal_detail
             form.save()
-            return redirect('/')
+            return redirect('Resume', feedback_id=personal_detail.feedback_id)
         else:
             messages.error(request, award_form.errors)
-            return redirect('/')
+            return redirect('Resume', feedback_id=personal_detail.feedback_id)
 
-def getAward(request, pk):
+def getAward(request, pk, feedback_id):
     award = Award.objects.get(id=pk)
     award_name = award.award
     award_issuer = award.issuer
-    award_description = award.description
-    award_date = award.date
-    award_link = award.link
+    award_description = award.award_description
+    award_date = award.award_date
+    award_link = award.award_link
     response = JsonResponse(
         {
             "award_name": award_name ,
@@ -685,21 +697,21 @@ def getAward(request, pk):
     return response
 
 
-def updateAward(request, pk):
+def updateAward(request, pk, feedback_id):
     award = Award.objects.get(id=pk)
     award_form = AwardForm(request.POST, instance=award)
     if award_form.is_valid():
         form = award_form.save(commit=False)  
         form.save()
-        return redirect('home')
+        return redirect('Resume', feedback_id=feedback_id)
     messages.error(request, award_form.errors)
-    return redirect("/")
+    return redirect('Resume', feedback_id=feedback_id)
 
 
-def deleteAward(request, pk):
+def deleteAward(request, pk, feedback_id):
     award = Award.objects.get(id=pk)
     award.delete()
-    return redirect('/')
+    return redirect('Resume', feedback_id=feedback_id)
 
 
 def addOrganisation(request, pk):
@@ -713,25 +725,25 @@ def addOrganisation(request, pk):
             form = organisation_form.save(commit=False)
             form.personal_detail = personal_detail
             form.save()
-            return redirect('home')
+            return redirect('Resume', feedback_id=personal_detail.feedback_id)
         else:
             messages.error(request, organisation_form.errors)
-            return redirect('/')
+            return redirect('Resume', feedback_id=personal_detail.feedback_id)
 
 
-def getOrganisation(request, pk):
+def getOrganisation(request, pk, feedback_id):
     organisation = Organisation.objects.get(id=pk)
     organisation_position = organisation.position
     organisation_organization = organisation.organisation
-    organisation_city = organisation.city
-    organisation_country = organisation.country
-    organisation_start_date = organisation.start_date
-    organisation_end_date = organisation.end_date
-    organisation_description = organisation.description
-    organisation_current = organisation.current
-    organisation_link = organisation.link
-    organisation_month_year_only = organisation.month_year_only
-    organisation_year_only = organisation.year_only
+    organisation_city = organisation.organisation_city
+    organisation_country = organisation.organisation_country
+    organisation_start_date = organisation.organisation_start_date
+    organisation_end_date = organisation.organisation_end_date
+    organisation_description = organisation.organisation_description
+    organisation_current = organisation.organisation_current
+    organisation_link = organisation.organisation_link
+    organisation_month_year_only = organisation.organisation_month_year_only
+    organisation_year_only = organisation.organisation_year_only
     response = JsonResponse(
         {
             "organisation_position": organisation_position ,
@@ -750,21 +762,20 @@ def getOrganisation(request, pk):
     return response
 
 
-def updateOrganisation(request, pk):
+def updateOrganisation(request, pk, feedback_id):
     organisation = Organisation.objects.get(id=pk)
     organisation_form = OrganisationForm(request.POST, instance=organisation)
     if organisation_form.is_valid():
         form = organisation_form.save(commit=False)  
         form.save()
-        return redirect('home')
+        return redirect('Resume', feedback_id=feedback_id)
     messages.error(request, organisation_form.errors)
-    return redirect("/")
+    return redirect('Resume', feedback_id=feedback_id)
 
-
-def deleteOrganisation(request, pk):
+def deleteOrganisation(request, pk, feedback_id):
     organisation = Organisation.objects.get(id=pk)
     organisation.delete()
-    return redirect('/')
+    return redirect('Resume', feedback_id=feedback_id)
 
 
 def addCertificate(request, pk):
@@ -778,16 +789,16 @@ def addCertificate(request, pk):
             form = certificate_form.save(commit=False)
             form.personal_detail = personal_detail
             form.save()
-            return redirect('/')
+            return redirect('Resume', feedback_id=personal_detail.feedback_id)
         else:
             messages.error(request, certificate_form.errors)
-            return redirect('/')
+            return redirect('Resume', feedback_id=personal_detail.feedback_id)
 
-def getCertificate(request, pk):
+def getCertificate(request, pk, feedback_id):
     ceritficate = Certificate.objects.get(id=pk)
     ceritficate_name = ceritficate.certificate
-    ceritficate_additional_information = ceritficate.additional_information
-    ceritficate_link = ceritficate.link
+    ceritficate_additional_information = ceritficate.certificate_additional_information
+    ceritficate_link = ceritficate.certificate_link
     response = JsonResponse(
         {
             "ceritficate_name": ceritficate_name ,
@@ -798,21 +809,21 @@ def getCertificate(request, pk):
     return response
 
 
-def updateCertificate(request, pk):
+def updateCertificate(request, pk, feedback_id):
     ceritficate = Certificate.objects.get(id=pk)
     ceritficate_form = CertificateForm(request.POST, instance=ceritficate)
     if ceritficate_form.is_valid():
         form = ceritficate_form.save(commit=False)  
         form.save()
-        return redirect('home')
+        return redirect('Resume', feedback_id=feedback_id)
     messages.error(request, ceritficate_form.errors)
-    return redirect("/")
+    return redirect('Resume', feedback_id=feedback_id)
 
 
-def deleteCertificate(request, pk):
+def deleteCertificate(request, pk, feedback_id):
     ceritficate = Certificate.objects.get(id=pk)
     ceritficate.delete()
-    return redirect('/')
+    return redirect('Resume', feedback_id=feedback_id)
 
 
 def addInterest(request, pk):
@@ -826,16 +837,16 @@ def addInterest(request, pk):
             form = interest_form.save(commit=False)
             form.personal_detail = personal_detail
             form.save()
-            return redirect('/')
+            return redirect('Resume', feedback_id=personal_detail.feedback_id)
         else:
             messages.error(request, interest_form.errors)
-            return redirect('/')
+            return redirect('Resume', feedback_id=personal_detail.feedback_id)
 
-def getInterest(request, pk):
+def getInterest(request, pk, feedback_id):
     interest = Interest.objects.get(id=pk)
     interest_name = interest.interest
-    interest_additional_information = interest.additional_information
-    interest_link = interest.link
+    interest_additional_information = interest.interest_additional_information
+    interest_link = interest.interest_link
     response = JsonResponse(
         {
             "interest_name": interest_name ,
@@ -846,21 +857,21 @@ def getInterest(request, pk):
     return response
 
 
-def updateInterest(request, pk):
+def updateInterest(request, pk, feedback_id):
     interest = Interest.objects.get(id=pk)
     interest_form = InterestForm(request.POST, instance=interest)
     if interest_form.is_valid():
         form = interest_form.save(commit=False)  
         form.save()
-        return redirect('home')
+        return redirect('Resume', feedback_id=feedback_id)
     messages.error(request, interest_form.errors)
-    return redirect("/")
+    return redirect('Resume', feedback_id=feedback_id)
 
 
-def deleteInterest(request, pk):
+def deleteInterest(request, pk, feedback_id):
     interest = Interest.objects.get(id=pk)
     interest.delete()
-    return redirect('/')
+    return redirect('Resume', feedback_id=feedback_id)
 
     
 def addPublication(request, pk):
@@ -874,18 +885,18 @@ def addPublication(request, pk):
             form = publication_form.save(commit=False)
             form.personal_detail = personal_detail
             form.save()
-            return redirect('/')
+            return redirect('Resume', feedback_id=personal_detail.feedback_id)
         else:
             messages.error(request, publication_form.errors)
-            return redirect('/')
+            return redirect('Resume', feedback_id=personal_detail.feedback_id)
 
-def getPublication(request, pk):
+def getPublication(request, pk, feedback_id):
     publication = Publication.objects.get(id=pk)
     publication_publisher = publication.publisher
-    publication_name = publication.title
-    publication_date = publication.date
-    publication_description = publication.description
-    publication_link = publication.link
+    publication_name = publication.publication_title
+    publication_date = publication.publication_date
+    publication_description = publication.publication_description
+    publication_link = publication.publication_link
     response = JsonResponse(
         {
             "publication_publisher": publication_publisher ,
@@ -898,21 +909,21 @@ def getPublication(request, pk):
     return response
 
 
-def updatePublication(request, pk):
+def updatePublication(request, pk, feedback_id):
     publication = Publication.objects.get(id=pk)
     publication_form = PublicationForm(request.POST, instance=publication)
     if publication_form.is_valid():
         form = publication_form.save(commit=False)  
         form.save()
-        return redirect('home')
+        return redirect('Resume', feedback_id=feedback_id)
     messages.error(request, publication_form.errors)
-    return redirect("/")
+    return redirect('Resume', feedback_id=feedback_id)
 
 
-def deletePublication(request, pk):
+def deletePublication(request, pk, feedback_id):
     publication = Publication.objects.get(id=pk)
     publication.delete()
-    return redirect('/')
+    return redirect('Resume', feedback_id=feedback_id)
 
 def resumeFeedback(request, feedback_id):
     if Personal_Details.objects.filter(feedback_id=feedback_id).exists():

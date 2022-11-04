@@ -195,7 +195,7 @@ class FeedbackForm(ModelForm):
 class LinkForm(ModelForm):
     class Meta:
         model = Personal_Details
-        exclude =  ['user', 'full_name', 'job_title','email', 'phone', 'address', 'date_of_birth', 'nationality', 'passport_id', 'marital_status', 'military_service', 'driving_license', 'gender_pronoun']
+        exclude =  ['user', 'full_name', 'job_title','email', 'phone', 'address', 'date_of_birth', 'nationality', 'passport_id', 'marital_status', 'military_service', 'driving_license', 'gender_pronoun', 'resume_name']
 
         widgets = {
             "website": forms.TextInput(

@@ -67,7 +67,7 @@ class Personal_Details(models.Model):
     feedback_id = models.UUIDField(
          default = uuid.uuid4,
          editable = False)
-    resume_name = models.CharField(max_length = 100, null=True, blank=True)
+    resume_name = models.CharField(max_length = 150, null=True, blank=True)
     user = models.ForeignKey(User, on_delete = models.CASCADE)
     full_name = models.CharField(max_length=300)
     job_title = models.CharField(max_length=100, null=True, blank=True)
@@ -87,7 +87,6 @@ class Personal_Details(models.Model):
     twitter = models.CharField(max_length=250, null = True, blank = True)
     github = models.CharField(max_length=250, null = True, blank = True)
     linkedin = models.CharField(max_length=250, null = True, blank = True)
-    medium = models.CharField(max_length=250, null = True, blank = True)
     orcid = models.CharField(max_length=250, null = True, blank = True)
     skype = models.CharField(max_length=250, null = True, blank = True)
     discord = models.CharField(max_length=250, null = True, blank = True)
@@ -181,26 +180,26 @@ class Skill_Level(models.Model):
 
 class Skills(models.Model):
     personal_detail = models.ForeignKey(Personal_Details, on_delete=models.CASCADE)
-    level = models.ForeignKey(Skill_Level, on_delete=models.SET_NULL, null=True, blank=True)
-    skill = models.CharField(max_length=80)
-    information = models.CharField(max_length=200, blank=True, null=True)
+    skill_level = models.ForeignKey(Skill_Level, on_delete=models.SET_NULL, null=True, blank=True)
+    skill_name = models.CharField(max_length=80)
+    skill_information = models.CharField(max_length=200, blank=True, null=True)
    
     def __str__ (self):
-        return self.skill
+        return self.skill_name
 
 class Experience(models.Model):
     personal_detail = models.ForeignKey(Personal_Details, on_delete=models.CASCADE)
-    job_title = models.CharField(max_length=200)
+    experience_job_title = models.CharField(max_length=200)
     employer = models.CharField(max_length=100)
-    city = models.CharField(max_length=100, blank= True, null= True)
-    country = models.CharField(max_length=100, blank= True, null= True)
-    start_date = models.DateField(blank= True, null= True)
-    end_date = models.DateField(blank= True, null= True)
+    experience_city = models.CharField(max_length=100, blank= True, null= True)
+    experience_country = models.CharField(max_length=100, blank= True, null= True)
+    experience_start_date = models.DateField(blank= True, null= True)
+    experience_end_date = models.DateField(blank= True, null= True)
     experience_description = models.TextField(blank= True, null= True)
-    current = models.BooleanField(default=False)
-    link = models.CharField(max_length = 300, blank= True, null= True)
-    month_year_only = models.BooleanField(default=False)
-    year_only = models.BooleanField(default=False)
+    experience_current = models.BooleanField(default=False)
+    experience_link = models.CharField(max_length = 300, blank= True, null= True)
+    experience_month_year_only = models.BooleanField(default=False)
+    experience_year_only = models.BooleanField(default=False)
 
     def __str__ (self):
         return self.employer + ' experience'
@@ -210,13 +209,13 @@ class Project(models.Model):
     personal_detail = models.ForeignKey(Personal_Details, on_delete=models.CASCADE)
     project_title = models.CharField(max_length=200)
     subtitle = models.CharField(max_length=100, blank= True, null= True)
-    start_date = models.DateField(blank= True, null= True)
-    end_date = models.DateField(blank= True, null= True)
+    project_start_date = models.DateField(blank= True, null= True)
+    project_end_date = models.DateField(blank= True, null= True)
     project_description = models.TextField(blank= True, null= True)
-    current = models.BooleanField(default=False)
-    link = models.CharField(max_length = 300, blank= True, null= True)
-    month_year_only = models.BooleanField(default=False)
-    year_only = models.BooleanField(default=False)
+    project_current = models.BooleanField(default=False)
+    project_link = models.CharField(max_length = 300, blank= True, null= True)
+    project_month_year_only = models.BooleanField(default=False)
+    project_year_only = models.BooleanField(default=False)
     def __str__ (self):
         return self.project_title
 
@@ -224,15 +223,15 @@ class Education(models.Model):
     personal_detail = models.ForeignKey(Personal_Details, on_delete=models.CASCADE)
     school = models.CharField(max_length=70)
     degree = models.CharField(max_length=100)
-    city = models.CharField(max_length=100, blank= True, null= True)
-    country = models.CharField(max_length=100, blank= True, null= True)
-    start_date = models.DateField(blank= True, null= True)
-    end_date = models.DateField(blank= True, null= True)
-    description = models.TextField(blank= True, null= True)
-    current = models.BooleanField(default=False)
-    link = models.CharField(max_length = 300, blank= True, null= True)
-    month_year_only = models.BooleanField(default=False)
-    year_only = models.BooleanField(default=False)
+    education_city = models.CharField(max_length=100, blank= True, null= True)
+    education_country = models.CharField(max_length=100, blank= True, null= True)
+    education_start_date = models.DateField(blank= True, null= True)
+    education_end_date = models.DateField(blank= True, null= True)
+    education_description = models.TextField(blank= True, null= True)
+    education_current = models.BooleanField(default=False)
+    education_link = models.CharField(max_length = 300, blank= True, null= True)
+    education_month_year_only = models.BooleanField(default=False)
+    education_year_only = models.BooleanField(default=False)
     def get_absolute_url(self):
         return reverse('resume')
 
@@ -248,8 +247,8 @@ class Language_Level(models.Model):
 class Language(models.Model):
     personal_detail = models.ForeignKey(Personal_Details, on_delete=models.CASCADE)
     language = models.CharField(max_length= 200)
-    additional_information = models.CharField(max_length=400, blank= True, null= True)
-    level = models.ForeignKey(Language_Level, on_delete=models.SET_NULL, null=True, blank=True)
+    language_additional_information = models.CharField(max_length=400, blank= True, null= True)
+    language_level = models.ForeignKey(Language_Level, on_delete=models.SET_NULL, null=True, blank=True)
 
     def __str__(self):
         return self.language + ' language'
@@ -257,11 +256,11 @@ class Language(models.Model):
 class Reference(models.Model):
     personal_detail = models.ForeignKey(Personal_Details, on_delete=models.CASCADE)
     reference_name = models.CharField(max_length = 200)
-    job_title = models.CharField(max_length=150, blank= True, null= True)
-    organisation = models.CharField(max_length=150, blank= True, null= True)
-    phone = models.CharField(max_length=15, blank= True, null= True)
-    email = models.EmailField(blank= True, null= True)
-    link = models.CharField(max_length=300, blank= True, null= True)
+    reference_job_title = models.CharField(max_length=150, blank= True, null= True)
+    reference_organisation = models.CharField(max_length=150, blank= True, null= True)
+    reference_phone = models.CharField(max_length=15, blank= True, null= True)
+    reference_email = models.EmailField(blank= True, null= True)
+    reference_link = models.CharField(max_length=300, blank= True, null= True)
 
     def __str__(self):
         return self.name + ' reference'
@@ -271,9 +270,9 @@ class Award(models.Model):
     personal_detail = models.ForeignKey(Personal_Details, on_delete=models.CASCADE)
     award = models.CharField(max_length=150)
     issuer = models.CharField(max_length=150, blank= True, null= True)
-    description = models.TextField(blank= True, null= True)
-    date = models.DateField(blank= True, null= True)
-    link = models.CharField(max_length=300, blank= True, null= True)
+    award_description = models.TextField(blank= True, null= True)
+    award_date = models.DateField(blank= True, null= True)
+    award_link = models.CharField(max_length=300, blank= True, null= True)
 
     def __str__ (self):
         return self.award + ' award'
@@ -282,15 +281,15 @@ class Organisation(models.Model):
     personal_detail = models.ForeignKey(Personal_Details, on_delete=models.CASCADE)
     position = models.CharField(max_length=100)
     organisation = models.CharField(max_length=100)
-    city = models.CharField(max_length=100, blank= True, null= True)
-    country = models.CharField(max_length=100, blank= True, null= True)
-    start_date = models.DateField(blank= True, null= True)
-    end_date = models.DateField(blank= True, null= True)
-    description = models.TextField(blank= True, null= True)
-    current = models.BooleanField(default=False)
-    month_year_only = models.BooleanField(default=False)
-    year_only = models.BooleanField(default=False)
-    link = models.CharField(max_length=300, blank= True, null= True)
+    organisation_city = models.CharField(max_length=100, blank= True, null= True)
+    organisation_country = models.CharField(max_length=100, blank= True, null= True)
+    organisation_start_date = models.DateField(blank= True, null= True)
+    organisation_end_date = models.DateField(blank= True, null= True)
+    organisation_description = models.TextField(blank= True, null= True)
+    organisation_current = models.BooleanField(default=False)
+    organisation_month_year_only = models.BooleanField(default=False)
+    organisation_year_only = models.BooleanField(default=False)
+    organisation_link = models.CharField(max_length=300, blank= True, null= True)
 
     def __str__ (self):
         return self.positon + ' in f{self.organization}'
@@ -298,8 +297,8 @@ class Organisation(models.Model):
 class Certificate(models.Model):
     personal_detail = models.ForeignKey(Personal_Details, on_delete=models.CASCADE)
     certificate = models.CharField(max_length = 150)
-    additional_information = models.TextField(blank= True, null= True)
-    link = models.CharField(max_length = 300, blank= True, null= True)
+    certificate_additional_information = models.TextField(blank= True, null= True)
+    certificate_link = models.CharField(max_length = 300, blank= True, null= True)
 
     def __str__ (self):
         return self.certificate + ' certificate'
@@ -308,8 +307,8 @@ class Certificate(models.Model):
 class Interest(models.Model):
     personal_detail = models.ForeignKey(Personal_Details, on_delete=models.CASCADE)
     interest = models.CharField(max_length = 150)
-    additional_information = models.TextField(blank= True, null= True)
-    link = models.CharField(max_length = 300, blank= True, null= True)
+    interest_additional_information = models.TextField(blank= True, null= True)
+    interest_link = models.CharField(max_length = 300, blank= True, null= True)
 
     def __str__ (self):
         return self.interest + ' interest'
@@ -318,10 +317,10 @@ class Interest(models.Model):
 class Publication(models.Model):
     personal_detail = models.ForeignKey(Personal_Details, on_delete=models.CASCADE)
     publisher = models.CharField(max_length=200)
-    title = models.CharField(max_length=200)
-    date = models.DateField(blank= True, null= True)
-    description = models.TextField(blank= True, null= True)
-    link = models.CharField(max_length = 300, blank= True, null= True)
+    publication_title = models.CharField(max_length=200)
+    publication_date = models.DateField(blank= True, null= True)
+    publication_description = models.TextField(blank= True, null= True)
+    publication_link = models.CharField(max_length = 300, blank= True, null= True)
 
     def __str__ (self):
         return self.publisher + ' ' + self.title
