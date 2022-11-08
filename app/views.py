@@ -927,5 +927,30 @@ def deletePublication(request, pk, feedback_id):
 
 def resumeFeedback(request, feedback_id):
     if Personal_Details.objects.filter(feedback_id=feedback_id).exists():
-        Personal_Details.objects.get(feedback_id=feedback_id)
-        return render(request, 'pages/resume-feedback.html')
+        personal_detail = Personal_Details.objects.get(feedback_id=feedback_id)
+        profile = Profile.objects.filter(personal_detail=personal_detail).last()
+        skills = Skills.objects.filter(personal_detail=personal_detail)
+        experiences = Experience.objects.filter(personal_detail=personal_detail)
+        projects = Project.objects.filter(personal_detail=personal_detail)
+        educations = Education.objects.filter(personal_detail=personal_detail)
+        languages = Language.objects.filter(personal_detail=personal_detail)
+        references = Reference.objects.filter(personal_detail=personal_detail)
+        awards = Award.objects.filter(personal_detail=personal_detail)
+        organisations = Organisation.objects.filter(personal_detail=personal_detail)
+        certificates = Certificate.objects.filter(personal_detail=personal_detail)
+        interests = Interest.objects.filter(personal_detail=personal_detail)
+        publications = Publication.objects.filter(personal_detail=personal_detail)
+        feedback_form = FeedbackForm()
+        if request.method == "POST":
+            feedback_form = FeedbackForm(request.POST)
+            if feedback_form.is_valid:
+                form = feedback_form.save(commit=False)
+                form.personal_detail = personal_detail
+                form.save()
+                return redirect("resumeFeedback", feedback_id=feedback_id)
+            else:
+                messages.error(request, feedback_form.errors)
+                return redirect("resumeFeedback", feedback_id=feedback_id)
+
+        context = {'personal_detail':personal_detail, 'skills':skills, 'profile':profile, 'experiences':experiences, 'projects':projects, 'educations':educations, 'languages':languages,  'references':references, 'awards':awards, 'organisations':organisations, 'certificates':certificates,  'interests':interests, 'publications':publications, 'feedback_form':feedback_form}
+        return render(request, 'pages/resume-feedback.html', context)

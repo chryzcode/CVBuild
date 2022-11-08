@@ -1,0 +1,46 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="{% static 'css/styles.css'%}" />
+    <script src="{% static 'js/jquery-3.6.1.min.js' %}"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet" />
+    <title>CV Build</title>
+  </head>
+  <body>
+    <div class="content-container">
+      <div>
+        <div class="center">CV Build</div>
+        <h2 class="center">Provide Feedback on the resume of {{personal_detail.full_name}}</h2>
+        <div>
+          {{personal_detail.full_name}} was wondering what to improve on their resume and if some errors managed to get
+          through. That 's why we turn to you to help Olanrewaju out. Please provide feedback below and submit it — no
+          worries, your feedback will not be publicly visible, we will make sure to send it directly to
+          {{personal_detail.full_name}}.
+        </div>
+
+        <form action="" method="post">
+          {% csrf_token %}
+          <div class="form-input-container">
+            <span><label for="name">Name</label> <span class="form-required-field">*</span></span>
+            <p class="form-errors">{{ feedback_form.name.errors }}</p>
+            <input type="text" name="name" id="name" />
+          </div>
+          <div class="form-input-container">
+            <span><label for="comment">Comment</label> <span class="form-required-field">*</span></span>
+            <p class="form-errors">{{ feedback_form.comment.errors }}</p>
+            <textarea name="comment" id="comment" cols="100" rows="10"></textarea>
+          </div>
+
+          <button class="form-btn btn" type="submit">Save</button>
+        </form>
+      </div>
+      <div>{% include 'pages/pdf-template.html' %}</div>
+    </div>
+  </body>
+  <script src="{% static 'js/script.js' %}"></script>
+</html>

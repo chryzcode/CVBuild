@@ -332,7 +332,8 @@ input[type="checkbox"]:focus-within {
   text-align: left;
 }
 
-.content-form .form-input-container > span > label, input[type='checkbox'] label {
+.content-form .form-input-container > span > label,
+input[type="checkbox"] label {
   font-size: 16px;
 }
 
@@ -590,6 +591,13 @@ h6 {
 
 #check-nav-content > div > div {
   margin: 25px 0;
+}
+
+
+.a-tag-btn {
+  display: inline-flex !important;
+  align-items: center;
+  height: 30px;
 }
 
 @media all and (max-width: 950px) {

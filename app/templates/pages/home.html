@@ -396,7 +396,7 @@
         <div class="form-input-container">
           <span><label for="experience_start_date">Start Date</label> <span class="faint-text">optional</span></span>
           <p class="form-errors">{{ experience_form.experience_start_date.errors }}</p>
-          <input readonly name="experience_start_date" id="experience_start_date" placeholder="" />
+          <input readonly name="experience_start_date" id="experience_start_date" placeholder="" class="start-date-input"/>
         </div>
 
         <div class="form-input-container">
@@ -492,13 +492,13 @@
         <div class="form-input-container">
           <span><label for="project_start_date">Start Date</label> <span class="faint-text">optional</span></span>
           <p class="form-errors">{{ project_form.project_start_date.errors }}</p>
-          <input readonly name="project_start_date" id="project_start_date" placeholder="" />
+          <input readonly name="project_start_date" id="project_start_date" placeholder="" class="start-date-input"/>
         </div>
 
         <div class="form-input-container">
           <span><label for="project_end_date">End Date</label> <span class="faint-text">optional</span></span>
           <p class="form-errors">{{ project_form.project_end_date.errors }}</p>
-          <input readonly name="project_end_date" id="project_end_date" placeholder="" />
+          <input readonly name="project_end_date" id="project_end_date" placeholder="" class="end-date-input" />
         </div>
 
         <div class="flex-spc-bwn center">
@@ -602,13 +602,13 @@
         <div class="form-input-container">
           <span><label for="education_start_date">Start Date</label> <span class="faint-text">optional</span></span>
           <p class="form-errors">{{ education_form.education_start_date.errors }}</p>
-          <input readonly name="education_start_date" id="education_start_date" placeholder="" />
+          <input readonly name="education_start_date" id="education_start_date" placeholder="" class="start-date-input"/>
         </div>
 
         <div class="form-input-container">
           <span><label for="education_end_date">End Date</label> <span class="faint-text">optional</span></span>
           <p class="form-errors">{{ education_form.education_end_date.errors }}</p>
-          <input readonly name="education_end_date" id="education_end_date" placeholder="" />
+          <input readonly name="education_end_date" id="education_end_date" placeholder="" class="end-date-input" />
         </div>
 
         <div class="flex-spc-bwn center">
@@ -924,13 +924,13 @@
         <div class="form-input-container">
           <span><label for="organisation_start_date">Start Date</label> <span class="faint-text">optional</span></span>
           <p class="form-errors">{{ organisation_form.organisation_start_date.errors }}</p>
-          <input readonly name="organisation_start_date" id="organisation_start_date" placeholder="" />
+          <input readonly name="organisation_start_date" id="organisation_start_date" placeholder="" class="start-date-input"/>
         </div>
 
         <div class="form-input-container">
           <span><label for="organisation_end_date">End Date</label> <span class="faint-text">optional</span></span>
           <p class="form-errors">{{ organisation_form.organisation_end_date.errors }}</p>
-          <input readonly name="organisation_end_date" id="organisation_end_date" placeholder="" />
+          <input readonly name="organisation_end_date" id="organisation_end_date" placeholder="" class="end-date-input"/>
         </div>
 
         <div class="flex-spc-bwn center">
@@ -956,7 +956,7 @@
 
         <div class="flex-spc-bwn center wrap">
           <div class="hide">
-            <a href="" class="form-btn btn hide" id="content-form-delete-btn">Delete</a>
+            <a  href="" class="form-btn btn hide" id="content-form-delete-btn">Delete</a>
           </div>
           <div>
             <button class="form-btn btn" type="button" id="content-form-cancel-btn">cancel</button>

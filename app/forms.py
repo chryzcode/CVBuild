@@ -69,6 +69,27 @@ class PersonalDetailsForm(ModelForm):
         super(PersonalDetailsForm, self).__init__(*args, **kwargs)
 
 
+class FeedbackForm(ModelForm):
+    class Meta:
+        models = Feedback
+        exclude = ['personal_detail', 'time_created']
+    
+    def clean_name(self):
+        name = self.cleaned_data["name"]
+        if name == None:
+            raise forms.ValidationError("Field is required")
+        return name
+
+    def clean_comment(self):
+        comment = self.cleaned_data["comment"]
+        if comment == None:
+            raise forms.ValidationError("Field is required")
+        return comment
+
+    def __init__(self, *args, **kwargs):
+        super(FeedbackForm, self).__init__(*args, **kwargs)
+
+
 class ProfileForm(ModelForm):
     class Meta:
         model = Profile

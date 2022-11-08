@@ -19,6 +19,7 @@ const feedbacks = document.querySelectorAll(".feedback-container");
 const viewMoreFeedbackBtn = document.querySelector("#view-more-feedback-btn");
 const addContentModal = document.querySelector("#add-content-modal");
 const allModelContents = document.querySelectorAll(".add-modal-content");
+const formErrors = document.querySelectorAll(".form-errors");
 
 if (allModelContents) {
   allModelContents.forEach(allModelContent => {
@@ -249,6 +250,7 @@ if (contentFormContainers) {
                     const formId = content.id;
                     form.action = "update-" + form.name + "/" + formId + "/";
                     const deleteBtn = form.querySelector("#content-form-delete-btn");
+                    deleteBtn.classList.add("a-tag-btn");
                     deleteBtn.parentElement.classList.remove("hide");
                     deleteBtn.classList.remove("hide");
                     deleteBtn.href = "delete-" + form.name + "/" + formId;
@@ -481,11 +483,31 @@ if (forms) {
       checkBox.previousElementSibling.style.color = `#200e32`;
     });
 
+    const startDateInput = form.querySelector(".start-date-input");
+    const endDateInput = form.querySelector(".end-date-input");
+
     form.addEventListener("mouseover", e => {
       const submitBtn = form.querySelector('button[type="submit"]');
+      if (startDateInput && endDateInput) {
+        if (startDateInput.value && endDateInput.value) {
+          if (new Date(endDateInput.value) < new Date(startDateInput.value)) {
+            endDateInput.value = "";
+            if (
+              endDateInput.previousElementSibling &&
+              endDateInput.previousElementSibling.classList.contains("form-errors")
+            ) {
+              endDateInput.previousElementSibling.textContent = "Invalid Date";
+
+              setTimeout(() => {
+                endDateInput.previousElementSibling.classList.add("hide");
+              }, 5000);
+            }
+          }
+        }
+      }
+
 
       const currentToggleInput = form.querySelector(".current-toggle-checkbox");
-      const endDateInput = form.querySelector(".end-date-input");
 
       if (currentToggleInput) {
         currentToggleInput.addEventListener("change", e => {
@@ -541,7 +563,6 @@ if (forms) {
           formInput.addEventListener("keyup", e => {
             if (requriedFieldSymbol) {
               requriedFieldSymbol.style.fontSize = `${25}px`;
-              console.log(formInput);
               if (formInput.value) {
                 requriedFieldSymbol.classList.add("hide");
               } else {
