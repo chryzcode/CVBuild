@@ -193,7 +193,7 @@ class Experience(models.Model):
     employer = models.CharField(max_length=100)
     experience_city = models.CharField(max_length=100, blank= True, null= True)
     experience_country = models.CharField(max_length=100, blank= True, null= True)
-    experience_start_date = models.DateField(blank= True, null= True)
+    experience_start_date = models.DateField('Experience Start Date', blank= True, null= True)
     experience_end_date = models.DateField(blank= True, null= True)
     experience_description = models.TextField(blank= True, null= True)
     experience_current = models.BooleanField(default=False)
@@ -273,6 +273,8 @@ class Award(models.Model):
     award_description = models.TextField(blank= True, null= True)
     award_date = models.DateField(blank= True, null= True)
     award_link = models.CharField(max_length=300, blank= True, null= True)
+    award_month_year_only = models.BooleanField(default=False)
+    award_year_only = models.BooleanField(default=False)
 
     def __str__ (self):
         return self.award + ' award'
@@ -321,7 +323,8 @@ class Publication(models.Model):
     publication_date = models.DateField(blank= True, null= True)
     publication_description = models.TextField(blank= True, null= True)
     publication_link = models.CharField(max_length = 300, blank= True, null= True)
-
+    publication_month_year_only = models.BooleanField(default=False)
+    publication_year_only = models.BooleanField(default=False)
     def __str__ (self):
         return self.publisher + ' ' + self.title
 

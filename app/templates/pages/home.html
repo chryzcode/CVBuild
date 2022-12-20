@@ -375,7 +375,7 @@
 
           <div class="flex-spc-bwn">
             <label class="input-text-link-label" for="experience_link">Link</label>
-            <input type="text" name="experience_link" id="experience_link" class="hide" placeholder="www.google.com" />
+            <input type="text" name="experience_link" id="experience_link" class="hide" placeholder="https://google.com" />
           </div>
 
           <input type="text" name="employer" id="employer" placeholder="Google" />
@@ -396,13 +396,22 @@
         <div class="form-input-container">
           <span><label for="experience_start_date">Start Date</label> <span class="faint-text">optional</span></span>
           <p class="form-errors">{{ experience_form.experience_start_date.errors }}</p>
-          <input readonly name="experience_start_date" id="experience_start_date" placeholder="" class="start-date-input"/>
+          <span class="material-symbols-outlined cancel-readonly-input" onclick="var input = this.nextElementSibling; input.value = ''; input.focus();"> close </span>
+          <input
+            type="search"
+            name="experience_start_date"
+            id="experience_start_date"
+            placeholder=""
+            class="start-date-input"
+            readonly
+          />
         </div>
 
         <div class="form-input-container">
           <span><label for="experience_end_date">End Date</label> <span class="faint-text">optional</span></span>
           <p class="form-errors">{{ experience_form.experience_end_date.errors }}</p>
-          <input readonly name="experience_end_date" class="end-date-input" id="experience_end_date" placeholder="" />
+           <span class="material-symbols-outlined cancel-readonly-input" onclick="var input = this.nextElementSibling; input.value = ''; input.focus();"> close </span>
+          <input name="experience_end_date" class="end-date-input" id="experience_end_date" placeholder="" readonly/>
         </div>
 
         <div class="flex-spc-bwn center">
@@ -412,12 +421,22 @@
 
         <div class="flex-spc-bwn center">
           <span> <label for="experience_month_year_only">Month & Year Only</label> </span>
-          <input type="checkbox" name="experience_month_year_only" class="duration-toggle-checkbox" id="experience_month_year_only" />
+          <input
+            type="checkbox"
+            name="experience_month_year_only"
+            class="duration-toggle-checkbox"
+            id="experience_month_year_only"
+          />
         </div>
 
         <div class="flex-spc-bwn center">
           <span> <label for="experience_year_only">Year Only</label> </span>
-          <input type="checkbox" name="experience_year_only" class="duration-toggle-checkbox" id="experience_year_only" />
+          <input
+            type="checkbox"
+            name="experience_year_only"
+            class="duration-toggle-checkbox"
+            id="experience_year_only"
+          />
         </div>
 
         <div class="form-input-container">
@@ -492,12 +511,14 @@
         <div class="form-input-container">
           <span><label for="project_start_date">Start Date</label> <span class="faint-text">optional</span></span>
           <p class="form-errors">{{ project_form.project_start_date.errors }}</p>
+          <span class="material-symbols-outlined cancel-readonly-input" onclick="var input = this.nextElementSibling; input.value = ''; input.focus();"> close </span>
           <input readonly name="project_start_date" id="project_start_date" placeholder="" class="start-date-input"/>
         </div>
 
         <div class="form-input-container">
           <span><label for="project_end_date">End Date</label> <span class="faint-text">optional</span></span>
           <p class="form-errors">{{ project_form.project_end_date.errors }}</p>
+          <span class="material-symbols-outlined cancel-readonly-input" onclick="var input = this.nextElementSibling; input.value = ''; input.focus();"> close </span>
           <input readonly name="project_end_date" id="project_end_date" placeholder="" class="end-date-input" />
         </div>
 
@@ -508,7 +529,12 @@
 
         <div class="flex-spc-bwn center">
           <span> <label for="project_month_year_only">Month & Year Only</label> </span>
-          <input type="checkbox" name="project_month_year_only" class="duration-toggle-checkbox" id="project_month_year_only" />
+          <input
+            type="checkbox"
+            name="project_month_year_only"
+            class="duration-toggle-checkbox"
+            id="project_month_year_only"
+          />
         </div>
 
         <div class="flex-spc-bwn center">
@@ -602,12 +628,20 @@
         <div class="form-input-container">
           <span><label for="education_start_date">Start Date</label> <span class="faint-text">optional</span></span>
           <p class="form-errors">{{ education_form.education_start_date.errors }}</p>
-          <input readonly name="education_start_date" id="education_start_date" placeholder="" class="start-date-input"/>
+          <span class="material-symbols-outlined cancel-readonly-input" onclick="var input = this.nextElementSibling; input.value = ''; input.focus();"> close </span>
+          <input
+            readonly
+            name="education_start_date"
+            id="education_start_date"
+            placeholder=""
+            class="start-date-input"
+          />
         </div>
 
         <div class="form-input-container">
           <span><label for="education_end_date">End Date</label> <span class="faint-text">optional</span></span>
           <p class="form-errors">{{ education_form.education_end_date.errors }}</p>
+          <span class="material-symbols-outlined cancel-readonly-input" onclick="var input = this.nextElementSibling; input.value = ''; input.focus();"> close </span>
           <input readonly name="education_end_date" id="education_end_date" placeholder="" class="end-date-input" />
         </div>
 
@@ -618,7 +652,12 @@
 
         <div class="flex-spc-bwn center">
           <span> <label for="education_month_year_only">Month & Year Only</label> </span>
-          <input type="checkbox" name="education_month_year_only" class="duration-toggle-checkbox" id="education_month_year_only" />
+          <input
+            type="checkbox"
+            name="education_month_year_only"
+            class="duration-toggle-checkbox"
+            id="education_month_year_only"
+          />
         </div>
 
         <div class="flex-spc-bwn center">
@@ -839,7 +878,23 @@
         <div class="form-input-container">
           <span><label for="award_date">Date</label> <span class="faint-text">optional</span></span>
           <p class="form-errors">{{ award_form.award_date.errors }}</p>
+          <span class="material-symbols-outlined cancel-readonly-input" onclick="var input = this.nextElementSibling; input.value = ''; input.focus();"> close </span>
           <input readonly name="award_date" id="award_date" placeholder="" />
+        </div>
+
+        <div class="flex-spc-bwn center">
+          <span> <label for="award_month_year_only">Month & Year Only</label> </span>
+          <input
+            type="checkbox"
+            name="award_month_year_only"
+            class="duration-toggle-checkbox"
+            id="award_month_year_only"
+          />
+        </div>
+
+        <div class="flex-spc-bwn center">
+          <span> <label for="award_year_only">Year Only</label> </span>
+          <input type="checkbox" name="award_year_only" class="duration-toggle-checkbox" id="award_year_only" />
         </div>
 
         <div class="form-input-container">
@@ -924,28 +979,57 @@
         <div class="form-input-container">
           <span><label for="organisation_start_date">Start Date</label> <span class="faint-text">optional</span></span>
           <p class="form-errors">{{ organisation_form.organisation_start_date.errors }}</p>
-          <input readonly name="organisation_start_date" id="organisation_start_date" placeholder="" class="start-date-input"/>
+          <span class="material-symbols-outlined cancel-readonly-input" onclick="var input = this.nextElementSibling; input.value = ''; input.focus();"> close </span>
+          <input
+            readonly
+            name="organisation_start_date"
+            id="organisation_start_date"
+            placeholder=""
+            class="start-date-input"
+          />
         </div>
 
         <div class="form-input-container">
           <span><label for="organisation_end_date">End Date</label> <span class="faint-text">optional</span></span>
           <p class="form-errors">{{ organisation_form.organisation_end_date.errors }}</p>
-          <input readonly name="organisation_end_date" id="organisation_end_date" placeholder="" class="end-date-input"/>
+          <span class="material-symbols-outlined cancel-readonly-input" onclick="var input = this.nextElementSibling; input.value = ''; input.focus();"> close </span>
+          <input
+            readonly
+            name="organisation_end_date"
+            id="organisation_end_date"
+            placeholder=""
+            class="end-date-input"
+          />
         </div>
 
         <div class="flex-spc-bwn center">
           <span> <label for="organisation_current">Current</label> </span>
-          <input type="checkbox" name="organisation_current" class="current-toggle-checkbox" id="organisation_current" />
+          <input
+            type="checkbox"
+            name="organisation_current"
+            class="current-toggle-checkbox"
+            id="organisation_current"
+          />
         </div>
 
         <div class="flex-spc-bwn center">
           <span> <label for="organisation_month_year_only">Month & Year Only</label> </span>
-          <input type="checkbox" name="organisation_month_year_only" class="duration-toggle-checkbox" id="organisation_month_year_only" />
+          <input
+            type="checkbox"
+            name="organisation_month_year_only"
+            class="duration-toggle-checkbox"
+            id="organisation_month_year_only"
+          />
         </div>
 
         <div class="flex-spc-bwn center">
           <span> <label for="organisation_year_only">Year Only</label> </span>
-          <input type="checkbox" name="organisation_year_only" class="duration-toggle-checkbox" id="organisation_year_only" />
+          <input
+            type="checkbox"
+            name="organisation_year_only"
+            class="duration-toggle-checkbox"
+            id="organisation_year_only"
+          />
         </div>
 
         <div class="form-input-container">
@@ -956,7 +1040,7 @@
 
         <div class="flex-spc-bwn center wrap">
           <div class="hide">
-            <a  href="" class="form-btn btn hide" id="content-form-delete-btn">Delete</a>
+            <a href="" class="form-btn btn hide" id="content-form-delete-btn">Delete</a>
           </div>
           <div>
             <button class="form-btn btn" type="button" id="content-form-cancel-btn">cancel</button>
@@ -976,7 +1060,7 @@
       </div>
 
       <div class="hide form-display-content-container">
-        {% if certificate %} {% for certificate in certificates %}
+        {% if certificates %} {% for certificate in certificates %}
         <div id="{{certificate.id}}" class="form-display-content" data-index="certificate">
           {{certificate.certificate}}
         </div>
@@ -1113,7 +1197,7 @@
 
       <div class="hide form-display-content-container">
         {% if publications %} {% for publication in publications %}
-        <div id="{{publication.id}}" class="form-display-content" data-index="publication">{{publication.title}}</div>
+        <div id="{{publication.id}}" class="form-display-content" data-index="publication">{{publication.publication_title}}</div>
         {% endfor %} {% endif %}
         <div class="center">
           <span class="btn bg-dark-btn flex-spc-bwn center" id="add-display-content-form">
@@ -1152,7 +1236,28 @@
         <div class="form-input-container">
           <span><label for="publication_date">Date</label> <span class="faint-text">optional</span></span>
           <p class="form-errors">{{ publication_form.publication_date.errors }}</p>
+          <span class="material-symbols-outlined cancel-readonly-input" onclick="var input = this.nextElementSibling; input.value = ''; input.focus();"> close </span>
           <input readonly name="publication_date" id="publication_date" placeholder="" />
+        </div>
+
+        <div class="flex-spc-bwn center">
+          <span> <label for="publication_month_year_only">Month & Year Only</label> </span>
+          <input
+            type="checkbox"
+            name="publication_month_year_only"
+            class="duration-toggle-checkbox"
+            id="publication_month_year_only"
+          />
+        </div>
+
+        <div class="flex-spc-bwn center">
+          <span> <label for="publication_year_only">Year Only</label> </span>
+          <input
+            type="checkbox"
+            name="publication_year_only"
+            class="duration-toggle-checkbox"
+            id="publication_year_only"
+          />
         </div>
 
         <div class="form-input-container">
@@ -1258,10 +1363,10 @@
           document.querySelector("#experience_start_date").value = json.experience_start_date;
           document.querySelector("#experience_end_date").value = json.experience_end_date;
           document.querySelector("#experience_description").value = json.experience_description;
-          document.querySelector("#experience_current").checked  = json.experience_current;
+          document.querySelector("#experience_current").checked = json.experience_current;
           document.querySelector("#experience_link").value = json.experience_link;
-          document.querySelector("#experience_month_year_only").checked  = json.experience_month_year_only;
-          document.querySelector("#experience_year_only").checked  = json.experience_year_only;
+          document.querySelector("#experience_month_year_only").checked = json.experience_month_year_only;
+          document.querySelector("#experience_year_only").checked = json.experience_year_only;
         },
         error: function (xhr, errmsg, err) {},
       });
@@ -1300,10 +1405,10 @@
           document.querySelector("#education_start_date").value = json.education_start_date;
           document.querySelector("#education_end_date").value = json.education_end_date;
           document.querySelector("#education_description").value = json.education_description;
-          document.querySelector("#education_current").checked  = json.education_current;
+          document.querySelector("#education_current").checked = json.education_current;
           document.querySelector("#education_link").value = json.education_link;
-          document.querySelector("#education_month_year_only").checked  = json.education_month_year_only;
-          document.querySelector("#education_year_only").checked  = json.education_year_only;
+          document.querySelector("#education_month_year_only").checked = json.education_month_year_only;
+          document.querySelector("#education_year_only").checked = json.education_year_only;
         },
         error: function (xhr, errmsg, err) {},
       });
@@ -1351,7 +1456,9 @@
           document.querySelector("#issuer").value = json.award_issuer;
           document.querySelector("#award_description").value = json.award_description;
           document.querySelector("#award_date").value = json.award_date;
-          document.querySelector("#award_link").value = json.award_date;
+          document.querySelector("#award_link").value = json.award_link;
+          document.querySelector("#award_month_year_only").checked = json.award_month_year_only;
+          document.querySelector("#award_year_only").checked = json.award_year_only;
         },
         error: function (xhr, errmsg, err) {},
       });
@@ -1418,6 +1525,8 @@
           document.querySelector("#publication_date").value = json.publication_date;
           document.querySelector("#publication_description").value = json.publication_description;
           document.querySelector("#publication_link").value = json.publication_link;
+          document.querySelector("#publication_month_year_only").checked = json.publication_month_year_only;
+          document.querySelector("#publication_year_only").checked = json.publication_year_only;
         },
         error: function (xhr, errmsg, err) {},
       });

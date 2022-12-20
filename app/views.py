@@ -27,7 +27,7 @@ def render_to_pdf(template_src, context_dict={}):
 	template = get_template(template_src)
 	html  = template.render(context_dict)
 	result = BytesIO()
-	pdf = pisa.pisaDocument(BytesIO(html.encode("ISO-8859-1")), result)
+	pdf = pisa.pisaDocument(BytesIO(html.encode("utf-8")), result)
 	if not pdf.err:
 		return HttpResponse(result.getvalue(), content_type='application/pdf')
 	return None
@@ -48,14 +48,14 @@ class ViewPdf(View):
         interests = Interest.objects.filter(personal_detail=personal_detail)
         publications = Publication.objects.filter(personal_detail=personal_detail)
         data = {'personal_detail':personal_detail, 'skills':skills, 'profile':profile, 'experiences':experiences, 'projects':projects, 'educations':educations, 'languages':languages,  'references':references, 'awards':awards, 'organisations':organisations, 'certificates':certificates,  'interests':interests, 'publications':publications}
-        pdf = render_to_pdf('pages/pdf-template.html', data)
+        pdf = render_to_pdf('pages/pdf-resume-template.html', data)
         return HttpResponse(pdf, content_type='application/pdf')
 
 class DownloadPdf(View):
     def get(self, request, *args, **kwargs):
         resume = Personal_Details.objects.get(pk= self.kwargs['id'])
         data = {'resume': resume}
-        pdf = render_to_pdf('pdf-template.html', data)
+        pdf = render_to_pdf('pdf-resume-template.html', data)
         response = HttpResponse(pdf, content_type='application/pdf')
         filename = resume.resume_name
         content = "attachment; filename='%s'" %(filename)
@@ -685,6 +685,8 @@ def getAward(request, pk, feedback_id):
     award_description = award.award_description
     award_date = award.award_date
     award_link = award.award_link
+    award_month_year_only = award.award_month_year_only
+    award_year_only = award.award_year_only
     response = JsonResponse(
         {
             "award_name": award_name ,
@@ -692,6 +694,8 @@ def getAward(request, pk, feedback_id):
             "award_description": award_description,
             "award_date":award_date,
             "award_link":award_link,
+            "award_month_year_only":award_month_year_only,
+            "award_year_only":award_year_only,
         }
         )
     return response
@@ -897,13 +901,17 @@ def getPublication(request, pk, feedback_id):
     publication_date = publication.publication_date
     publication_description = publication.publication_description
     publication_link = publication.publication_link
+    publication_month_year_only = publication.publication_month_year_only
+    publication_year_only = publication.publication_year_only
     response = JsonResponse(
         {
             "publication_publisher": publication_publisher ,
             "publication_name": publication_name,
             "publication_date": publication_date,
             "publication_description":publication_description,
-            "publication_link":publication_link
+            "publication_link":publication_link,
+            "publication_month_year_only": publication_month_year_only,
+            "publication_year_only":publication_year_only,
         }
         )
     return response

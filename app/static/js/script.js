@@ -212,6 +212,7 @@ if (contentFormContainers) {
         form.style.width = "auto";
         document.querySelector("#add-content-btn").classList.add("hide");
         contentFormDetails.classList.add("hide");
+
         closeBtn.addEventListener("click", e => {
           form.classList.add("hide");
           contentFormDetails.classList.remove("hide");
@@ -340,7 +341,7 @@ if (contentFormContainers) {
                 if (formContainer.classList.contains("container-active")) {
                   formContainer.classList.remove("hide");
                 }
-                icon.textContent = "expand_more";
+                icon.textContent = "expand_less";
 
                 if (form.querySelector("select") && form.querySelector("option")) {
                   if (form.querySelector("option").classList.contains("current_value")) {
@@ -384,7 +385,7 @@ if (contentFormContainers) {
                 contentFormTop.classList.remove("hide");
                 contentFormContainer.querySelector(".form-display-content-container").classList.remove("hide");
                 contentFormContainer.querySelector("form").classList.add("hide");
-                icon.textContent = "expand_more";
+                icon.textContent = "expand_less";
                 contentFormContainers.forEach(formContainer => {
                   if (formContainer.classList.contains("container-active")) {
                     formContainer.classList.remove("hide");
@@ -407,8 +408,12 @@ function getContentPageWidth(baseSideNav, page) {
 }
 
 function getBaseSideNavHeight(baseSideNav) {
-  const bodyHeight = document.querySelector("body").getBoundingClientRect().height;
-  baseSideNav.style.height = `${bodyHeight}px`;
+  if (mobileMediaQuery.matches) {
+    baseSideNav.style.height = `${95}vh`;
+  } else {
+    const bodyHeight = document.querySelector("body").getBoundingClientRect().height;
+    baseSideNav.style.height = `${bodyHeight}px`;
+  }
 }
 
 window.addEventListener("load", () => {
@@ -432,11 +437,13 @@ window.addEventListener("load", () => {
     const allErrorLists = errorTopModal.querySelectorAll("ul");
 
     allErrorLists.forEach(allErrorList => {
-      const error = allErrorList.querySelector(".errorlist");
+      let error = allErrorList.querySelector(".errorlist");
+
       if (error) {
         error.classList.remove(".errorlist");
         error.style.listStyle = "revert";
         error.style.textAlign = "left";
+        // error.textContent = error.textContent.replaceAll("_", " ");
       }
     });
 
@@ -451,6 +458,7 @@ if (!errorTopModal) {
     allErrorList.forEach(error => {
       error.style.textTransform = "capitalize";
       error.style.fontSize = "14px";
+
       setTimeout(() => {
         error.classList.add("hide");
       }, 5000);
@@ -488,31 +496,63 @@ if (forms) {
 
     form.addEventListener("mouseover", e => {
       const submitBtn = form.querySelector('button[type="submit"]');
+      if (startDateInput) {
+        if (!startDateInput.value) {
+          if (endDateInput) {
+            if (endDateInput.value) {
+              endDateInput.value = "";
+
+              endDateInput.previousElementSibling.previousElementSibling.textContent = "Start Date is Empty";
+              endDateInput.previousElementSibling.style.top = `${50}%`;
+
+              setTimeout(() => {
+                endDateInput.previousElementSibling.previousElementSibling.classList.add("hide");
+                endDateInput.previousElementSibling.style.top = `${40}%`;
+              }, 5000);
+            }
+          }
+        }
+      }
       if (startDateInput && endDateInput) {
         if (startDateInput.value && endDateInput.value) {
           if (new Date(endDateInput.value) < new Date(startDateInput.value)) {
             endDateInput.value = "";
             if (
-              endDateInput.previousElementSibling &&
-              endDateInput.previousElementSibling.classList.contains("form-errors")
+              endDateInput.previousElementSibling.previousElementSibling &&
+              endDateInput.previousElementSibling.previousElementSibling.classList.contains("form-errors")
             ) {
-              endDateInput.previousElementSibling.textContent = "Invalid Date";
+              endDateInput.previousElementSibling.style.top = `${50}%`;
+              endDateInput.previousElementSibling.previousElementSibling.textContent = "Invalid Date";
 
               setTimeout(() => {
-                endDateInput.previousElementSibling.classList.add("hide");
+                endDateInput.previousElementSibling.previousElementSibling.classList.add("hide");
+                endDateInput.previousElementSibling.style.top = `${40}%`;
               }, 5000);
             }
           }
         }
       }
 
-
       const currentToggleInput = form.querySelector(".current-toggle-checkbox");
+      if (startDateInput) {
+        if (!startDateInput.value) {
+          currentToggleInput.classList.add("disable");
+          currentToggleInput.checked = false;
+          endDateInput.classList.remove("disable");
+        } else {
+          currentToggleInput.classList.remove("disable");
+        }
+      }
 
       if (currentToggleInput) {
+        if (currentToggleInput.checked == true) {
+          endDateInput.value = "";
+          endDateInput.classList.add("disable");
+        }
         currentToggleInput.addEventListener("change", e => {
           if (currentToggleInput.checked == true) {
             if (endDateInput) {
+              endDateInput.value = "";
               endDateInput.classList.add("disable");
             }
           } else {
@@ -527,19 +567,9 @@ if (forms) {
       if (durationToggleChecks) {
         durationToggleChecks.forEach(durationToggleCheck => {
           durationToggleCheck.previousElementSibling.style.fontSize = `${16}px`;
-          durationToggleCheck.addEventListener("change", e => {
-            for (var i = 0; i < durationToggleChecks.length; i++) {
-              if (durationToggleChecks[i].checked == true) {
-                durationToggleChecks[i].checked = false;
-              }
-            }
-
-            if (durationToggleCheck.checked == true) {
-              durationToggleCheck.checked = false;
-            } else {
-              durationToggleCheck.checked = true;
-            }
-          });
+        });
+        $(".duration-toggle-checkbox").click(function () {
+          $(".duration-toggle-checkbox").not(this).prop("checked", false);
         });
       }
 

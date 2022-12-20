@@ -19,25 +19,33 @@
         color: #000000;
       }
 
-      .resume-pdf-container {
+      /* .resume-pdf-container {
         margin-top: 20px;
         color: #000000;
         box-shadow: rgb(201, 201, 201) 0px 1px 2px 1px;
         padding: 20px 15px;
       }
 
-    
-
-     
-
      
 
       .resume-flex-spc-btwn {
         display: flex;
         justify-content: space-between;
+      } */
+
+
+      .resume-flex-spc-btwn > div {
+        display: inline-block;
       }
 
-     
+      .resume-flex-spc-btwn > div > small {
+
+      }
+
+      /* .resume-flex-spc-btwn > {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+      } */
 
        .resume-pdf-container > div {
         margin: 15px 0;
@@ -57,21 +65,21 @@
       }
 
       .resume-section-header {
-        font-size: 20px;
+        font-size: 15px;
         width: 100%;
         background-color: #e0e0e0;
-        padding: 2px 0;
+        padding: 10px 0 0 0;
         text-align: center;
         margin: 20px 0;
         border-radius: 4px;
       }
 
-       .resume-flex-spc-even-span > span {
+       /* .resume-flex-spc-even-span > span {
         display: inline-flex;
         justify-content: space-evenly;
         padding: 2px 10px 2px 0;
         flex-direction: column;
-      }
+      } */
 
 
 
@@ -497,20 +505,15 @@
         {% for experience in experiences %}
 
         <div class="resume-flex-spc-btwn">
-          <span>
-            <p><strong>{{experience.experience_job_title}}</strong></p>
-            {% if experience.experience_link %}
-            <a href="{{experience.experience_link}}" class="flx-align-center" target="_blank" rel="noopener noreferrer"><span>{{experience.employer}}</span> <span class="material-symbols-outlined">link</span> </a>
-            {% else %}
-            <p>{{experience.employer}}</p>
-            {% endif %}
-            
-          <p>{% if experience.experience_city %}{{experience.experience_city}}{% endif %}{% if experience.experience_city and experience.experience_country %}, {% endif %} {% if experience.experience_country %} {{experience.experience_country}} {% endif %}</p>
-           
-          </span>
-          {% if experience.experience_start_date %}
-          <span>
-            {% if experience.experience_month_year_only %} {{experience.experience_start_date|date:"M, Y"}} 
+          <div>
+            <span><strong>{{experience.experience_job_title}}</strong></span>
+
+             
+        <small>
+             {% if experience.experience_start_date %}
+            {% if experience.experience_month_year_only %} 
+              
+                {{experience.experience_start_date|date:"M, Y"}} 
             {% elif experience.experience_year_only %} 
             {{experience.experience_start_date|date:"Y"}} {% else %}
             {{experience.experience_start_date}} {% endif %} 
@@ -519,9 +522,24 @@
             {% elif experience.experience_year_only %} 
             {{experience.experience_end_date|date:"Y"}} {% else %}
             {{experience.experience_end_date}} {% endif %} 
+           
              {% endif %}
-          </span>
-          {% endif %}
+             {% endif %}
+             </small>
+        
+          
+          </div>
+
+            {% if experience.experience_link %}
+            <a href="{{experience.experience_link}}" class="flx-align-center" target="_blank" rel="noopener noreferrer"><span>{{experience.employer}}</span> <span class="material-symbols-outlined">link</span> </a>
+            {% else %}
+            <p>{{experience.employer}}</p>
+            {% endif %}
+            
+          <p>{% if experience.experience_city %}{{experience.experience_city}}{% endif %}{% if experience.experience_city and experience.experience_country %}, {% endif %} {% if experience.experience_country %} {{experience.experience_country}} {% endif %}</p>
+           
+          
+        
         </div>
         <p class="content-description">
           {{experience.experience_description}}
@@ -536,18 +554,12 @@
         <p class="resume-section-header">Education</p>
         {% for education in educations %}
 
-        <div class="resume-flex-spc-btwn">
-          <span>
-            <p><strong>{{education.degree}}</strong></p>
-            {% if education.education_link %}
-            <a href="{{education.education_link}}" class="flx-align-center" target="_blank" rel="noopener noreferrer"><span>{{education.school}}</span> <span class="material-symbols-outlined">link</span> </a>
-            {% else %}
-            <p>{{education.school}}</p>
-            {% endif %}
-            <p>{% if education.education_city %}{{education.education_city}}{% endif %}{% if education.education_city and education.education_country %}, {% endif %} {% if education.education_country %} {{education.education_country}} {% endif %}</p>
-          </span>
-          {% if education.education_start_date %}
-          <span>
+              <span>
+            <p>
+              <span>
+                <strong>{{education.degree}}</strong>
+              </span> 
+              <span>
             {% if education.education_month_year_only %} {{education.education_start_date|date:"M, Y"}} 
             {% elif education.education_year_only %} 
             {{education.education_start_date|date:"Y"}} {% else %}
@@ -559,8 +571,17 @@
             {{education.education_end_date}} {% endif %} 
              {% endif %}
           </span>
-          {% endif %}
-        </div>
+            </p>
+
+            {% if education.education_link %}
+            <a href="{{education.education_link}}" class="flx-align-center" target="_blank" rel="noopener noreferrer"><span>{{education.school}}</span> <span class="material-symbols-outlined">link</span> </a>
+            {% else %}
+            <p>{{education.school}}</p>
+            {% endif %}
+            <p>{% if education.education_city %}{{education.education_city}}{% endif %}{% if education.education_city and education.education_country %}, {% endif %} {% if education.education_country %} {{education.education_country}} {% endif %}</p>
+          </span>
+        
+
         <p class="content-description">
           {{education.education_description}}
         </p>
@@ -614,15 +635,12 @@
 
         <div class="resume-flex-spc-btwn">
           <span>
-            <p><strong>{{organisation.position}}</strong></p>
-            {% if organisation.organisation_link %}
-            <a href="{{ organisation.organisation_link}}" class="flx-align-center" target="_blank" rel="noopener noreferrer"><span>{{organisation.organisation}}</span> <span class="material-symbols-outlined">link</span> </a>
-            {% else %}
-            <p>{{organisation.organisation}}</p>
-            {% endif %}
-            <p>{% if organisation.organisation_city %}{{organisation.organisation_city}}{% endif %}{% if organisation.organisation_city and organisation.organisation_country %}, {% endif %} {% if organisation.organisation_country %} {{organisation.organisation_country}} {% endif %}</p>
-          </span>
-          {% if organisation.organisation_start_date %}
+            <p>
+              <span>
+                <strong>{{organisation.position}}</strong>
+              </span>
+            <span>
+               {% if organisation.organisation_start_date %}
           <span>
             {% if organisation.organisation_month_year_only %} {{organisation.organisation_start_date|date:"M, Y"}} 
             {% elif organisation.organisation_year_only %} 
@@ -636,6 +654,16 @@
              {% endif %}
           </span>
           {% endif %}
+            </span>
+            </p>
+            {% if organisation.organisation_link %}
+            <a href="{{ organisation.organisation_link}}" class="flx-align-center" target="_blank" rel="noopener noreferrer"><span>{{organisation.organisation}}</span> <span class="material-symbols-outlined">link</span> </a>
+            {% else %}
+            <p>{{organisation.organisation}}</p>
+            {% endif %}
+            <p>{% if organisation.organisation_city %}{{organisation.organisation_city}}{% endif %}{% if organisation.organisation_city and organisation.organisation_country %}, {% endif %} {% if organisation.organisation_country %} {{organisation.organisation_country}} {% endif %}</p>
+          </span>
+         
         </div>
         <p class="content-description">
           {{organisation.organisation_description}}
@@ -693,14 +721,12 @@
 
         <div class="resume-flex-spc-btwn">
           <span>
-            <p><strong>{{award.award}}</strong></p>
-            {% if award.award_link %}
-            <a href="{{ award.award_link}}" class="flx-align-center" target="_blank" rel="noopener noreferrer"><span>{{award.issuer}}</span> <span class="material-symbols-outlined">link</span> </a>
-            {% else %}
-            <p>{{award.issuer}}</p>
-            {% endif %}
-          </span>
-          {% if award.award_date %}
+            <p>
+              <span>
+                <strong>{{award.award}}</strong>
+              </span>
+            <span>
+                 {% if award.award_date %}
           <span>
             {% if award.award_month_year_only %} {{award.award_date|date:"M, Y"}} 
             {% elif award.award_year_only %} 
@@ -709,6 +735,15 @@
              {% endif %}
           </span>
           {% endif %}
+            </span>
+            </p>
+            {% if award.award_link %}
+            <a href="{{ award.award_link}}" class="flx-align-center" target="_blank" rel="noopener noreferrer"><span>{{award.issuer}}</span> <span class="material-symbols-outlined">link</span> </a>
+            {% else %}
+            <p>{{award.issuer}}</p>
+            {% endif %}
+          </span>
+       
         </div>
         <p class="content-description">
           {{award.award_description}}
@@ -746,14 +781,12 @@
 
         <div class="resume-flex-spc-btwn">
           <span>
-            <p><strong>{{publication.publisher}}</strong></p>
-            {% if publication.publication_link %}
-            <a href="{{ publication.publication_link}}" class="flx-align-center" target="_blank" rel="noopener noreferrer"><span>{{publication.publication_title}}</span> <span class="material-symbols-outlined">link</span> </a>
-            {% else %}
-            <p>{{publication.publication_title}}</p>
-            {% endif %}
-          </span>
-          {% if publication.publication_date %}
+            <p>
+              <span>
+                <strong>{{publication.publisher}}</strong>
+              </span>
+            <span>
+              {% if publication.publication_date %}
           <span>
             {% if publication.publication_month_year_only %} {{publication.publication_date|date:"M, Y"}} 
             {% elif publication.publication_year_only %} 
@@ -762,6 +795,15 @@
              {% endif %}
           </span>
           {% endif %}
+            </span>
+            </p>
+            {% if publication.publication_link %}
+            <a href="{{ publication.publication_link}}" class="flx-align-center" target="_blank" rel="noopener noreferrer"><span>{{publication.publication_title}}</span> <span class="material-symbols-outlined">link</span> </a>
+            {% else %}
+            <p>{{publication.publication_title}}</p>
+            {% endif %}
+          </span>
+          
         </div>
         <p class="content-description">
           {{publication.publication_description}}

@@ -8,7 +8,7 @@
 html,
 body {
   scroll-behavior: smooth;
-  overflow-x: hidden;
+  /* overflow-x: hidden; */
   background-color: #f3f4f6;
 }
 
@@ -61,6 +61,7 @@ form {
 
 .form-input-container {
   margin: 30px 0;
+  position: relative;
 }
 
 .form-input-container > span {
@@ -430,6 +431,15 @@ textarea {
   cursor: not-allowed !important;
 }
 
+.cancel-readonly-input {
+  position: absolute;
+  color: #9f9c9c;
+  right: 0;
+  padding: 10px;
+  top: 40%;
+  cursor: pointer;
+}
+
 .form-display-content {
   margin: 5px 0;
   border-bottom: 5px solid #f2f3f5;
@@ -593,7 +603,6 @@ h6 {
   margin: 25px 0;
 }
 
-
 .a-tag-btn {
   display: inline-flex !important;
   align-items: center;
@@ -601,12 +610,12 @@ h6 {
 }
 
 @media all and (max-width: 950px) {
-  .content-container > div:last-child {
-    display: none;
-  }
-
   .content-container {
     grid-template-columns: 1fr;
+  }
+
+  .content-container > div {
+    margin: 80px auto 40px auto;
   }
 
   .base-sidenav {
@@ -616,6 +625,11 @@ h6 {
 
   .download-pdf-nav {
     margin: 5px 60px 5px auto;
+  }
+
+  #add-content-modal {
+    height: 100vh;
+    top: 50%;
   }
 }
 
