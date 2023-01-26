@@ -13,7 +13,15 @@
     </div>
     <div class="side-nav-content" id="check-nav">
       <span class="material-symbols-outlined"> priority </span>
-      <div>Check</div>
+      <!-- <div>Check</div> -->
+      <div>
+        <a
+          target="_blank"
+          rel="noopener noreferrer"
+          href="{% url 'portfolio' feedback_id=personal_detail.feedback_id slugified_full_name=personal_detail.slugified_full_name  %}"
+          >Portfolio</a
+        >
+      </div>
     </div>
     <div class="side-nav-content" id="myresumes-nav">
       <span class="material-symbols-outlined"> notes </span>
@@ -30,6 +38,8 @@
       >
       {% endif %}
     </div>
-    {% endfor %} {% else %} <div class="resume-list-container">Nil</div> {% endif %}
+    {% endfor %} {% else %}
+    <div class="resume-list-container">Nil</div>
+    {% endif %}
   </div>
 </div>

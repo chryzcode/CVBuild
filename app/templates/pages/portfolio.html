@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet" />
+    <title>{{personal_detail.full_name}}'s Portfolio</title>
+
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Poppins", sans-serif;
+      }
+
+      a {
+        text-decoration: none;
+      }
+
+      body {
+        background-color: #333;
+      }
+
+      .name {
+        font-size: 45px;
+        font-weight: 550;
+        margin: 7px 0;
+      }
+
+      .job-title {
+        font-size: 20px;
+      }
+
+      .profile {
+        margin: 40px 0;
+      }
+
+      .portfolio-container {
+        color: #fff;
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        text-align: center;
+      }
+
+      .links-container {
+        margin-top: 20px;
+      }
+
+      .links-container > span {
+        padding: 6px 9px;
+        margin: 0 2px;
+      }
+
+      .btn {
+        padding: 5px 8px;
+      }
+
+      .links-container > span > a {
+        transition: all 1s ease-in-out;
+        color: #fff;
+      }
+
+      .links-container > span > a:hover {
+        color: rgba(255, 255, 255, 0.445);
+      }
+
+      .btn,
+      .links-container > span {
+        width: max-content;
+        border: 1px solid #ccc;
+        display: inline-block;
+        color: #fff;
+      }
+
+      .btn:hover,
+      .links-container > span:hover {
+        transition: all 1s ease-in-out;
+        color: rgba(255, 255, 255, 0.445);
+        border: 1px rgba(255, 255, 255, 0.445) solid;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="portfolio-container">
+        {% if error %}
+        <h1>{{error}}</h1>
+    {% else %}
+      <p class="name">{{personal_detail.full_name|title }}</p>
+      <p class="job-title">{{personal_detail.job_title|title }}</p>
+      <div class="links-container">
+        {% if personal_detail.phone %}
+        <span
+          ><a href="tel:{{personal_detail.phone}}"><i class="fa-sharp fa-solid fa-phone"></i></a
+        ></span>
+        {% endif %} {% if personal_detail.website %}
+        <span
+          ><a href="{{personal_detail.website}}" target="_blank" rel="noopener noreferrer"
+            ><i class="fa-solid fa-globe"></i></a
+        ></span>
+        {% endif %} {% if personal_detail.twitter %}
+        <span
+          ><a href="{{personal_detail.twitter}}" target="_blank" rel="noopener noreferrer"
+            ><i class="fab fa-twitter"></i></a
+        ></span>
+        {% endif %} {% if personal_detail.github %}
+        <span
+          ><a href="{{personal_detail.github}}" target="_blank" rel="noopener noreferrer"
+            ><i class="fab fa-github"></i></a
+        ></span>
+        {% endif %} {% if personal_detail.linkedin %}
+        <span
+          ><a href="{{personal_detail.linkedin}}" target="_blank" rel="noopener noreferrer"
+            ><i class="fab fa-linkedin-in"></i></a
+        ></span>
+        {% endif %} {% if personal_detail.medium %}
+        <span
+          ><a href="{{personal_detail.medium}}" target="_blank" rel="noopener noreferrer"
+            ><i class="fab fa-medium"></i></a
+        ></span>
+        {% endif %} {% if personal_detail.orcid %}
+        <span
+          ><a href="{{personal_detail.orcid}}" target="_blank" rel="noopener noreferrer"><i class="fab fa-orcid"></i></a
+        ></span>
+        {% endif %} {% if personal_detail.skype %}
+        <span
+          ><a href="{{personal_detail.skype}}" target="_blank" rel="noopener noreferrer"><i class="fab fa-skype"></i></a
+        ></span>
+        {% endif %} {% if personal_detail.discord %}
+        <span
+          ><a href="{{personal_detail.discord}}" target="_blank" rel="noopener noreferrer"
+            ><i class="fab fa-discord"></i></a
+        ></span>
+        {% endif %} {% if personal_detail.dribble %}
+        <span
+          ><a href="{{personal_detail.dribble}}" target="_blank" rel="noopener noreferrer"
+            ><i class="fab fa-dribbble"></i></a
+        ></span>
+        {% endif %} {% if personal_detail.behance %}
+        <span
+          ><a href="{{personal_detail.behance}}" target="_blank" rel="noopener noreferrer"
+            ><i class="fab fa-behance"></i></a
+        ></span>
+        {% endif %} {% if personal_detail.stackoverflow %}
+        <span
+          ><a href="{{personal_detail.stackoverflow}}" target="_blank" rel="noopener noreferrer"
+            ><i class="fab fa-stack-overflow"></i></a
+        ></span>
+        {% endif %} {% if personal_detail.gitlab %}
+        <span
+          ><a href="{{personal_detail.gitlab}}" target="_blank" rel="noopener noreferrer"
+            ><i class="fab fa-gitlab"></i></a
+        ></span>
+        {% endif %} {% if personal_detail.quora %}
+        <span
+          ><a href="{{personal_detail.quora}}" target="_blank" rel="noopener noreferrer"><i class="fab fa-quora"></i></a
+        ></span>
+        {% endif %} {% if personal_detail.facebook %}
+        <span
+          ><a href="{{personal_detail.facebook}}" target="_blank" rel="noopener noreferrer"
+            ><i class="fab fa-facebook-square"></i></a
+        ></span>
+        {% endif %} {% if personal_detail.instagram %}
+        <span
+          ><a href="{{personal_detail.instagram}}" target="_blank" rel="noopener noreferrer"
+            ><i class="fab fa-instagram-square"></i></a
+        ></span>
+        {% endif %} {% if personal_detail.hackerrank %}
+        <span
+          ><a href="{{personal_detail.hackerrank}}" target="_blank" rel="noopener noreferrer"
+            ><i class="fab fa-hackerrank"></i></a
+        ></span>
+        {% endif %} {% if personal_detail.wechat %}
+        <span
+          ><a href="{{personal_detail.wechat}}" target="_blank" rel="noopener noreferrer"
+            ><i class="fab fa-weixin"></i></a
+        ></span>
+        {% endif %} {% if personal_detail.kaggle %}
+        <span
+          ><a href="{{personal_detail.kaggle}}" target="_blank" rel="noopener noreferrer"
+            ><i class="fab fa-kaggle"></i></a
+        ></span>
+        {% endif %} {% if personal_detail.youtube %}
+        <span
+          ><a href="{{personal_detail.youtube}}" target="_blank" rel="noopener noreferrer"
+            ><i class="fab fa-youtube"></i></a
+        ></span>
+        {% endif %} {% if personal_detail.tiktok %}
+        <span
+          ><a href="{{personal_detail.tiktok}}" target="_blank" rel="noopener noreferrer"
+            ><i class="fab fa-tiktok"></i></a
+        ></span>
+        {% endif %} {% if personal_detail.signal %}
+        <span
+          ><a href="{{personal_detail.signal}}" target="_blank" rel="noopener noreferrer"
+            ><i class="fas fa-comment"></i></a
+        ></span>
+        {% endif %} {% if personal_detail.telegram %}
+        <span
+          ><a href="{{personal_detail.telegram}}" target="_blank" rel="noopener noreferrer"
+            ><i class="fab fa-telegram"></i></a
+        ></span>
+        {% endif %} {% if personal_detail.whatsapp %}
+        <span
+          ><a href="{{personal_detail.whatsapp}}" target="_blank" rel="noopener noreferrer"
+            ><i class="fab fa-whatsapp"></i></a
+        ></span>
+        {% endif %} {% if personal_detail.paypal %}
+        <span
+          ><a href="{{personal_detail.paypal}}" target="_blank" rel="noopener noreferrer"
+            ><i class="fab fa-paypal"></i></a
+        ></span>
+        {% endif %} {% if personal_detail.dev_to %}
+        <span
+          ><a href="{{personal_detail.dev_to}}" target="_blank" rel="noopener noreferrer"><i class="fab fa-dev"></i></a
+        ></span>
+        {% endif %} {% if personal_detail.angellist %}
+        <span
+          ><a href="{{personal_detail.angellist}}" target="_blank" rel="noopener noreferrer"
+            ><i class="fab fa-angellist"></i></a
+        ></span>
+        {% endif %} {% if personal_detail.producthunt %}
+        <span
+          ><a href="{{personal_detail.producthunt}}" target="_blank" rel="noopener noreferrer"
+            ><i class="fab fa-product-hunt"></i></a
+        ></span>
+        {% endif %} {% if personal_detail.artstation %}
+        <span
+          ><a href="{{personal_detail.artstation}}" target="_blank" rel="noopener noreferrer"
+            ><i class="fab fa-artstation"></i></a
+        ></span>
+        {% endif %} {% if personal_detail.codepen %}
+        <span
+          ><a href="{{personal_detail.codepen}}" target="_blank" rel="noopener noreferrer"
+            ><i class="fab fa-codepen"></i></a
+        ></span>
+        {% endif %} {% if personal_detail.fiverr %}
+        <span><a href="{{personal_detail.fiverr}}" target="_blank" rel="noopener noreferrer"></a></span>
+        {% endif %} {% if personal_detail.hashnode %}
+        <span><a href="{{personal_detail.hashnode}}" target="_blank" rel="noopener noreferrer"></a></span>
+        {% endif %} {% if personal_detail.pluralsight %}
+        <span><a href="{{personal_detail.pluralsight}}" target="_blank" rel="noopener noreferrer"></a></span>
+        {% endif %} {% if personal_detail.researchgate %}
+        <span
+          ><a href="{{personal_detail.researchgate}}" target="_blank" rel="noopener noreferrer"
+            ><i class="fab fa-researchgate"></i></a
+        ></span>
+        {% endif %} {% if personal_detail.imdb %}
+        <span
+          ><a href="{{personal_detail.imdb}}" target="_blank" rel="noopener noreferrer"><i class="fab fa-imdb"></i></a
+        ></span>
+        {% endif %} {% if personal_detail.qwiklabs %}
+        <span><a href="{{personal_detail.qwiklabs}}" target="_blank" rel="noopener noreferrer"></a></span>
+        {% endif %} {% if personal_detail.googleplay %}
+        <span
+          ><a href="{{personal_detail.googleplay}}" target="_blank" rel="noopener noreferrer"
+            ><i class="fab fa-google-play"></i></a
+        ></span>
+        {% endif %} {% if personal_detail.tumbir %}
+        <span
+          ><a href="{{personal_detail.tumbir}}" target="_blank" rel="noopener noreferrer"
+            ><i class="fab fa-tumblr"></i></a
+        ></span>
+        {% endif %} {% if personal_detail.tripadvisor %}
+        <span><a href="{{personal_detail.tripadvisor}}" target="_blank" rel="noopener noreferrer"></a></span>
+        {% endif %} {% if personal_detail.yelp %}
+        <span
+          ><a href="{{personal_detail.yelp}}" target="_blank" rel="noopener noreferrer"><i class="fab fa-yelp"></i></a
+        ></span>
+        {% endif %} {% if personal_detail.qq %}
+        <span
+          ><a href="{{personal_detail.qq}}" target="_blank" rel="noopener noreferrer"><i class="fab fa-qq"></i></a
+        ></span>
+        {% endif %} {% if personal_detail.slack %}
+        <span
+          ><a href="{{personal_detail.slack}}" target="_blank" rel="noopener noreferrer"><i class="fab fa-slack"></i></a
+        ></span>
+        {% endif %} {% if personal_detail.flickr %}
+        <span
+          ><a href="{{personal_detail.flickr}}" target="_blank" rel="noopener noreferrer"
+            ><i class="fab fa-flickr"></i></a
+        ></span>
+        {% endif %} {% if personal_detail.reverbnation %}
+        <span><a href="{{personal_detail.reverbnation}}" target="_blank" rel="noopener noreferrer"></a></span>
+        {% endif %} {% if personal_detail.deviantart %}
+        <span
+          ><a href="{{personal_detail.deviantart}}" target="_blank" rel="noopener noreferrer"
+            ><i class="fab fa-deviantart"></i></a
+        ></span>
+        {% endif %} {% if personal_detail.vimeo %}
+        <span
+          ><a href="{{personal_detail.vimeo}}" target="_blank" rel="noopener noreferrer"
+            ><i class="fab fa-vimeo-v"></i></a
+        ></span>
+        {% endif %} {% if personal_detail.reddit %}
+        <span
+          ><a href="{{personal_detail.reddit}}" target="_blank" rel="noopener noreferrer"
+            ><i class="fab fa-reddit"></i></a
+        ></span>
+        {% endif %} {% if personal_detail.pininterest %}
+        <span
+          ><a href="{{personal_detail.pininterest}}" target="_blank" rel="noopener noreferrer"
+            ><i class="fab fa-pinterest-square"></i></a
+        ></span>
+        {% endif %} {% if personal_detail.blogger %}
+        <span
+          ><a href="{{personal_detail.blogger}}" target="_blank" rel="noopener noreferrer"
+            ><i class="fab fa-blogger"></i></a
+        ></span>
+        {% endif %} {% if personal_detail.spotify %}
+        <span
+          ><a href="{{personal_detail.spotify}}" target="_blank" rel="noopener noreferrer"
+            ><i class="fab fa-spotify"></i></a
+        ></span>
+        {% endif %} {% if personal_detail.bitcoin %}
+        <span
+          ><a href="{{personal_detail.bitcoin}}" target="_blank" rel="noopener noreferrer"
+            ><i class="fab fa-bitcoin"></i></a
+        ></span>
+        {% endif %} {% if personal_detail.appstore %}
+        <span
+          ><a href="{{personal_detail.appstore}}" target="_blank" rel="noopener noreferrer"
+            ><i class="fab fa-app-store"></i></a
+        ></span>
+        {% endif %} {% if personal_detail.wordpress %}
+        <span
+          ><a href="{{personal_detail.wordpress}}" target="_blank" rel="noopener noreferrer"
+            ><i class="fab fa-wordpress"></i></a
+        ></span>
+        {% endif %} {% if personal_detail.leetcode %}
+        <span><a href="{{personal_detail.leetcode}}" target="_blank" rel="noopener noreferrer"></a></span>
+        {% endif %} {% if personal_detail.codechef %}
+        <span><a href="{{personal_detail.codechef}}" target="_blank" rel="noopener noreferrer"></a></span>
+        {% endif %} {% if personal_detail.codeforces %}
+        <span><a href="{{personal_detail.codeforces}}" target="_blank" rel="noopener noreferrer"></a></span>
+        {% endif %} {% if personal_detail.vsco %}
+        <span><a href="{{personal_detail.vsco}}" target="_blank" rel="noopener noreferrer"></a></span>
+        {% endif %} {% if personal_detail.snapchat %}
+        <span
+          ><a href="{{personal_detail.snapchat}}" target="_blank" rel="noopener noreferrer"
+            ><i class="fab fa-snapchat"></i></a
+        ></span>
+        {% endif %} {% if personal_detail.upwork %}
+        <span><a href="{{personal_detail.upwork}}" target="_blank" rel="noopener noreferrer"></a></span>
+        {% endif %} {% if personal_detail.geeksforgeeks %}
+        <span><a href="{{personal_detail.geeksforgeeks}}" target="_blank" rel="noopener noreferrer"></a></span>
+        {% endif %} {% if personal_detail.googlescholar %}
+        <span><a href="{{personal_detail.googlescholar}}" target="_blank" rel="noopener noreferrer"></a></span>
+        {% endif %} {% if personal_detail.line %}
+        <span
+          ><a href="{{personal_detail.line}}" target="_blank" rel="noopener noreferrer"><i class="fab fa-line"></i></a
+        ></span>
+        {% endif %} {% if personal_detail.tryhackme %}
+        <span><a href="{{personal_detail.tryhackme}}" target="_blank" rel="noopener noreferrer"></a></span>
+        {% endif %} {% if personal_detail.coursera %}
+        <span><a href="{{personal_detail.coursera}}" target="_blank" rel="noopener noreferrer"></a></span>
+        {% endif %} {% if personal_detail.protonmail %}
+        <span><a href="{{personal_detail.protonmail}}" target="_blank" rel="noopener noreferrer"></a></span>
+        {% endif %} {% if personal_detail.hackerearth %}
+        <span><a href="{{personal_detail.hackerearth}}" target="_blank" rel="noopener noreferrer"></a></span>
+        {% endif %} {% if personal_detail.codewars %}
+        <span><a href="{{personal_detail.codewars}}" target="_blank" rel="noopener noreferrer"></a></span>
+        {% endif %} {% if personal_detail.hackthebox %}
+        <span><a href="{{personal_detail.hackthebox}}" target="_blank" rel="noopener noreferrer"></a></span>
+        {% endif %} {% if personal_detail.bitbucket %}
+        <span
+          ><a href="{{personal_detail.bitbucket}}" target="_blank" rel="noopener noreferrer"
+            ><i class="fab fa-bitbucket"></i></a
+        ></span>
+        {% endif %} {% if personal_detail.gitea %}
+        <span><a href="{{personal_detail.gitea}}" target="_blank" rel="noopener noreferrer">Gitea</a></span>
+        {% endif %} {% if personal_detail.xing %}
+        <span
+          ><a href="{{personal_detail.xing}}" target="_blank" rel="noopener noreferrer"><i class="fab fa-xing"></i></a
+        ></span>
+        {% endif %}
+      </div>
+      {% if profile %}
+      <div class="profile">{{profile.summary}}</div>
+      {% endif %} {% if personal_detail.email %}
+      <p>
+        <a class="btn" href="mailto:{{personal_detail.email}}">Contact me</a>
+      </p>
+      {% endif %}
+      {% endif %}
+    </div>
+  </body>
+</html>

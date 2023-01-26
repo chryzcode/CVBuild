@@ -1,3 +1,4 @@
+import requests
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
@@ -21,6 +22,20 @@ from io import BytesIO
 from xhtml2pdf import pisa
 
 # Create your views here.
+
+def portfolio(request, feedback_id, slugified_full_name):
+    if Personal_Details.objects.filter(feedback_id=feedback_id).exists():
+        personal_detail = Personal_Details.objects.get(feedback_id=feedback_id)
+        if slugified_full_name == slugify(personal_detail.full_name):
+            profile = Profile.objects.get(personal_detail=personal_detail)
+            context = {'personal_detail':personal_detail, 'profile':profile}
+            return render(request, 'pages/portfolio.html', context)
+        else:
+            error = 'Portfolio Does Not Exist'
+            return render(request, 'pages/portfolio.html', {"error":error})
+    else:
+        error = 'Portfolio Does Not Exist'
+        return render(request, 'pages/portfolio.html', {"error":error})
 
 
 def render_to_pdf(template_src, context_dict={}):
@@ -61,6 +76,45 @@ class DownloadPdf(View):
         content = "attachment; filename='%s'" %(filename)
         response['Content-Disposition'] = content
         return response
+
+def pdfview(request, feedback_id):
+    if Personal_Details.objects.filter(feedback_id=feedback_id, user=request.user).exists():
+        personal_detail = Personal_Details.objects.get(feedback_id=feedback_id, user=request.user)
+        feedbacks = Feedback.objects.filter(personal_detail=personal_detail)
+        profile = Profile.objects.filter(personal_detail=personal_detail).last()
+        profile_form = ProfileForm(instance=profile)
+        personal_detail_form = PersonalDetailsForm(instance=personal_detail)
+        skill_form = SkillForm()
+        link_form = LinkForm(instance=personal_detail)
+        skill_levels = Skill_Level.objects.all()
+        skills = Skills.objects.filter(personal_detail=personal_detail)
+        experiences = Experience.objects.filter(personal_detail=personal_detail)
+        experience_form = ExperienceForm()
+        projects = Project.objects.filter(personal_detail=personal_detail)
+        project_form = ProjectForm()
+        educations = Education.objects.filter(personal_detail=personal_detail)
+        education_form = EducationForm()
+        language_levels = Language_Level.objects.all()
+        languages = Language.objects.filter(personal_detail=personal_detail)
+        language_form = LanguageForm()
+        references = Reference.objects.filter(personal_detail=personal_detail)
+        reference_form = ReferenceForm()
+        awards = Award.objects.filter(personal_detail=personal_detail)
+        award_form = AwardForm()
+        organisations = Organisation.objects.filter(personal_detail=personal_detail)
+        organisation_form = OrganisationForm
+        certificates = Certificate.objects.filter(personal_detail=personal_detail)
+        certificate_form = CertificateForm()
+        interests = Interest.objects.filter(personal_detail=personal_detail)
+        interest_form = InterestForm()
+        publications = Publication.objects.filter(personal_detail=personal_detail)
+        publication_form = PublicationForm()
+        context = {'personal_detail':personal_detail, 'profile_form':profile_form, 'personal_detail_form':personal_detail_form, 'skill_form':skill_form, 'skill_levels':skill_levels, 'link_form':link_form, 'skills':skills, 'experiences':experiences, 'experience_form':experience_form, 'projects':projects, 'project_form':project_form, 'educations':educations, 'education_form':education_form, 'language_levels':language_levels, 'languages':languages, 'language_form':language_form, 'references':references, 'reference_form':reference_form, 'awards':awards, 'award_form':award_form, 'organisations':organisations, 'organisation_form':organisation_form, 'certificates':certificates, 'certificate_form':certificate_form, 'interests':interests, 'interest_form':interest_form, 'publications':publications, 'publication_form':publication_form, 'feedbacks':feedbacks, 'profile':profile}
+        return render(request, "pages/pdf-template.html", context)
+
+
+                                    
+
 
 def custom_error_404(request, exception):
     return render(request, "error-pages/404-page.html")

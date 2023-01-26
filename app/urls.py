@@ -6,8 +6,10 @@ from django.views.generic import TemplateView
 
 urlpatterns = [
     path("", views.home, name="home"),
+    path('<uuid:feedback_id>/<slugified_full_name>/', views.portfolio, name="portfolio"),
     path('resume-preview/<int:pk>/', views.ViewPdf.as_view(), name='ViewPdf'), 
     path('download-resume', views.DownloadPdf.as_view(), name='DownloadPdf'),
+    path('check-pdf/<uuid:feedback_id>/', views.pdfview, name="pdfview"),
     path("<uuid:feedback_id>/", views.Resume, name="Resume"),
     path("personal-details/<int:pk>/", views.person_details, 
     name="person_details"),

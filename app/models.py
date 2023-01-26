@@ -1,6 +1,6 @@
 
 from django.db import models
-from django.db import models
+from django.utils.text import slugify
 from django.urls import reverse_lazy, reverse
 from django.contrib.auth.models import (
     AbstractBaseUser,
@@ -153,6 +153,9 @@ class Personal_Details(models.Model):
     bitbucket = models.CharField(max_length=250, null = True, blank = True)
     gitea = models.CharField(max_length=250, null = True, blank = True)
     xing = models.CharField(max_length=250, null = True, blank = True)
+
+    def slugified_full_name(self):
+        return slugify(self.full_name)
 
     def save(self, *args, **kwargs):
         if not self.resume_name:
