@@ -7,22 +7,25 @@
       <span class="material-symbols-outlined"> description </span>
       <div>Content</div>
     </div>
-    <div class="side-nav-content" id="customize-nav">
-      <span class="material-symbols-outlined"> edit_note </span>
-      <div>Customize</div>
-    </div>
-    <div class="side-nav-content" id="check-nav">
-      <span class="material-symbols-outlined"> priority </span>
-      <!-- <div>Check</div> -->
-      <div>
+    <div class="side-nav-content" id="">
         <a
           target="_blank"
           rel="noopener noreferrer"
           href="{% url 'portfolio' feedback_id=personal_detail.feedback_id slugified_full_name=personal_detail.slugified_full_name  %}"
-          >Portfolio</a
+          >
+      <span class="material-symbols-outlined"> priority </span>
+      <!-- <div>Check</div> -->
+      <div>
+      Portfolio</a
         >
       </div>
     </div>
+    <div class="side-nav-content" id="check-nav">
+      <span class="material-symbols-outlined"> edit_note </span>
+      <!-- <div>Customize</div> -->
+      <div>Feedback</div>
+    </div>
+    
     <div class="side-nav-content" id="myresumes-nav">
       <span class="material-symbols-outlined"> notes </span>
       <div>My Resumes</div>

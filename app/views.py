@@ -1,4 +1,5 @@
 import requests
+import io
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
@@ -68,13 +69,24 @@ class ViewPdf(View):
 
 class DownloadPdf(View):
     def get(self, request, *args, **kwargs):
-        resume = Personal_Details.objects.get(pk= self.kwargs['id'])
-        data = {'resume': resume}
-        pdf = render_to_pdf('pdf-resume-template.html', data)
+        personal_detail = Personal_Details.objects.get(pk= self.kwargs['pk'])
+        profile = Profile.objects.filter(personal_detail=personal_detail).last()
+        skills = Skills.objects.filter(personal_detail=personal_detail)
+        experiences = Experience.objects.filter(personal_detail=personal_detail)
+        projects = Project.objects.filter(personal_detail=personal_detail)
+        educations = Education.objects.filter(personal_detail=personal_detail)
+        languages = Language.objects.filter(personal_detail=personal_detail)
+        references = Reference.objects.filter(personal_detail=personal_detail)
+        awards = Award.objects.filter(personal_detail=personal_detail)
+        organisations = Organisation.objects.filter(personal_detail=personal_detail)
+        certificates = Certificate.objects.filter(personal_detail=personal_detail)
+        interests = Interest.objects.filter(personal_detail=personal_detail)
+        publications = Publication.objects.filter(personal_detail=personal_detail)
+        data = {'personal_detail':personal_detail, 'skills':skills, 'profile':profile, 'experiences':experiences, 'projects':projects, 'educations':educations, 'languages':languages,  'references':references, 'awards':awards, 'organisations':organisations, 'certificates':certificates,  'interests':interests, 'publications':publications}
+        pdf = render_to_pdf('pages/pdf-resume-template.html', data)
+        filename = f'{personal_detail.resume_name}.pdf'
         response = HttpResponse(pdf, content_type='application/pdf')
-        filename = resume.resume_name
-        content = "attachment; filename='%s'" %(filename)
-        response['Content-Disposition'] = content
+        response['Content-Disposition'] = 'attachment; filename="' + filename + '"'
         return response
 
 def pdfview(request, feedback_id):
@@ -112,7 +124,35 @@ def pdfview(request, feedback_id):
         context = {'personal_detail':personal_detail, 'profile_form':profile_form, 'personal_detail_form':personal_detail_form, 'skill_form':skill_form, 'skill_levels':skill_levels, 'link_form':link_form, 'skills':skills, 'experiences':experiences, 'experience_form':experience_form, 'projects':projects, 'project_form':project_form, 'educations':educations, 'education_form':education_form, 'language_levels':language_levels, 'languages':languages, 'language_form':language_form, 'references':references, 'reference_form':reference_form, 'awards':awards, 'award_form':award_form, 'organisations':organisations, 'organisation_form':organisation_form, 'certificates':certificates, 'certificate_form':certificate_form, 'interests':interests, 'interest_form':interest_form, 'publications':publications, 'publication_form':publication_form, 'feedbacks':feedbacks, 'profile':profile}
         return render(request, "pages/pdf-template.html", context)
 
+# def downloadpdf(request, feedback_id):
+#     apiKey = 'a2c15a.030d9a828f893e9d3695dbff2e9f9bfb'
+#     resume = Personal_Details.objects.get(feedback_id=feedback_id)
+#     response = requests.post(
+#     'https://api.restpdf.io/v1/pdf',
+#     headers = {
+#         'X-API-KEY'   : apiKey,
+#         'content-type': 'application/json'
+#     },
+#     json = {
+#         "output": "data",
+#         "url": "https://github.com/chryzcode"
+#     }   
+#     )
+                                    
+#     if response.status_code == 200:
+#         with open(f'{resume.resume_name}.pdf', 'wb') as file:
+#             file.write(response.content)
 
+    
+#             # file_path = 'Resume 2.pdf'
+#             # filename = f'{resume.resume_name}.pdf'
+#             # response = HttpResponse(pdf, content_type='application/pdf')
+#             # response['Content-Disposition'] = 'attachment; filename="' + filename + '"'
+#             # return response
+#             # return redirect('Resume', feedback_id=feedback_id)
+
+#     else:
+#         print("There was an error converting the PDF")
                                     
 
 
