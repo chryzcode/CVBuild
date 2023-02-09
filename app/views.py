@@ -1,5 +1,4 @@
 import requests
-import io
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
@@ -125,7 +124,7 @@ def pdfview(request, feedback_id):
         return render(request, "pages/pdf-template.html", context)
 
 # def downloadpdf(request, feedback_id):
-#     apiKey = 'a2c15a.030d9a828f893e9d3695dbff2e9f9bfb'
+#     apiKey = 
 #     resume = Personal_Details.objects.get(feedback_id=feedback_id)
 #     response = requests.post(
 #     'https://api.restpdf.io/v1/pdf',
