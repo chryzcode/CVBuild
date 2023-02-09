@@ -609,6 +609,10 @@ h6 {
   height: 30px;
 }
 
+#toogle {
+  display: none;
+}
+
 @media all and (max-width: 950px) {
   .content-container {
     grid-template-columns: 1fr;
@@ -676,8 +680,59 @@ h6 {
     padding: 50px 70px;
   }
 
-  .nav > span:nth-child(2) {
-    display: none;
+ 
+  #nav-links {
+    margin-top: -150px;
+  }
+
+   #nav-links.active {
+    margin-top: 50px;
+   }
+
+  #nav-links > span {
+    display: block;
+    margin-top: 20px;
+    text-align: right;
+  }
+
+  #toogle {
+    position: absolute;
+    top: 65px;
+    right: 0;
+    width: 60px;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: 0.2s;
+  }
+
+  #toogle::before {
+    content: "";
+    position: absolute;
+    height: 2px;
+    width: 28px;
+    background-color: #6d7d89;
+    transform: translateY(-5px);
+    transition: 0.2s;
+  }
+
+  #toogle::after {
+    content: "";
+    position: absolute;
+    height: 2px;
+    width: 28px;
+    background-color: #6d7d89;
+    transform: translateY(5px);
+    transition: 1s;
+  }
+
+  #toogle.active::before {
+    transform: translateY(0px) rotate(45deg);
+  }
+
+  #toogle.active::after {
+    transform: translateY(0px) rotate(-45deg);
   }
 
   .auth-form {
@@ -694,7 +749,7 @@ h6 {
     margin: 5px 40px 5px auto;
   }
 
-   .auth-form {
+  .auth-form {
     width: 100%;
   }
 }
