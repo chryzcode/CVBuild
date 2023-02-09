@@ -677,15 +677,17 @@ h6 {
   }
 
   .nav {
-    padding: 50px 70px;
+    padding: 50px 30px;
+    display: block;
   }
 
  
   #nav-links {
-    margin-top: -150px;
+   display: none;
   }
 
    #nav-links.active {
+    display: block;
     margin-top: 50px;
    }
 
