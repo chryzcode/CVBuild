@@ -164,8 +164,8 @@ def custom_error_500(request):
     
 def account_login(request):
     context = {}
-    # if request.user.is_authenticated:
-    #     return redirect("/")
+    if request.user.is_authenticated:
+        return redirect("/")
 
     if request.method == "POST":
         email = request.POST.get("email")
@@ -214,8 +214,8 @@ def account_delete(request):
 
 
 def account_register(request):
-    # if request.user.is_authenticated:
-    #     return redirect("/")
+    if request.user.is_authenticated:
+        return redirect("/")
     registerform = RegistrationForm
     if request.method == "POST":
         email = request.POST.get("email")

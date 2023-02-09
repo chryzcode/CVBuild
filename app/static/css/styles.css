@@ -671,6 +671,18 @@ h6 {
     width: 80%;
     padding: 10px;
   }
+
+  .nav {
+    padding: 50px 70px;
+  }
+
+  .nav > span:nth-child(2) {
+    display: none;
+  }
+
+  .auth-form {
+    width: 80%;
+  }
 }
 
 @media all and (max-width: 450px) {
@@ -680,5 +692,9 @@ h6 {
 
   .download-pdf-nav {
     margin: 5px 40px 5px auto;
+  }
+
+   .auth-form {
+    width: 100%;
   }
 }
