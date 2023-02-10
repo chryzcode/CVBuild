@@ -622,6 +622,10 @@ h6 {
     margin: 80px auto 40px auto;
   }
 
+  .review-pdf-template {
+    display: none;
+  }
+
   .base-sidenav {
     margin: 10px 20px;
     padding: 10px 20px;
@@ -631,13 +635,25 @@ h6 {
     margin: 5px 60px 5px auto;
   }
 
-  #add-content-modal {
+  /* #add-content-modal {
     height: 100vh;
     top: 50%;
+  } */
+
+   .resume-pdf-container {
+    display: none;
   }
 }
 
 @media all and (max-width: 650px) {
+  .sidenav {
+    display: none;
+  }
+
+   .base-sidenav {
+    display: none;
+  }
+
   .base-sidenav > div > div {
     display: none;
   }
@@ -681,15 +697,14 @@ h6 {
     display: block;
   }
 
- 
   #nav-links {
-   display: none;
+    display: none;
   }
 
-   #nav-links.active {
+  #nav-links.active {
     display: block;
     margin-top: 50px;
-   }
+  }
 
   #nav-links > span {
     display: block;
@@ -754,7 +769,7 @@ h6 {
   .auth-form {
     width: 100%;
   }
-  
+
   .nav {
     padding: 50px 0;
   }
