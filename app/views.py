@@ -194,8 +194,6 @@ def account_logout(request):
     logout(request)
     return redirect("/")
 
-
-
 @login_required(login_url="login")
 def account_delete(request):
     user = User.objects.get(email=request.user.email)

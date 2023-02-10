@@ -32,7 +32,7 @@ SECRET_KEY = str(os.getenv('SECRET_KEY'))
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['cvbuild.herokuapp.com', '127.0.0.1', 'localhost']
+ALLOWED_HOSTS = ['cv-build.onrender.com', '127.0.0.1', 'localhost']
 
 
 # Application definition
@@ -98,6 +98,8 @@ WSGI_APPLICATION = 'cv_build.wsgi.application'
 #     "default": dj_database_url.config(default=DATABASE_URL, conn_max_age=1800),
 # }
 
+DEFAULT_DOMAIN='https://cv-build.onrender.com'
+
 DATABASES = {
     'default': {
         # 'ENGINE': 'django.db.backends.postgresql_psycopg2',
@@ -105,7 +107,7 @@ DATABASES = {
         "NAME": config("DB_NAME"),
         "USER": config("DB_USER"),
         "PASSWORD": config("DB_PASSWORD"),
-        'HOST': 'localhost',
+        'HOST': config("HOST"),
         'POST': '5432',
     }
 }
