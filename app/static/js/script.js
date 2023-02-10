@@ -13,6 +13,8 @@ const linkClickCreateForms = document.querySelectorAll(".link-create-form-btn");
 const downloadPdfNav = document.querySelector(".download-pdf-nav");
 const errorTopModal = document.querySelector(".error-top-modal");
 const mobileMediaQuery = window.matchMedia("(max-width: 950px)");
+const mediumMobileMediaQuery = window.matchMedia("(max-width: 650px)");
+const smallMobileMediaQuery = window.matchMedia("(max-width: 450px)");
 const inputTextLinkForms = document.querySelectorAll(".input-text-link-form");
 const sideNavContents = document.querySelectorAll(".side-nav-content");
 const navPageContents = document.querySelectorAll(".nav-page-content");
@@ -412,16 +414,18 @@ if (contentFormContainers) {
 }
 
 function getContentPageWidth(baseSideNav, page) {
-  const pageWidth = page.getBoundingClientRect().width;
-  const baseSideNavWidth = baseSideNav.getBoundingClientRect().width;
-  remainingWidth = pageWidth - baseSideNavWidth;
-  contentContainer.style.width = `${remainingWidth}px`;
+  if (!smallMobileMediaQuery.matches) {
+    {
+      const pageWidth = page.getBoundingClientRect().width;
+      const baseSideNavWidth = baseSideNav.getBoundingClientRect().width;
+      remainingWidth = pageWidth - baseSideNavWidth;
+      contentContainer.style.width = `${remainingWidth}px`;
+    }
+  }
 }
 
 function getBaseSideNavHeight(baseSideNav) {
-  if (mobileMediaQuery.matches) {
-    baseSideNav.style.height = `${95}vh`;
-  } else {
+  if (!mediumMobileMediaQuery.matches) {
     const bodyHeight = document.querySelector("body").getBoundingClientRect().height;
     baseSideNav.style.height = `${bodyHeight}px`;
   }

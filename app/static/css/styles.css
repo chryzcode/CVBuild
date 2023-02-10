@@ -640,18 +640,34 @@ h6 {
     top: 50%;
   } */
 
-   .resume-pdf-container {
+  .resume-pdf-container {
     display: none;
   }
 }
 
 @media all and (max-width: 650px) {
-  .sidenav {
+  /* .sidenav {
     display: none;
+  } */
+
+  .base-sidenav {
+    /* display: none; */
+    position: absolute;
+    bottom: 20px;
+    right: 0;
+    z-index: 10;
+    background: none;
+    box-shadow: none;
+    justify-content: unset;
+    /* width: 60px; */
   }
 
-   .base-sidenav {
-    display: none;
+  .base-sidenav > div {
+    margin: 10px 0;
+  }
+
+  .content-container {
+    margin: 0 auto;
   }
 
   .base-sidenav > div > div {
@@ -659,7 +675,7 @@ h6 {
   }
 
   .base-sidenav span {
-    font-size: 30px;
+    font-size: 50px;
   }
 
   form {
@@ -684,7 +700,7 @@ h6 {
   }
 
   .download-pdf-nav {
-    margin: 5px 30px 5px auto;
+    margin: 5px 75px 5px auto;
   }
 
   .error-top-modal {
@@ -759,11 +775,13 @@ h6 {
 
 @media all and (max-width: 450px) {
   .content-container {
-    padding: 10px 15px;
+    /* padding: 10px 15px; */
+    width: 100%;
+    padding: 0;
   }
 
   .download-pdf-nav {
-    margin: 5px 40px 5px auto;
+    margin: 5px 20px 5px auto;
   }
 
   .auth-form {
