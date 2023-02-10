@@ -23,12 +23,14 @@ const addContentModal = document.querySelector("#add-content-modal");
 const allModelContents = document.querySelectorAll(".add-modal-content");
 const formErrors = document.querySelectorAll(".form-errors");
 
-toogle.onclick = function () {
-  toogle.classList.toggle("active");
-  if (navLinks) {
-    navLinks.classList.toggle("active");
-  }
-};
+if (toogle) {
+  toogle.onclick = function () {
+    toogle.classList.toggle("active");
+    if (navLinks) {
+      navLinks.classList.toggle("active");
+    }
+  };
+}
 
 if (allModelContents) {
   allModelContents.forEach(allModelContent => {

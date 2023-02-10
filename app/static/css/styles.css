@@ -754,4 +754,8 @@ h6 {
   .auth-form {
     width: 100%;
   }
+  
+  .nav {
+    padding: 50px 0;
+  }
 }
