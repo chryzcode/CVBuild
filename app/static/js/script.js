@@ -458,7 +458,6 @@ window.addEventListener("load", () => {
         error.classList.remove(".errorlist");
         error.style.listStyle = "revert";
         error.style.textAlign = "left";
-        // error.textContent = error.textContent.replaceAll("_", " ");
       }
     });
 
@@ -594,8 +593,6 @@ if (forms) {
           const requriedFieldSymbol = formInputContainer.querySelector(".form-required-field");
 
           const formInput = formInputContainer.lastElementChild;
-
-          // const allFormRequiredSymbol = form.querySelectorAll(".form-required-field");
 
           if (requriedFieldSymbol) {
             if (formInput.value) {
