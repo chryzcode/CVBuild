@@ -650,10 +650,15 @@ h6 {
     display: none;
   } */
 
+  .resume-pop-up {
+    margin: 0 auto;
+    width: 100%;
+  }
+
   .base-sidenav {
     /* display: none; */
     position: absolute;
-    bottom: 20px;
+    bottom: 50px;
     right: 0;
     z-index: 10;
     background: none;
@@ -676,6 +681,7 @@ h6 {
 
   .base-sidenav span {
     font-size: 50px;
+    background-color: #fff;
   }
 
   form {
@@ -700,7 +706,7 @@ h6 {
   }
 
   .download-pdf-nav {
-    margin: 5px 75px 5px auto;
+    margin: 5px 30px 5px auto;
   }
 
   .error-top-modal {
@@ -790,5 +796,13 @@ h6 {
 
   .nav {
     padding: 50px 0;
+  }
+
+  .base-sidenav {
+    margin: 0;
+  }
+
+  .base-sidenav span {
+    font-size: 45px;
   }
 }

@@ -414,7 +414,7 @@ if (contentFormContainers) {
 }
 
 function getContentPageWidth(baseSideNav, page) {
-  if (!smallMobileMediaQuery.matches) {
+  if (!mediumMobileMediaQuery.matches) {
     {
       const pageWidth = page.getBoundingClientRect().width;
       const baseSideNavWidth = baseSideNav.getBoundingClientRect().width;
