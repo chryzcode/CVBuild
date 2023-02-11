@@ -427,7 +427,7 @@ function getContentPageWidth(baseSideNav, page) {
 function getBaseSideNavHeight(baseSideNav) {
   if (!mediumMobileMediaQuery.matches) {
     const bodyHeight = document.querySelector("body").getBoundingClientRect().height;
-    baseSideNav.style.height = `${bodyHeight}px`;
+    baseSideNav.style.height = `${bodyHeight - 30}px`;
   }
 }
 
