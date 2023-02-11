@@ -10,6 +10,73 @@
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet" />
     <title>CV Build</title>
+    <style type="text/css">
+      .resume-center {
+        text-align: center;
+        width: 100%;
+        display: inline-block;
+        margin: 0 auto;
+      }
+
+        a {
+        text-decoration: none;
+        color: #000000;
+      }
+
+      .resume-pdf-container {
+        margin-top: 20px;
+        color: #000000;
+        box-shadow: rgb(201, 201, 201) 0px 1px 2px 1px;
+        padding: 20px 15px;
+      }
+
+    
+
+     
+
+     
+
+      .resume-flex-spc-btwn {
+        display: flex;
+        justify-content: space-between;
+      }
+
+     
+
+       .resume-pdf-container > div {
+        margin: 15px 0;
+      }
+
+       .content-description {
+        margin: 10px 0;
+      }
+
+      .resume-links i {
+        padding-right: 5px;
+      }
+
+      .flx-align-center {
+        display: inline-flex;
+        align-items: center;
+      }
+
+      .resume-section-header {
+        font-size: 20px;
+        width: 100%;
+        background-color: #e0e0e0;
+        padding: 2px 0;
+        text-align: center;
+        margin: 20px 0;
+        border-radius: 4px;
+      }
+
+       .resume-flex-spc-even-span > span {
+        display: inline-flex;
+        justify-content: space-evenly;
+        padding: 2px 10px 2px 0;
+        flex-direction: column;
+      }
+    </style>
   </head>
   <body>
     <div class="content-container">
@@ -39,7 +106,733 @@
           <button class="form-btn btn" type="submit">Save</button>
         </form>
       </div>
-      <div>{% include 'pages/pdf-template.html' %}</div>
+      <div>
+        <div >
+      <div class="resume-center">
+        {% if personal_detail.full_name %}
+        <h1>{{personal_detail.full_name}}</h1>
+        {% endif %} 
+        
+        {% if personal_detail.job_title %}
+        <h3>{{personal_detail.job_title}}</h3>
+        {% endif %}
+      </div>
+      <div class="resume-flex-spc-even-span resume-links resume-center">
+        {% if personal_detail.email %}
+        <span
+          ><a href="mailto:{{personal_detail.email}}"
+            ><i class="fa-solid fa-envelope"></i>Email</a
+          ></span
+        >
+        {% endif %} {% if personal_detail.phone %}
+        <span
+          ><a href="tel:{{personal_detail.phone}}"
+            ><i class="fa-sharp fa-solid fa-phone"></i>{{personal_detail.phone}}</a
+          ></span
+        >
+        {% endif %} {% if personal_detail.website %}
+        <span
+          ><a href="{{personal_detail.website}}" target="_blank" rel="noopener noreferrer"
+            ><i class="fa-solid fa-globe"></i>Portfolio</a
+          ></span
+        >
+        {% endif %} {% if personal_detail.twitter %}
+        <span
+          ><a href="{{personal_detail.twitter}}" target="_blank" rel="noopener noreferrer"
+            ><i class="fab fa-twitter"></i>Twitter</a
+          ></span
+        >
+        {% endif %} {% if personal_detail.github %}
+        <span
+          ><a href="{{personal_detail.github}}" target="_blank" rel="noopener noreferrer"
+            ><i class="fab fa-github"></i>Github</a
+          ></span
+        >
+        {% endif %} {% if personal_detail.linkedin %}
+        <span
+          ><a href="{{personal_detail.linkedin}}" target="_blank" rel="noopener noreferrer"
+            ><i class="fab fa-linkedin-in"></i>Linkedin</a
+          ></span
+        >
+        {% endif %} {% if personal_detail.medium %}
+        <span
+          ><a href="{{personal_detail.medium}}" target="_blank" rel="noopener noreferrer"
+            ><i class="fab fa-medium"></i>Medium</a
+          ></span
+        >
+        {% endif %} {% if personal_detail.orcid %}
+        <span
+          ><a href="{{personal_detail.orcid}}" target="_blank" rel="noopener noreferrer"
+            ><i class="fab fa-orcid"></i>Orcid</a
+          ></span
+        >
+        {% endif %} {% if personal_detail.skype %}
+        <span
+          ><a href="{{personal_detail.skype}}" target="_blank" rel="noopener noreferrer"
+            ><i class="fab fa-skype"></i>Skype</a
+          ></span
+        >
+        {% endif %} {% if personal_detail.discord %}
+        <span
+          ><a href="{{personal_detail.discord}}" target="_blank" rel="noopener noreferrer"
+            ><i class="fab fa-discord"></i>Discord</a
+          ></span
+        >
+        {% endif %} {% if personal_detail.dribble %}
+        <span
+          ><a href="{{personal_detail.dribble}}" target="_blank" rel="noopener noreferrer"
+            ><i class="fab fa-dribbble"></i>Dribble</a
+          ></span
+        >
+        {% endif %} {% if personal_detail.behance %}
+        <span
+          ><a href="{{personal_detail.behance}}" target="_blank" rel="noopener noreferrer"
+            ><i class="fab fa-behance"></i>Behance</a
+          ></span
+        >
+        {% endif %} {% if personal_detail.stackoverflow %}
+        <span
+          ><a href="{{personal_detail.stackoverflow}}" target="_blank" rel="noopener noreferrer"
+            ><i class="fab fa-stack-overflow"></i>Stackoverflow</a
+          ></span
+        >
+        {% endif %} {% if personal_detail.gitlab %}
+        <span
+          ><a href="{{personal_detail.gitlab}}" target="_blank" rel="noopener noreferrer"
+            ><i class="fab fa-gitlab"></i>Gitlab</a
+          ></span
+        >
+        {% endif %} {% if personal_detail.quora %}
+        <span
+          ><a href="{{personal_detail.quora}}" target="_blank" rel="noopener noreferrer"
+            ><i class="fab fa-quora"></i>Quora</a
+          ></span
+        >
+        {% endif %} {% if personal_detail.facebook %}
+        <span
+          ><a href="{{personal_detail.facebook}}" target="_blank" rel="noopener noreferrer"
+            ><i class="fab fa-facebook-square"></i>Facebook</a
+          ></span
+        >
+        {% endif %} {% if personal_detail.instagram %}
+        <span
+          ><a href="{{personal_detail.instagram}}" target="_blank" rel="noopener noreferrer"
+            ><i class="fab fa-instagram-square"></i>Instagram</a
+          ></span
+        >
+        {% endif %} {% if personal_detail.hackerrank %}
+        <span
+          ><a href="{{personal_detail.hackerrank}}" target="_blank" rel="noopener noreferrer"
+            ><i class="fab fa-hackerrank"></i>Hackerrank</a
+          ></span
+        >
+        {% endif %} {% if personal_detail.wechat %}
+        <span
+          ><a href="{{personal_detail.wechat}}" target="_blank" rel="noopener noreferrer"
+            ><i class="fab fa-weixin"></i>Wechat</a
+          ></span
+        >
+        {% endif %} {% if personal_detail.kaggle %}
+        <span
+          ><a href="{{personal_detail.kaggle}}" target="_blank" rel="noopener noreferrer"
+            ><i class="fab fa-kaggle"></i>Kaggle</a
+          ></span
+        >
+        {% endif %} {% if personal_detail.youtube %}
+        <span
+          ><a href="{{personal_detail.youtube}}" target="_blank" rel="noopener noreferrer"
+            ><i class="fab fa-youtube"></i>Youtube</a
+          ></span
+        >
+        {% endif %} {% if personal_detail.tiktok %}
+        <span
+          ><a href="{{personal_detail.tiktok}}" target="_blank" rel="noopener noreferrer"
+            ><i class="fab fa-tiktok"></i>Tiktok</a
+          ></span
+        >
+        {% endif %} {% if personal_detail.signal %}
+        <span
+          ><a href="{{personal_detail.signal}}" target="_blank" rel="noopener noreferrer"
+            ><i class="fas fa-comment"></i>Signal</a
+          ></span
+        >
+        {% endif %} {% if personal_detail.telegram %}
+        <span
+          ><a href="{{personal_detail.telegram}}" target="_blank" rel="noopener noreferrer"
+            ><i class="fab fa-telegram"></i>Telegram</a
+          ></span
+        >
+        {% endif %} {% if personal_detail.whatsapp %}
+        <span
+          ><a href="{{personal_detail.whatsapp}}" target="_blank" rel="noopener noreferrer"
+            ><i class="fab fa-whatsapp"></i>Whatsapp</a
+          ></span
+        >
+        {% endif %} {% if personal_detail.paypal %}
+        <span
+          ><a href="{{personal_detail.paypal}}" target="_blank" rel="noopener noreferrer"
+            ><i class="fab fa-paypal"></i>Paypal</a
+          ></span
+        >
+        {% endif %} {% if personal_detail.dev_to %}
+        <span
+          ><a href="{{personal_detail.dev_to}}" target="_blank" rel="noopener noreferrer"
+            ><i class="fab fa-dev"></i>Dev.to</a
+          ></span
+        >
+        {% endif %} {% if personal_detail.angellist %}
+        <span
+          ><a href="{{personal_detail.angellist}}" target="_blank" rel="noopener noreferrer"
+            ><i class="fab fa-angellist"></i>Angellist</a
+          ></span
+        >
+        {% endif %} {% if personal_detail.producthunt %}
+        <span
+          ><a href="{{personal_detail.producthunt}}" target="_blank" rel="noopener noreferrer"
+            ><i class="fab fa-product-hunt"></i>Producthunt</a
+          ></span
+        >
+        {% endif %} {% if personal_detail.artstation %}
+        <span
+          ><a href="{{personal_detail.artstation}}" target="_blank" rel="noopener noreferrer"
+            ><i class="fab fa-artstation"></i>Artstation</a
+          ></span
+        >
+        {% endif %} {% if personal_detail.codepen %}
+        <span
+          ><a href="{{personal_detail.codepen}}" target="_blank" rel="noopener noreferrer"
+            ><i class="fab fa-codepen"></i>Codepen</a
+          ></span
+        >
+        {% endif %} {% if personal_detail.fiverr %}
+        <span><a href="{{personal_detail.fiverr}}" target="_blank" rel="noopener noreferrer">Fiverr</a></span>
+        {% endif %} {% if personal_detail.hashnode %}
+        <span><a href="{{personal_detail.hashnode}}" target="_blank" rel="noopener noreferrer">Hashnode</a></span>
+        {% endif %} {% if personal_detail.pluralsight %}
+        <span><a href="{{personal_detail.pluralsight}}" target="_blank" rel="noopener noreferrer">Pluralsight</a></span>
+        {% endif %} {% if personal_detail.researchgate %}
+        <span
+          ><a href="{{personal_detail.researchgate}}" target="_blank" rel="noopener noreferrer"
+            ><i class="fab fa-researchgate"></i>Researchgate</a
+          ></span
+        >
+        {% endif %} {% if personal_detail.imdb %}
+        <span
+          ><a href="{{personal_detail.imdb}}" target="_blank" rel="noopener noreferrer"
+            ><i class="fab fa-imdb"></i>Imdb</a
+          ></span
+        >
+        {% endif %} {% if personal_detail.qwiklabs %}
+        <span><a href="{{personal_detail.qwiklabs}}" target="_blank" rel="noopener noreferrer">Qwiklabs</a></span>
+        {% endif %} {% if personal_detail.googleplay %}
+        <span
+          ><a href="{{personal_detail.googleplay}}" target="_blank" rel="noopener noreferrer"
+            ><i class="fab fa-google-play"></i>Googleplay</a
+          ></span
+        >
+        {% endif %} {% if personal_detail.tumbir %}
+        <span
+          ><a href="{{personal_detail.tumbir}}" target="_blank" rel="noopener noreferrer"
+            ><i class="fab fa-tumblr"></i>Tumbir</a
+          ></span
+        >
+        {% endif %} {% if personal_detail.tripadvisor %}
+        <span><a href="{{personal_detail.tripadvisor}}" target="_blank" rel="noopener noreferrer">Tripadvisor</a></span>
+        {% endif %} {% if personal_detail.yelp %}
+        <span
+          ><a href="{{personal_detail.yelp}}" target="_blank" rel="noopener noreferrer"
+            ><i class="fab fa-yelp"></i>Yelp</a
+          ></span
+        >
+        {% endif %} {% if personal_detail.qq %}
+        <span
+          ><a href="{{personal_detail.qq}}" target="_blank" rel="noopener noreferrer"
+            ><i class="fab fa-qq"></i>QQ</a
+          ></span
+        >
+        {% endif %} {% if personal_detail.slack %}
+        <span
+          ><a href="{{personal_detail.slack}}" target="_blank" rel="noopener noreferrer"
+            ><i class="fab fa-slack"></i>Slack</a
+          ></span
+        >
+        {% endif %} {% if personal_detail.flickr %}
+        <span
+          ><a href="{{personal_detail.flickr}}" target="_blank" rel="noopener noreferrer"
+            ><i class="fab fa-flickr"></i>Flickr</a
+          ></span
+        >
+        {% endif %} {% if personal_detail.reverbnation %}
+        <span
+          ><a href="{{personal_detail.reverbnation}}" target="_blank" rel="noopener noreferrer">Reverbnation</a></span
+        >
+        {% endif %} {% if personal_detail.deviantart %}
+        <span
+          ><a href="{{personal_detail.deviantart}}" target="_blank" rel="noopener noreferrer"
+            ><i class="fab fa-deviantart"></i>Deviantart</a
+          ></span
+        >
+        {% endif %} {% if personal_detail.vimeo %}
+        <span
+          ><a href="{{personal_detail.vimeo}}" target="_blank" rel="noopener noreferrer"
+            ><i class="fab fa-vimeo-v"></i>Vimeo</a
+          ></span
+        >
+        {% endif %} {% if personal_detail.reddit %}
+        <span
+          ><a href="{{personal_detail.reddit}}" target="_blank" rel="noopener noreferrer"
+            ><i class="fab fa-reddit"></i>Reddit</a
+          ></span
+        >
+        {% endif %} {% if personal_detail.pininterest %}
+        <span
+          ><a href="{{personal_detail.pininterest}}" target="_blank" rel="noopener noreferrer"
+            ><i class="fab fa-pinterest-square"></i>Pininterest</a
+          ></span
+        >
+        {% endif %} {% if personal_detail.blogger %}
+        <span
+          ><a href="{{personal_detail.blogger}}" target="_blank" rel="noopener noreferrer"
+            ><i class="fab fa-blogger"></i>Blogger</a
+          ></span
+        >
+        {% endif %} {% if personal_detail.spotify %}
+        <span
+          ><a href="{{personal_detail.spotify}}" target="_blank" rel="noopener noreferrer"
+            ><i class="fab fa-spotify"></i>Spotify</a
+          ></span
+        >
+        {% endif %} {% if personal_detail.bitcoin %}
+        <span
+          ><a href="{{personal_detail.bitcoin}}" target="_blank" rel="noopener noreferrer"
+            ><i class="fab fa-bitcoin"></i>Bitcoin</a
+          ></span
+        >
+        {% endif %} {% if personal_detail.appstore %}
+        <span
+          ><a href="{{personal_detail.appstore}}" target="_blank" rel="noopener noreferrer"
+            ><i class="fab fa-app-store"></i>Appstore</a
+          ></span
+        >
+        {% endif %} {% if personal_detail.wordpress %}
+        <span
+          ><a href="{{personal_detail.wordpress}}" target="_blank" rel="noopener noreferrer"
+            ><i class="fab fa-wordpress"></i>Wordpress</a
+          ></span
+        >
+        {% endif %} {% if personal_detail.leetcode %}
+        <span><a href="{{personal_detail.leetcode}}" target="_blank" rel="noopener noreferrer">Leetcode</a></span>
+        {% endif %} {% if personal_detail.codechef %}
+        <span><a href="{{personal_detail.codechef}}" target="_blank" rel="noopener noreferrer">Codechef</a></span>
+        {% endif %} {% if personal_detail.codeforces %}
+        <span><a href="{{personal_detail.codeforces}}" target="_blank" rel="noopener noreferrer">Codeforces</a></span>
+        {% endif %} {% if personal_detail.vsco %}
+        <span><a href="{{personal_detail.vsco}}" target="_blank" rel="noopener noreferrer">Vsco</a></span>
+        {% endif %} {% if personal_detail.snapchat %}
+        <span
+          ><a href="{{personal_detail.snapchat}}" target="_blank" rel="noopener noreferrer"
+            ><i class="fab fa-snapchat"></i>Snapchat</a
+          ></span
+        >
+        {% endif %} {% if personal_detail.upwork %}
+        <span><a href="{{personal_detail.upwork}}" target="_blank" rel="noopener noreferrer">Upwork</a></span>
+        {% endif %} {% if personal_detail.geeksforgeeks %}
+        <span
+          ><a href="{{personal_detail.geeksforgeeks}}" target="_blank" rel="noopener noreferrer">Geeksforgeeks</a></span
+        >
+        {% endif %} {% if personal_detail.googlescholar %}
+        <span
+          ><a href="{{personal_detail.googlescholar}}" target="_blank" rel="noopener noreferrer">Googlescholar</a></span
+        >
+        {% endif %} {% if personal_detail.line %}
+        <span
+          ><a href="{{personal_detail.line}}" target="_blank" rel="noopener noreferrer"
+            ><i class="fab fa-line"></i>Line</a
+          ></span
+        >
+        {% endif %} {% if personal_detail.tryhackme %}
+        <span><a href="{{personal_detail.tryhackme}}" target="_blank" rel="noopener noreferrer">Tryhackme</a></span>
+        {% endif %} {% if personal_detail.coursera %}
+        <span><a href="{{personal_detail.coursera}}" target="_blank" rel="noopener noreferrer">Coursera</a></span>
+        {% endif %} {% if personal_detail.protonmail %}
+        <span><a href="{{personal_detail.protonmail}}" target="_blank" rel="noopener noreferrer">Protonmail</a></span>
+        {% endif %} {% if personal_detail.hackerearth %}
+        <span><a href="{{personal_detail.hackerearth}}" target="_blank" rel="noopener noreferrer">Hackerearth</a></span>
+        {% endif %} {% if personal_detail.codewars %}
+        <span><a href="{{personal_detail.codewars}}" target="_blank" rel="noopener noreferrer">Codewars</a></span>
+        {% endif %} {% if personal_detail.hackthebox %}
+        <span><a href="{{personal_detail.hackthebox}}" target="_blank" rel="noopener noreferrer">Hackthebox</a></span>
+        {% endif %} {% if personal_detail.bitbucket %}
+        <span
+          ><a href="{{personal_detail.bitbucket}}" target="_blank" rel="noopener noreferrer"
+            ><i class="fab fa-bitbucket"></i>Bitbucket</a
+          ></span
+        >
+        {% endif %} {% if personal_detail.gitea %}
+        <span><a href="{{personal_detail.gitea}}" target="_blank" rel="noopener noreferrer">Gitea</a></span>
+        {% endif %} {% if personal_detail.xing %}
+        <span
+          ><a href="{{personal_detail.xing}}" target="_blank" rel="noopener noreferrer"
+            ><i class="fab fa-xing"></i>Xing</a
+          ></span
+        >
+        {% endif %}
+      </div>
+
+      <div class="resume-center">
+        {% if personal_detail.address %}
+        <p>Address: {{personal_detail.address}}</p>
+        {% endif %} {% if personal_detail.nationality %}
+        <p>Nationality: {{personal_detail.nationality}}</p>
+        {% endif %} {% if personal_detail.passport_id %}
+        <p>Passport Id: {{personal_detail.passport_id}}</p>
+        {% endif %} {% if personal_detail.marital_status %}
+        <p>Marital Status: {{personal_detail.marital_status}}</p>
+        {% endif %} {% if personal_detail.military_service %}
+        <p>Military Service: {{personal_detail.military_service}}</p>
+        {% endif %} {% if personal_detail.driving_license %}
+        <p>Driving License: {{personal_detail.driving_license}}</p>
+        {% endif %} {% if personal_detail.gender_pronoun %}
+        <p>Gender: {{personal_detail.gender_pronoun}}</p>
+        {% endif %}
+      </div>
+
+      {% if profile %}
+      <div>
+        <p class="resume-section-header">Profile</p>
+        {{profile.summary|safe}}
+      </div>
+      {% endif %} {% if skills %}
+      <div>
+        <p class="resume-section-header">Skills</p>
+        <div class="resume-flex-spc-even-span">
+          {% for skill in skills %} {% if skill.skill_information %}
+          <span>
+            <p>{{skill.skill_name}}</p>
+            {% if skill.skill_information %}
+            <small>{{skill.skill_information}}</small>
+            {% endif %}
+          </span>
+          {% else %}
+          <span>
+            {{skill.skill_name}}
+          </span>
+          {% endif %} {% endfor %}
+        </div>
+      </div>
+      {% endif %} {% if experiences %}
+      <div>
+        <p class="resume-section-header">Professional Experience</p>
+        {% for experience in experiences %}
+
+        <div class="resume-flex-spc-btwn">
+          <span>
+            <p><strong>{{experience.experience_job_title}}</strong></p>
+            {% if experience.experience_link %}
+            <a href="{{experience.experience_link}}" class="flx-align-center" target="_blank" rel="noopener noreferrer"><span>{{experience.employer}}</span> <span class="material-symbols-outlined">link</span> </a>
+            {% else %}
+            <p>{{experience.employer}}</p>
+            {% endif %}
+            
+          <p>{% if experience.experience_city %}{{experience.experience_city}}{% endif %}{% if experience.experience_city and experience.experience_country %}, {% endif %} {% if experience.experience_country %} {{experience.experience_country}} {% endif %}</p>
+           
+          </span>
+          {% if experience.experience_start_date %}
+          <span>
+            {% if experience.experience_month_year_only %} {{experience.experience_start_date|date:"M, Y"}} 
+            {% elif experience.experience_year_only %} 
+            {{experience.experience_start_date|date:"Y"}} {% else %}
+            {{experience.experience_start_date}} {% endif %} 
+            {% if experience.experience_current %} - Current {% endif %} 
+            {% if experience.experience_end_date %} - {% if experience.experience_month_year_only %} {{experience.experience_end_date|date:"M, Y"}} 
+            {% elif experience.experience_year_only %} 
+            {{experience.experience_end_date|date:"Y"}} {% else %}
+            {{experience.experience_end_date}} {% endif %} 
+             {% endif %}
+          </span>
+          {% endif %}
+        </div>
+        <p class="content-description">
+          {{experience.experience_description}}
+        </p>
+
+        {% endfor %}
+      </div>
+      {% endif %}
+
+       {% if educations %}
+      <div>
+        <p class="resume-section-header">Education</p>
+        {% for education in educations %}
+
+        <div class="resume-flex-spc-btwn">
+          <span>
+            <p><strong>{{education.degree}}</strong></p>
+            {% if education.education_link %}
+            <a href="{{education.education_link}}" class="flx-align-center" target="_blank" rel="noopener noreferrer"><span>{{education.school}}</span> <span class="material-symbols-outlined">link</span> </a>
+            {% else %}
+            <p>{{education.school}}</p>
+            {% endif %}
+            <p>{% if education.education_city %}{{education.education_city}}{% endif %}{% if education.education_city and education.education_country %}, {% endif %} {% if education.education_country %} {{education.education_country}} {% endif %}</p>
+          </span>
+          {% if education.education_start_date %}
+          <span>
+            {% if education.education_month_year_only %} {{education.education_start_date|date:"M, Y"}} 
+            {% elif education.education_year_only %} 
+            {{education.education_start_date|date:"Y"}} {% else %}
+            {{education.education_start_date}} {% endif %} 
+            {% if education.education_current %} - Current {% endif %} 
+            {% if education.education_end_date %} - {% if education.education_month_year_only %} {{education.education_end_date|date:"M, Y"}} 
+            {% elif education.education_year_only %} 
+            {{education.education_end_date|date:"Y"}} {% else %}
+            {{education.education_end_date}} {% endif %} 
+             {% endif %}
+          </span>
+          {% endif %}
+        </div>
+        <p class="content-description">
+          {{education.education_description}}
+        </p>
+        {% endfor %}
+      </div>
+      {% endif %}
+
+      {% if projects %}
+      <div>
+        <p class="resume-section-header">Projects</p>
+        {% for project in projects %}
+
+        <div class="resume-flex-spc-btwn">
+          <span>
+            
+            {% if project.project_link %}
+            <a href="{{ project.project_link}}" class="flx-align-center" target="_blank" rel="noopener noreferrer"><span><strong>{{project.project_title}}</strong></span> <span class="material-symbols-outlined">link</span> </a>
+            {% else %}
+            <p><strong>{{project.project_title}}</strong></p>
+            {% endif %}
+            {% if project.subtitle %}
+            <p>{{project.subtitle}}</p>
+            {% endif %}
+          </span>
+          {% if project.project_start_date %}
+          <span>
+            {% if project.project_month_year_only %} {{project.project_start_date|date:"M, Y"}} 
+            {% elif project.project_year_only %} 
+            {{project.project_start_date|date:"Y"}} {% else %}
+            {{project.project_start_date}} {% endif %} 
+            {% if project.project_current %} - Current {% endif %} 
+            {% if project.project_end_date %} - {% if project.project_month_year_only %} {{project.project_end_date|date:"M, Y"}} 
+            {% elif project.project_year_only %} 
+            {{project.project_end_date|date:"Y"}} {% else %}
+            {{project.project_end_date}} {% endif %} 
+             {% endif %}
+          </span>
+          {% endif %}
+        </div>
+        <p class="content-description">
+          {{project.project_description}}
+        </p>
+        {% endfor %}
+      </div>
+      {% endif %}
+
+      {% if organisations %}
+      <div>
+        <p class="resume-section-header">Organisations</p>
+        {% for organisation in organisations %}
+
+        <div class="resume-flex-spc-btwn">
+          <span>
+            <p><strong>{{organisation.position}}</strong></p>
+            {% if organisation.organisation_link %}
+            <a href="{{ organisation.organisation_link}}" class="flx-align-center" target="_blank" rel="noopener noreferrer"><span>{{organisation.organisation}}</span> <span class="material-symbols-outlined">link</span> </a>
+            {% else %}
+            <p>{{organisation.organisation}}</p>
+            {% endif %}
+            <p>{% if organisation.organisation_city %}{{organisation.organisation_city}}{% endif %}{% if organisation.organisation_city and organisation.organisation_country %}, {% endif %} {% if organisation.organisation_country %} {{organisation.organisation_country}} {% endif %}</p>
+          </span>
+          {% if organisation.organisation_start_date %}
+          <span>
+            {% if organisation.organisation_month_year_only %} {{organisation.organisation_start_date|date:"M, Y"}} 
+            {% elif organisation.organisation_year_only %} 
+            {{organisation.organisation_start_date|date:"Y"}} {% else %}
+            {{organisation.organisation_start_date}} {% endif %} 
+            {% if organisation.organisation_current %} - Current {% endif %} 
+            {% if organisation.organisation_end_date %} - {% if organisation.organisation_month_year_only %} {{organisation.organisation_end_date|date:"M, Y"}} 
+            {% elif organisation.organisation_year_only %} 
+            {{organisation.organisation_end_date|date:"Y"}} {% else %}
+            {{organisation.organisation_end_date}} {% endif %} 
+             {% endif %}
+          </span>
+          {% endif %}
+        </div>
+        <p class="content-description">
+          {{organisation.organisation_description}}
+        </p>
+        {% endfor %}
+      </div>
+      {% endif %}
+
+      {% if languages %}
+      <div>
+        <p class="resume-section-header">Languages</p>
+        <div class="resume-flex-spc-even-span">
+          {% for language in languages %} {% if language.language_additional_information %}
+          <span>
+            <p>{{language.language}}</p>
+            {% if language.language_additional_information %}
+            <small>{{language.language_additional_information}}</small>
+            {% endif %}
+          </span>
+          {% else %}
+          <span>
+            {{language.language}}
+          </span>
+          {% endif %} {% endfor %}
+        </div>
+      </div>
+      {% endif %} 
+
+      {% if certificates %}
+      <div>
+        <p class="resume-section-header">Certificates</p>
+        {% for certificate in certificates %}
+
+        <div class="resume-flex-spc-btwn">
+          <span>
+            {% if certificate.certificate_link %}
+            <a href="{{ certificate.certificate_link}}" class="flx-align-center" target="_blank" rel="noopener noreferrer"><span><strong>{{certificate.certificate}}</span></strong> <span class="material-symbols-outlined">link</span> </a>
+            {% else %}
+            <p><strong>{{certificate.certificate}}</strong></p>
+            {% endif %}
+          </span>
+         
+        </div>
+        <p class="content-description">
+          {{certificate.certificate_additional_information}}
+        </p>
+        {% endfor %}
+      </div>
+      {% endif %}
+
+       {% if awards %}
+      <div>
+        <p class="resume-section-header">Awards</p>
+        {% for award in awards %}
+
+        <div class="resume-flex-spc-btwn">
+          <span>
+            <p><strong>{{award.award}}</strong></p>
+            {% if award.award_link %}
+            <a href="{{ award.award_link}}" class="flx-align-center" target="_blank" rel="noopener noreferrer"><span>{{award.issuer}}</span> <span class="material-symbols-outlined">link</span> </a>
+            {% else %}
+            <p>{{award.issuer}}</p>
+            {% endif %}
+          </span>
+          {% if award.award_date %}
+          <span>
+            {% if award.award_month_year_only %} {{award.award_date|date:"M, Y"}} 
+            {% elif award.award_year_only %} 
+            {{award.award_date|date:"Y"}} {% else %}
+            {{award.award_date}} 
+             {% endif %}
+          </span>
+          {% endif %}
+        </div>
+        <p class="content-description">
+          {{award.award_description}}
+        </p>
+        {% endfor %}
+      </div>
+      {% endif %}
+
+      {% if interests %}
+      <div>
+        <p class="resume-section-header">Interests</p>
+        {% for interest in interests %}
+
+        <div class="resume-flex-spc-btwn">
+          <span>
+            {% if interest.interest_link %}
+            <a href="{{ interest.interest_link }}" class="flx-align-center" target="_blank" rel="noopener noreferrer"><span><strong>{{interest.interest}}</span></strong> <span class="material-symbols-outlined">link</span> </a>
+            {% else %}
+            <p><strong>{{interest.interest}}</strong></p>
+            {% endif %}
+          </span>
+         
+        </div>
+        <p class="content-description">
+          {{interest.interest_additional_information}}
+        </p>
+        {% endfor %}
+      </div>
+      {% endif %}
+
+      {% if publications %}
+      <div>
+        <p class="resume-section-header">Publications</p>
+        {% for publication in publications %}
+
+        <div class="resume-flex-spc-btwn">
+          <span>
+            <p><strong>{{publication.publisher}}</strong></p>
+            {% if publication.publication_link %}
+            <a href="{{ publication.publication_link}}" class="flx-align-center" target="_blank" rel="noopener noreferrer"><span>{{publication.publication_title}}</span> <span class="material-symbols-outlined">link</span> </a>
+            {% else %}
+            <p>{{publication.publication_title}}</p>
+            {% endif %}
+          </span>
+          {% if publication.publication_date %}
+          <span>
+            {% if publication.publication_month_year_only %} {{publication.publication_date|date:"M, Y"}} 
+            {% elif publication.publication_year_only %} 
+            {{publication.publication_date|date:"Y"}} {% else %}
+            {{publication.publication_date}} 
+             {% endif %}
+          </span>
+          {% endif %}
+        </div>
+        <p class="content-description">
+          {{publication.publication_description}}
+        </p>
+        {% endfor %}
+      </div>
+      {% endif %}
+
+      {% if references %}
+      <div>
+        <p class="resume-section-header">References</p>
+        {% for reference in references %}
+
+        <div class="resume-flex-spc-btwn">
+          <span>
+            <p><strong>{{reference.reference_name}}</strong></p>
+          
+          
+            {% if reference.reference_link %}
+            <a href="{{reference.reference_link}}" class="flx-align-center" target="_blank" rel="noopener noreferrer"><span>{{reference.reference_organisation}}</span> <span class="material-symbols-outlined">link</span> </a>
+            {% else %}
+            {% if reference.reference_organisation %}
+            {{reference.reference_organisation}}
+            {% endif %}
+            {% endif %} {% if reference.reference_job_title and reference.reference_organisation %} ,{% endif %}  {% if reference.reference_job_title %}
+            {{reference.reference_job_title}}
+            {% endif %}
+          </span>
+          <span>
+             <p> {{reference.reference_phone}}</p>
+          <p>{{reference.reference_email}}</p>
+          </span>
+         
+        </div>
+        <p class="content-description">
+          {{publication.publication_description}}
+        </p>
+        {% endfor %}
+      </div>
+      {% endif %}
+    </div>
+      </div>
     </div>
   </body>
   <script src="{% static 'js/script.js' %}"></script>
