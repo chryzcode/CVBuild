@@ -29,8 +29,6 @@ def portfolio(request, feedback_id, slugified_full_name):
         if slugified_full_name == slugify(personal_detail.full_name):
             if Profile.objects.filter(personal_detail=personal_detail).exists:
                 profile = Profile.objects.filter(personal_detail=personal_detail).last()
-            else:
-                profile = None
             context = {'personal_detail':personal_detail, 'profile':profile}
             return render(request, 'pages/portfolio.html', context)
         else:
