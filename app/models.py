@@ -7,6 +7,8 @@ from django.contrib.auth.models import (
     BaseUserManager,
     PermissionsMixin,
 )
+from django.core.mail import send_mail
+from django.conf import settings
 from django.utils.translation import gettext_lazy as _
 import uuid
 
@@ -58,6 +60,17 @@ class User(AbstractBaseUser, PermissionsMixin):
     USERNAME_FIELD = "email"
 
     REQUIRED_FIELDS = ["first_name", "last_name"]
+
+    def email_user(self, subject, message):
+        send_mail(
+            subject,
+            message,
+            settings.EMAIL_HOST_USER,
+            [self.email],
+            fail_silently=False,
+            html_message=message
+        )
+
 
     def __str__(self):
         return self.email
