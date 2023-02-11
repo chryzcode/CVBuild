@@ -66,6 +66,11 @@ urlpatterns = [
     path("logout/", views.account_logout, name="logout"),
     path("delete/", views.account_delete, name="delete_account"),
     path(
+        "activate/<slug:uidb64>/<slug:token>)/",
+        views.account_activate,
+        name="activate_account",
+    ),
+    path(
         "password-reset/",
         auth_views.PasswordResetView.as_view(
             template_name="account/user/password-reset-form.html",

@@ -198,7 +198,7 @@ def account_logout(request):
 @login_required(login_url="login")
 def account_delete(request):
     user = User.objects.get(email=request.user.email)
-    subject = f"Request for Your CV Build Account to be Deleted"
+    subject = f"Request for Your CVBuild Account to be Deleted"
     message = render_to_string(
     "account/user/account-delete-email.html",
     {"user": user,

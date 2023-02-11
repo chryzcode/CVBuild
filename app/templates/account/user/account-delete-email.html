@@ -136,40 +136,17 @@
   </head>
   <body>
     <div class="email-container">
-      <a href="{{domain}}" target="_blank" rel="noopener noreferrer"
+      <!-- <a href="{{domain}}" target="_blank" rel="noopener noreferrer"
         ><img class="logo" src="https://shopitapps.herokuapp.com/static/images/logo/Shopit_Blue_logo.png" alt=""
-      /></a>
+      /></a> -->
       <p class="introduction">Hi,</p>
 
       <div class="body">
       <p>
         I am {{ user.full_name }}, I requested to delete my Shopit account which is deactivated presently.
       </p>
-    {% if account_type == "Store Creator" %}
-    <p>
-        This action of mine will also will delete my account after a month, {{user.store_name}} store and staffs
-    {% if store_staffs %} 
-    {% for staff in store_staffs %} 
-    <ul>
-        <li>{{ staff|title}}</li>
-    </ul>
-    {% endfor %} 
-    {% endif %}
-  
-    </p>
-    {% elif account_type == "Store Staff" %}
-  <p>
-  This action of mine will also delete my account after a month and will affect the {{store.store_name|title}} staffs
-  {% for store in staff_stores %} 
-  <ul>
-    <li>{{store|title}} store</li>
-  </ul>
-  {% endfor %} 
-</p>
-
-{% else %}
+    
 <p>This action will delete my account after a month and will affect possibly everything related.</p>
-{% endif %}
 
       
       </div>

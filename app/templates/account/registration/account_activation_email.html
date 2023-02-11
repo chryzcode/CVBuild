@@ -135,40 +135,33 @@
   </head>
   <body>
     <div class="email-container">
-      <a href="{{domain}}" target="_blank" rel="noopener noreferrer"
+      <!-- <a href="{{domain}}" target="_blank" rel="noopener noreferrer"
         ><img class="logo" src="https://shopitapps.herokuapp.com/static/images/logo/Shopit_Blue_logo.png" alt=""
-      /></a>
+      /></a> -->
       <p class="introduction">Hello {{user.full_name}},</p>
 
       <div class="body">
         <p>
-          Your Shopit account has been successfully created. Kindly click the button below to activate your account.
+          Your CVBuild account has been successfully created. Kindly click the button below to activate your account.
         </p>
         <p>
          After verifying your account, it is important you do all these stated below;
         </p>
-         <ul> 
-            <li>Set your default currency in settings</li> 
-            <li>Add your bank account details for payout in settings</li> 
-            <li>Create a category before adding a product</li> 
-            <li>Add a valid address for order pick up in settings</li> 
-            <li>Set a logistics company for deliveries in settings</li> 
-         </ul>
 
         <a
-          href="{{domain}}{% url 'account:activate_account' uidb64=uid token=token %}"
+          href="{{domain}}{% url 'activate_account' uidb64=uid token=token %}"
           target="_blank"
           rel="noopener noreferrer"
           class="email-btn"
           >Activate Account</a
         >
 
-        <p>If you did not register or create an account on the Shopit platform, kindly ignore.</p>
+        <p>If you did not register or create an account on the CVBuild platform, kindly ignore.</p>
       </div>
 
       <p class="conclusion">
         <span>Regards,</span>
-        <span> Shopit </span>
+        <span>CVBuild</span>
       </p>
 
       <div class="socials">
