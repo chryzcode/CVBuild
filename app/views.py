@@ -28,7 +28,6 @@ def portfolio(request, feedback_id, slugified_full_name):
         personal_detail = Personal_Details.objects.get(feedback_id=feedback_id)
         if slugified_full_name == slugify(personal_detail.full_name):
             if Profile.objects.filter(personal_detail=personal_detail).exists:
-                print('hi')
                 profile = Profile.objects.filter(personal_detail=personal_detail).last()
             else:
                 profile = None

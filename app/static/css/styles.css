@@ -658,7 +658,7 @@ h6 {
   .base-sidenav {
     /* display: none; */
     position: absolute;
-    bottom: 50px;
+    bottom: 30px;
     right: 0;
     z-index: 10;
     background: none;
@@ -680,9 +680,11 @@ h6 {
   }
 
   .base-sidenav span {
-    font-size: 50px;
+    font-size: 45px;
     background-color: #fff;
-  }
+    padding: 5px;
+    border-radius: 50%;
+}
 
   form {
     padding: 30px 20px;
