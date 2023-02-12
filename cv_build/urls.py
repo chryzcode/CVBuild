@@ -26,5 +26,3 @@ urlpatterns = [
 handler404 = "app.views.custom_error_404"
 handler500 = "app.views.custom_error_500"
 
-handler404 = "app.views.custom_error_404"
-handler500 = "app.views.custom_error_500"

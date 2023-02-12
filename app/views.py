@@ -237,12 +237,6 @@ def account_register(request):
                     "token": account_activation_token.make_token(user),
                 },
             )
-            send_mail(
-            subject,
-            message,
-            settings.EMAIL_HOST_USER,
-            [user.email],
-            )
             return render(request, "account/registration/registration-success.html")
        
     return render(request, "account/registration/register.html", {"form": registerform})

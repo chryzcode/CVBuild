@@ -61,6 +61,16 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     REQUIRED_FIELDS = ["first_name", "last_name"]
 
+    def email_user(self, subject, message):
+        send_mail(
+            subject,
+            message,
+            settings.EMAIL_HOST_USER,
+            [self.email],
+            fail_silently=False,
+            html_message=message
+        )
+
 
     def __str__(self):
         return self.email
