@@ -4,13 +4,6 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet" />
-    <link
-      rel="stylesheet"
-      href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
-      integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p"
-      crossorigin="anonymous"
-    />
     <style>
       * {
         margin: 0;
@@ -108,8 +101,8 @@
       }
 
       ul {
-      padding-left: 20px;
-     } 
+        padding-left: 20px;
+      }
 
       small {
         text-align: center;
@@ -132,6 +125,13 @@
         }
       }
     </style>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet" />
+    <link
+      rel="stylesheet"
+      href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
+      integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p"
+      crossorigin="anonymous"
+    />
   </head>
   <body>
     <div class="email-container">
@@ -144,9 +144,7 @@
         <p>
           Your CVBuild account has been successfully created. Kindly click the button below to activate your account.
         </p>
-        <p>
-         After verifying your account, it is important you do all these stated below;
-        </p>
+        <p>After verifying your account, it is important you do all these stated below;</p>
 
         <a
           href="{{domain}}{% url 'activate_account' uidb64=uid token=token %}"
