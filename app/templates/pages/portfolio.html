@@ -91,7 +91,9 @@
         <h1>{{error}}</h1>
     {% else %}
       <p class="name">{{personal_detail.full_name|title }}</p>
+      {% if personal_detail.job_title %}
       <p class="job-title">{{personal_detail.job_title|title }}</p>
+      {% endif %}
       <div class="links-container">
         {% if personal_detail.phone %}
         <span
@@ -379,7 +381,7 @@
         ></span>
         {% endif %}
       </div>
-      {% if profile.summary %}
+      {% if profile %}
       <div class="profile">{{profile.summary}}</div>
       {% endif %} {% if personal_detail.email %}
       <p>
