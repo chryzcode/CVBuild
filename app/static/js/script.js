@@ -25,6 +25,19 @@ const addContentModal = document.querySelector("#add-content-modal");
 const allModelContents = document.querySelectorAll(".add-modal-content");
 const formErrors = document.querySelectorAll(".form-errors");
 
+
+if (inputTextLinkForms) {
+  inputTextLinkForms.forEach(inputTextLinkForm => {
+    const inputTextLinkFormLabel = inputTextLinkForm.querySelector("label");
+    const inputTextLinkInput = inputTextLinkForm.querySelector("input");
+    inputTextLinkFormLabel.addEventListener("click", e => {
+      const mainInput = e.currentTarget.parentElement.parentElement.querySelector("input");
+      inputTextLinkInput.classList.toggle("hide");
+      mainInput.classList.toggle("hide");
+    });
+  });
+}
+
 if (toogle) {
   toogle.onclick = function () {
     toogle.classList.toggle("active");
@@ -124,17 +137,7 @@ if (sideNavContents) {
   });
 }
 
-// if (inputTextLinkForms) {
-//   inputTextLinkForms.forEach(inputTextLinkForm => {
-//     const inputTextLinkFormLabel = inputTextLinkForm.querySelector("label");
-//     const inputTextLinkInput = inputTextLinkForm.querySelector("input");
-//     inputTextLinkFormLabel.addEventListener("click", e => {
-//       const mainInput = e.currentTarget.parentElement.parentElement.querySelector("input");
-//       inputTextLinkInput.classList.toggle("hide");
-//       mainInput.classList.toggle("hide");
-//     });
-//   });
-// }
+
 
 function search() {
   var input, filter, btns, span, i, txtValue;
