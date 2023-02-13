@@ -434,7 +434,7 @@ function getBaseSideNavHeight(baseSideNav) {
   }
 }
 
-window.addEventListener("load", () => {
+
   if (baseSideNav && container) {
     getContentPageWidth(baseSideNav, container);
   }
@@ -468,7 +468,7 @@ window.addEventListener("load", () => {
       errorTopModal.classList.add("hide");
     }, 5000);
   }
-});
+
 
 if (!errorTopModal) {
   if (allErrorList) {
