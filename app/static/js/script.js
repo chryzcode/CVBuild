@@ -25,7 +25,6 @@ const addContentModal = document.querySelector("#add-content-modal");
 const allModelContents = document.querySelectorAll(".add-modal-content");
 const formErrors = document.querySelectorAll(".form-errors");
 
-
 if (inputTextLinkForms) {
   inputTextLinkForms.forEach(inputTextLinkForm => {
     const inputTextLinkFormLabel = inputTextLinkForm.querySelector("label");
@@ -136,8 +135,6 @@ if (sideNavContents) {
     });
   });
 }
-
-
 
 function search() {
   var input, filter, btns, span, i, txtValue;
@@ -434,7 +431,7 @@ function getBaseSideNavHeight(baseSideNav) {
   }
 }
 
-
+window.addEventListener("resize", () => {
   if (baseSideNav && container) {
     getContentPageWidth(baseSideNav, container);
   }
@@ -468,7 +465,7 @@ function getBaseSideNavHeight(baseSideNav) {
       errorTopModal.classList.add("hide");
     }, 5000);
   }
-
+});
 
 if (!errorTopModal) {
   if (allErrorList) {
