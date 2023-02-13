@@ -23,18 +23,12 @@
         color: #000000;
       }
 
-      .resume-pdf-container {
+      .feedback-resume-pdf-container {
         margin-top: 20px;
         color: #000000;
         box-shadow: rgb(201, 201, 201) 0px 1px 2px 1px;
         padding: 20px 15px;
       }
-
-    
-
-     
-
-     
 
       .resume-flex-spc-btwn {
         display: flex;
@@ -43,7 +37,7 @@
 
      
 
-       .resume-pdf-container > div {
+       .feedback-resume-pdf-container > div {
         margin: 15px 0;
       }
 
@@ -106,8 +100,8 @@
           <button class="form-btn btn" type="submit">Save</button>
         </form>
       </div>
-      <div>
-        <div >
+      <div class="feedback-resume-pdf-container">
+        <div>
       <div class="resume-center">
         {% if personal_detail.full_name %}
         <h1>{{personal_detail.full_name}}</h1>

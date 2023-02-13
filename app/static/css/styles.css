@@ -613,6 +613,70 @@ h6 {
   display: none;
 }
 
+.error-page-container,
+.success-page-container {
+  width: 500px;
+  margin: 30px auto 0 auto;
+  text-align: center;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.success-page-content-container > p {
+  font-size: 35px;
+  margin: 15px;
+  font-weight: lighter;
+}
+
+.success-page-content-container > div {
+  font-size: 25px;
+  margin-top: 60px;
+}
+
+.success-image-container {
+  width: 200px;
+  height: 200px;
+  margin: 20px auto;
+}
+
+.error-image,
+.success-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transform: rotateZ(90deg);
+  animation: rotate 5s linear forwards infinite;
+}
+
+.error-page-content-container > p {
+  font-size: 70px;
+  font-weight: 590;
+  margin: 15px;
+}
+
+.error-page-content {
+  margin-top: 40px;
+}
+
+.error-page-content > p {
+  font-size: 30px;
+  font-weight: 400;
+}
+
+.error-page-content > a {
+  display: block;
+  font-size: 18px;
+  color: #3d5170;
+  margin-top: 20px;
+}
+
+.error-page-content > a:hover {
+  color: #6b69f8;
+  transition: all 1.01s ease-in-out;
+}
+
 @media all and (max-width: 950px) {
   .content-container {
     grid-template-columns: 1fr;
@@ -642,6 +706,13 @@ h6 {
 
   .resume-pdf-container {
     display: none;
+  }
+
+  .error-image-container,
+  .success-page-container {
+    width: 90%;
+    height: 90%;
+    margin: 0 auto;
   }
 }
 
@@ -684,7 +755,7 @@ h6 {
     background-color: #fff;
     padding: 5px;
     border-radius: 50%;
-}
+  }
 
   form {
     padding: 30px 20px;
