@@ -33,7 +33,7 @@ SECRET_KEY = str(os.getenv('SECRET_KEY'))
 # DEBUG = config("DEBUG", default=False, cast=bool)
 DEBUG = True
 
-ALLOWED_HOSTS = ['cv-build.onrender.com', '127.0.0.1', 'localhost']
+ALLOWED_HOSTS = ["127.0.0.1", "localhost", "cv-build.onrender.com"]
 
 
 # Application definition
@@ -150,15 +150,19 @@ USE_TZ = True
 
 
 
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-STATIC_URL = '/static/'
-STATICFILES_DIRS = [os.path.join(BASE_DIR, 'app\static')]
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
 # Activate Django_heroku.
 django_heroku.settings(locals())
 
 MEDIA_URL = "/cv-build/media/"
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
+
+
+STATIC_URL = "/static/"
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'staticfiles')]
+STATIC_ROOT = os.path.join(BASE_DIR, "app/static")
+
+STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
 
 DEFAULT_FILE_STORAGE = "cloudinary_storage.storage.MediaCloudinaryStorage"
@@ -186,5 +190,5 @@ EMAIL_HOST_PASSWORD = config("EMAIL_HOST_PASSWORD")
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
-# LOGIN_REDIRECT_URL = "/"
-# LOGOUT_REDIRECT_URL = "/"
+LOGIN_REDIRECT_URL = "/"
+LOGOUT_REDIRECT_URL = "/"
