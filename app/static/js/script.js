@@ -25,17 +25,17 @@ const addContentModal = document.querySelector("#add-content-modal");
 const allModelContents = document.querySelectorAll(".add-modal-content");
 const formErrors = document.querySelectorAll(".form-errors");
 
-// if (inputTextLinkForms) {
-//   inputTextLinkForms.forEach(inputTextLinkForm => {
-//     const inputTextLinkFormLabel = inputTextLinkForm.querySelector("label");
-//     const inputTextLinkInput = inputTextLinkForm.querySelector("input");
-//     inputTextLinkFormLabel.addEventListener("click", e => {
-//       const mainInput = e.currentTarget.parentElement.parentElement.querySelector("input");
-//       inputTextLinkInput.classList.toggle("hide");
-//       mainInput.classList.toggle("hide");
-//     });
-//   });
-// }
+if (inputTextLinkForms) {
+  inputTextLinkForms.forEach(inputTextLinkForm => {
+    const inputTextLinkFormLabel = inputTextLinkForm.querySelector("label");
+    const inputTextLinkInput = inputTextLinkForm.querySelector("input");
+    inputTextLinkFormLabel.addEventListener("click", e => {
+      const mainInput = e.currentTarget.parentElement.parentElement.querySelector("input");
+      inputTextLinkInput.classList.toggle("hide");
+      mainInput.classList.toggle("hide");
+    });
+  });
+}
 
 if (toogle) {
   toogle.onclick = function () {
@@ -228,6 +228,7 @@ if (contentFormContainers) {
 
         closeBtn.addEventListener("click", e => {
           form.classList.add("hide");
+          downloadPdfNav.classList.remove("hide");
           contentFormDetails.classList.remove("hide");
           contentFormContainers.forEach(formContainer => {
             if (formContainer.classList.contains("container-active")) {
@@ -338,6 +339,7 @@ if (contentFormContainers) {
             const requriedFieldSymbol = form.querySelector(".form-required-field");
 
             closeBtn.addEventListener("click", e => {
+              downloadPdfNav.classList.remove("hide");
               if (contentFormContainer.querySelector(".form-display-content-container")) {
                 contentFormContainer.querySelector(".form-display-content-container").classList.remove("hide");
               }
@@ -383,6 +385,7 @@ if (contentFormContainers) {
               contentFormContainers.forEach(formContainer => {
                 formContainer.classList.add("hide");
               });
+              downloadPdfNav.classList.add("hide");
               document.querySelector("#add-content-btn").classList.add("hide");
               contentFormContainer.classList.remove("hide");
               contentFormContainer.querySelector(".form-display-content-container").classList.add("hide");
@@ -390,6 +393,7 @@ if (contentFormContainers) {
 
               const closeBtn = contentFormContainer.querySelector("#content-form-cancel-btn");
               closeBtn.addEventListener("click", e => {
+                downloadPdfNav.classList.remove("hide");
                 const requriedFieldSymbol = contentFormContainer.querySelector(".form-required-field");
                 document.querySelector("#add-content-btn").classList.remove("hide");
                 if (requriedFieldSymbol) {
@@ -442,7 +446,6 @@ window.addEventListener("resize", () => {
   if (downloadPdfNav) {
     const desiredWidth = document.querySelector(".content-form-container").getBoundingClientRect().width;
     downloadPdfNav.style.width = `${desiredWidth}px`;
-    console.log(desiredWidth);
     if (mobileMediaQuery.matches) {
       const desiredWidth = document.querySelector(".content-form-container").getBoundingClientRect().width;
       downloadPdfNav.style.width = `${desiredWidth}px`;
@@ -624,12 +627,12 @@ if (forms) {
             }
           }
 
-          // const inputTextLinkLabel = form.querySelector(".input-text-link-label");
-          // if (inputTextLinkLabel) {
-          //   inputTextLinkLabel.addEventListener("click", e => {
-          //     inputTextLinkLabel.nextElementSibling.classList.toggle("hide");
-          //   });
-          // }
+          const inputTextLinkLabel = form.querySelector(".input-text-link-label");
+          if (inputTextLinkLabel) {
+            inputTextLinkLabel.addEventListener("click", e => {
+              inputTextLinkLabel.nextElementSibling.classList.toggle("hide");
+            });
+          }
         });
       }
     });
