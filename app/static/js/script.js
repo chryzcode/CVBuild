@@ -25,17 +25,17 @@ const addContentModal = document.querySelector("#add-content-modal");
 const allModelContents = document.querySelectorAll(".add-modal-content");
 const formErrors = document.querySelectorAll(".form-errors");
 
-if (inputTextLinkForms) {
-  inputTextLinkForms.forEach(inputTextLinkForm => {
-    const inputTextLinkFormLabel = inputTextLinkForm.querySelector("label");
-    const inputTextLinkInput = inputTextLinkForm.querySelector("input");
-    inputTextLinkFormLabel.addEventListener("click", e => {
-      const mainInput = e.currentTarget.parentElement.parentElement.querySelector("input");
-      inputTextLinkInput.classList.toggle("hide");
-      mainInput.classList.toggle("hide");
-    });
-  });
-}
+// if (inputTextLinkForms) {
+//   inputTextLinkForms.forEach(inputTextLinkForm => {
+//     const inputTextLinkFormLabel = inputTextLinkForm.querySelector("label");
+//     const inputTextLinkInput = inputTextLinkForm.querySelector("input");
+//     inputTextLinkFormLabel.addEventListener("click", e => {
+//       const mainInput = e.currentTarget.parentElement.parentElement.querySelector("input");
+//       inputTextLinkInput.classList.toggle("hide");
+//       mainInput.classList.toggle("hide");
+//     });
+//   });
+// }
 
 if (toogle) {
   toogle.onclick = function () {
@@ -440,6 +440,9 @@ window.addEventListener("resize", () => {
   }
 
   if (downloadPdfNav) {
+    const desiredWidth = document.querySelector(".content-form-container").getBoundingClientRect().width;
+    downloadPdfNav.style.width = `${desiredWidth}px`;
+    console.log(desiredWidth);
     if (mobileMediaQuery.matches) {
       const desiredWidth = document.querySelector(".content-form-container").getBoundingClientRect().width;
       downloadPdfNav.style.width = `${desiredWidth}px`;
@@ -480,7 +483,7 @@ if (!errorTopModal) {
   }
 }
 
-window.addEventListener("resize", () => {
+window.addEventListener("load", () => {
   if (baseSideNav && container) {
     getContentPageWidth(baseSideNav, container);
   }

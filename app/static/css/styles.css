@@ -719,6 +719,7 @@ h6 {
 
   .download-pdf-nav {
     margin: 5px 60px 5px auto;
+    /* width: max-content; */
   }
 
   /* #add-content-modal {
