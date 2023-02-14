@@ -677,6 +677,28 @@ h6 {
   transition: all 1.01s ease-in-out;
 }
 
+@keyframes rotate {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  25% {
+    transform: rotate(-10deg);
+  }
+
+  50% {
+    transform: rotate(0deg);
+  }
+
+  75% {
+    transform: rotate(10deg);
+  }
+
+  100% {
+    transform: rotate(0deg);
+  }
+}
+
 @media all and (max-width: 950px) {
   .content-container {
     grid-template-columns: 1fr;
