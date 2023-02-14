@@ -446,9 +446,10 @@ window.addEventListener("resize", () => {
   if (downloadPdfNav) {
     const desiredWidth = document.querySelector(".content-form-container").getBoundingClientRect().width;
     downloadPdfNav.style.width = `${desiredWidth}px`;
-    if (mobileMediaQuery.matches) {
+    if (mediumMobileMediaQuery.matches) {
       const desiredWidth = document.querySelector(".content-form-container").getBoundingClientRect().width;
-      downloadPdfNav.style.width = `${desiredWidth}px`;
+      // downloadPdfNav.style.width = `${desiredWidth}px`;
+      downloadPdfNav.style.width="100%"
     } else {
       downloadPdfNav.style.width = `${500}px`;
     }

@@ -677,6 +677,10 @@ h6 {
   transition: all 1.01s ease-in-out;
 }
 
+.base-nav-icon-seg > span:first-child {
+  display: none;
+}
+
 @keyframes rotate {
   0% {
     transform: rotate(0deg);
@@ -743,6 +747,19 @@ h6 {
   /* .sidenav {
     display: none;
   } */
+
+  .base-nav-icon-seg {
+    display: flex;
+  }
+
+  .base-nav-icon-seg > span:first-child {
+    display: inline-block;
+    margin-right: 7px;
+  }
+
+  .base-nav-icon-seg > span:first-child span {
+    color: #200e32;
+  }
 
   .resume-pop-up {
     margin: 0 auto;

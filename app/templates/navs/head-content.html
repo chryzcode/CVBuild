@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 {% load static %}
 <html lang="en">
@@ -21,7 +20,7 @@
       crossorigin="anonymous"
       referrerpolicy="no-referrer"
     />
-     <!-- Fengyuan Chen's Datepicker -->
+    <!-- Fengyuan Chen's Datepicker -->
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/datepicker/0.6.5/datepicker.min.css"
@@ -54,12 +53,24 @@
       {% endif %}
 
       <div class="download-pdf-nav">
+        <span class="base-nav-icon-seg">
+          
+         <span>
+           <a href="/"><span class="material-symbols-outlined"> arrow_back </span></a>
+         </span>
+       
         <span>{{personal_detail.resume_name}}</span>
-       <div>
-         <a target="_blank" rel="noopener noreferrer" href="{% url 'ViewPdf' personal_detail.pk %}" class="btn bg-dark-btn flex-spc-bwn"
-          id="download-pdf-btn"><span>Download</span> <span class="material-symbols-outlined"> file_download </span></a
-        >
-       </div>
+        </span>
+        <div>
+          <a
+            target="_blank"
+            rel="noopener noreferrer"
+            href="{% url 'ViewPdf' personal_detail.pk %}"
+            class="btn bg-dark-btn flex-spc-bwn"
+            id="download-pdf-btn"
+            ><span>Download</span> <span class="material-symbols-outlined"> file_download </span></a
+          >
+        </div>
       </div>
 
       {% block content %} {% endblock %}
