@@ -644,12 +644,12 @@ if (forms) {
             }
           }
 
-          const inputTextLinkLabel = form.querySelector(".input-text-link-label");
-          if (inputTextLinkLabel) {
-            inputTextLinkLabel.addEventListener("click", e => {
-              inputTextLinkLabel.nextElementSibling.classList.toggle("hide");
-            });
-          }
+          // const inputTextLinkLabel = form.querySelector(".input-text-link-label");
+          // if (inputTextLinkLabel) {
+          //   inputTextLinkLabel.addEventListener("click", e => {
+          //     inputTextLinkLabel.nextElementSibling.classList.toggle("hide");
+          //   });
+          // }
         });
       }
     });
