@@ -34,17 +34,17 @@ if (downloadPdfNav) {
   }
 }
 
-if (inputTextLinkForms) {
-  inputTextLinkForms.forEach(inputTextLinkForm => {
-    const inputTextLinkFormLabel = inputTextLinkForm.querySelector("label");
-    const inputTextLinkInput = inputTextLinkForm.querySelector("input");
-    inputTextLinkFormLabel.addEventListener("click", e => {
-      const mainInput = e.currentTarget.parentElement.parentElement.querySelector("input");
-      inputTextLinkInput.classList.toggle("hide");
-      mainInput.classList.toggle("hide");
-    });
-  });
-}
+// if (inputTextLinkForms) {
+//   inputTextLinkForms.forEach(inputTextLinkForm => {
+//     const inputTextLinkFormLabel = inputTextLinkForm.querySelector("label");
+//     const inputTextLinkInput = inputTextLinkForm.querySelector("input");
+//     inputTextLinkFormLabel.addEventListener("click", e => {
+//       const mainInput = e.currentTarget.parentElement.parentElement.querySelector("input");
+//       inputTextLinkInput.classList.toggle("hide");
+//       mainInput.classList.toggle("hide");
+//     });
+//   });
+// }
 
 if (toogle) {
   toogle.onclick = function () {
