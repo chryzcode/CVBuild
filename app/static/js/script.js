@@ -192,6 +192,10 @@ if (contentFormContainers) {
 
     if (contentFormDetails) {
       contentFormDetails.addEventListener("click", e => {
+        if (contentFormContainer.classList.contains("click")) {
+          downloadPdfNav.classList.add("hide");
+        }
+
         if (contentFormContainer == e.currentTarget.parentElement) {
           contentFormContainers.forEach(formContainer => {
             formContainer.classList.add("hide");
@@ -245,6 +249,9 @@ if (contentFormContainers) {
     if (form) {
       if (contentFormTop) {
         contentFormTop.addEventListener("click", e => {
+          if (contentFormContainer.classList.contains("click")) {
+            downloadPdfNav.classList.add("hide");
+          }
           const icon = contentFormTop.querySelector("#toggle-icon");
           const myClick = e.currentTarget;
           if (e.currentTarget == myClick) {
@@ -449,7 +456,7 @@ window.addEventListener("resize", () => {
     if (mediumMobileMediaQuery.matches) {
       const desiredWidth = document.querySelector(".content-form-container").getBoundingClientRect().width;
       // downloadPdfNav.style.width = `${desiredWidth}px`;
-      downloadPdfNav.style.width="100%"
+      downloadPdfNav.style.width = "100%";
     } else {
       downloadPdfNav.style.width = `${500}px`;
     }
