@@ -25,6 +25,15 @@ const addContentModal = document.querySelector("#add-content-modal");
 const allModelContents = document.querySelectorAll(".add-modal-content");
 const formErrors = document.querySelectorAll(".form-errors");
 
+if (downloadPdfNav) {
+  if (mobileMediaQuery.matches) {
+    const desiredWidth = document.querySelector(".content-form-container").getBoundingClientRect().width;
+    downloadPdfNav.style.width = `${desiredWidth}px`;
+  } else {
+    downloadPdfNav.style.width = `${500}px`;
+  }
+}
+
 if (inputTextLinkForms) {
   inputTextLinkForms.forEach(inputTextLinkForm => {
     const inputTextLinkFormLabel = inputTextLinkForm.querySelector("label");
