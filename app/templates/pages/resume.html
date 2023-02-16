@@ -490,16 +490,16 @@
           <p class="form-errors">{{ project_form.project_title.errors }}</p>
 
           <div class="flex-spc-bwn">
-            <label class="input-text-link-label" for="project_link">Link</label>
-            <input
+            <label for="project_link">Link</label>
+             <span class="faint-text">optional</span>
+          </div>
+           <input
               type="text"
               name="project_link"
               id="project_link"
               class="input-text-link-input"
               placeholder="https://*******cvbuild.******"
             />
-          </div>
-
           <input type="text" name="project_title" id="project_title" placeholder="CV Build" />
         </div>
 
@@ -595,7 +595,9 @@
           <p class="form-errors">{{ education_form.school.errors }}</p>
 
           <div class="flex-spc-bwn">
-            <label class="input-text-link-label" for="education_link">Link</label>
+            <label for="education_link">Link</label>
+            <span class="faint-text">optional</span>
+          </div>
             <input
               type="text"
               name="education_link"
@@ -603,8 +605,6 @@
               class="input-text-link-input"
               placeholder="https://havard***.***"
             />
-          </div>
-
           <input type="text" name="school" id="school" placeholder="Havard" />
         </div>
 
@@ -791,10 +791,10 @@
           <p class="form-errors">{{ reference_form.reference_name.errors }}</p>
 
           <div class="flex-spc-bwn">
-            <label class="input-text-link-label" for="reference_link">Link</label>
+            <label for="reference_link">Link</label>
+            <span class="faint-text">optional</span>
+            </div>
             <input type="text" name="reference_link" id="reference_link" class="input-text-link-input" />
-          </div>
-
           <input type="text" name="reference_name" id="reference_name" />
         </div>
 
@@ -863,10 +863,10 @@
           <p class="form-errors">{{ award_form.award.errors }}</p>
 
           <div class="flex-spc-bwn">
-            <label class="input-text-link-label" for="award_link">Link</label>
+            <label for="award_link">Link</label>
+            <span class="faint-text">optional</span>
+            </div>
             <input type="text" name="award_link" id="award_link" class="input-text-link-input" />
-          </div>
-
           <input type="text" name="award" id="award" />
         </div>
 
@@ -952,10 +952,10 @@
           <p class="form-errors">{{ organisation_form.organisation.errors }}</p>
 
           <div class="flex-spc-bwn">
-            <label class="input-text-link-label" for="organisation_link">Link</label>
+            <label for="organisation_link">Link</label>
+            <span class="faint-text">optional</span>
+            </div>
             <input type="text" name="organisation_link" id="organisation_link" class="input-text-link-input" placeholder="" />
-          </div>
-
           <input type="text" name="organisation" id="organisation" placeholder="" />
         </div>
 
@@ -1087,10 +1087,10 @@
           <p class="form-errors">{{ certificate_form.certificate.errors }}</p>
 
           <div class="flex-spc-bwn">
-            <label class="input-text-link-label" for="certificate_link">Link</label>
+            <label for="certificate_link">Link</label>
+            <span class="faint-text">optional</span>
+            </div>
             <input type="text" name="certificate_link" id="certificate_link" class="input-text-link-input" />
-          </div>
-
           <input type="text" name="certificate" id="certificate" />
         </div>
 
@@ -1154,10 +1154,10 @@
           <p class="form-errors">{{ interest_form.interest.errors }}</p>
 
           <div class="flex-spc-bwn">
-            <label class="input-text-link-label" for="interest_link">Link</label>
+            <label for="interest_link">Link</label>
+            <span class="faint-text">optional</span>
+            </div>
             <input type="text" name="interest_link" id="interest_link" class="input-text-link-input" />
-          </div>
-
           <input type="text" name="interest" id="interest" />
         </div>
 
@@ -1222,9 +1222,9 @@
 
           <div class="flex-spc-bwn">
             <label class="input-text-link-label" for="publication_link">Link</label>
+            <span class="faint-text">optional</span>
+            </div>
             <input type="text" name="publication_link" id="publication_link" class="input-text-link-input" placeholder="" />
-          </div>
-
           <input type="text" name="publication_title" id="publication_title" placeholder="" />
         </div>
 
