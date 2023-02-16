@@ -681,6 +681,10 @@ h6 {
   display: none;
 }
 
+.input-text-link-input {
+  padding: 10px 15px !important;
+}
+
 @keyframes rotate {
   0% {
     transform: rotate(0deg);
