@@ -274,6 +274,7 @@ if (contentFormContainers) {
 
                 contents.forEach(content => {
                   content.addEventListener("click", e => {
+                    downloadPdfNav.classList.add('hide')
                     myClickFormContainer.querySelector(".form-display-content-container").classList.add("hide");
                     form.classList.remove("hide");
 
