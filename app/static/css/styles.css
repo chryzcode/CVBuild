@@ -78,7 +78,7 @@ form {
   display: flex;
 }
 
-.form-input-container > span > label {
+.form-input-container > span > label, .flex-spc-bwn > label {
   color: #200e32;
 }
 
@@ -334,7 +334,7 @@ input[type="checkbox"]:focus-within {
 }
 
 .content-form .form-input-container > span > label,
-input[type="checkbox"] label {
+input[type="checkbox"] label, .flex-spc-bwn > label {
   font-size: 16px;
 }
 
@@ -682,7 +682,7 @@ h6 {
 }
 
 .input-text-link-input {
-  padding: 10px 15px !important;
+  padding: 10px 10px !important;
 }
 
 @keyframes rotate {

@@ -293,24 +293,25 @@ if (contentFormContainers) {
                         const formInput = formInputContainer.lastElementChild;
                         if (formInput.parentElement.querySelector(".form-required-field")) {
                           formInput.parentElement.querySelector(".form-required-field").classList.add("hide");
-                          if (!formInput.value) {
-                            submitBtn.classList.add("disable");
-                          }
-                        }
-                        submitBtn.classList.add("disable");
-                        form.addEventListener("keyup", e => {
-                          if (formInput.parentElement.querySelector(".form-required-field")) {
-                            if (!formInput.value) {
-                              submitBtn.classList.add("disable");
-                            } else {
-                              submitBtn.classList.remove("disable");
-                            }
-                          }
-                        });
-                        if (formInput.parentElement.querySelector(".form-required-field")) {
-                          if (!formInput.value) {
-                            submitBtn.classList.add("disable");
-                          }
+
+                          //   if (!formInput.value) {
+                          //     submitBtn.classList.add("disable");
+                          //   }
+                          // }
+                          // submitBtn.classList.add("disable");
+                          // form.addEventListener("keyup", e => {
+                          //   if (formInput.parentElement.querySelector(".form-required-field")) {
+                          //     if (!formInput.value) {
+                          //       submitBtn.classList.add("disable");
+                          //     } else {
+                          //       submitBtn.classList.remove("disable");
+                          //     }
+                          //   }
+                          // });
+                          // if (formInput.parentElement.querySelector(".form-required-field")) {
+                          //   if (!formInput.value) {
+                          //     submitBtn.classList.add("disable");
+                          //   }
                         }
 
                         formInput.addEventListener("change", e => {
@@ -318,9 +319,9 @@ if (contentFormContainers) {
                           if (selectInput == "SELECT");
                           {
                             required = form.querySelector(".form-required-field");
-                            if (required.classList.contains("hide")) {
-                              submitBtn.classList.remove("disable");
-                            }
+                            // if (required.classList.contains("hide")) {
+                            //   submitBtn.classList.remove("disable");
+                            // }
                           }
                         });
                       });
@@ -625,6 +626,16 @@ if (forms) {
             }
           }
 
+             form.addEventListener("mouseover", e => {
+               if (requriedFieldSymbol) {
+                 if (!requriedFieldSymbol.classList.contains("hide")) {
+                   submitBtn.classList.add("disable");
+                 } else {
+                   submitBtn.classList.remove("disable");
+                 }
+               }
+             });
+
           formInput.addEventListener("keyup", e => {
             if (requriedFieldSymbol) {
               requriedFieldSymbol.style.fontSize = `${25}px`;
@@ -632,17 +643,12 @@ if (forms) {
                 requriedFieldSymbol.classList.add("hide");
               } else {
                 requriedFieldSymbol.classList.remove("hide");
+                submitBtn.classList.add("disable");
               }
             }
           });
 
-          if (requriedFieldSymbol) {
-            if (!requriedFieldSymbol.classList.contains("hide")) {
-              submitBtn.classList.add("disable");
-            } else {
-              submitBtn.classList.remove("disable");
-            }
-          }
+       
 
           // const inputTextLinkLabel = form.querySelector(".input-text-link-label");
           // if (inputTextLinkLabel) {
