@@ -772,7 +772,7 @@ h6 {
 
   .base-sidenav {
     /* display: none; */
-    position: absolute;
+    position: fixed;
     bottom: 30px;
     right: 0;
     z-index: 1;
