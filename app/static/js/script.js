@@ -186,9 +186,16 @@ if (clickCreateFormInputs) {
       });
       clickCreateFormInput.addEventListener("click", e => {
         if (e.target.classList.contains("remove-field")) {
-          const formContainer = e.currentTarget.querySelector(".form-input-container");
+          const formContainer = e.target.parentElement.parentElement.parentElement;
           formContainer.classList.add("hide");
-          aBtn.classList.remove("hide");
+          const formContainerId = formContainer.querySelector("input").id;
+          const createLinkABtn = clickCreateFormInput.querySelectorAll(".a-btn");
+          createLinkABtn.forEach(theBtn => {
+            if (theBtn.id == formContainerId) {
+              theBtn.classList.remove("hide");
+            }
+          });
+          // aBtn.classList.remove("hide");
         }
       });
     });
@@ -274,7 +281,7 @@ if (contentFormContainers) {
 
                 contents.forEach(content => {
                   content.addEventListener("click", e => {
-                    downloadPdfNav.classList.add('hide')
+                    downloadPdfNav.classList.add("hide");
                     myClickFormContainer.querySelector(".form-display-content-container").classList.add("hide");
                     form.classList.remove("hide");
 
@@ -627,15 +634,15 @@ if (forms) {
             }
           }
 
-             form.addEventListener("mouseover", e => {
-               if (requriedFieldSymbol) {
-                 if (!requriedFieldSymbol.classList.contains("hide")) {
-                   submitBtn.classList.add("disable");
-                 } else {
-                   submitBtn.classList.remove("disable");
-                 }
-               }
-             });
+          form.addEventListener("mouseover", e => {
+            if (requriedFieldSymbol) {
+              if (!requriedFieldSymbol.classList.contains("hide")) {
+                submitBtn.classList.add("disable");
+              } else {
+                submitBtn.classList.remove("disable");
+              }
+            }
+          });
 
           formInput.addEventListener("keyup", e => {
             if (requriedFieldSymbol) {
@@ -648,8 +655,6 @@ if (forms) {
               }
             }
           });
-
-       
 
           // const inputTextLinkLabel = form.querySelector(".input-text-link-label");
           // if (inputTextLinkLabel) {
