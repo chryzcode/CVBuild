@@ -685,6 +685,10 @@ h6 {
   padding: 10px 10px !important;
 }
 
+.mobile-download-nav {
+  display: none;
+}
+
 @keyframes rotate {
   0% {
     transform: rotate(0deg);
@@ -756,6 +760,10 @@ h6 {
     display: flex;
   }
 
+  .mobile-download-nav {
+    display: block;
+  }
+
   .base-nav-icon-seg > span:first-child {
     display: inline-block;
     margin-right: 7px;
@@ -823,7 +831,16 @@ h6 {
   }
 
   .download-pdf-nav {
+    display: none !important;
     margin: 5px 30px 5px auto;
+  }
+
+  .content-container > div {
+    margin-top: 50px;
+  }
+
+  .base-sidenav  span {
+    color: #200e32;
   }
 
   .error-top-modal {
