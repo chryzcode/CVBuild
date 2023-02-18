@@ -27,12 +27,15 @@ body {
 .btn {
   width: max-content;
   padding: 15px 20px;
+  height: 50px;
   text-decoration: none;
-  border-radius: 40px;
+  border-radius: 30px;
   margin: 0 15px;
   cursor: pointer;
   outline: 0;
   border: 0;
+  display: inline-flex;
+  align-items: center;
 }
 
 .bg-dark-btn {
