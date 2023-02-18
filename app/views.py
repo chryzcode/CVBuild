@@ -273,7 +273,6 @@ def account_activate(request, uidb64, token):
         return render(request, "error-pages/404-page.html")
 
 
-@login_required(login_url="login")
 def home(request):
     # personal_detail = Personal_Details.objects.filter(user=request.user.id).last()
     # profile = Profile.objects.filter(personal_detail=personal_detail).last()
