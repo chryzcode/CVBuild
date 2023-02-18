@@ -1,13 +1,21 @@
 {% extends 'navs/base-nav.html' %}{% load static %} {% block title %} <title>CV Build</title>
 {% endblock %} {% block content %}
-<div>
-    <span>
-
-    </span>
-    <span>
-        
-    </span>
+<div class="home-page-container">
+  <div class="flex-spc">
+    <div class="home-page-contents">
+      <h2 class="home-header">Build your Resume and Online Portfolio for free</h2>
+      <p>
+        Lorem ipsum dolor sit amet consectetur, adipisicing elit. Nam sed culpa modi aliquid. Animi quidem hic quod
+        quaerat veniam nulla qui corrupti rem ex labore, non, maiores saepe ipsa id.
+      </p>
+      <div class="center">
+        <a href="" class="btn bg-dark-btn ">Try For Free</a>
+      </div>
+    </div>
+    <div class="image-container">
+      <img src="{% static 'image/illustrations/cv-image.svg' %}" alt="" />
+    </div>
+  </div>
 </div>
-
 
 {% endblock %}
