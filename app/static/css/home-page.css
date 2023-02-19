@@ -14,9 +14,23 @@
   font-weight: 800;
 }
 
+.inner-content-header {
+  font-size: 1.65rem;
+  line-height: 1.5rem;
+  font-weight: 600;
+}
+
+.home-page-contents {
+  padding: 30px 0;
+}
+
 .home-page-contents > * {
   padding-bottom: 40px;
   /* width: 500px; */
+}
+
+.inner-content-space > * {
+  padding-bottom: 15px;
 }
 
 .flex-spc {
@@ -24,6 +38,7 @@
   grid-template-columns: 1fr 1fr;
   align-items: center;
   grid-column-gap: 30px;
+  margin: 100px 0;
 }
 
 .image-container {
