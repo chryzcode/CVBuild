@@ -230,7 +230,7 @@ def account_delete(request):
 )
     user.is_active = False
     user.save()
-    send_mail(subject, message, settings.EMAIL_HOST_USER, user.email, html_message=message)
+    send_mail(subject, message, settings.EMAIL_HOST_USER, [user.email], html_message=message)
     logout(request)
     return redirect("/")
 
@@ -334,7 +334,7 @@ def cvbuildFeedback(request):
     if request.method == "POST":
        subject = f'Feedback from {request.user.first_name} {request.user.last_name}'
        message = request.POST['feedbackInput']
-       send_mail(subject, message, settings.EMAIL_HOST_USER, request.user.email, html_message=message)
+       send_mail(subject, message, settings.EMAIL_HOST_USER, [request.user.email], html_message=message)
        return redirect('/')
 
 @login_required(login_url="login")
