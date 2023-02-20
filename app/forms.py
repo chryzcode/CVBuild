@@ -214,6 +214,35 @@ class FeedbackForm(ModelForm):
         super(FeedbackForm, self).__init__(*args, **kwargs)
 
 
+class UserProfileForm(ModelForm):
+    class Meta:
+        model = User
+        fields = [
+            "first_name",
+            "last_name",
+            "avatar",
+        ]
+
+        widgets = {
+            "first_name": forms.TextInput(
+                attrs={"class": "form-control", "placeholder": "John"}
+            ),
+             "last_name": forms.TextInput(
+                attrs={"class": "form-control", "placeholder": "JohnDoe"}
+            ),
+            "avatar": forms.FileInput(attrs={"class": "form-control"}),
+        }
+
+    def clean_phone_number(self):
+        phone_number = self.cleaned_data["phone_number"]
+        if phone_number == None:
+            raise forms.ValidationError("Field is required")
+        return phone_number
+
+    def __init__(self, *args, **kwargs):
+        super(UserProfileForm, self).__init__(*args, **kwargs)
+
+
 class LinkForm(ModelForm):
     class Meta:
         model = Personal_Details

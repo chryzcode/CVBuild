@@ -32,7 +32,7 @@
 
         <span id="nav-links" >
           {% if request.user.is_authenticated %}
-          <span><a href="" class="btn bg-light-btn">Settings</a></span>
+          <span><a href="{% url 'user_profile' %}" class="btn bg-light-btn">Settings</a></span>
           {% else %}
           <span><a href="{% url 'register' %}" class="btn bg-light-btn">Try for free</a></span>
 

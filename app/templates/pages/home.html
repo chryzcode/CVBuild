@@ -114,7 +114,7 @@
     <h1 class="home-header">
       Do you have a feedback?
       <div class="flex-spc">
-        <form action="{% url 'cvbuildfeedback' %}" method="post">
+        <form action="{% url 'cvbuildfeedback' %}" method="post" class="home-form">
           {% csrf_token %}
           <textarea
             class="feedback-input"

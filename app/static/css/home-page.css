@@ -65,14 +65,13 @@
 }
 
 .footer {
-    margin: 70px 0;
+  margin: 70px 0;
 }
 
-form {
-    width: 100% !important;
-    padding: 0 !important;
+.home-form {
+  width: 100% !important;
+  padding: 0 !important;
 }
-
 
 @media all and (max-width: 950px) {
   .flex-spc {

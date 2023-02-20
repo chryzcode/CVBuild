@@ -164,6 +164,27 @@ def custom_error_404(request, exception):
 
 def custom_error_500(request):
     return render(request, "error-pages/500-page.html")
+
+@login_required(login_url="login")
+def user_profile(request):
+    account = request.user
+    userprofileform = UserProfileForm(instance=account)
+    user_profile = User.objects.get(email=account.email)
+    if request.method == "POST":
+        userprofileform = UserProfileForm(request.POST, request.FILES, instance=account)
+        if userprofileform.is_valid():
+            userprofileform.save()
+            return redirect("/")
+
+    return render(
+        request,
+        "account/user/user-profile.html",
+        {
+            "userprofileform": userprofileform,
+            "account": account,
+            "user_profile": user_profile,
+        },
+    )
     
 def account_login(request):
     context = {}
@@ -311,7 +332,7 @@ def home(request):
 @login_required(login_url="login")
 def cvbuildFeedback(request):
     if request.method == "POST":
-       subject = f'Feedback from {request.user.first_name} {request.last_name}'
+       subject = f'Feedback from {request.user.first_name} {request.user.last_name}'
        message = request.POST['feedbackInput']
        send_mail(subject, message, settings.EMAIL_HOST_USER, request.user.email, html_message=message)
        return redirect('/')
