@@ -213,6 +213,7 @@ class FeedbackForm(ModelForm):
     def __init__(self, *args, **kwargs):
         super(FeedbackForm, self).__init__(*args, **kwargs)
 
+
 class LinkForm(ModelForm):
     class Meta:
         model = Personal_Details

@@ -105,6 +105,25 @@
       <img src="{% static 'image/illustrations/online-portfolio.svg' %}" alt="" />
     </div>
   </div>
+
+  <div class="footer">
+    <h1 class="home-header">
+      Do you have a feedback?
+      <div class="flex-spc">
+        <form action="{% url 'cvbuildfeedback' %}" method="post">
+          {% csrf_token %}
+          <textarea
+            class="feedback-input"
+            name="feedbackInput"
+            id="feedbackInput"
+            placeholder="Enter feedback..."
+          ></textarea>
+
+          <button type="submit" class="bg-dark-btn btn">Submit</button>
+        </form>
+      </div>
+    </h1>
+  </div>
 </div>
 
 {% endblock %}

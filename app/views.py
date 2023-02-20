@@ -307,7 +307,13 @@ def home(request):
     # context = {'personal_detail':personal_detail, 'profile_form':profile_form, 'personal_detail_form':personal_detail_form, 'skill_form':skill_form, 'skill_levels':skill_levels, 'link_form':link_form, 'skills':skills, 'experiences':experiences, 'experience_form':experience_form, 'projects':projects, 'project_form':project_form, 'educations':educations, 'education_form':education_form, 'language_levels':language_levels, 'languages':languages, 'language_form':language_form, 'references':references, 'reference_form':reference_form, 'awards':awards, 'award_form':award_form, 'organisations':organisations, 'organisation_form':organisation_form, 'certificates':certificates, 'certificate_form':certificate_form, 'interests':interests, 'interest_form':interest_form, 'publications':publications, 'publication_form':publication_form, 'feedbacks':feedbacks, 'profile':profile }
     return render(request, 'pages/home.html')
 
-
+@login_required(login_url="login")
+def cvbuildFeedback(request):
+    if request.method == "POST":
+       subject = f'Feedback from {request.user.first_name} {request.last_name}'
+       message = request.POST['feedbackInput']
+       send_mail(subject, message, settings.EMAIL_HOST_USER, request.user.email, html_message=message)
+       return redirect('/')
 
 @login_required(login_url="login")
 def Resume(request, feedback_id):

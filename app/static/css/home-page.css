@@ -52,6 +52,28 @@
   display: block;
 }
 
+.feedback-input {
+  width: 500px;
+  height: 60px;
+  display: inline-flex;
+  align-items: center;
+  padding: 20px 10px;
+}
+
+.feedback-input::-webkit-scrollbar {
+  display: none;
+}
+
+.footer {
+    margin: 70px 0;
+}
+
+form {
+    width: 100% !important;
+    padding: 0 !important;
+}
+
+
 @media all and (max-width: 950px) {
   .flex-spc {
     grid-template-columns: 1fr;
@@ -75,5 +97,9 @@
 
   .image-container {
     width: 80%;
+  }
+
+  .feedback-input {
+    width: 100%;
   }
 }

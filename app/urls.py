@@ -106,4 +106,5 @@ urlpatterns = [
         ),
         name="change_password",
     ),
+    path('cvbuild-feeback/', views.cvbuildFeedback, name='cvbuildfeedback'),
 ]
