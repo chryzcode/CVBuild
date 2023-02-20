@@ -38,7 +38,7 @@
   grid-template-columns: 1fr 1fr;
   align-items: center;
   grid-column-gap: 30px;
-  margin: 100px 0;
+  margin: 50px 0;
 }
 
 .image-container {
@@ -61,6 +61,10 @@
   .home-page-contents > * {
     width: 500px;
     margin: 0 auto;
+  }
+
+  .image-container > img {
+    margin: 50px 0;
   }
 }
 
