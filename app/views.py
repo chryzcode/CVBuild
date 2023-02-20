@@ -274,7 +274,8 @@ def account_activate(request, uidb64, token):
 
 
 def home(request):
-    # personal_detail = Personal_Details.objects.filter(user=request.user.id).last()
+    if request.user:
+        personal_detail = Personal_Details.objects.filter(user=request.user.id).last()
     # profile = Profile.objects.filter(personal_detail=personal_detail).last()
     # profile_form = ProfileForm(instance=profile)
     # personal_detail_form = PersonalDetailsForm(instance=personal_detail)
@@ -305,7 +306,7 @@ def home(request):
     # publications = Publication.objects.filter(personal_detail=personal_detail)
     # publication_form = PublicationForm()
     # context = {'personal_detail':personal_detail, 'profile_form':profile_form, 'personal_detail_form':personal_detail_form, 'skill_form':skill_form, 'skill_levels':skill_levels, 'link_form':link_form, 'skills':skills, 'experiences':experiences, 'experience_form':experience_form, 'projects':projects, 'project_form':project_form, 'educations':educations, 'education_form':education_form, 'language_levels':language_levels, 'languages':languages, 'language_form':language_form, 'references':references, 'reference_form':reference_form, 'awards':awards, 'award_form':award_form, 'organisations':organisations, 'organisation_form':organisation_form, 'certificates':certificates, 'certificate_form':certificate_form, 'interests':interests, 'interest_form':interest_form, 'publications':publications, 'publication_form':publication_form, 'feedbacks':feedbacks, 'profile':profile }
-    return render(request, 'pages/home.html')
+    return render(request, 'pages/home.html', {'personal_detail':personal_detail})
 
 @login_required(login_url="login")
 def cvbuildFeedback(request):

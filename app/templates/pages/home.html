@@ -9,7 +9,11 @@
         quaerat veniam nulla qui corrupti rem ex labore, non, maiores saepe ipsa id.
       </p>
       <div class="center">
-        <a href="" class="btn bg-dark-btn">Try For Free</a>
+        {% if request.user.is_authenticated %}
+        <a href="{% url 'Resume' personal_detail.feedback_id %}" class="btn bg-dark-btn">View Resume</a>
+        {% else %}
+        <a href="{% url 'register' %}" class="btn bg-dark-btn">Try For Free</a>
+        {% endif %}
       </div>
     </div>
     <div class="image-container">
