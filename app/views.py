@@ -228,9 +228,10 @@ def account_delete(request):
     "domain": settings.DEFAULT_DOMAIN,
     }
 )
-    user.is_active = False
-    user.save()
     send_mail(subject, message, settings.EMAIL_HOST_USER, [user.email], html_message=message)
+    if not user.is_superuser:
+        user.is_active = False
+        user.save()
     logout(request)
     return redirect("/")
 
