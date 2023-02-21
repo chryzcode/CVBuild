@@ -142,21 +142,18 @@
       <p class="introduction">Hi,</p>
 
       <div class="body">
-      <p>
-        I am {{ user.full_name }}, I requested to delete my Shopit account which is deactivated presently.
-      </p>
-    
-<p>This action will delete my account after a month and will affect possibly everything related.</p>
+        <p>
+          I am {{user.first_name|capfirst}} {{user.last_name|capfirst}}, I requested to delete my CVBuild account which
+          is deactivated presently.
+        </p>
 
-      
+        <p>This action will delete my account after a month and will affect possibly everything related.</p>
       </div>
 
       <p class="conclusion">
         <span>Regards,</span>
-        <span>{{user.full_name}}</span>
+        <span>{{user.first_name|capfirst}} {{user.last_name|capfirst}}</span>
       </p>
-
     </div>
   </body>
 </html>
-

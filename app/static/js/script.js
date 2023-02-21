@@ -34,6 +34,22 @@ if (downloadPdfNav) {
   }
 }
 
+function hideSideNav() {
+  if (mediumMobileMediaQuery.matches) {
+    if (baseSideNav) {
+      baseSideNav.classList.add("hide");
+    }
+  }
+}
+
+function showSideNav() {
+  if (mediumMobileMediaQuery.matches) {
+    if (baseSideNav) {
+      baseSideNav.classList.remove("hide");
+    }
+  }
+}
+
 // if (inputTextLinkForms) {
 //   inputTextLinkForms.forEach(inputTextLinkForm => {
 //     const inputTextLinkFormLabel = inputTextLinkForm.querySelector("label");
@@ -210,6 +226,7 @@ if (contentFormContainers) {
       contentFormDetails.addEventListener("click", e => {
         if (contentFormContainer.classList.contains("click")) {
           downloadPdfNav.classList.add("hide");
+          hideSideNav();
         }
 
         if (contentFormContainer == e.currentTarget.parentElement) {
@@ -249,6 +266,7 @@ if (contentFormContainers) {
         closeBtn.addEventListener("click", e => {
           form.classList.add("hide");
           downloadPdfNav.classList.remove("hide");
+          showSideNav();
           contentFormDetails.classList.remove("hide");
           contentFormContainers.forEach(formContainer => {
             if (formContainer.classList.contains("container-active")) {
@@ -267,6 +285,7 @@ if (contentFormContainers) {
         contentFormTop.addEventListener("click", e => {
           if (contentFormContainer.classList.contains("click")) {
             downloadPdfNav.classList.add("hide");
+            hideSideNav();
           }
           const icon = contentFormTop.querySelector("#toggle-icon");
           const myClick = e.currentTarget;
@@ -282,6 +301,7 @@ if (contentFormContainers) {
                 contents.forEach(content => {
                   content.addEventListener("click", e => {
                     downloadPdfNav.classList.add("hide");
+                    hideSideNav();
                     myClickFormContainer.querySelector(".form-display-content-container").classList.add("hide");
                     form.classList.remove("hide");
 
@@ -365,6 +385,7 @@ if (contentFormContainers) {
 
             closeBtn.addEventListener("click", e => {
               downloadPdfNav.classList.remove("hide");
+              showSideNav();
               if (contentFormContainer.querySelector(".form-display-content-container")) {
                 contentFormContainer.querySelector(".form-display-content-container").classList.remove("hide");
               }
@@ -411,6 +432,7 @@ if (contentFormContainers) {
                 formContainer.classList.add("hide");
               });
               downloadPdfNav.classList.add("hide");
+              hideSideNav();
               document.querySelector("#add-content-btn").classList.add("hide");
               contentFormContainer.classList.remove("hide");
               contentFormContainer.querySelector(".form-display-content-container").classList.add("hide");
@@ -419,6 +441,7 @@ if (contentFormContainers) {
               const closeBtn = contentFormContainer.querySelector("#content-form-cancel-btn");
               closeBtn.addEventListener("click", e => {
                 downloadPdfNav.classList.remove("hide");
+                showSideNav();
                 const requriedFieldSymbol = contentFormContainer.querySelector(".form-required-field");
                 document.querySelector("#add-content-btn").classList.remove("hide");
                 if (requriedFieldSymbol) {
