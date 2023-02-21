@@ -138,7 +138,7 @@
       <!-- <a href="{{domain}}" target="_blank" rel="noopener noreferrer"
         ><img class="logo" src="https://shopitapps.herokuapp.com/static/images/logo/Shopit_Blue_logo.png" alt=""
       /></a> -->
-      <p class="introduction">Hello {{user.full_name}},</p>
+      <p class="introduction">Hello {{user.first_name|capfirst}} {{user.last_name|capfirst}},</p>
 
       <div class="body">
         <p>
