@@ -2,13 +2,12 @@
 {% endblock %} {% block content %}
 <div class="home-page-container">
   <div class="flex-spc">
-    <div class="home-page-contents">
+    <div data-aos="fade-down" data-aos-duration="800" class="home-page-contents">
       <h2 class="home-header">Build your Resume and Online Portfolio for free</h2>
       <p>
-        Grant yourself access to modern resume, quality PDF and a minimalist(simple) personal online portfolio/
-        website.
+        Grant yourself access to modern resume, quality PDF and a minimalist(simple) personal online portfolio/ website.
       </p>
-      <div class="center">
+      <div class="center" data-aos="fade-up" data-aos-duration="1500">
         {% if request.user.is_authenticated %}
         <a href="{% url 'Resume' personal_detail.feedback_id %}" class="btn bg-dark-btn">View Resume</a>
         {% else %}
@@ -17,15 +16,20 @@
       </div>
     </div>
     <div class="image-container">
-      <img src="{% static 'image/illustrations/cv-image.svg' %}" alt="" />
+      <img data-aos="fade-left" data-aos-duration="1500" src="{% static 'image/illustrations/cv-image.svg' %}" alt="" />
     </div>
   </div>
 
   <div class="flex-spc">
     <div class="image-container">
-      <img src="{% static 'image/illustrations/download-cv.svg' %}" alt="" />
+      <img
+        data-aos="fade-right"
+        data-aos-duration="1500"
+        src="{% static 'image/illustrations/download-cv.svg' %}"
+        alt=""
+      />
     </div>
-    <div class="home-page-contents">
+    <div data-aos="fade-down" data-aos-duration="800" class="home-page-contents">
       <h2 class="inner-content-header">Download High-quality PDF for Free</h2>
       <div class="inner-content-space">
         Resumes are entirely free and free of watermarks, with crispy look and view. You can download your resume for
@@ -35,7 +39,7 @@
   </div>
 
   <div class="flex-spc">
-    <div class="home-page-contents">
+    <div data-aos="fade-down" data-aos-duration="800" class="home-page-contents">
       <h2 class="inner-content-header">Get Feedback/ Review</h2>
       <div class="inner-content-space">
         Get feedback from friends, family, colleagues e.t.c with a unique link & changes made are synchronisly updated
@@ -43,15 +47,20 @@
       </div>
     </div>
     <div class="image-container">
-      <img src="{% static 'image/illustrations/review-cv.svg' %}" alt="" />
+      <img
+        data-aos="fade-left"
+        data-aos-duration="1500"
+        src="{% static 'image/illustrations/review-cv.svg' %}"
+        alt=""
+      />
     </div>
   </div>
 
   <div class="flex-spc">
     <div class="image-container">
-      <img src="{% static 'image/illustrations/secured.svg' %}" alt="" />
+      <img data-aos="fade-right" data-aos-duration="1500" src="{% static 'image/illustrations/secured.svg' %}" alt="" />
     </div>
-    <div class="home-page-contents">
+    <div data-aos="fade-down" data-aos-duration="800" class="home-page-contents">
       <h2 class="inner-content-header">Data Privacy and Security</h2>
       <div class="inner-content-space">
         CVBuild is a trusted product where your personal data and information is forever safe and protected. We don't
@@ -61,22 +70,27 @@
   </div>
 
   <div class="flex-spc">
-    <div class="home-page-contents">
+    <div data-aos="fade-down" data-aos-duration="800" class="home-page-contents">
       <h2 class="inner-content-header">Multiple Resumes</h2>
       <div class="inner-content-space">
         An account is entitled to have create and have more than a resume for multiple job preparation and application.
       </div>
     </div>
     <div class="image-container">
-      <img src="{% static 'image/illustrations/multiple-cv.svg' %}" alt="" />
+      <img
+        data-aos="fade-left"
+        data-aos-duration="1500"
+        src="{% static 'image/illustrations/multiple-cv.svg' %}"
+        alt=""
+      />
     </div>
   </div>
 
   <div class="flex-spc">
     <div class="image-container">
-      <img src="{% static 'image/illustrations/design.svg' %}" alt="" />
+      <img data-aos="fade-right" data-aos-duration="1500" src="{% static 'image/illustrations/design.svg' %}" alt="" />
     </div>
-    <div class="home-page-contents">
+    <div data-aos="fade-down" data-aos-duration="800" class="home-page-contents">
       <h2 class="inner-content-header">Fully flexible design</h2>
       <div class="inner-content-space">
         <p>
@@ -89,7 +103,7 @@
   </div>
 
   <div class="flex-spc">
-    <div class="home-page-contents">
+    <div data-aos="fade-down" data-aos-duration="800" class="home-page-contents">
       <h2 class="inner-content-header">Online Portfolio/ Presence</h2>
       <div class="inner-content-space">
         Awareness makes you a step ahead. Present yourself online to increase the chances of getting your dream job/
@@ -97,24 +111,33 @@
       </div>
     </div>
     <div class="image-container">
-      <img src="{% static 'image/illustrations/online-portfolio.svg' %}" alt="" />
+      <img
+        data-aos="fade-left"
+        data-aos-duration="1500"
+        src="{% static 'image/illustrations/online-portfolio.svg' %}"
+        alt=""
+      />
     </div>
   </div>
 
-  <div class="footer">
+  <div class="footer center">
     <h1 class="home-header">
       Do you have a feedback?
-      <div class="flex-spc">
+      <div>
         <form action="{% url 'cvbuildfeedback' %}" method="post" class="home-form">
           {% csrf_token %}
-          <textarea
-            class="feedback-input"
-            name="feedbackInput"
-            id="feedbackInput"
-            placeholder="Enter feedback..."
-          ></textarea>
+          <div>
+            <textarea
+              class="feedback-input"
+              name="feedbackInput"
+              id="feedbackInput"
+              placeholder="Enter feedback..."
+            ></textarea>
+          </div>
 
-          <button type="submit" class="bg-dark-btn btn">Submit</button>
+          <div>
+            <button type="submit" class="bg-dark-btn btn">Submit</button>
+          </div>
         </form>
       </div>
     </h1>

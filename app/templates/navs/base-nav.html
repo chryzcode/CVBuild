@@ -21,6 +21,7 @@
       crossorigin="anonymous"
       referrerpolicy="no-referrer"
     />
+    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
     {% block title %}
     <title>CV Build</title>
     {% endblock %}
@@ -30,7 +31,7 @@
       <div class="nav">
         <span><a href="/">CV Build</a></span>
 
-        <span id="nav-links" >
+        <span id="nav-links">
           {% if request.user.is_authenticated %}
           <span><a href="{% url 'user_profile' %}" class="btn bg-light-btn">Settings</a></span>
           {% else %}
@@ -49,4 +50,8 @@
     {% block content %} {% endblock %}
   </body>
   <script src="{% static 'js/script.js' %}"></script>
+  <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+  <script>
+    AOS.init();
+  </script>
 </html>

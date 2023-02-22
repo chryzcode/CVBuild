@@ -220,7 +220,7 @@ class UserProfileForm(ModelForm):
         fields = [
             "first_name",
             "last_name",
-            "avatar",
+            # "avatar",
         ]
 
         widgets = {
@@ -230,7 +230,7 @@ class UserProfileForm(ModelForm):
              "last_name": forms.TextInput(
                 attrs={"class": "form-control", "placeholder": "JohnDoe"}
             ),
-            "avatar": forms.FileInput(attrs={"class": "form-control"}),
+            # "avatar": forms.FileInput(attrs={"class": "form-control"}),
         }
 
     def clean_phone_number(self):
