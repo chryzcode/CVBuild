@@ -654,6 +654,12 @@ if (forms) {
               requriedFieldSymbol.classList.add("hide");
             } else {
               requriedFieldSymbol.classList.remove("hide");
+              $(document).on("keyup keypress", 'form input[type="text"]', function (e) {
+                if (e.keyCode == 13) {
+                  e.preventDefault();
+                  return false;
+                }
+              });
             }
           }
 
@@ -661,6 +667,12 @@ if (forms) {
             if (requriedFieldSymbol) {
               if (!requriedFieldSymbol.classList.contains("hide")) {
                 submitBtn.classList.add("disable");
+                $(document).on("keyup keypress", 'form input[type="text"]', function (e) {
+                  if (e.keyCode == 13) {
+                    e.preventDefault();
+                    return false;
+                  }
+                });
               } else {
                 submitBtn.classList.remove("disable");
               }
@@ -675,6 +687,12 @@ if (forms) {
               } else {
                 requriedFieldSymbol.classList.remove("hide");
                 submitBtn.classList.add("disable");
+                $(document).on("keyup keypress", 'form input[type="text"]', function (e) {
+                  if (e.keyCode == 13) {
+                    e.preventDefault();
+                    return false;
+                  }
+                });
               }
             }
           });
