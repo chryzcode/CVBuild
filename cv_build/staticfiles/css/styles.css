@@ -8,7 +8,7 @@
 html,
 body {
   scroll-behavior: smooth;
-  /* overflow-x: hidden; */
+  overflow-x: hidden;
   background-color: #f3f4f6;
 }
 
@@ -81,7 +81,8 @@ form {
   display: flex;
 }
 
-.form-input-container > span > label, .flex-spc-bwn > label {
+.form-input-container > span > label,
+.flex-spc-bwn > label {
   color: #200e32;
 }
 
@@ -337,7 +338,8 @@ input[type="checkbox"]:focus-within {
 }
 
 .content-form .form-input-container > span > label,
-input[type="checkbox"] label, .flex-spc-bwn > label {
+input[type="checkbox"] label,
+.flex-spc-bwn > label {
   font-size: 16px;
 }
 
@@ -842,7 +844,7 @@ h6 {
     margin-top: 50px;
   }
 
-  .base-sidenav  span {
+  .base-sidenav span {
     color: #200e32;
   }
 
@@ -914,6 +916,11 @@ h6 {
   .auth-form {
     width: 80%;
   }
+
+  .error-page-container,
+  .success-page-container {
+    width: 90%;
+  }
 }
 
 @media all and (max-width: 450px) {
@@ -930,7 +937,6 @@ h6 {
   .auth-form {
     width: 100%;
   }
-
 
   .base-sidenav {
     margin: 0;
