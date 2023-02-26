@@ -3,8 +3,7 @@ from .models import *
 # Register your models here.
 admin.site.register(User)
 admin.site.register(Project)
-admin.site.register(Skill_Level)
-admin.site.register(Language_Level)
+admin.site.register(Levels)
 admin.site.register(Skills)
 admin.site.register(Education)
 admin.site.register(Experience)

@@ -100,7 +100,7 @@ def pdfview(request, feedback_id):
         personal_detail_form = PersonalDetailsForm(instance=personal_detail)
         skill_form = SkillForm()
         link_form = LinkForm(instance=personal_detail)
-        skill_levels = Skill_Level.objects.all()
+        skill_levels = Levels.objects.all()
         skills = Skills.objects.filter(personal_detail=personal_detail)
         experiences = Experience.objects.filter(personal_detail=personal_detail)
         experience_form = ExperienceForm()
@@ -108,7 +108,7 @@ def pdfview(request, feedback_id):
         project_form = ProjectForm()
         educations = Education.objects.filter(personal_detail=personal_detail)
         education_form = EducationForm()
-        language_levels = Language_Level.objects.all()
+        language_levels = Levels.objects.all()
         languages = Language.objects.filter(personal_detail=personal_detail)
         language_form = LanguageForm()
         references = Reference.objects.filter(personal_detail=personal_detail)
@@ -298,36 +298,6 @@ def account_activate(request, uidb64, token):
 def home(request):
     if request.user:
         personal_detail = Personal_Details.objects.filter(user=request.user.id).last()
-    # profile = Profile.objects.filter(personal_detail=personal_detail).last()
-    # profile_form = ProfileForm(instance=profile)
-    # personal_detail_form = PersonalDetailsForm(instance=personal_detail)
-    # feedbacks = Feedback.objects.filter(personal_detail=personal_detail)
-    # skill_form = SkillForm()
-    # link_form = LinkForm(instance=personal_detail)
-    # skill_levels = Skill_Level.objects.all()
-    # skills = Skills.objects.filter(personal_detail=personal_detail)
-    # experiences = Experience.objects.filter(personal_detail=personal_detail)
-    # experience_form = ExperienceForm()
-    # projects = Project.objects.filter(personal_detail=personal_detail)
-    # project_form = ProjectForm()
-    # educations = Education.objects.filter(personal_detail=personal_detail)
-    # education_form = EducationForm()
-    # language_levels = Language_Level.objects.all()
-    # languages = Language.objects.filter(personal_detail=personal_detail)
-    # language_form = LanguageForm()
-    # references = Reference.objects.filter(personal_detail=personal_detail)
-    # reference_form = ReferenceForm()
-    # awards = Award.objects.filter(personal_detail=personal_detail)
-    # award_form = AwardForm()
-    # organisations = Organisation.objects.filter(personal_detail=personal_detail)
-    # organisation_form = OrganisationForm
-    # certificates = Certificate.objects.filter(personal_detail=personal_detail)
-    # certificate_form = CertificateForm()
-    # interests = Interest.objects.filter(personal_detail=personal_detail)
-    # interest_form = InterestForm()
-    # publications = Publication.objects.filter(personal_detail=personal_detail)
-    # publication_form = PublicationForm()
-    # context = {'personal_detail':personal_detail, 'profile_form':profile_form, 'personal_detail_form':personal_detail_form, 'skill_form':skill_form, 'skill_levels':skill_levels, 'link_form':link_form, 'skills':skills, 'experiences':experiences, 'experience_form':experience_form, 'projects':projects, 'project_form':project_form, 'educations':educations, 'education_form':education_form, 'language_levels':language_levels, 'languages':languages, 'language_form':language_form, 'references':references, 'reference_form':reference_form, 'awards':awards, 'award_form':award_form, 'organisations':organisations, 'organisation_form':organisation_form, 'certificates':certificates, 'certificate_form':certificate_form, 'interests':interests, 'interest_form':interest_form, 'publications':publications, 'publication_form':publication_form, 'feedbacks':feedbacks, 'profile':profile }
     return render(request, 'pages/home.html', {'personal_detail':personal_detail})
 
 @login_required(login_url="login")
@@ -348,7 +318,7 @@ def Resume(request, feedback_id):
         personal_detail_form = PersonalDetailsForm(instance=personal_detail)
         skill_form = SkillForm()
         link_form = LinkForm(instance=personal_detail)
-        skill_levels = Skill_Level.objects.all()
+        skill_levels = Levels.objects.all()
         skills = Skills.objects.filter(personal_detail=personal_detail)
         experiences = Experience.objects.filter(personal_detail=personal_detail)
         experience_form = ExperienceForm()
@@ -356,7 +326,7 @@ def Resume(request, feedback_id):
         project_form = ProjectForm()
         educations = Education.objects.filter(personal_detail=personal_detail)
         education_form = EducationForm()
-        language_levels = Language_Level.objects.all()
+        language_levels = Levels.objects.all()
         languages = Language.objects.filter(personal_detail=personal_detail)
         language_form = LanguageForm()
         references = Reference.objects.filter(personal_detail=personal_detail)
@@ -455,7 +425,7 @@ def getSkill(request, pk, feedback_id):
     skill_info = skill.skill_information
     if skill.skill_level:
         skill_level_id = skill.skill_level.id
-        skill_level = Skill_Level.objects.get(id=skill_level_id).name
+        skill_level = Levels.objects.get(id=skill_level_id).name
     else:
         skill_level_id = ''
         skill_level = ''
@@ -698,7 +668,7 @@ def getLanguage(request, pk, feedback_id):
     language_additional_information = language.language_additional_information
     if language.language_level:
         language_level_id = language.language_level.id
-        language_level = Language_Level.objects.get(id=language_level_id).name
+        language_level = Levels.objects.get(id=language_level_id).name
     else:
         language_level_id = ''
         language_level = ''

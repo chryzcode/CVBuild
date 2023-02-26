@@ -188,15 +188,15 @@ class Profile(models.Model):
     def __str__(self):
         return self.personal_detail.full_name + ' profile'
 
-class Skill_Level(models.Model):
+class Levels(models.Model):
     name = models.CharField(max_length= 100)
 
     def __str__(self):
-        return self.name + ' skill level'
+        return self.name + ' level'
 
 class Skills(models.Model):
     personal_detail = models.ForeignKey(Personal_Details, on_delete=models.CASCADE)
-    skill_level = models.ForeignKey(Skill_Level, on_delete=models.SET_NULL, null=True, blank=True)
+    skill_level = models.ForeignKey(Levels, on_delete=models.SET_NULL, null=True, blank=True)
     skill_name = models.CharField(max_length=80)
     skill_information = models.CharField(max_length=200, blank=True, null=True)
    
@@ -254,17 +254,12 @@ class Education(models.Model):
     def __str__ (self):
         return self.school
 
-class Language_Level(models.Model):
-    name = models.CharField(max_length = 150)
-
-    def __str__(self):
-        return self.name + ' language level'
 
 class Language(models.Model):
     personal_detail = models.ForeignKey(Personal_Details, on_delete=models.CASCADE)
     language = models.CharField(max_length= 200)
     language_additional_information = models.CharField(max_length=400, blank= True, null= True)
-    language_level = models.ForeignKey(Language_Level, on_delete=models.SET_NULL, null=True, blank=True)
+    language_level = models.ForeignKey(Levels, on_delete=models.SET_NULL, null=True, blank=True)
 
     def __str__(self):
         return self.language + ' language'
