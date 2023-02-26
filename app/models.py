@@ -274,7 +274,7 @@ class Reference(models.Model):
     reference_link = models.CharField(max_length=300, blank= True, null= True)
 
     def __str__(self):
-        return self.name + ' reference'
+        return self.reference_name + ' reference'
 
 
 class Award(models.Model):
@@ -305,7 +305,7 @@ class Organisation(models.Model):
     organisation_link = models.CharField(max_length=300, blank= True, null= True)
 
     def __str__ (self):
-        return self.positon + ' in f{self.organization}'
+        return self.position + ' in f{self.organization}'
 
 class Certificate(models.Model):
     personal_detail = models.ForeignKey(Personal_Details, on_delete=models.CASCADE)
@@ -337,7 +337,7 @@ class Publication(models.Model):
     publication_month_year_only = models.BooleanField(default=False)
     publication_year_only = models.BooleanField(default=False)
     def __str__ (self):
-        return self.publisher + ' ' + self.title
+        return self.publisher + ' ' + self.publication_title
 
 
 class Feedback(models.Model):
