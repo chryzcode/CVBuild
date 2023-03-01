@@ -1,12 +1,16 @@
-<!DOCTYPE html>
-<html lang="en">
+<html>
   <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />  
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" />
-    <title>{{personal_detail.resume_name}} Resume</title>
+    <title>{{personal_detail.resume_name}}</title>
     <style type="text/css">
+
+      * {
+        font-size: 16px;
+        white-space: nowrap;
+      }
+
       .resume-center {
         text-align: center;
         width: 100%;
@@ -44,13 +48,13 @@
         grid-template-columns: 1fr 1fr;
       } */
 
-       .resume-pdf-container > div {
+       /* .resume-pdf-container > div {
         margin: 15px 0;
-      }
+      } */
 
-       .content-description {
+       /* .content-description {
         margin: 10px 0;
-      }
+      } */
 
       .resume-links i {
         padding-right: 5px;
@@ -62,12 +66,12 @@
       }
 
       .resume-section-header {
-        font-size: 15px;
+        font-size: 19px;
         width: 100%;
         background-color: #e0e0e0;
-        padding: 10px 0 0 0;
+        padding: 20px 0 0 0;
         text-align: center;
-        margin: 20px 0;
+        margin: 25px 0;
         border-radius: 4px;
       }
 
@@ -83,6 +87,7 @@
     </style>
   </head>
   <body>
+    {% block content %}
     <div class="resume-pdf-container">
       <div class="resume-center">
         {% if personal_detail.full_name %}
@@ -496,21 +501,24 @@
           {% endif %} {% endfor %}
         </div>
       </div>
-      {% endif %} {% if experiences %}
+      {% endif %} 
+      
+      
+      {% if experiences %}
       <div>
-        <p class="resume-section-header">Professional Experience</p>
+        <p class="resume-section-header"><strong>Professional Experience</strong></p>
         {% for experience in experiences %}
-
-        <div class="resume-flex-spc-btwn">
-          <div>
-            <span><strong>{{experience.experience_job_title}}</strong></span>
-
-             
-        <small>
+       <p>
+            <span><strong>{{experience.employer}} - {{experience.experience_job_title}}</strong>
+            {% if experience.experience_link %}
+            <a href="{{experience.experience_link}}" class="flx-align-center" target="_blank" rel="noopener noreferrer"><span></span> <span class="material-symbols-outlined">link</span> </a>
+            {% endif %}
+            <br>
+            </span>          
+            <small>
              {% if experience.experience_start_date %}
             {% if experience.experience_month_year_only %} 
-              
-                {{experience.experience_start_date|date:"M, Y"}} 
+            {{experience.experience_start_date|date:"M, Y"}} 
             {% elif experience.experience_year_only %} 
             {{experience.experience_start_date|date:"Y"}} {% else %}
             {{experience.experience_start_date}} {% endif %} 
@@ -519,44 +527,35 @@
             {% elif experience.experience_year_only %} 
             {{experience.experience_end_date|date:"Y"}} {% else %}
             {{experience.experience_end_date}} {% endif %} 
-           
              {% endif %}
              {% endif %}
              </small>
-        
-          
-          </div>
-
-            {% if experience.experience_link %}
-            <a href="{{experience.experience_link}}" class="flx-align-center" target="_blank" rel="noopener noreferrer"><span>{{experience.employer}}</span> <span class="material-symbols-outlined">link</span> </a>
-            {% else %}
-            <p>{{experience.employer}}</p>
-            {% endif %}
-            
-          <p>{% if experience.experience_city %}{{experience.experience_city}}{% endif %}{% if experience.experience_city and experience.experience_country %}, {% endif %} {% if experience.experience_country %} {{experience.experience_country}} {% endif %}</p>
-           
-          
-        
-        </div>
-        <p class="content-description">
+            <br>
+          {% if experience.experience_city %}{{experience.experience_city}}{% endif %}{% if experience.experience_city and experience.experience_country %}, {% endif %} {% if experience.experience_country %} {{experience.experience_country}} {% endif %}
+          </p>   
+        <p>
           {{experience.experience_description}}
         </p>
-
         {% endfor %}
       </div>
+      <br>
       {% endif %}
+      
 
-       {% if educations %}
+      {% if educations %}
       <div>
-        <p class="resume-section-header">Education</p>
+        <p class="resume-section-header"><strong>Education</strong></p>
         {% for education in educations %}
-
-              <span>
             <p>
-              <span>
-                <strong>{{education.degree}}</strong>
-              </span> 
-              <span>
+            <span>
+             <strong>{{education.degree}} - {{education.school}}</strong> 
+             {% if education.education_link %}
+            <a href="{{education.education_link}}" target="_blank" rel="noopener noreferrer"><span class="material-symbols-outlined">link</span> </a>        
+            {% endif %}
+             <br>
+            </span> 
+            
+            <small>
             {% if education.education_month_year_only %} {{education.education_start_date|date:"M, Y"}} 
             {% elif education.education_year_only %} 
             {{education.education_start_date|date:"Y"}} {% else %}
@@ -567,44 +566,34 @@
             {{education.education_end_date|date:"Y"}} {% else %}
             {{education.education_end_date}} {% endif %} 
              {% endif %}
-          </span>
-            </p>
-
-            {% if education.education_link %}
-            <a href="{{education.education_link}}" class="flx-align-center" target="_blank" rel="noopener noreferrer"><span>{{education.school}}</span> <span class="material-symbols-outlined">link</span> </a>
-            {% else %}
-            <p>{{education.school}}</p>
-            {% endif %}
-            <p>{% if education.education_city %}{{education.education_city}}{% endif %}{% if education.education_city and education.education_country %}, {% endif %} {% if education.education_country %} {{education.education_country}} {% endif %}</p>
-          </span>
-        
-
-        <p class="content-description">
+          </small>
+            <br>
+            {% if education.education_city %}{{education.education_city}}{% endif %}{% if education.education_city and education.education_country %}, {% endif %} {% if education.education_country %} {{education.education_country}} {% endif %}
+          </p>
+        <p>
           {{education.education_description}}
         </p>
         {% endfor %}
       </div>
+      <br>
       {% endif %}
+      
 
       {% if projects %}
       <div>
-        <p class="resume-section-header">Projects</p>
+        <p class="resume-section-header"><strong>Projects</strong></p>
         {% for project in projects %}
-
-        <div class="resume-flex-spc-btwn">
-          <span>
-            
+         <p>
+            <strong>{{project.project_title}}</strong>
             {% if project.project_link %}
-            <a href="{{ project.project_link}}" class="flx-align-center" target="_blank" rel="noopener noreferrer"><span><strong>{{project.project_title}}</strong></span> <span class="material-symbols-outlined">link</span> </a>
-            {% else %}
-            <p><strong>{{project.project_title}}</strong></p>
+            <a href="{{ project.project_link}}" class="flx-align-center" target="_blank" rel="noopener noreferrer"><span class="material-symbols-outlined">link</span> </a>
             {% endif %}
+            <br>
             {% if project.subtitle %}
-            <p>{{project.subtitle}}</p>
+           <br>{{project.subtitle}}<br>
             {% endif %}
-          </span>
-          {% if project.project_start_date %}
-          <span>
+            <small>
+            {% if project.project_start_date %}
             {% if project.project_month_year_only %} {{project.project_start_date|date:"M, Y"}} 
             {% elif project.project_year_only %} 
             {{project.project_start_date|date:"Y"}} {% else %}
@@ -615,232 +604,186 @@
             {{project.project_end_date|date:"Y"}} {% else %}
             {{project.project_end_date}} {% endif %} 
              {% endif %}
-          </span>
-          {% endif %}
-        </div>
-        <p class="content-description">
+           {% endif %}
+          </small>   
+      </p>
+        <p>
           {{project.project_description}}
         </p>
         {% endfor %}
       </div>
+      <br>
       {% endif %}
+      
 
       {% if organisations %}
       <div>
-        <p class="resume-section-header">Organisations</p>
+        <p class="resume-section-header"><strong>Organisations</strong></p>
         {% for organisation in organisations %}
 
-        <div class="resume-flex-spc-btwn">
+        <div>
           <span>
             <p>
-              <span>
-                <strong>{{organisation.position}}</strong>
-              </span>
-            <span>
-               {% if organisation.organisation_start_date %}
-          <span>
-            {% if organisation.organisation_month_year_only %} {{organisation.organisation_start_date|date:"M, Y"}} 
-            {% elif organisation.organisation_year_only %} 
-            {{organisation.organisation_start_date|date:"Y"}} {% else %}
-            {{organisation.organisation_start_date}} {% endif %} 
-            {% if organisation.organisation_current %} - Current {% endif %} 
-            {% if organisation.organisation_end_date %} - {% if organisation.organisation_month_year_only %} {{organisation.organisation_end_date|date:"M, Y"}} 
-            {% elif organisation.organisation_year_only %} 
-            {{organisation.organisation_end_date|date:"Y"}} {% else %}
-            {{organisation.organisation_end_date}} {% endif %} 
-             {% endif %}
-          </span>
+              <strong>{{organisation.organisation}} - {{organisation.position}}</strong>
+              {% if organisation.organisation_link %}
+              <a href="{{ organisation.organisation_link}}" class="flx-align-center" target="_blank" rel="noopener noreferrer"><span class="material-symbols-outlined">link</span> </a>
+              {% endif %}
+              <br>
+          {% if organisation.organisation_start_date %}
+            <small>
+              {% if organisation.organisation_month_year_only %} {{organisation.organisation_start_date|date:"M, Y"}} 
+              {% elif organisation.organisation_year_only %} 
+              {{organisation.organisation_start_date|date:"Y"}} {% else %}
+              {{organisation.organisation_start_date}} {% endif %} 
+              {% if organisation.organisation_current %} - Current {% endif %} 
+              {% if organisation.organisation_end_date %} - {% if organisation.organisation_month_year_only %} {{organisation.organisation_end_date|date:"M, Y"}} 
+              {% elif organisation.organisation_year_only %} 
+              {{organisation.organisation_end_date|date:"Y"}} {% else %}
+              {{organisation.organisation_end_date}} {% endif %} 
+              {% endif %}
+            </small>
+            <br>
           {% endif %}
-            </span>
-            </p>
-            {% if organisation.organisation_link %}
-            <a href="{{ organisation.organisation_link}}" class="flx-align-center" target="_blank" rel="noopener noreferrer"><span>{{organisation.organisation}}</span> <span class="material-symbols-outlined">link</span> </a>
-            {% else %}
-            <p>{{organisation.organisation}}</p>
-            {% endif %}
-            <p>{% if organisation.organisation_city %}{{organisation.organisation_city}}{% endif %}{% if organisation.organisation_city and organisation.organisation_country %}, {% endif %} {% if organisation.organisation_country %} {{organisation.organisation_country}} {% endif %}</p>
-          </span>
-         
-        </div>
-        <p class="content-description">
+          {% if organisation.organisation_city %}{{organisation.organisation_city}}{% endif %}{% if organisation.organisation_city and organisation.organisation_country %}, {% endif %} {% if organisation.organisation_country %} {{organisation.organisation_country}} {% endif %}
+        </p>       
+        <p>
           {{organisation.organisation_description}}
         </p>
         {% endfor %}
       </div>
+      <br>
       {% endif %}
+      
 
       {% if languages %}
       <div>
-        <p class="resume-section-header">Languages</p>
-        <div class="resume-flex-spc-even-span">
-          {% for language in languages %} {% if language.language_additional_information %}
-          <span>
-            <p>{{language.language}}</p>
+        <p class="resume-section-header"><strong>Languages</strong></p>
+          {% for language in languages %}
+          <p>
+            <strong>{{language.language}}</strong>
             {% if language.language_additional_information %}
             <small>{{language.language_additional_information}}</small>
             {% endif %}
-          </span>
-          {% else %}
-          <span>
-            {{language.language}}
-          </span>
-          {% endif %} {% endfor %}
-        </div>
+          </p>
+          {{% endfor %}  
       </div>
+      <br>
       {% endif %} 
+   
 
       {% if certificates %}
       <div>
-        <p class="resume-section-header">Certificates</p>
+        <p class="resume-section-header"><strong>Certificates</strong></p>
         {% for certificate in certificates %}
-
-        <div class="resume-flex-spc-btwn">
-          <span>
+        <div>
+           <p><strong>{{certificate.certificate}}</strong>
             {% if certificate.certificate_link %}
-            <a href="{{ certificate.certificate_link}}" class="flx-align-center" target="_blank" rel="noopener noreferrer"><span><strong>{{certificate.certificate}}</span></strong> <span class="material-symbols-outlined">link</span> </a>
-            {% else %}
-            <p><strong>{{certificate.certificate}}</strong></p>
+            <a href="{{ certificate.certificate_link}}" class="flx-align-center" target="_blank" rel="noopener noreferrer"><span class="material-symbols-outlined">link</span> </a>
             {% endif %}
-          </span>
-         
+          </p>   
         </div>
-        <p class="content-description">
+        <p>
           {{certificate.certificate_additional_information}}
         </p>
         {% endfor %}
       </div>
+      <br>
       {% endif %}
+      
 
        {% if awards %}
       <div>
-        <p class="resume-section-header">Awards</p>
+        <p class="resume-section-header"><strong>Awards</strong></p>
         {% for award in awards %}
-
-        <div class="resume-flex-spc-btwn">
-          <span>
-            <p>
-              <span>
-                <strong>{{award.award}}</strong>
-              </span>
-            <span>
-                 {% if award.award_date %}
-          <span>
+        <p>  
+          <strong>{{award.issuer}} - {{award.award}}</strong>
+          {% if award.award_link %}
+            <a href="{{ award.award_link}}" class="flx-align-center" target="_blank" rel="noopener noreferrer"><span class="material-symbols-outlined">link</span> </a>
+          {% endif %}
+          <br>
+          {% if award.award_date %}
+          <small>
             {% if award.award_month_year_only %} {{award.award_date|date:"M, Y"}} 
             {% elif award.award_year_only %} 
             {{award.award_date|date:"Y"}} {% else %}
             {{award.award_date}} 
              {% endif %}
-          </span>
+          </small>
           {% endif %}
-            </span>
-            </p>
-            {% if award.award_link %}
-            <a href="{{ award.award_link}}" class="flx-align-center" target="_blank" rel="noopener noreferrer"><span>{{award.issuer}}</span> <span class="material-symbols-outlined">link</span> </a>
-            {% else %}
-            <p>{{award.issuer}}</p>
-            {% endif %}
-          </span>
-       
-        </div>
-        <p class="content-description">
+        </p>
+        <p>
           {{award.award_description}}
         </p>
         {% endfor %}
       </div>
+      <br>
       {% endif %}
+
 
       {% if interests %}
       <div>
-        <p class="resume-section-header">Interests</p>
+        <p class="resume-section-header"><strong>Interests</strong></p>
         {% for interest in interests %}
-
-        <div class="resume-flex-spc-btwn">
-          <span>
-            {% if interest.interest_link %}
-            <a href="{{ interest.interest_link }}" class="flx-align-center" target="_blank" rel="noopener noreferrer"><span><strong>{{interest.interest}}</span></strong> <span class="material-symbols-outlined">link</span> </a>
-            {% else %}
-            <p><strong>{{interest.interest}}</strong></p>
-            {% endif %}
-          </span>
-         
-        </div>
-        <p class="content-description">
+        <p><strong>{{interest.interest}}</strong>
+          {% if interest.interest_link %}
+            <a href="{{ interest.interest_link }}" class="flx-align-center" target="_blank" rel="noopener noreferrer"><span class="material-symbols-outlined">link</span></a> 
+          {% endif %}
+        </p>
+        <p>
           {{interest.interest_additional_information}}
         </p>
         {% endfor %}
       </div>
+      <br>
       {% endif %}
 
       {% if publications %}
       <div>
-        <p class="resume-section-header">Publications</p>
+        <p class="resume-section-header"><strong>Publications</strong></p>
         {% for publication in publications %}
-
-        <div class="resume-flex-spc-btwn">
-          <span>
-            <p>
-              <span>
-                <strong>{{publication.publisher}}</strong>
-              </span>
-            <span>
-              {% if publication.publication_date %}
-          <span>
-            {% if publication.publication_month_year_only %} {{publication.publication_date|date:"M, Y"}} 
-            {% elif publication.publication_year_only %} 
-            {{publication.publication_date|date:"Y"}} {% else %}
-            {{publication.publication_date}} 
-             {% endif %}
-          </span>
-          {% endif %}
-            </span>
-            </p>
-            {% if publication.publication_link %}
+          <p>
+            <strong>{{publication.publisher}} - {{publication.publication_title}}</strong>
+             {% if publication.publication_link %}
             <a href="{{ publication.publication_link}}" class="flx-align-center" target="_blank" rel="noopener noreferrer"><span>{{publication.publication_title}}</span> <span class="material-symbols-outlined">link</span> </a>
-            {% else %}
-            <p>{{publication.publication_title}}</p>
             {% endif %}
-          </span>
-          
-        </div>
-        <p class="content-description">
+            <br>
+            {% if publication.publication_date %}
+            <small>
+              {% if publication.publication_month_year_only %} {{publication.publication_date|date:"M, Y"}} 
+              {% elif publication.publication_year_only %} 
+              {{publication.publication_date|date:"Y"}} {% else %}
+              {{publication.publication_date}} 
+              {% endif %}
+            </small>
+            {% endif %}
+         </p>
+        <p>
           {{publication.publication_description}}
         </p>
         {% endfor %}
       </div>
+      <br>
       {% endif %}
 
       {% if references %}
       <div>
-        <p class="resume-section-header">References</p>
+        <p class="resume-section-header"><strong>References</strong></p>
         {% for reference in references %}
-
-        <div class="resume-flex-spc-btwn">
-          <span>
-            <p><strong>{{reference.reference_name}}</strong></p>
-          
-          
+          <p>
+            <strong>{{reference.reference_name}} / {{reference.reference_organisation }} - </strong>{{reference.reference_job_title}}
             {% if reference.reference_link %}
-            <a href="{{reference.reference_link}}" class="flx-align-center" target="_blank" rel="noopener noreferrer"><span>{{reference.reference_organisation}}</span> <span class="material-symbols-outlined">link</span> </a>
-            {% else %}
-            {% if reference.reference_organisation %}
-            {{reference.reference_organisation}}
+            <a href="{{reference.reference_link}}" class="flx-align-center" target="_blank" rel="noopener noreferrer"><span class="material-symbols-outlined">link</span></a>
             {% endif %}
-            {% endif %} {% if reference.reference_job_title and reference.reference_organisation %} ,{% endif %}  {% if reference.reference_job_title %}
-            {{reference.reference_job_title}}
-            {% endif %}
-          </span>
-          <span>
-             <p> {{reference.reference_phone}}</p>
-          <p>{{reference.reference_email}}</p>
-          </span>
-         
-        </div>
-        <p class="content-description">
-          {{publication.publication_description}}
-        </p>
-        {% endfor %}
+            {{reference.reference_phone}}<br>
+            {{reference.reference_email}}
+           </p>
+          <p>
+            {{publication.publication_description}}
+          </p>
+          {% endfor %}   
       </div>
+      <br>
       {% endif %}
-    </div>
+    {% endblock %}
   </body>
 </html>

@@ -16,6 +16,13 @@ body {
   display: flex;
   justify-content: space-between;
   padding: 50px 100px;
+  align-items: center;
+}
+
+.logo {
+  text-decoration: none;
+  color: #200e32;
+  font-size: 20px;
 }
 
 .container {

@@ -651,17 +651,9 @@ if (forms) {
 
           if (requriedFieldSymbol) {
             if (formInput.value) {
-              $formInput.prop("required", false);
               requriedFieldSymbol.classList.add("hide");
             } else {
               requriedFieldSymbol.classList.remove("hide");
-              $formInput.prop("required", true);
-              $(document).on("keyup keypress mouseover", formInput["required"], function (e) {
-                if (e.keyCode == 13) {
-                  e.preventDefault();
-                  return false;
-                }
-              });
             }
           }
 
@@ -669,12 +661,6 @@ if (forms) {
             if (requriedFieldSymbol) {
               if (!requriedFieldSymbol.classList.contains("hide")) {
                 submitBtn.classList.add("disable");
-                // $(document).on("keyup keypress mouseover", form, function (e) {
-                //   if (e.keyCode == 13) {
-                //     e.preventDefault();
-                //     return false;
-                //   }
-                // });
               } else {
                 submitBtn.classList.remove("disable");
               }
@@ -685,18 +671,10 @@ if (forms) {
             if (requriedFieldSymbol) {
               requriedFieldSymbol.style.fontSize = `${25}px`;
               if (formInput.value) {
-                $formInput.prop("required", false);
                 requriedFieldSymbol.classList.add("hide");
               } else {
                 requriedFieldSymbol.classList.remove("hide");
-                $formInput.prop("required", true);
                 submitBtn.classList.add("disable");
-                $(document).on("keyup keypress mouseover", formInput["required"], function (e) {
-                  if (e.keyCode == 13) {
-                    e.preventDefault();
-                    return false;
-                  }
-                });
               }
             }
           });
