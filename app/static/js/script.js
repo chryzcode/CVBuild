@@ -25,6 +25,13 @@ const addContentModal = document.querySelector("#add-content-modal");
 const allModelContents = document.querySelectorAll(".add-modal-content");
 const formErrors = document.querySelectorAll(".form-errors");
 
+if (mediumMobileMediaQuery.matches) {
+  const logos = document.querySelectorAll(".logo");
+  logos.forEach(logo => {
+    logo.classList.remove("hide");
+  });
+}
+
 if (downloadPdfNav) {
   if (mobileMediaQuery.matches) {
     const desiredWidth = document.querySelector(".content-form-container").getBoundingClientRect().width;
@@ -71,7 +78,14 @@ if (toogle) {
   };
 }
 
+if (document.querySelectorAll(".add-modal-content").length == 0) {
+  addContentBtn.classList.add("hide");
+} else {
+  addContentBtn.classList.remove("hide");
+}
+
 if (allModelContents) {
+  // addContentBtn.classList.remove("hide");
   allModelContents.forEach(allModelContent => {
     allModelContent.addEventListener("click", e => {
       e.preventDefault();
@@ -82,7 +96,6 @@ if (allModelContents) {
     });
   });
 }
-
 if (feedbacks) {
   if (feedbacks.length > 5) {
     for (var i = 5; i < feedbacks.length; i++) {
@@ -150,6 +163,9 @@ document.onclick = e => {
 if (sideNavContents) {
   sideNavContents.forEach(sideNavContent => {
     sideNavContent.addEventListener("click", e => {
+      if (e.currentTarget.id == "check-nav") {
+        // baseSideNav.classList.add("hide");
+      }
       const theClick = document.querySelector(`#${e.currentTarget.id}-content`);
       if (theClick) {
         navPageContents.forEach(navPageContent => {
