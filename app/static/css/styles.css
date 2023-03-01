@@ -701,6 +701,10 @@ h6 {
   display: none;
 }
 
+.zindex-style {
+  z-index: 10;
+}
+
 @keyframes rotate {
   0% {
     transform: rotate(0deg);
