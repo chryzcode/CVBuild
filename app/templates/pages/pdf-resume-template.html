@@ -1,3 +1,4 @@
+{% load static %}
 <html>
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />  
@@ -91,11 +92,11 @@
     <div class="resume-pdf-container">
       <div class="resume-center">
         {% if personal_detail.full_name %}
-        <h1>{{personal_detail.full_name}}</h1>
+        <h1 style="font-size: 30px;">{{personal_detail.full_name}}</h1>
         {% endif %} 
         
         {% if personal_detail.job_title %}
-        <h3>{{personal_detail.job_title}}</h3>
+        <h3 style="font-size: 24px;">{{personal_detail.job_title}}</h3>
         {% endif %}
       </div>
       <div class="resume-flex-spc-even-span resume-links resume-center">
@@ -480,18 +481,20 @@
 
       {% if profile %}
       <div>
-        <p class="resume-section-header">Profile</p>
-        {{profile.summary|safe}}
+        <p class="resume-section-header"><strong>Profile</strong></p>
+        <p>
+          {{profile.summary|safe}}
+        </p>
       </div>
       {% endif %} {% if skills %}
       <div>
-        <p class="resume-section-header">Skills</p>
+        <p class="resume-section-header"><strong>Skills</strong></p>
         <div class="resume-flex-spc-even-span">
           {% for skill in skills %} {% if skill.skill_information %}
           <span>
             <p>{{skill.skill_name}}</p>
             {% if skill.skill_information %}
-            <small>{{skill.skill_information}}</small>
+            <p>{{skill.skill_information}}</p>
             {% endif %}
           </span>
           {% else %}
@@ -550,7 +553,7 @@
             <span>
              <strong>{{education.degree}} - {{education.school}}</strong> 
              {% if education.education_link %}
-            <a href="{{education.education_link}}" target="_blank" rel="noopener noreferrer"><span class="material-symbols-outlined">link</span> </a>        
+            <a href="{{education.education_link}}" target="_blank" rel="noopener noreferrer"><span class="material-symbols-outlined"><img src="/app/static/image/illustrations/link-icon.svg" alt=""></span> </a>        
             {% endif %}
              <br>
             </span> 
@@ -661,11 +664,11 @@
           {% for language in languages %}
           <p>
             <strong>{{language.language}}</strong>
-            {% if language.language_additional_information %}
-            <small>{{language.language_additional_information}}</small>
-            {% endif %}
           </p>
-          {{% endfor %}  
+          {% if language.language_additional_information %}
+            <p>{{language.language_additional_information}}</p>
+            {% endif %}
+          {% endfor %}  
       </div>
       <br>
       {% endif %} 
@@ -770,12 +773,12 @@
         <p class="resume-section-header"><strong>References</strong></p>
         {% for reference in references %}
           <p>
-            <strong>{{reference.reference_name}} / {{reference.reference_organisation }} - </strong>{{reference.reference_job_title}}
+           <strong> {{reference.reference_name}} - {{reference.reference_organisation }} </strong>
             {% if reference.reference_link %}
-            <a href="{{reference.reference_link}}" class="flx-align-center" target="_blank" rel="noopener noreferrer"><span class="material-symbols-outlined">link</span></a>
-            {% endif %}
-            {{reference.reference_phone}}<br>
-            {{reference.reference_email}}
+           <a href="{{reference.reference_link}}" class="flx-align-center" target="_blank" rel="noopener noreferrer"><span class="material-symbols-outlined">link</span></a>
+            {% endif %} <br>
+          <small>{{reference.reference_email}}  {{reference.reference_phone}} </small>  <br><br>
+            <strong> - {{reference.reference_job_title}}</strong>
            </p>
           <p>
             {{publication.publication_description}}
