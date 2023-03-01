@@ -57,8 +57,8 @@
         margin: 10px 0;
       } */
 
-      .resume-links i {
-        padding-right: 5px;
+      .resume-links span {
+        padding-right: 7px;
       }
 
       .flx-align-center {
@@ -463,23 +463,24 @@
         {% endif %}
       </p>
 
-      <div class="resume-center">
+      <p class="resume-center">
+        <br><br>
         {% if personal_detail.address %}
-        <p>Address: {{personal_detail.address}}</p>
+        <strong>Address:</strong> {{personal_detail.address}} <br>
         {% endif %} {% if personal_detail.nationality %}
-        <p>Nationality: {{personal_detail.nationality}}</p>
+        <strong>Nationality:</strong> {{personal_detail.nationality}} <br>
         {% endif %} {% if personal_detail.passport_id %}
-        <p>Passport Id: {{personal_detail.passport_id}}</p>
+        <strong>Passport Id:</strong> {{personal_detail.passport_id}} <br>
         {% endif %} {% if personal_detail.marital_status %}
-        <p>Marital Status: {{personal_detail.marital_status}}</p>
+        <strong>Marital Status:</strong> {{personal_detail.marital_status}} <br>
         {% endif %} {% if personal_detail.military_service %}
-        <p>Military Service: {{personal_detail.military_service}}</p>
+        <strong>Military Service:</strong> {{personal_detail.military_service}} <br>
         {% endif %} {% if personal_detail.driving_license %}
-        <p>Driving License: {{personal_detail.driving_license}}</p>
+        <strong>Driving License:</strong> {{personal_detail.driving_license}} <br>
         {% endif %} {% if personal_detail.gender_pronoun %}
-        <p>Gender: {{personal_detail.gender_pronoun}}</p>
+        <strong>Gender:</strong> {{personal_detail.gender_pronoun}} <br>
         {% endif %}
-      </div>
+      </p>
 
       {% if profile %}
       <div>
