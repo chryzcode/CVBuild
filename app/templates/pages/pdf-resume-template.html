@@ -92,14 +92,16 @@
     <div class="resume-pdf-container">
       <div class="resume-center">
         {% if personal_detail.full_name %}
-        <h1 style="font-size: 30px;">{{personal_detail.full_name}}</h1>
+        <strong style="font-size: 30px;">{{personal_detail.full_name}}</strong>
+        <br><br>
         {% endif %} 
         
         {% if personal_detail.job_title %}
-        <h3 style="font-size: 24px;">{{personal_detail.job_title}}</h3>
+        <strong style="font-size: 22px;">{{personal_detail.job_title}}</strong>
+        <br><br>
         {% endif %}
       </div>
-      <div class="resume-flex-spc-even-span resume-links resume-center">
+      <p class="resume-flex-spc-even-span resume-links resume-center">
         {% if personal_detail.email %}
         <span
           ><a href="mailto:{{personal_detail.email}}"
@@ -459,7 +461,7 @@
           ></span
         >
         {% endif %}
-      </div>
+      </p>
 
       <div class="resume-center">
         {% if personal_detail.address %}
@@ -486,22 +488,20 @@
           {{profile.summary|safe}}
         </p>
       </div>
-      {% endif %} {% if skills %}
+      {% endif %} 
+
+      {% if skills %}
       <div>
         <p class="resume-section-header"><strong>Skills</strong></p>
-        <div class="resume-flex-spc-even-span">
-          {% for skill in skills %} {% if skill.skill_information %}
-          <span>
-            <p>{{skill.skill_name}}</p>
+        <div>
+          {% for skill in skills %}
+          <p>
+            <strong>{{skill.skill_name}}</strong><br>
             {% if skill.skill_information %}
-            <p>{{skill.skill_information}}</p>
+            {{skill.skill_information}}
             {% endif %}
-          </span>
-          {% else %}
-          <span>
-            {{skill.skill_name}}
-          </span>
-          {% endif %} {% endfor %}
+          </p>
+         {% endfor %}
         </div>
       </div>
       {% endif %} 
@@ -512,6 +512,7 @@
         <p class="resume-section-header"><strong>Professional Experience</strong></p>
         {% for experience in experiences %}
        <p>
+        <p>
             <span><strong>{{experience.employer}} - {{experience.experience_job_title}}</strong>
             {% if experience.experience_link %}
             <a href="{{experience.experience_link}}" class="flx-align-center" target="_blank" rel="noopener noreferrer"><span></span> <span class="material-symbols-outlined">link</span> </a>
@@ -539,9 +540,9 @@
         <p>
           {{experience.experience_description}}
         </p>
+       </p>
         {% endfor %}
       </div>
-      <br>
       {% endif %}
       
 
@@ -549,11 +550,12 @@
       <div>
         <p class="resume-section-header"><strong>Education</strong></p>
         {% for education in educations %}
+        <p>
             <p>
             <span>
              <strong>{{education.degree}} - {{education.school}}</strong> 
              {% if education.education_link %}
-            <a href="{{education.education_link}}" target="_blank" rel="noopener noreferrer"><span class="material-symbols-outlined"><img src="/app/static/image/illustrations/link-icon.svg" alt=""></span> </a>        
+            <a href="{{education.education_link}}" target="_blank" rel="noopener noreferrer"><span class="material-symbols-outlined">link</span></a>        
             {% endif %}
              <br>
             </span> 
@@ -576,9 +578,9 @@
         <p>
           {{education.education_description}}
         </p>
+        </p>
         {% endfor %}
       </div>
-      <br>
       {% endif %}
       
 
@@ -587,6 +589,7 @@
         <p class="resume-section-header"><strong>Projects</strong></p>
         {% for project in projects %}
          <p>
+          <p>
             <strong>{{project.project_title}}</strong>
             {% if project.project_link %}
             <a href="{{ project.project_link}}" class="flx-align-center" target="_blank" rel="noopener noreferrer"><span class="material-symbols-outlined">link</span> </a>
@@ -613,20 +616,19 @@
         <p>
           {{project.project_description}}
         </p>
+         </p>
         {% endfor %}
       </div>
-      <br>
       {% endif %}
       
 
       {% if organisations %}
       <div>
         <p class="resume-section-header"><strong>Organisations</strong></p>
+         <div>
         {% for organisation in organisations %}
-
-        <div>
-          <span>
-            <p>
+          <p>
+             <p>
               <strong>{{organisation.organisation}} - {{organisation.position}}</strong>
               {% if organisation.organisation_link %}
               <a href="{{ organisation.organisation_link}}" class="flx-align-center" target="_blank" rel="noopener noreferrer"><span class="material-symbols-outlined">link</span> </a>
@@ -652,9 +654,9 @@
         <p>
           {{organisation.organisation_description}}
         </p>
+          </p>
         {% endfor %}
       </div>
-      <br>
       {% endif %}
       
 
@@ -663,14 +665,15 @@
         <p class="resume-section-header"><strong>Languages</strong></p>
           {% for language in languages %}
           <p>
+            <p>
             <strong>{{language.language}}</strong>
           </p>
           {% if language.language_additional_information %}
             <p>{{language.language_additional_information}}</p>
             {% endif %}
+          </p>
           {% endfor %}  
       </div>
-      <br>
       {% endif %} 
    
 
@@ -678,19 +681,18 @@
       <div>
         <p class="resume-section-header"><strong>Certificates</strong></p>
         {% for certificate in certificates %}
-        <div>
-           <p><strong>{{certificate.certificate}}</strong>
+        <p>
+          <p><strong>{{certificate.certificate}}</strong>
             {% if certificate.certificate_link %}
             <a href="{{ certificate.certificate_link}}" class="flx-align-center" target="_blank" rel="noopener noreferrer"><span class="material-symbols-outlined">link</span> </a>
             {% endif %}
-          </p>   
-        </div>
+          </p>        
         <p>
           {{certificate.certificate_additional_information}}
         </p>
+        </p>
         {% endfor %}
       </div>
-      <br>
       {% endif %}
       
 
@@ -698,7 +700,8 @@
       <div>
         <p class="resume-section-header"><strong>Awards</strong></p>
         {% for award in awards %}
-        <p>  
+        <p>
+          <p>  
           <strong>{{award.issuer}} - {{award.award}}</strong>
           {% if award.award_link %}
             <a href="{{ award.award_link}}" class="flx-align-center" target="_blank" rel="noopener noreferrer"><span class="material-symbols-outlined">link</span> </a>
@@ -717,9 +720,9 @@
         <p>
           {{award.award_description}}
         </p>
+        </p>
         {% endfor %}
       </div>
-      <br>
       {% endif %}
 
 
@@ -727,7 +730,8 @@
       <div>
         <p class="resume-section-header"><strong>Interests</strong></p>
         {% for interest in interests %}
-        <p><strong>{{interest.interest}}</strong>
+        <p>
+          <p><strong>{{interest.interest}}</strong>
           {% if interest.interest_link %}
             <a href="{{ interest.interest_link }}" class="flx-align-center" target="_blank" rel="noopener noreferrer"><span class="material-symbols-outlined">link</span></a> 
           {% endif %}
@@ -735,9 +739,9 @@
         <p>
           {{interest.interest_additional_information}}
         </p>
+        </p>
         {% endfor %}
       </div>
-      <br>
       {% endif %}
 
       {% if publications %}
@@ -745,6 +749,7 @@
         <p class="resume-section-header"><strong>Publications</strong></p>
         {% for publication in publications %}
           <p>
+            <p>
             <strong>{{publication.publisher}} - {{publication.publication_title}}</strong>
              {% if publication.publication_link %}
             <a href="{{ publication.publication_link}}" class="flx-align-center" target="_blank" rel="noopener noreferrer"><span>{{publication.publication_title}}</span> <span class="material-symbols-outlined">link</span> </a>
@@ -763,9 +768,9 @@
         <p>
           {{publication.publication_description}}
         </p>
+          </p>
         {% endfor %}
       </div>
-      <br>
       {% endif %}
 
       {% if references %}
@@ -773,19 +778,20 @@
         <p class="resume-section-header"><strong>References</strong></p>
         {% for reference in references %}
           <p>
+            <p>
            <strong> {{reference.reference_name}} - {{reference.reference_organisation }} </strong>
             {% if reference.reference_link %}
            <a href="{{reference.reference_link}}" class="flx-align-center" target="_blank" rel="noopener noreferrer"><span class="material-symbols-outlined">link</span></a>
             {% endif %} <br>
-          <small>{{reference.reference_email}}  {{reference.reference_phone}} </small>  <br><br>
-            <strong> - {{reference.reference_job_title}}</strong>
+          <small>{{reference.reference_email}}  {{reference.reference_phone}} </small><br>
+            <strong>{{reference.reference_job_title}}</strong>
            </p>
           <p>
             {{publication.publication_description}}
           </p>
+          </p>
           {% endfor %}   
       </div>
-      <br>
       {% endif %}
     {% endblock %}
   </body>
