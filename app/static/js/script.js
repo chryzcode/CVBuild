@@ -24,12 +24,16 @@ const viewMoreFeedbackBtn = document.querySelector("#view-more-feedback-btn");
 const addContentModal = document.querySelector("#add-content-modal");
 const allModelContents = document.querySelectorAll(".add-modal-content");
 const formErrors = document.querySelectorAll(".form-errors");
+const createResumeSeg = document.querySelector("#download-resume-seg");
 
 if (mediumMobileMediaQuery.matches) {
   const logos = document.querySelectorAll(".logo");
   logos.forEach(logo => {
     logo.classList.remove("hide");
   });
+  if (createResumeSeg) {
+    createResumeSeg.classList.remove("hide");
+  }
 }
 
 if (downloadPdfNav) {

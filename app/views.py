@@ -307,6 +307,16 @@ def cvbuildFeedback(request):
        message = request.POST['feedbackInput']
        send_mail(subject, message, settings.EMAIL_HOST_USER, [request.user.email], html_message=message)
        return redirect('/')
+    
+@login_required(login_url="login")
+def create_resume(request):
+    user = request.user
+    resume = Personal_Details.objects.create(
+        user = user,
+        email = user.email,
+        full_name = user.first_name + ' ' + user.last_name,
+        )
+    return redirect("Resume", resume.feedback_id)
 
 @login_required(login_url="login")
 def Resume(request, feedback_id):

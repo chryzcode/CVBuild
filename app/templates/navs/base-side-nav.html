@@ -32,13 +32,6 @@
       <span class="material-symbols-outlined"> notes </span>
       <div>My Resumes</div>
     </div>
-    <div class="side-nav-content mobile-download-nav">
-       <a target="_blank"
-            rel="noopener noreferrer"
-            href="{% url 'ViewPdf' personal_detail.pk %}"
-          ><span class="material-symbols-outlined"> file_download </span></a>
-          <div>Download</div>
-        </div>
   </span>
   <div class="resume-pop-up hide">
     {% if userResumes.count > 1 %} {% for resume in userResumes %}

@@ -11,6 +11,7 @@ urlpatterns = [
     path('download-resume/<int:pk>/', views.DownloadPdf.as_view(), name='DownloadPdf'),
     path('check-pdf/<uuid:feedback_id>/', views.pdfview, name="pdfview"),
     #  path('download-pdf/<uuid:feedback_id>/', views.downloadpdf, name="downloadpdf"),
+    path("create-resume/", views.create_resume, name="create_resume"),
     path("<uuid:feedback_id>/", views.Resume, name="Resume"),
     path("personal-details/<int:pk>/", views.person_details, 
     name="person_details"),

@@ -9,6 +9,7 @@
       </p>
       <div class="center" data-aos="fade-up" data-aos-duration="1500">
         {% if request.user.is_authenticated %}
+        <a href="{% url 'create_resume' %}" class="btn bg-light-btn">Create Resume</a>
         <a href="{% url 'Resume' personal_detail.feedback_id %}" class="btn bg-dark-btn">View Resume</a>
         {% else %}
         <a href="{% url 'register' %}" class="btn bg-dark-btn">Try For Free</a>
@@ -120,8 +121,8 @@
     </div>
   </div>
 
-  <div class="footer center" data-aos="fade-up" data-aos-duration="800">
-    <h1 class="home-header">Do you have a feedback?</h1>
+  <div class="footer center">
+    <h1 class="home-header" data-aos="fade-up" data-aos-duration="800">Do you have a feedback?</h1>
     <div>
       <form action="{% url 'cvbuildfeedback' %}" method="post" class="home-form">
         {% csrf_token %}
