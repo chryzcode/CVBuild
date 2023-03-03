@@ -298,7 +298,8 @@ def account_activate(request, uidb64, token):
 def home(request):
     if request.user:
         personal_detail = Personal_Details.objects.filter(user=request.user.id).last()
-    return render(request, 'pages/home.html', {'personal_detail':personal_detail})
+        personal_details = Personal_Details.objects.filter(user=request.user.id)
+    return render(request, 'pages/home.html', {'personal_detail':personal_detail, 'personal_details':personal_details})
 
 @login_required(login_url="login")
 def cvbuildFeedback(request):
@@ -353,6 +354,8 @@ def Resume(request, feedback_id):
         publication_form = PublicationForm()
         context = {'personal_detail':personal_detail, 'profile_form':profile_form, 'personal_detail_form':personal_detail_form, 'skill_form':skill_form, 'skill_levels':skill_levels, 'link_form':link_form, 'skills':skills, 'experiences':experiences, 'experience_form':experience_form, 'projects':projects, 'project_form':project_form, 'educations':educations, 'education_form':education_form, 'language_levels':language_levels, 'languages':languages, 'language_form':language_form, 'references':references, 'reference_form':reference_form, 'awards':awards, 'award_form':award_form, 'organisations':organisations, 'organisation_form':organisation_form, 'certificates':certificates, 'certificate_form':certificate_form, 'interests':interests, 'interest_form':interest_form, 'publications':publications, 'publication_form':publication_form, 'feedbacks':feedbacks, 'profile':profile}
         return render(request, 'pages/resume.html', context)
+    else:
+        return redirect("/")
 
 def deleteResume(request, feedback_id):
     if Personal_Details.objects.filter(user=request.user).count() > 1:

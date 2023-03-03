@@ -812,12 +812,12 @@ h6 {
     /* width: 60px; */
   }
 
-  /* .base-sidenav > div {
+  .base-sidenav > div {
     margin: 10px 0;
-  } */
+  }
 
   .content-container {
-    margin: 0 auto;
+    margin: 5 auto;
   }
 
   .base-sidenav > div > div {
@@ -825,7 +825,7 @@ h6 {
   }
 
   .base-sidenav span {
-    font-size: 35px;
+    font-size: 40px;
     background-color: #fff;
     padding: 5px;
     border-radius: 50%;
@@ -960,6 +960,6 @@ h6 {
   }
 
   .base-sidenav span {
-    font-size: 35px;
+    font-size: 40px;
   }
 }

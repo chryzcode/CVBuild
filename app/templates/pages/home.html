@@ -10,7 +10,9 @@
       <div class="center" data-aos="fade-up" data-aos-duration="1500">
         {% if request.user.is_authenticated %}
         <a href="{% url 'create_resume' %}" class="btn bg-light-btn">Create Resume</a>
+        {% if personal_details %}
         <a href="{% url 'Resume' personal_detail.feedback_id %}" class="btn bg-dark-btn">View Resume</a>
+        {% endif %}
         {% else %}
         <a href="{% url 'register' %}" class="btn bg-dark-btn">Try For Free</a>
         {% endif %}

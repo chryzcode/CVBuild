@@ -34,10 +34,10 @@
     </div>
   </span>
   <div class="resume-pop-up hide">
-    {% if userResumes.count > 1 %} {% for resume in userResumes %}
+    {% if userResumes %} {% for resume in userResumes %}
     <div class="resume-list-container">
       <a href="{% url 'Resume' resume.feedback_id %}">{{resume.resume_name}}</a>
-      {% if userResumes.count > 1 %}
+      {% if userResumes %}
       <a href="{% url 'deleteResume' resume.feedback_id %}"
         ><span class="material-symbols-outlined icon-pointer danger"> delete </span></a
       >

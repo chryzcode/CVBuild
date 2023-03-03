@@ -36,13 +36,6 @@ class CustomAccountManager(BaseUserManager):
         user = self.model(email=email, **other_fields)
         user.set_password(password)
         user.save()
-        if not Personal_Details.objects.filter(user=user):
-            Personal_Details.objects.create(
-                user = user,
-                full_name = user.first_name + ' ' + user.last_name,
-                email = user.email,
-                resume_name = 'Resume 1',
-            )
         return user
 
 class User(AbstractBaseUser, PermissionsMixin):
