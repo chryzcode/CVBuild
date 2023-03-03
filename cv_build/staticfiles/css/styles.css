@@ -813,11 +813,11 @@ h6 {
   }
 
   .base-sidenav > div {
-    margin: 10px 0;
+    margin: 5px 0;
   }
 
   .content-container {
-    margin: 5 auto;
+    margin: 0 auto;
   }
 
   .base-sidenav > div > div {
