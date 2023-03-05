@@ -88,7 +88,7 @@ class DownloadPdf(View):
         pdf = render_to_pdf('pages/pdf-resume-template.html', data)
         filename = f'{personal_detail.resume_name}.pdf'
         response = HttpResponse(pdf, content_type='application/pdf')
-        response['Content-Disposition'] = f'attachment; filename={filename}'
+        response['Content-Disposition'] = 'attachment; filename="{}"'.format(filename)
         return response
 
 def pdfview(request, feedback_id):

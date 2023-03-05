@@ -63,9 +63,7 @@
         </span>
         <div>
           <a
-            target="_blank"
-            rel="noopener noreferrer"
-            href="{% url 'ViewPdf' personal_detail.pk %}"
+            href="{% url 'DownloadPdf' personal_detail.pk %}"
             class="btn bg-dark-btn flex-spc-bwn"
             id="download-pdf-btn"
             ><span>Download</span> <span class="material-symbols-outlined"> file_download </span></a

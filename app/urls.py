@@ -3,16 +3,17 @@ from . import views
 from .forms import PasswordResetConfirmForm, PasswordResetForm
 from django.contrib.auth import views as auth_views
 from django.views.generic import TemplateView
+from django.views.generic.base import RedirectView
 
 urlpatterns = [
     path("", views.home, name="home"),
     path('<uuid:feedback_id>/<slugified_full_name>/', views.portfolio, name="portfolio"),
     path('resume-preview/<int:pk>/', views.ViewPdf.as_view(), name='ViewPdf'), 
-    path('download-resume/<int:pk>/', views.DownloadPdf.as_view(), name='DownloadPdf'),
     path('check-pdf/<uuid:feedback_id>/', views.pdfview, name="pdfview"),
     #  path('download-pdf/<uuid:feedback_id>/', views.downloadpdf, name="downloadpdf"),
     path("create-resume/", views.create_resume, name="create_resume"),
-    path("<uuid:feedback_id>/", views.Resume, name="Resume"),
+    path("<uuid:feedback_id>/", views.Resume, name="Resume"),  
+    path('download-resume/<int:pk>/', views.DownloadPdf.as_view(), name='DownloadPdf'),
     path("personal-details/<int:pk>/", views.person_details, 
     name="person_details"),
     path("resume-feedback/<uuid:feedback_id>/", views.resumeFeedback, name="resumeFeedback"),

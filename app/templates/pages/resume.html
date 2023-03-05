@@ -76,7 +76,9 @@
   <div id="content-nav-content" class="nav-page-content">
     <div class="flex-spc-bwn">
       <a href="/" class="logo hide">CV Build</a>
-      <a href="{% url 'create_resume' %}" id="download-resume-seg" class="hide"><span class="material-symbols-outlined" id="download-resume-icon">download</span></a>
+      <a href="{% url 'create_resume' %}" id="download-resume-seg" class="hide"
+        ><span class="material-symbols-outlined" id="download-resume-icon">download</span></a
+      >
     </div>
     <div class="content-form-container container-active click">
       <div class="content-form-detail" id="content-form-details">
@@ -378,10 +380,16 @@
           <p class="form-errors">{{ experience_form.employer.errors }}</p>
 
           <div class="flex-spc-bwn">
-            <label  for="experience_link">Link</label>
+            <label for="experience_link">Link</label>
             <span class="faint-text">optional</span>
           </div>
-          <input type="text" name="experience_link" id="experience_link" class="input-text-link-input" placeholder="https://google.com" />
+          <input
+            type="text"
+            name="experience_link"
+            id="experience_link"
+            class="input-text-link-input"
+            placeholder="https://google.com"
+          />
 
           <input type="text" name="employer" id="employer" placeholder="Google" />
         </div>
@@ -401,7 +409,12 @@
         <div class="form-input-container">
           <span><label for="experience_start_date">Start Date</label> <span class="faint-text">optional</span></span>
           <p class="form-errors">{{ experience_form.experience_start_date.errors }}</p>
-          <span class="material-symbols-outlined cancel-readonly-input" onclick="var input = this.nextElementSibling; input.value = ''; input.focus();"> close </span>
+          <span
+            class="material-symbols-outlined cancel-readonly-input"
+            onclick="var input = this.nextElementSibling; input.value = ''; input.focus();"
+          >
+            close
+          </span>
           <input
             type="search"
             name="experience_start_date"
@@ -415,8 +428,13 @@
         <div class="form-input-container">
           <span><label for="experience_end_date">End Date</label> <span class="faint-text">optional</span></span>
           <p class="form-errors">{{ experience_form.experience_end_date.errors }}</p>
-           <span class="material-symbols-outlined cancel-readonly-input" onclick="var input = this.nextElementSibling; input.value = ''; input.focus();"> close </span>
-          <input name="experience_end_date" class="end-date-input" id="experience_end_date" placeholder="" readonly/>
+          <span
+            class="material-symbols-outlined cancel-readonly-input"
+            onclick="var input = this.nextElementSibling; input.value = ''; input.focus();"
+          >
+            close
+          </span>
+          <input name="experience_end_date" class="end-date-input" id="experience_end_date" placeholder="" readonly />
         </div>
 
         <div class="flex-spc-bwn center">
@@ -495,15 +513,15 @@
 
           <div class="flex-spc-bwn">
             <label for="project_link">Link</label>
-             <span class="faint-text">optional</span>
+            <span class="faint-text">optional</span>
           </div>
-           <input
-              type="text"
-              name="project_link"
-              id="project_link"
-              class="input-text-link-input"
-              placeholder="https://*******cvbuild.******"
-            />
+          <input
+            type="text"
+            name="project_link"
+            id="project_link"
+            class="input-text-link-input"
+            placeholder="https://*******cvbuild.******"
+          />
           <input type="text" name="project_title" id="project_title" placeholder="CV Build" />
         </div>
 
@@ -516,14 +534,24 @@
         <div class="form-input-container">
           <span><label for="project_start_date">Start Date</label> <span class="faint-text">optional</span></span>
           <p class="form-errors">{{ project_form.project_start_date.errors }}</p>
-          <span class="material-symbols-outlined cancel-readonly-input" onclick="var input = this.nextElementSibling; input.value = ''; input.focus();"> close </span>
-          <input readonly name="project_start_date" id="project_start_date" placeholder="" class="start-date-input"/>
+          <span
+            class="material-symbols-outlined cancel-readonly-input"
+            onclick="var input = this.nextElementSibling; input.value = ''; input.focus();"
+          >
+            close
+          </span>
+          <input readonly name="project_start_date" id="project_start_date" placeholder="" class="start-date-input" />
         </div>
 
         <div class="form-input-container">
           <span><label for="project_end_date">End Date</label> <span class="faint-text">optional</span></span>
           <p class="form-errors">{{ project_form.project_end_date.errors }}</p>
-          <span class="material-symbols-outlined cancel-readonly-input" onclick="var input = this.nextElementSibling; input.value = ''; input.focus();"> close </span>
+          <span
+            class="material-symbols-outlined cancel-readonly-input"
+            onclick="var input = this.nextElementSibling; input.value = ''; input.focus();"
+          >
+            close
+          </span>
           <input readonly name="project_end_date" id="project_end_date" placeholder="" class="end-date-input" />
         </div>
 
@@ -602,13 +630,13 @@
             <label for="education_link">Link</label>
             <span class="faint-text">optional</span>
           </div>
-            <input
-              type="text"
-              name="education_link"
-              id="education_link"
-              class="input-text-link-input"
-              placeholder="https://havard***.***"
-            />
+          <input
+            type="text"
+            name="education_link"
+            id="education_link"
+            class="input-text-link-input"
+            placeholder="https://havard***.***"
+          />
           <input type="text" name="school" id="school" placeholder="Havard" />
         </div>
 
@@ -633,7 +661,12 @@
         <div class="form-input-container">
           <span><label for="education_start_date">Start Date</label> <span class="faint-text">optional</span></span>
           <p class="form-errors">{{ education_form.education_start_date.errors }}</p>
-          <span class="material-symbols-outlined cancel-readonly-input" onclick="var input = this.nextElementSibling; input.value = ''; input.focus();"> close </span>
+          <span
+            class="material-symbols-outlined cancel-readonly-input"
+            onclick="var input = this.nextElementSibling; input.value = ''; input.focus();"
+          >
+            close
+          </span>
           <input
             readonly
             name="education_start_date"
@@ -646,7 +679,12 @@
         <div class="form-input-container">
           <span><label for="education_end_date">End Date</label> <span class="faint-text">optional</span></span>
           <p class="form-errors">{{ education_form.education_end_date.errors }}</p>
-          <span class="material-symbols-outlined cancel-readonly-input" onclick="var input = this.nextElementSibling; input.value = ''; input.focus();"> close </span>
+          <span
+            class="material-symbols-outlined cancel-readonly-input"
+            onclick="var input = this.nextElementSibling; input.value = ''; input.focus();"
+          >
+            close
+          </span>
           <input readonly name="education_end_date" id="education_end_date" placeholder="" class="end-date-input" />
         </div>
 
@@ -797,8 +835,8 @@
           <div class="flex-spc-bwn">
             <label for="reference_link">Link</label>
             <span class="faint-text">optional</span>
-            </div>
-            <input type="text" name="reference_link" id="reference_link" class="input-text-link-input" />
+          </div>
+          <input type="text" name="reference_link" id="reference_link" class="input-text-link-input" />
           <input type="text" name="reference_name" id="reference_name" />
         </div>
 
@@ -869,8 +907,8 @@
           <div class="flex-spc-bwn">
             <label for="award_link">Link</label>
             <span class="faint-text">optional</span>
-            </div>
-            <input type="text" name="award_link" id="award_link" class="input-text-link-input" />
+          </div>
+          <input type="text" name="award_link" id="award_link" class="input-text-link-input" />
           <input type="text" name="award" id="award" />
         </div>
 
@@ -883,7 +921,12 @@
         <div class="form-input-container">
           <span><label for="award_date">Date</label> <span class="faint-text">optional</span></span>
           <p class="form-errors">{{ award_form.award_date.errors }}</p>
-          <span class="material-symbols-outlined cancel-readonly-input" onclick="var input = this.nextElementSibling; input.value = ''; input.focus();"> close </span>
+          <span
+            class="material-symbols-outlined cancel-readonly-input"
+            onclick="var input = this.nextElementSibling; input.value = ''; input.focus();"
+          >
+            close
+          </span>
           <input readonly name="award_date" id="award_date" placeholder="" />
         </div>
 
@@ -958,8 +1001,14 @@
           <div class="flex-spc-bwn">
             <label for="organisation_link">Link</label>
             <span class="faint-text">optional</span>
-            </div>
-            <input type="text" name="organisation_link" id="organisation_link" class="input-text-link-input" placeholder="" />
+          </div>
+          <input
+            type="text"
+            name="organisation_link"
+            id="organisation_link"
+            class="input-text-link-input"
+            placeholder=""
+          />
           <input type="text" name="organisation" id="organisation" placeholder="" />
         </div>
 
@@ -984,7 +1033,12 @@
         <div class="form-input-container">
           <span><label for="organisation_start_date">Start Date</label> <span class="faint-text">optional</span></span>
           <p class="form-errors">{{ organisation_form.organisation_start_date.errors }}</p>
-          <span class="material-symbols-outlined cancel-readonly-input" onclick="var input = this.nextElementSibling; input.value = ''; input.focus();"> close </span>
+          <span
+            class="material-symbols-outlined cancel-readonly-input"
+            onclick="var input = this.nextElementSibling; input.value = ''; input.focus();"
+          >
+            close
+          </span>
           <input
             readonly
             name="organisation_start_date"
@@ -997,7 +1051,12 @@
         <div class="form-input-container">
           <span><label for="organisation_end_date">End Date</label> <span class="faint-text">optional</span></span>
           <p class="form-errors">{{ organisation_form.organisation_end_date.errors }}</p>
-          <span class="material-symbols-outlined cancel-readonly-input" onclick="var input = this.nextElementSibling; input.value = ''; input.focus();"> close </span>
+          <span
+            class="material-symbols-outlined cancel-readonly-input"
+            onclick="var input = this.nextElementSibling; input.value = ''; input.focus();"
+          >
+            close
+          </span>
           <input
             readonly
             name="organisation_end_date"
@@ -1093,8 +1152,8 @@
           <div class="flex-spc-bwn">
             <label for="certificate_link">Link</label>
             <span class="faint-text">optional</span>
-            </div>
-            <input type="text" name="certificate_link" id="certificate_link" class="input-text-link-input" />
+          </div>
+          <input type="text" name="certificate_link" id="certificate_link" class="input-text-link-input" />
           <input type="text" name="certificate" id="certificate" />
         </div>
 
@@ -1160,8 +1219,8 @@
           <div class="flex-spc-bwn">
             <label for="interest_link">Link</label>
             <span class="faint-text">optional</span>
-            </div>
-            <input type="text" name="interest_link" id="interest_link" class="input-text-link-input" />
+          </div>
+          <input type="text" name="interest_link" id="interest_link" class="input-text-link-input" />
           <input type="text" name="interest" id="interest" />
         </div>
 
@@ -1202,7 +1261,9 @@
 
       <div class="hide form-display-content-container">
         {% if publications %} {% for publication in publications %}
-        <div id="{{publication.id}}" class="form-display-content" data-index="publication">{{publication.publication_title}}</div>
+        <div id="{{publication.id}}" class="form-display-content" data-index="publication">
+          {{publication.publication_title}}
+        </div>
         {% endfor %} {% endif %}
         <div class="center">
           <span class="btn bg-dark-btn flex-spc-bwn center" id="add-display-content-form">
@@ -1227,8 +1288,14 @@
           <div class="flex-spc-bwn">
             <label for="publication_link">Link</label>
             <span class="faint-text">optional</span>
-            </div>
-            <input type="text" name="publication_link" id="publication_link" class="input-text-link-input" placeholder="" />
+          </div>
+          <input
+            type="text"
+            name="publication_link"
+            id="publication_link"
+            class="input-text-link-input"
+            placeholder=""
+          />
           <input type="text" name="publication_title" id="publication_title" placeholder="" />
         </div>
 
@@ -1241,7 +1308,12 @@
         <div class="form-input-container">
           <span><label for="publication_date">Date</label> <span class="faint-text">optional</span></span>
           <p class="form-errors">{{ publication_form.publication_date.errors }}</p>
-          <span class="material-symbols-outlined cancel-readonly-input" onclick="var input = this.nextElementSibling; input.value = ''; input.focus();"> close </span>
+          <span
+            class="material-symbols-outlined cancel-readonly-input"
+            onclick="var input = this.nextElementSibling; input.value = ''; input.focus();"
+          >
+            close
+          </span>
           <input readonly name="publication_date" id="publication_date" placeholder="" />
         </div>
 
@@ -1550,5 +1622,12 @@
     $("#organisation_start_date").datepicker();
     $("#publication_date").datepicker();
   });
+
+  document.getElementById("download-pdf-btn").addEventListener(
+    "click",
+    setTimeout(() => {
+      document.location.href = '{% url "Resume" personal_detail.feedback_id %}';
+    }, 9000)
+  );
 </script>
 {% endblock %}
