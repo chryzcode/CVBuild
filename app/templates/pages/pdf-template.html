@@ -490,10 +490,13 @@
         {% for experience in experiences %}
 
         <div>
-          <p><strong>{{experience.employer}} - {{experience.experience_job_title}}</strong>
+          <p>
             {% if experience.experience_link %}
-            <a href="{{experience.experience_link}}" class="flx-align-center" target="_blank" rel="noopener noreferrer"><span class="material-symbols-outlined">link</span></a>
+            <a href="{{experience.experience_link}}" class="flx-align-center" target="_blank" rel="noopener noreferrer"><strong>{{experience.employer}}</strong></a>
+            {% else %}
+           <strong>{{experience.employer}}</strong>
             {% endif %}
+            <strong> - {{experience.experience_job_title}}</strong>
           </p>
           {% if experience.experience_start_date %}
           <small>
@@ -527,10 +530,12 @@
         {% for education in educations %}
         <div>
             <p>
-              <strong>{{education.school}} - {{education.degree}}</strong>
               {% if education.education_link %}
-              <a href="{{education.education_link}}" class="flx-align-center" target="_blank" rel="noopener noreferrer"><span class="material-symbols-outlined">link</span> </a>
-              {% endif %}
+            <a href="{{education.education_link}}" target="_blank" rel="noopener noreferrer"><strong>{{education.degree}}</strong> </a> 
+            {% else %}     
+            <strong>{{education.degree}}</strong>   
+            {% endif %}
+            <strong> - {{education.school}}</strong>
             </p>
              {% if education.education_start_date %}
           <small>
@@ -562,9 +567,10 @@
         {% for project in projects %}
         <div>
            <p>
-            <strong>{{project.project_title}}</strong>
             {% if project.project_link %}
-            <a href="{{ project.project_link}}" class="flx-align-center" target="_blank" rel="noopener noreferrer"><span></span> <span class="material-symbols-outlined">link</span> </a>
+            <a href="{{ project.project_link}}" class="flx-align-center" target="_blank" rel="noopener noreferrer"> <strong>{{project.project_title}}</strong></a>
+            {% else %}
+             <strong>{{project.project_title}}</strong>
             {% endif %}
           </p>
            {% if project.project_start_date %}
@@ -601,10 +607,12 @@
 
         <div>
             <p>
-              <strong>{{organisation.organisation}} - {{organisation.position}}</strong>
-            {% if organisation.organisation_link %}
-            <a href="{{ organisation.organisation_link}}" class="flx-align-center" target="_blank" rel="noopener noreferrer"><span class="material-symbols-outlined">link</span> </a>
-            {% endif %}
+              {% if organisation.organisation_link %}
+              <a href="{{ organisation.organisation_link}}" class="flx-align-center" target="_blank" rel="noopener noreferrer"><strong>{{organisation.organisation}}</strong></a>
+              {% else %}
+              <strong>{{organisation.organisation}}</strong>
+              {% endif %}
+              <strong> - {{organisation.position}}</strong>
             </p>
             {% if organisation.organisation_start_date %}
           <small>
@@ -653,10 +661,12 @@
 
         <div>
           <p>
-           <strong>{{certificate.certificate}}</strong>
-            {% if certificate.certificate_link %}
-            <a href="{{ certificate.certificate_link}}" class="flx-align-center" target="_blank" rel="noopener noreferrer"><span class="material-symbols-outlined">link</span> </a>
+           {% if certificate.certificate_link %}
+            <a href="{{ certificate.certificate_link}}" class="flx-align-center" target="_blank" rel="noopener noreferrer"><strong>{{certificate.certificate}}</strong></a>
+            {% else %}
+            <strong>{{certificate.certificate}}</strong>
             {% endif %}
+          </p>
         </div>
         <p class="content-description">
           {{certificate.certificate_additional_information}}
@@ -670,12 +680,14 @@
         <p class="resume-section-header"><strong>Awards</strong></p>
         {% for award in awards %}
         <div>
-            <p>
-            <strong>{{award.issuer}} - {{award.award}}</strong>
-            {% if award.award_link %}
-            <a href="{{ award.award_link}}" class="flx-align-center" target="_blank" rel="noopener noreferrer"><span>{{award.issuer}}</span> <span class="material-symbols-outlined">link</span> </a>
+          <p>
+             {% if award.award_link %}
+            <a href="{{ award.award_link}}" class="flx-align-center" target="_blank" rel="noopener noreferrer"><strong>{{award.issuer}}</strong></a>
+            {% else %}
+            <strong>{{award.issuer}}</strong>
             {% endif %}
-            </p>
+            <strong> - {{award.award}}</strong>
+          </p>
           {% if award.award_date %}
           <small>
             {% if award.award_month_year_only %} {{award.award_date|date:"M, Y"}} 
@@ -699,10 +711,11 @@
         {% for interest in interests %}
         <div>
            <p>
-            <strong>{{interest.interest}}</strong>
             {% if interest.interest_link %}
-            <a href="{{ interest.interest_link }}" class="flx-align-center" target="_blank" rel="noopener noreferrer"><span><span class="material-symbols-outlined">link</span></a>
-            {% endif %}
+            <a href="{{ interest.interest_link }}" class="flx-align-center" target="_blank" rel="noopener noreferrer"><strong>{{interest.interest}}</strong></a> 
+            {% else %}
+            <strong><strong>{{interest.interest}}</strong></strong>
+          {% endif %}
           </p>      
         </div>
         <p class="content-description">
@@ -718,10 +731,12 @@
         {% for publication in publications %}
         <div>
             <p>
-              <strong>{{publication.publisher}} - {{publication.publication_title}}</strong> 
-              {% if publication.publication_link %}
-              <a href="{{ publication.publication_link}}" class="flx-align-center" target="_blank" rel="noopener noreferrer"><span class="material-symbols-outlined">link</span> </a>
-              {% endif %}
+              <strong>{{publication.publisher}}</strong>
+             {% if publication.publication_link %}
+            <a href="{{ publication.publication_link}}" class="flx-align-center" target="_blank" rel="noopener noreferrer"><strong> - {{publication.publication_title}}</strong></a>
+            {% else %}
+            <strong>  - {{publication.publication_title}}</strong>
+            {% endif %}
             </p>
             {% if publication.publication_date %}
             <small>
@@ -747,10 +762,12 @@
         <div>
           <span>
             <p>
-              <strong> {{reference.reference_name}} - {{reference.reference_organisation }} </strong>
+              <strong> {{reference.reference_name}}</strong>
               {% if reference.reference_link %}
-            <a href="{{reference.reference_link}}" class="flx-align-center" target="_blank" rel="noopener noreferrer"><span class="material-symbols-outlined">link</span></a>
-              {% endif %}
+              <a href="{{reference.reference_link}}" class="flx-align-center" target="_blank" rel="noopener noreferrer"><strong> - {{reference.reference_organisation }} </strong></a>
+              {% else %}
+              <strong> - {{reference.reference_organisation }} </strong>
+            {% endif %} 
             </p>
             <p>
               <small><a href="mailto:{{reference.reference_email}} "></a> {{reference.reference_phone}} </small>

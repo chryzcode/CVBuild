@@ -1623,11 +1623,16 @@
     $("#publication_date").datepicker();
   });
 
-  document.getElementById("download-pdf-btn").addEventListener(
-    "click",
+  document.getElementById("download-pdf-btn").addEventListener("click", e => {
     setTimeout(() => {
       document.location.href = '{% url "Resume" personal_detail.feedback_id %}';
-    }, 9000)
-  );
+    }, 50000);
+  });
+
+  document.getElementById("download-resume-seg").addEventListener("click", e => {
+    setTimeout(() => {
+      document.location.href = '{% url "Resume" personal_detail.feedback_id %}';
+    }, 50000);
+  });
 </script>
 {% endblock %}
