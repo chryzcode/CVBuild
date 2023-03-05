@@ -86,7 +86,7 @@ class DownloadPdf(View):
         publications = Publication.objects.filter(personal_detail=personal_detail)
         data = {'personal_detail':personal_detail, 'skills':skills, 'profile':profile, 'experiences':experiences, 'projects':projects, 'educations':educations, 'languages':languages,  'references':references, 'awards':awards, 'organisations':organisations, 'certificates':certificates,  'interests':interests, 'publications':publications}
         pdf = render_to_pdf('pages/pdf-resume-template.html', data)
-        filename = f'{personal_detail.resume_name}.pdf'
+        filename = f'{request.user.first_name}_{request.user.last_name}_{personal_detail.resume_name}.pdf'
         response = HttpResponse(pdf, content_type='application/pdf')
         response['Content-Disposition'] = 'attachment; filename="{}"'.format(filename)
         return response
