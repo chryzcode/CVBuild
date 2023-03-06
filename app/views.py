@@ -1066,3 +1066,5 @@ def resumeFeedback(request, feedback_id):
 
         context = {'personal_detail':personal_detail, 'skills':skills, 'profile':profile, 'experiences':experiences, 'projects':projects, 'educations':educations, 'languages':languages,  'references':references, 'awards':awards, 'organisations':organisations, 'certificates':certificates,  'interests':interests, 'publications':publications, 'feedback_form':feedback_form}
         return render(request, 'pages/resume-feedback.html', context)
+    else:
+        return redirect('/')
