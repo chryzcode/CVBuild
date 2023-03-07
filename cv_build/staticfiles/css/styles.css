@@ -893,7 +893,7 @@ h6 {
   #toogle {
     position: absolute;
     top: 65px;
-    right: 0;
+    right: 20px;
     width: 60px;
     cursor: pointer;
     display: flex;
@@ -907,7 +907,7 @@ h6 {
     position: absolute;
     height: 2px;
     width: 28px;
-    background-color: #6d7d89;
+    background-color: #200e32;
     transform: translateY(-5px);
     transition: 0.2s;
   }
@@ -917,7 +917,7 @@ h6 {
     position: absolute;
     height: 2px;
     width: 28px;
-    background-color: #6d7d89;
+    background-color: #200e32;
     transform: translateY(5px);
     transition: 1s;
   }
