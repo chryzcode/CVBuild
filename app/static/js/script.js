@@ -82,10 +82,12 @@ if (toogle) {
   };
 }
 
-if (document.querySelectorAll(".add-modal-content").length == 0) {
-  addContentBtn.classList.add("hide");
-} else {
-  addContentBtn.classList.remove("hide");
+if (addContentBtn) {
+  if (document.querySelectorAll(".add-modal-content").length == 0) {
+    addContentBtn.classList.add("hide");
+  } else {
+    addContentBtn.classList.remove("hide");
+  }
 }
 
 if (allModelContents) {
