@@ -263,6 +263,7 @@ def account_register(request):
             )
             user.email_user(subject=subject, message=message)
             return render(request, "account/registration/registration-success.html")
+        
        
     return render(request, "account/registration/register.html", {"form": registerform})
 

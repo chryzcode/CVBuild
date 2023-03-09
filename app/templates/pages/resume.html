@@ -145,7 +145,7 @@
           {{personal_detail_form.address}}
         </div>
 
-        <div class="form-section">
+        <div class="form-section" id="personal">
           <p>Personal Information</p>
 
           {% if personal_detail.nationality %}
@@ -160,7 +160,15 @@
             <p class="form-errors">{{ personal_detail_form.date_of_birth.errors }}</p>
             {{personal_detail_form.date_of_birth}}
           </div>
-          {% endif %} {% if personal_detail.marital_status %}
+          {% else %}
+           <div class="form-input-container hide" id="date_of_birth-form-container">
+            <span><label for="date_of_birth">Date Of Birth</label> <span class="faint-text">recommended</span></span>
+            <p class="form-errors">{{ personal_detail_form.date_of_birth.errors }}</p>
+            {{personal_detail_form.date_of_birth}}
+          </div>
+          {% endif %} 
+          
+          {% if personal_detail.marital_status %}
           <div class="form-input-container">
             <span><label for="marital_status">Marital Status</label> <span class="faint-text">recommended</span></span>
             <p class="form-errors">{{ personal_detail_form.marital_status.errors }}</p>
@@ -204,7 +212,9 @@
           </div>
           {% endif %}
 
-          <div class="click-create-form-input info" id="personal-information-btn">
+          
+        </div>
+        <div class="click-create-form-input info" id="personal-information-btn">
             {% if not personal_detail.date_of_birth %}
             <span class="create-form-btn a-btn" id="date_of_birth">Date of Birth</span>
             {% endif %} {% if not personal_detail.nationality %}
@@ -221,7 +231,6 @@
             <span class="create-form-btn a-btn" id="gender_pronoun">Gender or Pronoun</span>
             {% endif %}
           </div>
-        </div>
 
         <div class="form-section">
           <p>Links</p>
@@ -241,7 +250,7 @@
               {{form}}
             </span>
             {% endfor %}
-            <p class="center faint-text">Missing Something? Please Let Me Know :)</p>
+            <p class="center faint-text">Missing Something? <a href="/#feedback-section" target="_blank" rel="noopener noreferrer">Please Let Me Know</a> :)</p>
           </div>
         </div>
 
@@ -836,7 +845,7 @@
             <label for="reference_link">Link</label>
             <span class="faint-text">optional</span>
           </div>
-          <input type="text" name="reference_link" id="reference_link" class="input-text-link-input" />
+          <input type="text" name="reference_link" id="reference_link" class="input-text-link-input" placeholder="https://stevejobs.com"/>
           <input type="text" name="reference_name" id="reference_name" />
         </div>
 
@@ -908,7 +917,7 @@
             <label for="award_link">Link</label>
             <span class="faint-text">optional</span>
           </div>
-          <input type="text" name="award_link" id="award_link" class="input-text-link-input" />
+          <input type="text" name="award_link" id="award_link" class="input-text-link-input" placeholder="https://child-prodigy.com"/>
           <input type="text" name="award" id="award" />
         </div>
 
@@ -1007,7 +1016,7 @@
             name="organisation_link"
             id="organisation_link"
             class="input-text-link-input"
-            placeholder=""
+            placeholder="https://tesla.org"
           />
           <input type="text" name="organisation" id="organisation" placeholder="" />
         </div>
@@ -1153,7 +1162,7 @@
             <label for="certificate_link">Link</label>
             <span class="faint-text">optional</span>
           </div>
-          <input type="text" name="certificate_link" id="certificate_link" class="input-text-link-input" />
+          <input type="text" name="certificate_link" id="certificate_link" class="input-text-link-input" placeholder="https://coursera/dev/certificate.com"/>
           <input type="text" name="certificate" id="certificate" />
         </div>
 
@@ -1220,7 +1229,7 @@
             <label for="interest_link">Link</label>
             <span class="faint-text">optional</span>
           </div>
-          <input type="text" name="interest_link" id="interest_link" class="input-text-link-input" />
+          <input type="text" name="interest_link" id="interest_link" class="input-text-link-input" placeholder="https://interest.com"/>
           <input type="text" name="interest" id="interest" />
         </div>
 
@@ -1294,7 +1303,7 @@
             name="publication_link"
             id="publication_link"
             class="input-text-link-input"
-            placeholder=""
+            placeholder="https://thepen.com"
           />
           <input type="text" name="publication_title" id="publication_title" placeholder="" />
         </div>
@@ -1621,6 +1630,8 @@
     $("#organisation_end_date").datepicker();
     $("#organisation_start_date").datepicker();
     $("#publication_date").datepicker();
+   $("#publication_date").datepicker();
+   
   });
 
   document.getElementById("download-pdf-btn").addEventListener("click", e => {

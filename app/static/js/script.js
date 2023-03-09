@@ -189,7 +189,7 @@ function search() {
   input = document.querySelector("#link-search-bar");
   filter = input.value.toUpperCase();
   allBtnsContainer = document.querySelector(".link-create-form-btn");
-  btns = allBtnsContainer.querySelectorAll("span");
+  btns = linkClickCreateForms.querySelectorAll("span");
 
   for (i = 0; i < btns.length; i++) {
     span = btns[i];
@@ -209,7 +209,10 @@ if (clickCreateFormInputs) {
       aBtn.addEventListener("click", e => {
         const name = e.target.textContent;
         const id = e.target.id;
-        let formInput = document.createElement("div");
+        const formInput = document.createElement("div");
+        formInput.id = "myDivID";
+        var divsParent = document.getElementById("personal");
+
         formInput.classList.add("form-input-container");
         formInput.innerHTML = `
                  <span><label for="${id}">${name}</label> <span class="faint-text">recommended
@@ -219,10 +222,34 @@ if (clickCreateFormInputs) {
                   <input type="text" name="${id}" id="${id}" placeholder=""
                   />
                 `;
+
         aBtn.classList.add("hide");
-        clickCreateFormInput.prepend(formInput);
+        divsParent.appendChild(formInput);
+        var retrievedDynamicDiv = document.getElementById("myDivID");
+        if (retrievedDynamicDiv.querySelector("#date_of_birth")) {
+          retrievedDynamicDiv.querySelector("#date_of_birth").readOnly = true;
+          $(function () {
+            $("#date_of_birth").datepicker();
+          });
+        }
+
+        if (retrievedDynamicDiv.querySelector("#marital_status")) {
+          retrievedDynamicDiv.querySelector("#marital_status").placeholder = "Single";
+        }
+
+        if (retrievedDynamicDiv.querySelector("#nationality")) {
+          retrievedDynamicDiv.querySelector("#nationality").placeholder = "Nigerian";
+        }
+
+        if (retrievedDynamicDiv.querySelector("#gender_pronoun")) {
+          retrievedDynamicDiv.querySelector("#gender_pronoun").placeholder = "He/ Him";
+        }
+
+        if (retrievedDynamicDiv.querySelector("#military_service")) {
+          retrievedDynamicDiv.querySelector("#military_service").placeholder = "National Defence Academy";
+        }
       });
-      clickCreateFormInput.addEventListener("click", e => {
+      document.addEventListener("click", e => {
         if (e.target.classList.contains("remove-field")) {
           const formContainer = e.target.parentElement.parentElement.parentElement;
           formContainer.classList.add("hide");
@@ -261,13 +288,26 @@ if (contentFormContainers) {
 
         const linkCreateFormBtn = contentFormContainer.querySelector("#links-form-container");
 
+        contentFormContainer.addEventListener("mouseover", e => {
+          const allClickInputs = contentFormContainer.querySelectorAll("input");
+          allClickInputs.forEach(allClickInput => {
+            const theLabel = allClickInput.previousElementSibling;
+            if (allClickInput.value) {
+              if (theLabel) {
+                theLabel.style.backgroundColor = "#200e32";
+                theLabel.style.color = "#e0e0e0";
+              }
+            }
+          });
+        });
+
         linkCreateFormBtn.addEventListener("click", e => {
           const formContainer = e.target.parentElement;
           const allFormInput = linkCreateFormBtn.querySelectorAll("input");
 
           const clickInput = formContainer.querySelector("input");
+          const formLabel = formContainer.querySelector("label");
           if (clickInput.classList.contains("active")) {
-            const formLabel = formContainer.querySelector("label");
             if (e.target == formLabel) {
               clickInput.classList.remove("active");
             }
@@ -277,6 +317,16 @@ if (contentFormContainers) {
             });
             clickInput.classList.add("active");
           }
+
+          clickInput.addEventListener("keyup", e => {
+            if (clickInput.value) {
+              formLabel.style.backgroundColor = "#200e32";
+              formLabel.style.color = "#e0e0e0";
+            } else {
+              formLabel.style.color = "#200e32";
+              formLabel.style.backgroundColor = "#e0e0e0";
+            }
+          });
         });
         const form = contentFormDetails.parentElement.querySelector("form");
         const closeBtn = form.querySelector("#content-form-cancel-btn");
@@ -524,25 +574,23 @@ window.addEventListener("resize", () => {
     //   downloadPdfNav.style.width = `${500}px`;
     // }
   }
-
-  if (errorTopModal) {
-    const allErrorLists = errorTopModal.querySelectorAll("ul");
-
-    allErrorLists.forEach(allErrorList => {
-      let error = allErrorList.querySelector(".errorlist");
-
-      if (error) {
-        error.classList.remove(".errorlist");
-        error.style.listStyle = "revert";
-        error.style.textAlign = "left";
-      }
-    });
-
-    setTimeout(() => {
-      errorTopModal.classList.add("hide");
-    }, 5000);
-  }
 });
+
+if (errorTopModal) {
+  const allErrorLists = errorTopModal.querySelectorAll("ul");
+
+  allErrorLists.forEach(allErrorList => {
+    let error = allErrorList.querySelector(".errorlist");
+    if (error) {
+      error.classList.remove(".errorlist");
+      error.style.listStyle = "revert";
+      error.style.textAlign = "left";
+    }
+  });
+  setTimeout(() => {
+    errorTopModal.classList.add("hide");
+  }, 5000);
+}
 
 if (!errorTopModal) {
   if (allErrorList) {

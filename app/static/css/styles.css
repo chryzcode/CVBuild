@@ -10,6 +10,7 @@ body {
   scroll-behavior: smooth;
   overflow-x: hidden;
   background-color: #f3f4f6;
+  margin-bottom: 40px;
 }
 
 .nav {
@@ -431,7 +432,7 @@ textarea {
   overflow-y: scroll;
   padding: 0 20px;
   will-change: transform;
-  margin: 80px auto 0 auto;
+  margin: 100px auto 0 auto;
   width: 100%;
 }
 
@@ -634,7 +635,7 @@ h6 {
 .error-page-container,
 .success-page-container {
   width: 500px;
-  margin: 30px auto 0 auto;
+  margin: 0 auto;
   text-align: center;
   position: absolute;
   top: 50%;
@@ -687,7 +688,7 @@ h6 {
   display: block;
   font-size: 18px;
   color: #3d5170;
-  margin-top: 20px;
+  margin: 20px 0;
 }
 
 .error-page-content > a:hover {

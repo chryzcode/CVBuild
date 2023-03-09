@@ -12,8 +12,7 @@
         <a href="{% url 'create_resume' %}" class="btn bg-light-btn">Create Resume</a>
         {% if personal_details %}
         <a href="{% url 'Resume' personal_detail.feedback_id %}" class="btn bg-dark-btn">View Resume</a>
-        {% endif %}
-        {% else %}
+        {% endif %} {% else %}
         <a href="{% url 'register' %}" class="btn bg-dark-btn">Try For Free</a>
         {% endif %}
       </div>
@@ -48,6 +47,15 @@
         Get feedback from friends, family, colleagues e.t.c with a unique link & changes made are synchronisly updated
         immediately.
       </div>
+      <div class="center" data-aos="fade-up" data-aos-duration="1500">
+        {% if request.user.is_authenticated %}
+        <a href="{% url 'create_resume' %}" class="btn bg-light-btn">Create Resume</a>
+        {% if personal_details %}
+        <a href="{% url 'Resume' personal_detail.feedback_id %}" class="btn bg-dark-btn">View Resume</a>
+        {% endif %} {% else %}
+        <a href="{% url 'register' %}" class="btn bg-dark-btn">Try For Free</a>
+        {% endif %}
+      </div>
     </div>
     <div class="image-container">
       <img
@@ -77,6 +85,15 @@
       <h2 class="inner-content-header">Multiple Resumes</h2>
       <div class="inner-content-space">
         An account is entitled to create and have more than a resume for multiple job preparation and application.
+      </div>
+      <div class="center" data-aos="fade-up" data-aos-duration="1500">
+        {% if request.user.is_authenticated %}
+        <a href="{% url 'create_resume' %}" class="btn bg-light-btn">Create Resume</a>
+        {% if personal_details %}
+        <a href="{% url 'Resume' personal_detail.feedback_id %}" class="btn bg-dark-btn">View Resume</a>
+        {% endif %} {% else %}
+        <a href="{% url 'register' %}" class="btn bg-dark-btn">Try For Free</a>
+        {% endif %}
       </div>
     </div>
     <div class="image-container">
@@ -112,6 +129,15 @@
         Awareness makes you a step ahead. Present yourself online to increase the chances of getting your dream job/
         occupation.
       </div>
+      <div class="center" data-aos="fade-up" data-aos-duration="1500">
+        {% if request.user.is_authenticated %}
+        <a href="{% url 'create_resume' %}" class="btn bg-light-btn">Create Resume</a>
+        {% if personal_details %}
+        <a href="{% url 'Resume' personal_detail.feedback_id %}" class="btn bg-dark-btn">View Resume</a>
+        {% endif %} {% else %}
+        <a href="{% url 'register' %}" class="btn bg-dark-btn">Try For Free</a>
+        {% endif %}
+      </div>
     </div>
     <div class="image-container">
       <img
@@ -123,7 +149,7 @@
     </div>
   </div>
 
-  <div class="footer center">
+  <div class="footer center" id="feedback-section">
     <h1 class="home-header" data-aos="fade-up" data-aos-duration="800">Do you have a feedback?</h1>
     <div>
       <form action="{% url 'cvbuildfeedback' %}" method="post" class="home-form">

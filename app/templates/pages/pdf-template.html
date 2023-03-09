@@ -25,9 +25,11 @@
         margin-top: 20px;
         color: #000000;
         box-shadow: rgb(201, 201, 201) 0px 1px 2px 1px;
-        padding: 20px 15px;
       }
 
+      .mini-container {
+        padding: 20px 15px;
+      }
   
       .resume-flex-spc-btwn {
         display: flex;
@@ -76,7 +78,8 @@
   </head>
   <body>
     <div class="resume-pdf-container">
-      <div class="resume-center">
+      <div class="mini-container">
+        <div class="resume-center">
         {% if personal_detail.full_name %}
         <p><strong style="font-size: 30px;">{{personal_detail.full_name}}</strong></p>
         {% endif %} 
@@ -777,6 +780,7 @@
         {% endfor %}
       </div>
       {% endif %}
+      </div>
     </div>
   </body>
 </html>
