@@ -239,7 +239,6 @@ def account_delete(request):
 def account_register(request):
     if request.user.is_authenticated:
         return redirect("/")
-    registerform = RegistrationForm
     if request.method == "POST":
         email = request.POST.get("email")
         registerform = RegistrationForm(request.POST)
@@ -263,8 +262,9 @@ def account_register(request):
             )
             user.email_user(subject=subject, message=message)
             return render(request, "account/registration/registration-success.html")
-        
-       
+        messages.error(request, registerform.errors)
+    else:
+        registerform = RegistrationForm    
     return render(request, "account/registration/register.html", {"form": registerform})
 
 
