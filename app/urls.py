@@ -112,7 +112,7 @@ urlpatterns = [
     path(
         "change-password-done/",
         TemplateView.as_view(template_name="account/user/password-reset-success.html"),
-        name="password_reset_complete",
+        name="change_password_done",
     ),
     path('cvbuild-feeback/', views.cvbuildFeedback, name='cvbuildfeedback'),
 ]
