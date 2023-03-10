@@ -93,7 +93,7 @@ urlpatterns = [
         name="password_reset_confirm",
     ),
     path(
-        "password-reset-email-confirm/",
+        "password-reset/password-reset-email-confirm/",
         TemplateView.as_view(template_name="account/user/password-reset-success.html"),
         name="password_reset_done",
     ),
