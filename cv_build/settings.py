@@ -176,7 +176,7 @@ CLOUDINARY_STORAGE = {
 PASSWORD_RESET_TIMEOUT = 300  # 30 Mins in Seconds
 
 
-EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
+EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
 EMAIL_HOST = "smtp.gmail.com"
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
