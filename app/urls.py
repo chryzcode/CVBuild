@@ -77,9 +77,9 @@ urlpatterns = [
         "password-reset/",
         auth_views.PasswordResetView.as_view(
             template_name="account/user/password-reset-form.html",
-          
             html_email_template_name="account/user/password-reset-email.html",
             form_class=PasswordResetForm,
+            success_url = 'password-reset-email-confirm/'
         ),
         name="password_reset",
     ),
@@ -87,13 +87,13 @@ urlpatterns = [
         "password-reset-confirm/<uidb64>/<token>",
         auth_views.PasswordResetConfirmView.as_view(
             template_name="account/user/password-reset-confirm.html",
-           
             form_class=PasswordResetConfirmForm,
+            success_url = 'password-reset-complete/'
         ),
         name="password_reset_confirm",
     ),
     path(
-        "password-reset/password-reset-email-confirm/",
+        "password-reset-email-confirm/",
         TemplateView.as_view(template_name="account/user/password-reset-success.html"),
         name="password_reset_done",
     ),
