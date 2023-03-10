@@ -100,12 +100,12 @@ urlpatterns = [
     path(
         "change-password/",
         auth_views.PasswordChangeView.as_view(
-            template_name="account/user/forgot-password.html", success_url="/"
+            template_name="account/user/forgot-password.html", success_url="done/"
         ),
         name="change_password",
     ),
     path(
-        "change-password-done/",
+        "change-password/done/",
         TemplateView.as_view(template_name="account/user/password-reset-success.html"),
         name="change_password_done",
     ),
