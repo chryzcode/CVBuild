@@ -69,17 +69,12 @@ urlpatterns = [
     path("delete/", views.account_delete, name="delete_account"),
     path("settings/profile/", views.user_profile, name="user_profile"),
     path(
-        "activate/<slug:uidb64>/<slug:token>)/",
-        views.account_activate,
-        name="activate_account",
-    ),
-    path(
         "password-reset/",
         auth_views.PasswordResetView.as_view(
             template_name="account/user/password-reset-form.html",
-            html_email_template_name="account/user/password-reset-email.html",
+            success_url="password-reset-email-confirm",
+            email_template_name="account/user/password-reset-email.html",
             form_class=PasswordResetForm,
-            success_url = 'password-reset-email-confirm/'
         ),
         name="password_reset",
     ),
@@ -87,13 +82,13 @@ urlpatterns = [
         "password-reset-confirm/<uidb64>/<token>",
         auth_views.PasswordResetConfirmView.as_view(
             template_name="account/user/password-reset-confirm.html",
+            success_url="/account/password-reset-complete/",
             form_class=PasswordResetConfirmForm,
-            success_url = 'password-reset-complete/'
         ),
         name="password_reset_confirm",
     ),
     path(
-        "password-reset-email-confirm/MQ/password-reset-confirm/",
+        "password-reset/password-reset-email-confirm/",
         TemplateView.as_view(template_name="account/user/password-reset-success.html"),
         name="password_reset_done",
     ),
@@ -105,7 +100,7 @@ urlpatterns = [
     path(
         "change-password/",
         auth_views.PasswordChangeView.as_view(
-            template_name="account/user/forgot-password.html",
+            template_name="account/user/forgot-password.html", success_url="/"
         ),
         name="change_password",
     ),
