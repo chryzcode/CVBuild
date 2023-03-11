@@ -124,6 +124,19 @@ form {
   margin: 0;
 }
 
+.success-notification {
+  width: max-content;
+  margin-left: auto;
+  background-color: #200e32;
+  color: #ffff;
+  right: 0;
+  position: absolute;
+  bottom: 0;
+  margin: 0 20px 50px 0;
+  border-radius: 5px;
+  z-index: 1207;
+}
+
 .form-input-container > input:hover,
 .form-input-container > input:focus-within,
 .form-input-container > select:hover,

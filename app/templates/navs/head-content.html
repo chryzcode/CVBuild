@@ -38,10 +38,8 @@
   </head>
   <body>
     {% include 'navs/base-side-nav.html' %}
-    <div class="container">
-      {% if messages %}
-      <div class="error-top-modal">
-        <h3>Error !!!</h3>
+    {% if messages %}
+        <div class="success-notification">
         {% for message in messages %} {% if message %}
         <div class="error-container">
           <ul class="errors">
@@ -51,7 +49,7 @@
         {% endif %} {% endfor %}
       </div>
       {% endif %}
-
+    <div class="container">
       <div class="download-pdf-nav">
         <span class="base-nav-icon-seg">
           

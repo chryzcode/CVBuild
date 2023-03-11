@@ -89,6 +89,7 @@ class DownloadPdf(View):
         filename = f'{request.user.first_name}_{request.user.last_name}_{personal_detail.resume_name}.pdf'
         response = HttpResponse(pdf, content_type='application/pdf')
         response['Content-Disposition'] = 'attachment; filename="{}"'.format(filename)
+        messages.add_message(request, messages.INFO, 'Resume Successfully Downloaded.')
         return response
 
 def pdfview(request, feedback_id):
@@ -173,6 +174,7 @@ def user_profile(request):
         userprofileform = UserProfileForm(request.POST, request.FILES, instance=account)
         if userprofileform.is_valid():
             userprofileform.save()
+            messages.add_message(request, messages.INFO, 'Successfully Saved.')
             return redirect("user_profile")
         messages.error(request, userprofileform.errors)
     else:
@@ -269,6 +271,7 @@ def account_delete(request):
         user.is_active = False
         user.save()
     logout(request)
+    messages.add_message(request, messages.INFO, 'Account Successfully Deactivated.')
     return redirect("/")
 
 
@@ -290,6 +293,7 @@ def account_activate(request, uidb64, token):
                 resume_name = 'Resume 1',
             )
         login(request, user)
+        messages.add_message(request, messages.INFO, 'Account Successfully Activated.')
         return redirect("/")
     else:
         if user:
@@ -312,6 +316,7 @@ def cvbuildFeedback(request):
        subject = f'CVBuild Feedback from {request.user.first_name} {request.user.last_name}'
        message = request.POST['feedbackInput']
        send_mail(subject, message, settings.EMAIL_HOST_USER, [request.user.email], html_message=message)
+       messages.add_message(request, messages.INFO, 'Feedback Successfully Sent.')
        return redirect('/')
     
 @login_required(login_url="login")
@@ -322,6 +327,7 @@ def create_resume(request):
         email = user.email,
         full_name = user.first_name + ' ' + user.last_name,
         )
+    messages.add_message(request, messages.INFO, 'Resume Successfully Created.')
     return redirect("Resume", resume.feedback_id)
 
 @login_required(login_url="login")
@@ -366,6 +372,7 @@ def deleteResume(request, feedback_id):
     if Personal_Details.objects.filter(user=request.user).count() > 1:
         resume = Personal_Details.objects.get(feedback_id=feedback_id)
         resume.delete()
+        messages.add_message(request, messages.INFO, 'Resume Successfully Deleted.')
         return redirect('/')
     else:
         messages.error(request, 'There must be at least a resume remaining.')
@@ -388,6 +395,7 @@ def person_details(request, pk):
             form = personal_details_form.save(commit=False)
             form.user = user
             form.save()
+            messages.add_message(request, messages.INFO, 'Successfully Saved.')
             return redirect('Resume', feedback_id=personal_detail.feedback_id)
         else:
             messages.error(request, personal_details_form.errors)
@@ -413,6 +421,7 @@ def profile(request, pk):
                 form = profile_form.save(commit=False)
                 form.personal_detail = personal_detail
                 form.save()
+                messages.add_message(request, messages.INFO, 'Successfully Saved.')
                 return redirect('Resume', feedback_id=personal_detail.feedback_id)
             else:
                 messages.error(request, profile_form.errors)
@@ -432,6 +441,7 @@ def addSkill(request, pk):
             form = skill_form.save(commit=False)
             form.personal_detail = personal_detail
             form.save()
+            messages.add_message(request, messages.INFO, 'Successfully Saved.')
             return redirect('Resume', feedback_id=personal_detail.feedback_id)
         else:
             messages.error(request, skill_form.errors)
@@ -464,6 +474,7 @@ def updateSkill(request, pk, feedback_id):
     if skill_form.is_valid():
         form = skill_form.save(commit=False)  
         form.save()
+        messages.add_message(request, messages.INFO, 'Successfully Saved.')
         return redirect('Resume', feedback_id=feedback_id)
     messages.error(request, skill_form.errors)
     return redirect('Resume', feedback_id=feedback_id)
@@ -472,6 +483,7 @@ def updateSkill(request, pk, feedback_id):
 def deleteSkill(request, pk, feedback_id):
     skill = Skills.objects.get(id=pk)
     skill.delete()
+    messages.add_message(request, messages.INFO, 'Successfully Deleted.')
     return redirect('Resume', feedback_id=feedback_id)
 
 
@@ -486,6 +498,7 @@ def addExperience(request, pk):
             form = experience_form.save(commit=False)
             form.personal_detail = personal_detail
             form.save()
+            messages.add_message(request, messages.INFO, 'Successfully Saved.')
             return redirect('Resume', feedback_id=personal_detail.feedback_id)
         else:
             messages.error(request, experience_form.errors)
@@ -529,6 +542,7 @@ def updateExperience(request, pk, feedback_id):
     if experience_form.is_valid():
         form = experience_form.save(commit=False)  
         form.save()
+        messages.add_message(request, messages.INFO, 'Successfully Saved.')
         return redirect('Resume', feedback_id=feedback_id)
     messages.error(request, experience_form.errors)
     return redirect('Resume', feedback_id=feedback_id)
@@ -537,6 +551,7 @@ def updateExperience(request, pk, feedback_id):
 def deleteExperience(request, pk, feedback_id):
     experience = Experience.objects.get(id=pk)
     experience.delete()
+    messages.add_message(request, messages.INFO, 'Successfully Deleted.')
     return redirect('Resume', feedback_id=feedback_id)
 
 
@@ -551,6 +566,7 @@ def addProject(request, pk):
             form = project_form.save(commit=False)
             form.personal_detail = personal_detail
             form.save()
+            messages.add_message(request, messages.INFO, 'Successfully Saved.')
             return redirect('Resume', feedback_id=personal_detail.feedback_id)
         else:
             messages.error(request, project_form.errors)
@@ -589,6 +605,7 @@ def updateProject(request, pk, feedback_id):
     if project_form.is_valid():
         form = project_form.save(commit=False)  
         form.save()
+        messages.add_message(request, messages.INFO, 'Successfully Saved.')
         return redirect('Resume', feedback_id=feedback_id)
     messages.error(request, project_form.errors)
     return redirect('Resume', feedback_id=feedback_id)
@@ -597,6 +614,7 @@ def updateProject(request, pk, feedback_id):
 def deleteProject(request, pk, feedback_id):
     project = Project.objects.get(id=pk)
     project.delete()
+    messages.add_message(request, messages.INFO, 'Successfully Deleted.')
     return redirect('Resume', feedback_id=feedback_id)
 
 
@@ -611,6 +629,7 @@ def addEducation(request, pk):
             form = education_form.save(commit=False)
             form.personal_detail = personal_detail
             form.save()
+            messages.add_message(request, messages.INFO, 'Successfully Saved.')
             return redirect('Resume', feedback_id=personal_detail.feedback_id)
         else:
             messages.error(request, education_form.errors)
@@ -653,6 +672,7 @@ def updateEducation(request, pk, feedback_id):
     if education_form.is_valid():
         form = education_form.save(commit=False)  
         form.save()
+        messages.add_message(request, messages.INFO, 'Successfully Saved.')
         return redirect('Resume', feedback_id=feedback_id)
     messages.error(request, education_form.errors)
     return redirect('Resume', feedback_id=feedback_id)
@@ -661,6 +681,7 @@ def updateEducation(request, pk, feedback_id):
 def deleteEducation(request, pk, feedback_id):
     education = Education.objects.get(id=pk)
     education.delete()
+    messages.add_message(request, messages.INFO, 'Successfully Deleted.')
     return redirect('Resume', feedback_id=feedback_id)
 
 
@@ -675,6 +696,7 @@ def addLanguage(request, pk):
             form = language_form.save(commit=False)
             form.personal_detail = personal_detail
             form.save()
+            messages.add_message(request, messages.INFO, 'Successfully Saved.')
             return redirect('Resume', feedback_id=personal_detail.feedback_id)
         else:
             messages.error(request, language_form.errors)
@@ -707,6 +729,7 @@ def updateLanguage(request, pk, feedback_id):
     if language_form.is_valid():
         form = language_form.save(commit=False)  
         form.save()
+        messages.add_message(request, messages.INFO, 'Successfully Saved.')
         return redirect('Resume', feedback_id=feedback_id)
     messages.error(request, language_form.errors)
     return redirect('Resume', feedback_id=feedback_id)
@@ -715,6 +738,7 @@ def updateLanguage(request, pk, feedback_id):
 def deleteLanguage(request, pk, feedback_id):
     language = Language.objects.get(id=pk)
     language.delete()
+    messages.add_message(request, messages.INFO, 'Successfully Deleted.')
     return redirect('Resume', feedback_id=feedback_id)
 
 
@@ -729,6 +753,7 @@ def addReference(request, pk):
             form = reference_form.save(commit=False)
             form.personal_detail = personal_detail
             form.save()
+            messages.add_message(request, messages.INFO, 'Successfully Saved.')
             return redirect('Resume', feedback_id=personal_detail.feedback_id)
         else:
             messages.error(request, reference_form.errors)
@@ -761,6 +786,7 @@ def updateReference(request, pk, feedback_id):
     if reference_form.is_valid():
         form = reference_form.save(commit=False)  
         form.save()
+        messages.add_message(request, messages.INFO, 'Successfully Saved.')
         return redirect('Resume', feedback_id=feedback_id)
     messages.error(request, reference_form.errors)
     return redirect('Resume', feedback_id=feedback_id)
@@ -769,6 +795,7 @@ def updateReference(request, pk, feedback_id):
 def deleteReference(request, pk, feedback_id):
     reference = Reference.objects.get(id=pk)
     reference.delete()
+    messages.add_message(request, messages.INFO, 'Successfully Deleted.')
     return redirect('Resume', feedback_id=feedback_id)
 
 def addAward(request, pk):
@@ -782,6 +809,7 @@ def addAward(request, pk):
             form = award_form.save(commit=False)
             form.personal_detail = personal_detail
             form.save()
+            messages.add_message(request, messages.INFO, 'Successfully Saved.')
             return redirect('Resume', feedback_id=personal_detail.feedback_id)
         else:
             messages.error(request, award_form.errors)
@@ -816,6 +844,7 @@ def updateAward(request, pk, feedback_id):
     if award_form.is_valid():
         form = award_form.save(commit=False)  
         form.save()
+        messages.add_message(request, messages.INFO, 'Successfully Saved.')
         return redirect('Resume', feedback_id=feedback_id)
     messages.error(request, award_form.errors)
     return redirect('Resume', feedback_id=feedback_id)
@@ -824,6 +853,7 @@ def updateAward(request, pk, feedback_id):
 def deleteAward(request, pk, feedback_id):
     award = Award.objects.get(id=pk)
     award.delete()
+    messages.add_message(request, messages.INFO, 'Successfully Deleted.')
     return redirect('Resume', feedback_id=feedback_id)
 
 
@@ -838,6 +868,7 @@ def addOrganisation(request, pk):
             form = organisation_form.save(commit=False)
             form.personal_detail = personal_detail
             form.save()
+            messages.add_message(request, messages.INFO, 'Successfully Saved.')
             return redirect('Resume', feedback_id=personal_detail.feedback_id)
         else:
             messages.error(request, organisation_form.errors)
@@ -881,6 +912,7 @@ def updateOrganisation(request, pk, feedback_id):
     if organisation_form.is_valid():
         form = organisation_form.save(commit=False)  
         form.save()
+        messages.add_message(request, messages.INFO, 'Successfully Saved.')
         return redirect('Resume', feedback_id=feedback_id)
     messages.error(request, organisation_form.errors)
     return redirect('Resume', feedback_id=feedback_id)
@@ -888,6 +920,7 @@ def updateOrganisation(request, pk, feedback_id):
 def deleteOrganisation(request, pk, feedback_id):
     organisation = Organisation.objects.get(id=pk)
     organisation.delete()
+    messages.add_message(request, messages.INFO, 'Successfully Deleted.')
     return redirect('Resume', feedback_id=feedback_id)
 
 
@@ -902,6 +935,7 @@ def addCertificate(request, pk):
             form = certificate_form.save(commit=False)
             form.personal_detail = personal_detail
             form.save()
+            messages.add_message(request, messages.INFO, 'Successfully Saved.')
             return redirect('Resume', feedback_id=personal_detail.feedback_id)
         else:
             messages.error(request, certificate_form.errors)
@@ -928,6 +962,7 @@ def updateCertificate(request, pk, feedback_id):
     if ceritficate_form.is_valid():
         form = ceritficate_form.save(commit=False)  
         form.save()
+        messages.add_message(request, messages.INFO, 'Successfully Saved.')
         return redirect('Resume', feedback_id=feedback_id)
     messages.error(request, ceritficate_form.errors)
     return redirect('Resume', feedback_id=feedback_id)
@@ -936,6 +971,7 @@ def updateCertificate(request, pk, feedback_id):
 def deleteCertificate(request, pk, feedback_id):
     ceritficate = Certificate.objects.get(id=pk)
     ceritficate.delete()
+    messages.add_message(request, messages.INFO, 'Successfully Deleted.')
     return redirect('Resume', feedback_id=feedback_id)
 
 
@@ -950,6 +986,7 @@ def addInterest(request, pk):
             form = interest_form.save(commit=False)
             form.personal_detail = personal_detail
             form.save()
+            messages.add_message(request, messages.INFO, 'Successfully Saved.')
             return redirect('Resume', feedback_id=personal_detail.feedback_id)
         else:
             messages.error(request, interest_form.errors)
@@ -976,6 +1013,7 @@ def updateInterest(request, pk, feedback_id):
     if interest_form.is_valid():
         form = interest_form.save(commit=False)  
         form.save()
+        messages.add_message(request, messages.INFO, 'Successfully Saved.')
         return redirect('Resume', feedback_id=feedback_id)
     messages.error(request, interest_form.errors)
     return redirect('Resume', feedback_id=feedback_id)
@@ -984,6 +1022,7 @@ def updateInterest(request, pk, feedback_id):
 def deleteInterest(request, pk, feedback_id):
     interest = Interest.objects.get(id=pk)
     interest.delete()
+    messages.add_message(request, messages.INFO, 'Successfully Deleted.')
     return redirect('Resume', feedback_id=feedback_id)
 
     
@@ -998,6 +1037,7 @@ def addPublication(request, pk):
             form = publication_form.save(commit=False)
             form.personal_detail = personal_detail
             form.save()
+            messages.add_message(request, messages.INFO, 'Successfully Saved.')
             return redirect('Resume', feedback_id=personal_detail.feedback_id)
         else:
             messages.error(request, publication_form.errors)
@@ -1032,6 +1072,7 @@ def updatePublication(request, pk, feedback_id):
     if publication_form.is_valid():
         form = publication_form.save(commit=False)  
         form.save()
+        messages.add_message(request, messages.INFO, 'Successfully Saved.')
         return redirect('Resume', feedback_id=feedback_id)
     messages.error(request, publication_form.errors)
     return redirect('Resume', feedback_id=feedback_id)
@@ -1040,6 +1081,7 @@ def updatePublication(request, pk, feedback_id):
 def deletePublication(request, pk, feedback_id):
     publication = Publication.objects.get(id=pk)
     publication.delete()
+    messages.add_message(request, messages.INFO, 'Successfully Deleted.')
     return redirect('Resume', feedback_id=feedback_id)
 
 def resumeFeedback(request, feedback_id):
@@ -1063,6 +1105,7 @@ def resumeFeedback(request, feedback_id):
                 form = feedback_form.save(commit=False)
                 form.personal_detail = personal_detail
                 form.save()
+                messages.add_message(request, messages.INFO, 'Resume Successfully Sent.')
                 return redirect("resumeFeedback", feedback_id=feedback_id)            
             messages.error(request, feedback_form.errors)
         else:

@@ -47,7 +47,20 @@
         <div id="toogle"></div>
       </div>
     </nav>
-    {% block content %} {% endblock %}
+    {% if messages %}
+        <div class="success-notification">
+        {% for message in messages %} {% if message %}
+        <div class="error-container">
+          <ul class="errors">
+            <li>{{message|capfirst}}</li>
+          </ul>
+        </div>
+        {% endif %} {% endfor %}
+      </div>
+      {% endif %}
+    {% block content %} 
+    
+    {% endblock %}
   </body>
   <script src="{% static 'js/script.js' %}"></script>
   <script src="https://unpkg.com/aos@next/dist/aos.js"></script>

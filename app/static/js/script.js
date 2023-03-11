@@ -25,6 +25,7 @@ const addContentModal = document.querySelector("#add-content-modal");
 const allModelContents = document.querySelectorAll(".add-modal-content");
 const formErrors = document.querySelectorAll(".form-errors");
 const createResumeSeg = document.querySelector("#download-resume-seg");
+const successNotification = document.querySelector(".success-notification");
 
 if (mediumMobileMediaQuery.matches) {
   const logos = document.querySelectorAll(".logo");
@@ -227,12 +228,12 @@ if (clickCreateFormInputs) {
         aBtn.classList.add("hide");
         divsParent.appendChild(formInput);
         var retrievedDynamicDiv = document.getElementById("myDivID");
-        if (retrievedDynamicDiv.querySelector("#date_of_birth")) {
-          retrievedDynamicDiv.querySelector("#date_of_birth").readOnly = true;
-          $(function () {
-            $("#date_of_birth").datepicker();
-          });
-        }
+        // if (retrievedDynamicDiv.querySelector("#date_of_birth")) {
+        //   retrievedDynamicDiv.querySelector("#date_of_birth").readOnly = true;
+        //   $(function () {
+        //     $("#date_of_birth").datepicker();
+        //   });
+        // }
 
         if (retrievedDynamicDiv.querySelector("#marital_status")) {
           retrievedDynamicDiv.querySelector("#marital_status").placeholder = "Single";
@@ -585,9 +586,14 @@ window.addEventListener("resize", () => {
   }
 });
 
+if (successNotification) {
+  setTimeout(() => {
+    successNotification.classList.add("hide");
+  }, 5000);
+}
+
 if (errorTopModal) {
   const allErrorLists = errorTopModal.querySelectorAll("ul");
-
   allErrorLists.forEach(allErrorList => {
     let error = allErrorList.querySelector(".errorlist");
     if (error) {
