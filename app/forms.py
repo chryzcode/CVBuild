@@ -6,12 +6,25 @@ from .models import *
 
 
 class RegistrationForm(ModelForm):
-    password = forms.CharField()
-    password2 = forms.CharField()
+    password = forms.CharField(widget=forms.PasswordInput(attrs={'placeholder': '*********'}))
+    password2 = forms.CharField(widget=forms.PasswordInput(attrs={'placeholder': '*********'}))
 
     class Meta:
         model = User
         fields = ["email", "first_name", "last_name"]
+
+        widgets= {    
+            "email": forms.TextInput(
+                attrs={"placeholder": "johndoe@gmail.com"}
+            ),
+            "first_name": forms.TextInput(
+                attrs={"placeholder": "John"}
+            ),
+
+             "last_name": forms.TextInput(
+                attrs={"placeholder": "Doe"}
+            ),
+        }
 
     def clean_first_name(self):
         first_name = self.cleaned_data["first_name"]
@@ -48,6 +61,10 @@ class PasswordResetForm(PasswordResetForm):
         if not user:
             raise forms.ValidationError("Account not found")
         return email
+    
+class LoginForm(forms.Form):
+    email = forms.EmailField(widget=forms.EmailInput(attrs={'placeholder': 'johndoe@gmail.com'}))
+    password = forms.CharField(widget=forms.PasswordInput(attrs={'placeholder': '*********'}))
 
 
 class PasswordResetConfirmForm(SetPasswordForm):
@@ -59,11 +76,49 @@ class PasswordResetConfirmForm(SetPasswordForm):
         if cd["new_password1"] != cd["new_password2"]:
             raise forms.ValidationError("Passwords do not match.")
         return cd["new_password2"]
+    
 
 class PersonalDetailsForm(ModelForm):
     class Meta:
         model = Personal_Details
         exclude =  ['user']
+
+        widgets= {    
+            "full_name": forms.TextInput(
+                attrs={"placeholder": "John Doe"}
+            ),
+            "job_title": forms.TextInput(
+                attrs={"placeholder": "Software Developer"}
+            ),
+             "email": forms.EmailInput(
+                attrs={"placeholder": "johndoe@gmail.com"}
+            ),
+            "phone": forms.TextInput(
+                attrs={"placeholder": "+135806600"}
+            ),
+            "address": forms.TextInput(
+                attrs={"placeholder": "Block 44, Johnson Avenue, New York"}
+            ),
+             "nationality": forms.TextInput(
+                attrs={"placeholder": "American"}
+            ),
+            "marital_status": forms.TextInput(
+                attrs={"placeholder": "Single"}
+            ),
+            "military_service": forms.TextInput(
+                attrs={"placeholder": "National Defence Academy"}
+            ),
+             "gender_pronoun": forms.TextInput(
+                attrs={"placeholder": "He/ Him"}
+            ),
+            "passport_id": forms.TextInput(
+                attrs={"placeholder": "9732458236"}
+            ),
+            "driving_license": forms.TextInput(
+                attrs={"placeholder": "NY1345567"}
+            ),
+        }
+
     
     def __init__(self, *args, **kwargs):
         super(PersonalDetailsForm, self).__init__(*args, **kwargs)
@@ -76,7 +131,7 @@ class FeedbackForm(ModelForm):
     
     def clean_name(self):
         name = self.cleaned_data["name"]
-        if name == None:
+        if name < 5:
             raise forms.ValidationError("Field is required")
         return name
 
@@ -228,7 +283,7 @@ class UserProfileForm(ModelForm):
                 attrs={"class": "form-control", "placeholder": "John"}
             ),
              "last_name": forms.TextInput(
-                attrs={"class": "form-control", "placeholder": "JohnDoe"}
+                attrs={"class": "form-control", "placeholder": "Doe"}
             ),
             # "avatar": forms.FileInput(attrs={"class": "form-control"}),
         }
@@ -250,30 +305,30 @@ class LinkForm(ModelForm):
 
         widgets = {
             "website": forms.TextInput(
-                attrs={"placeholder": " Website"}
+                attrs={"placeholder": "www.jondoe.com"}
             ),
             "twitter": forms.TextInput(
-                attrs={"placeholder": "Twitter"}
+                attrs={"placeholder": "https://twitter.com/john-doe"}
             ),
             "github": forms.TextInput(
-                attrs={"placeholder": "Github"}
+                attrs={"placeholder": "https://github.com/john-doe"}
             ),
             "linkedin": forms.TextInput(
-                attrs={"placeholder": "Linkedin"}
+                attrs={"placeholder": "https://linkedin.com/john-doe"}
             ),
             "medium": forms.TextInput(
-                attrs={"placeholder": "Medium"}
+                attrs={"placeholder": "johndoe.medium.com"}
             ),
              "stackoverflow": forms.TextInput(
-                attrs={"placeholder": "Stackoverflow"}
+                attrs={"placeholder": "https://stackoverflow.com/users/19129/johndoe"}
             ), "gitlab": forms.TextInput(
-                attrs={"placeholder": "Gitlab"}
+                attrs={"placeholder": "https://gitlab.com/john-doe"}
             ), "quora": forms.TextInput(
-                attrs={"placeholder": "Quora"}
+                attrs={"placeholder": "https://www.quora.com/profile/john-doe"}
             ), "facebook": forms.TextInput(
-                attrs={"placeholder": "Facebook"}
+                attrs={"placeholder": "https://web.facebook.com/john.doe.2/"}
             ), "instagram": forms.TextInput(
-                attrs={"placeholder": "Instagram"}
+                attrs={"placeholder": "https://www.instagram.com/johndoe/"}
             ), "hackerrank": forms.TextInput(
                 attrs={"placeholder": "Hackerrank"}
             ), "wechat": forms.TextInput(

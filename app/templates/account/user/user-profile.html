@@ -10,18 +10,19 @@
     <div class="form-input-container">
       <span><label for="first_name">First Name</label> <span class="form-required-field">*</span></span>
       <p class="form-errors">{{ userprofileform.first_name.errors }}</p>
-       <input type="text" name="first_name" id="first_name" placeholder="John"
+       <!-- <input type="text" name="first_name" id="first_name" placeholder="John"
        {% if user_profile.first_name %} value="{{user_profile.first_name}}" {% endif %}
-       
-       />
+       /> -->
+       {{ userprofileform.first_name }}
     </div>
 
     <div class="form-input-container">
       <span><label for="last_name">Last Name</label> <span class="form-required-field">*</span></span>
       <p class="form-errors">{{ userprofileform.last_name.errors }}</p>
-      <input type="text" name="last_name" id="last_name" placeholder="Doe"
+      <!-- <input type="text" name="last_name" id="last_name" placeholder="Doe"
         {% if user_profile.last_name %} value="{{user_profile.last_name}}" {% endif %}
-      />
+      /> -->
+      {{ userprofileform.last_name }}
     </div>
 
     <button class="form-btn btn" type="submit">Update</button>

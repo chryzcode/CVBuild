@@ -9,31 +9,36 @@
     <div class="form-input-container">
       <span><label for="first_name">First Name</label> <span class="form-required-field">*</span></span>
       <p class="form-errors">{{ form.first_name.errors }}</p>
-      <input type="text" name="first_name" id="first_name" placeholder="John" />
+      <!-- <input type="text" name="first_name" id="first_name" placeholder="John" /> -->
+      {{form.first_name}}
     </div>
 
     <div class="form-input-container">
       <span><label for="last_name">Last Name</label> <span class="form-required-field">*</span></span>
       <p class="form-errors">{{ form.last_name.errors }}</p>
-      <input type="text" name="last_name" id="last_name" placeholder="Doe" />
+      <!-- <input type="text" name="last_name" id="last_name" placeholder="Doe" /> -->
+      {{form.last_name}}
     </div>
 
     <div class="form-input-container">
       <span><label for="email">Email</label> <span class="form-required-field">*</span></span>
       <p class="form-errors">{{ form.email.errors }}</p>
-      <input type="text" name="email" id="email" placeholder="johndoe@gmail.com" />
+      <!-- <input type="text" name="email" id="email" placeholder="johndoe@gmail.com" /> -->
+      {{ form.email}}
     </div>
 
     <div class="form-input-container">
       <span><label for="password">Password</label> <span class="form-required-field">*</span></span>
       <p class="form-errors">{{ form.password.errors }}</p>
-      <input type="password" name="password" id="password" placeholder="********" />
+      <!-- <input type="password" name="password" id="password" placeholder="********" /> -->
+      {{form.password}}
     </div>
 
     <div class="form-input-container">
       <span><label for="password2">Confirm Password</label> <span class="form-required-field">*</span></span>
       <p class="form-errors">{{ form.password2.errors }}</p>
-      <input type="password" name="password2" id="password2" placeholder="********" />
+      <!-- <input type="password" name="password2" id="password2" placeholder="********" /> -->
+      {{form.password2}}
     </div>
 
     <button class="form-btn btn" type="submit">Sign Up</button>

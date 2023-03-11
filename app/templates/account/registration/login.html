@@ -13,13 +13,15 @@
     {% endif %}
     <div class="form-input-container">
       <span><label for="email">Email</label> <span class="form-required-field">*</span></span>
-      <input type="text" name="email" id="email" placeholder="johndoe@gmail.com" />
+      <!-- <input type="text" name="email" id="email" placeholder="johndoe@gmail.com" /> -->
+      {{form.email}}
     </div>
 
     <div class="form-input-container">
       <span><label for="password">Password</label> <span class="form-required-field">*</span></span>
       <p class="form-errors">{{ password_error }}</p>
-      <input type="password" name="password" id="password" placeholder="********" />
+      <!-- <input type="password" name="password" id="password" placeholder="********" /> -->
+      {{form.password}}
     </div>
 
     <button class="form-btn btn" type="submit">Sign In</button>

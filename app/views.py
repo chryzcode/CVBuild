@@ -168,13 +168,15 @@ def custom_error_500(request):
 @login_required(login_url="login")
 def user_profile(request):
     account = request.user
-    userprofileform = UserProfileForm(instance=account)
     user_profile = User.objects.get(email=account.email)
     if request.method == "POST":
         userprofileform = UserProfileForm(request.POST, request.FILES, instance=account)
         if userprofileform.is_valid():
             userprofileform.save()
-            return redirect("/")
+            return redirect("user_profile")
+        messages.error(request, userprofileform.errors)
+    else:
+        userprofileform = UserProfileForm(instance=account)
 
     return render(
         request,
@@ -185,56 +187,6 @@ def user_profile(request):
             "user_profile": user_profile,
         },
     )
-    
-def account_login(request):
-    context = {}
-    if request.user.is_authenticated:
-        return redirect("/")
-
-    if request.method == "POST":
-        email = request.POST.get("email")
-        password = request.POST.get("password")
-        if User.objects.filter(email=email).exists():
-            user = User.objects.get(email=email)
-            try:
-                user = authenticate(request, email=email, password=password)
-                if user:
-                    login(request, user)
-                    return redirect("/") 
-                else:
-                    messages.error(request, "Password is incorrect")  
-            except:
-                messages.error(request, "Authentication error")
-        else:
-            messages.error(request, "Account does not exist")
-        
-
-    return render(request, "account/registration/login.html", context)
-
-
-
-@login_required(login_url="login")
-def account_logout(request):
-    logout(request)
-    return redirect("/")
-
-@login_required(login_url="login")
-def account_delete(request):
-    user = User.objects.get(email=request.user.email)
-    subject = f"Request for Your CVBuild Account to be Deleted"
-    message = render_to_string(
-    "account/user/account-delete-email.html",
-    {"user": user,
-    "domain": settings.DEFAULT_DOMAIN,
-    }
-)
-    send_mail(subject, message, settings.EMAIL_HOST_USER, [user.email], html_message=message)
-    if not user.is_superuser:
-        user.is_active = False
-        user.save()
-    logout(request)
-    return redirect("/")
-
 
 def account_register(request):
     if request.user.is_authenticated:
@@ -264,8 +216,60 @@ def account_register(request):
             return render(request, "account/registration/registration-success.html")
         messages.error(request, registerform.errors)
     else:
-        registerform = RegistrationForm    
+        registerform = RegistrationForm() 
     return render(request, "account/registration/register.html", {"form": registerform})
+    
+def account_login(request):
+    if request.user.is_authenticated:
+        return redirect("/")
+
+    if request.method == "POST":
+        email = request.POST.get("email")
+        password = request.POST.get("password")
+        loginform = LoginForm(request.POST)
+        if loginform.is_valid():
+            if User.objects.filter(email=email).exists():
+                user = User.objects.get(email=email)
+                try:
+                    user = authenticate(request, email=email, password=password)
+                    if user:
+                        login(request, user)
+                        return redirect("/") 
+                    else:
+                        messages.error(request, "Password is incorrect")  
+                except:
+                    messages.error(request, "Authentication error")
+            else:
+                messages.error(request, "Account does not exist")
+        messages.error(request, loginform.errors)
+    else:
+        loginform = LoginForm()
+        
+    return render(request, "account/registration/login.html", {'form':loginform})
+
+
+
+@login_required(login_url="login")
+def account_logout(request):
+    logout(request)
+    return redirect("/")
+
+@login_required(login_url="login")
+def account_delete(request):
+    user = User.objects.get(email=request.user.email)
+    subject = f"Request for Your CVBuild Account to be Deleted"
+    message = render_to_string(
+    "account/user/account-delete-email.html",
+    {"user": user,
+    "domain": settings.DEFAULT_DOMAIN,
+    }
+)
+    send_mail(subject, message, settings.EMAIL_HOST_USER, [user.email], html_message=message)
+    if not user.is_superuser:
+        user.is_active = False
+        user.save()
+    logout(request)
+    return redirect("/")
 
 
 def account_activate(request, uidb64, token):
@@ -1053,17 +1057,16 @@ def resumeFeedback(request, feedback_id):
         certificates = Certificate.objects.filter(personal_detail=personal_detail)
         interests = Interest.objects.filter(personal_detail=personal_detail)
         publications = Publication.objects.filter(personal_detail=personal_detail)
-        feedback_form = FeedbackForm()
         if request.method == "POST":
             feedback_form = FeedbackForm(request.POST)
             if feedback_form.is_valid:
                 form = feedback_form.save(commit=False)
                 form.personal_detail = personal_detail
                 form.save()
-                return redirect("resumeFeedback", feedback_id=feedback_id)
-            else:
-                messages.error(request, feedback_form.errors)
-                return redirect("resumeFeedback", feedback_id=feedback_id)
+                return redirect("resumeFeedback", feedback_id=feedback_id)            
+            messages.error(request, feedback_form.errors)
+        else:
+            feedback_form = FeedbackForm()
 
         context = {'personal_detail':personal_detail, 'skills':skills, 'profile':profile, 'experiences':experiences, 'projects':projects, 'educations':educations, 'languages':languages,  'references':references, 'awards':awards, 'organisations':organisations, 'certificates':certificates,  'interests':interests, 'publications':publications, 'feedback_form':feedback_form}
         return render(request, 'pages/resume-feedback.html', context)

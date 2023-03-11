@@ -88,12 +88,12 @@
           <div class="form-input-container">
             <span><label for="name">Name</label> <span class="form-required-field">*</span></span>
             <p class="form-errors">{{ feedback_form.name.errors }}</p>
-            <input type="text" name="name" id="name" />
+            <input type="text" name="name" id="name" placeholder="John Doe"/>
           </div>
           <div class="form-input-container">
             <span><label for="comment">Comment</label> <span class="form-required-field">*</span></span>
             <p class="form-errors">{{ feedback_form.comment.errors }}</p>
-            <textarea name="comment" id="comment" cols="100" rows="10"></textarea>
+            <textarea name="comment" id="comment" cols="100" rows="10" placeholder="Comments...."></textarea>
           </div>
 
           <button class="form-btn btn" type="submit">Save</button>

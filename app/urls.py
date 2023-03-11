@@ -69,6 +69,11 @@ urlpatterns = [
     path("delete/", views.account_delete, name="delete_account"),
     path("settings/profile/", views.user_profile, name="user_profile"),
     path(
+        "activate/<slug:uidb64>/<slug:token>)/",
+        views.account_activate,
+        name="activate_account",
+    ),
+    path(
         "password-reset/",
         auth_views.PasswordResetView.as_view(
             template_name="account/user/password-reset-form.html",

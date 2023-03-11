@@ -112,13 +112,14 @@ if (feedbacks) {
       viewMoreFeedbackBtn.style.display = "none";
     }
   }
-
-  $(viewMoreFeedbackBtn).click(function () {
-    $(".feedback-container:hidden").slice(0, 5).slideDown();
-    if ($(".feedback-container:hidden").length == 0) {
-      $(viewMoreFeedbackBtn).fadeOut("slow");
-    }
-  });
+  if (viewMoreFeedbackBtn) {
+    $(viewMoreFeedbackBtn).click(function () {
+      $(".feedback-container:hidden").slice(0, 5).slideDown();
+      if ($(".feedback-container:hidden").length == 0) {
+        $(viewMoreFeedbackBtn).fadeOut("slow");
+      }
+    });
+  }
 }
 
 function copyResumeFeedbackLink() {
@@ -238,7 +239,7 @@ if (clickCreateFormInputs) {
         }
 
         if (retrievedDynamicDiv.querySelector("#nationality")) {
-          retrievedDynamicDiv.querySelector("#nationality").placeholder = "Nigerian";
+          retrievedDynamicDiv.querySelector("#nationality").placeholder = "American";
         }
 
         if (retrievedDynamicDiv.querySelector("#gender_pronoun")) {
@@ -247,6 +248,14 @@ if (clickCreateFormInputs) {
 
         if (retrievedDynamicDiv.querySelector("#military_service")) {
           retrievedDynamicDiv.querySelector("#military_service").placeholder = "National Defence Academy";
+        }
+
+        if (retrievedDynamicDiv.querySelector("#passport_id")) {
+          retrievedDynamicDiv.querySelector("#passport_id").placeholder = "9732458236";
+        }
+
+        if (retrievedDynamicDiv.querySelector("#driving_license")) {
+          retrievedDynamicDiv.querySelector("#driving_license").placeholder = "NY1345567";
         }
       });
       document.addEventListener("click", e => {
@@ -707,9 +716,11 @@ if (forms) {
         durationToggleChecks.forEach(durationToggleCheck => {
           durationToggleCheck.previousElementSibling.style.fontSize = `${16}px`;
         });
-        $(".duration-toggle-checkbox").click(function () {
-          $(".duration-toggle-checkbox").not(this).prop("checked", false);
-        });
+        if (document.querySelector(".duration-toggle-checkbox")) {
+          $(".duration-toggle-checkbox").click(function () {
+            $(".duration-toggle-checkbox").not(this).prop("checked", false);
+          });
+        }
       }
 
       const formInputContainers = form.querySelectorAll(".form-input-container");
