@@ -228,12 +228,12 @@ if (clickCreateFormInputs) {
         aBtn.classList.add("hide");
         divsParent.appendChild(formInput);
         var retrievedDynamicDiv = document.getElementById("myDivID");
-        // if (retrievedDynamicDiv.querySelector("#date_of_birth")) {
-        //   retrievedDynamicDiv.querySelector("#date_of_birth").readOnly = true;
-        //   $(function () {
-        //     $("#date_of_birth").datepicker();
-        //   });
-        // }
+        if (retrievedDynamicDiv.querySelector("#date_of_birth")) {
+          retrievedDynamicDiv.querySelector("#date_of_birth").readOnly = true;
+          $(function () {
+            $("#date_of_birth").datepicker();
+          });
+        }
 
         if (retrievedDynamicDiv.querySelector("#marital_status")) {
           retrievedDynamicDiv.querySelector("#marital_status").placeholder = "Single";
