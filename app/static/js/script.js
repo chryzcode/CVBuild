@@ -191,7 +191,7 @@ function search() {
   input = document.querySelector("#link-search-bar");
   filter = input.value.toUpperCase();
   allBtnsContainer = document.querySelector(".link-create-form-btn");
-  btns = linkClickCreateForms.querySelectorAll("span");
+  btns = document.querySelector(".link-create-form-btn").querySelectorAll('span');
 
   for (i = 0; i < btns.length; i++) {
     span = btns[i];
