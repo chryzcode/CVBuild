@@ -299,8 +299,7 @@ def account_activate(request, uidb64, token, email):
                     user.delete()
                     messages.add_message(request, messages.INFO, 
                     """
-                    Verification Authentication Timeout
-                    Kindly Register Again
+                    Authentication Token Timeout
                     """
                     )
                 else:
