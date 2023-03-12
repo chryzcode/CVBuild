@@ -41,7 +41,7 @@
     <meta name="twitter:title" content="CVBuild" />
     <meta name="twitter:description" content="CVBuild - Build your Resume and Online Portfolio for free." />
     <meta name="twitter:image" content="{% static 'image/illustrations/favicon.png' %}" />
-    
+
     <script
       src="https://code.jquery.com/jquery-3.6.0.min.js"
       integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
@@ -78,8 +78,8 @@
         <div class="success-notification">
         {% for message in messages %} {% if message %}
         <div class="error-container">
-          <ul class="errors">
-            <li>{{message|capfirst}}</li>
+          <ul style="color: white;" class="errors">
+            <li style="color: white;">{{message|capfirst}}</li>
           </ul>
         </div>
         {% endif %} {% endfor %}
