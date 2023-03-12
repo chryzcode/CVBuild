@@ -195,6 +195,9 @@ def account_register(request):
         return redirect("/")
     if request.method == "POST":
         email = request.POST.get("email")
+        if User.objects.filter(email=email, is_active=False).last():
+            inactive_user = User.objects.filter(email=email, is_active=False).last()
+            inactive_user.delete()
         registerform = RegistrationForm(request.POST)
         if registerform.is_valid():
             user = registerform.save(commit=False)
