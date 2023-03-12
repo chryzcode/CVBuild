@@ -220,7 +220,6 @@ def account_register(request):
             )
             user.email_user(subject=subject, message=message)
             return render(request, "account/registration/registration-success.html")
-        messages.error(request, registerform.errors)
     else:
         registerform = RegistrationForm() 
     return render(request, "account/registration/register.html", {"form": registerform})
@@ -242,12 +241,11 @@ def account_login(request):
                         login(request, user)
                         return redirect("/") 
                     else:
-                        messages.error(request, "Password is incorrect")  
+                        messages.add_message(request, messages.INFO, 'Incorrect Password') 
                 except:
-                    messages.error(request, "Authentication error")
+                    messages.add_message(request, messages.INFO, 'Authentication Error')
             else:
-                messages.error(request, "Account does not exist")
-        messages.error(request, loginform.errors)
+                messages.add_message(request, messages.INFO, 'Account Does not Exist.')
     else:
         loginform = LoginForm()
         
