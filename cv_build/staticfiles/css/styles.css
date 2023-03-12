@@ -233,7 +233,7 @@ input[type="checkbox"]:focus-within {
 .error-top-modal {
   position: absolute;
   width: 400px;
-  background-color: #200e32;
+  background-color: white;
   z-index: 1207;
   display: block;
   margin-top: 10px;
@@ -248,7 +248,6 @@ input[type="checkbox"]:focus-within {
   border-radius: 10px;
   box-shadow: rgb(201, 201, 201) 0px 1px 2px 1px;
   height: max-content;
-  color: #ffffff;
 }
 
 .error-container {
@@ -264,7 +263,7 @@ input[type="checkbox"]:focus-within {
 
 .errorlist {
   list-style: none;
-  color: #ffffff;
+  color: #a51b1b;
   text-align: center;
   text-transform: uppercase;
   font-size: 15;
