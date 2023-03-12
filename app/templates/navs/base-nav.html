@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="{% static 'css/styles.css'%}" />
     <link rel="stylesheet" href="{% static 'css/home-page.css'%}" />
     <link rel="shortcut icon" href="{% static 'image/illustrations/favicon.png' %}" type="image/x-icon">
-    
+
     <meta
       name="description"
       content="CVBuild - Build your Resume and Online Portfolio for free."
@@ -83,6 +83,8 @@
         <div id="toogle"></div>
       </div>
     </nav>
+    {% if 'register' or 'login' in request.get_full_path %}
+    {% else %}
     {% if messages %}
         <div class="success-notification">
         {% for message in messages %} {% if message %}
@@ -94,6 +96,7 @@
         {% endif %} {% endfor %}
       </div>
       {% endif %}
+    {% endif %}
     {% block content %} 
     
     {% endblock %}

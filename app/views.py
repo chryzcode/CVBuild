@@ -311,21 +311,21 @@ def account_activate(request, uidb64, token, email):
                     User Does not Exist
                     """
                     )
-                return redirect("register")
+                return redirect("/")
         else:
             messages.add_message(request, messages.INFO, 
             """
             Invalid/ Expired Activation Token
             """
             )
-            return redirect("register")
+            return redirect("/")
     else:
             messages.add_message(request, messages.INFO, 
             """
             User Does not Exist
             """
             )
-            return redirect("register")
+            return redirect("/")
 
 def home(request):
     if request.user:
