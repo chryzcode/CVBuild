@@ -47,7 +47,7 @@ class RegistrationForm(ModelForm):
 
     def clean_email(self):
         email = self.cleaned_data["email"]
-        r = User.objects.filter(email=email)
+        r = User.objects.filter(email=email, is_active=True)
         if r.count():
             raise forms.ValidationError("Email is already taken")
         return email
