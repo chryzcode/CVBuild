@@ -47,9 +47,12 @@ class RegistrationForm(ModelForm):
 
     def clean_email(self):
         email = self.cleaned_data["email"]
-        r = User.objects.filter(email=email, is_active=True)
-        if r.count():
+        active_user = User.objects.filter(email=email, is_active=True)
+        inactive_user = User.objects.filter(email=email, is_active=True)
+        if active_user.count():
             raise forms.ValidationError("Email is already taken")
+        if inactive_user.count():
+            inactive_user.delete()
         return email
 
 class PasswordResetForm(PasswordResetForm):
