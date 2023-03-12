@@ -276,10 +276,9 @@ def account_delete(request):
 
 
 def account_activate(request, uidb64, token):
-    try:
-        uid = force_str(urlsafe_base64_decode(uidb64))
+    uid = force_str(urlsafe_base64_decode(uidb64))
+    if User.objects.filter(pk=uid).last(): 
         user = get_object_or_404(User, pk=uid)
-
         if user is not None and account_activation_token.check_token(user, token):
             user.is_active = True
             user.save()
@@ -293,21 +292,28 @@ def account_activate(request, uidb64, token):
             login(request, user)
             messages.add_message(request, messages.INFO, 'Account Successfully Activated.')
             return redirect("/")
-    except:
-        if user:
-            user.delete()
-            messages.add_message(request, messages.INFO, 
-            """
-            Verification Authentication Timeout
-            Kindly Register Again
-            """
-            )
         else:
-            messages.add_message(request, messages.INFO, 
-            """
-            User Does not Exist
-            """
-            )
+            if user:
+                user.delete()
+                messages.add_message(request, messages.INFO, 
+                """
+                Verification Authentication Timeout
+                Kindly Register Again
+                """
+                )
+            else:
+                messages.add_message(request, messages.INFO, 
+                """
+                User Does not Exist
+                """
+                )
+            return redirect("register")
+    else:
+        messages.add_message(request, messages.INFO, 
+        """
+        User Does not Exist
+        """
+        )
         return redirect("register")
 
 
