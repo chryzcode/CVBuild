@@ -212,6 +212,7 @@ def account_register(request):
                     "domain": settings.DEFAULT_DOMAIN,
                     "uid": urlsafe_base64_encode(force_bytes(user.pk)),
                     "token": account_activation_token.make_token(user),
+                    "email": user.email
                 },
             )
             user.email_user(subject=subject, message=message)
@@ -275,47 +276,54 @@ def account_delete(request):
     return redirect("/")
 
 
-def account_activate(request, uidb64, token):
+def account_activate(request, uidb64, token, email):
     uid = force_str(urlsafe_base64_decode(uidb64))
-    if User.objects.filter(pk=uid).last(): 
-        user = get_object_or_404(User, pk=uid)
-        if user is not None and account_activation_token.check_token(user, token):
-            user.is_active = True
-            user.save()
-            if not Personal_Details.objects.filter(user=user):
-                Personal_Details.objects.create(
-                    user = user,
-                    full_name = user.first_name + ' ' + user.last_name,
-                    email = user.email,
-                    resume_name = 'Resume 1',
-                )
-            login(request, user)
-            messages.add_message(request, messages.INFO, 'Account Successfully Activated.')
-            return redirect("/")
-        else:
-            if user:
-                user.delete()
-                messages.add_message(request, messages.INFO, 
-                """
-                Verification Authentication Timeout
-                Kindly Register Again
-                """
-                )
+    if User.objects.filter(email=email).last():
+        if User.objects.filter(pk=uid).last(): 
+            user = get_object_or_404(User, pk=uid)
+            if user is not None and account_activation_token.check_token(user, token):
+                user.is_active = True
+                user.save()
+                if not Personal_Details.objects.filter(user=user):
+                    Personal_Details.objects.create(
+                        user = user,
+                        full_name = user.first_name + ' ' + user.last_name,
+                        email = user.email,
+                        resume_name = 'Resume 1',
+                    )
+                login(request, user)
+                messages.add_message(request, messages.INFO, 'Account Successfully Activated.')
+                return redirect("/")
             else:
-                messages.add_message(request, messages.INFO, 
-                """
-                User Does not Exist
-                """
-                )
+                if user:
+                    user.delete()
+                    messages.add_message(request, messages.INFO, 
+                    """
+                    Verification Authentication Timeout
+                    Kindly Register Again
+                    """
+                    )
+                else:
+                    messages.add_message(request, messages.INFO, 
+                    """
+                    User Does not Exist
+                    """
+                    )
+                return redirect("register")
+        else:
+            messages.add_message(request, messages.INFO, 
+            """
+            Invalid/ Expired Activation Token
+            """
+            )
             return redirect("register")
     else:
-        messages.add_message(request, messages.INFO, 
-        """
-        User Does not Exist
-        """
-        )
-        return redirect("register")
-
+            messages.add_message(request, messages.INFO, 
+            """
+            User Does not Exist
+            """
+            )
+            return redirect("register")
 
 def home(request):
     if request.user:

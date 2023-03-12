@@ -69,7 +69,7 @@ urlpatterns = [
     path("delete/", views.account_delete, name="delete_account"),
     path("settings/profile/", views.user_profile, name="user_profile"),
     path(
-        "activate/<slug:uidb64>/<slug:token>)/",
+        "activate/<slug:uidb64>/<slug:token>)/<email>/",
         views.account_activate,
         name="activate_account",
     ),

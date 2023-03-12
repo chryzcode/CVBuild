@@ -145,7 +145,7 @@
           Your CVBuild account has been successfully created. Kindly click the button below to activate your account.
         </p>
         <a
-          href="{{domain}}{% url 'activate_account' uidb64=uid token=token %}"
+          href="{{domain}}{% url 'activate_account' uidb64=uid token=token email=email %}"
           target="_blank"
           rel="noopener noreferrer"
           class="email-btn"
