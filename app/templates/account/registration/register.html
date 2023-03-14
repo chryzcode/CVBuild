@@ -48,4 +48,26 @@
     <a href="{% url 'login' %}">Already have an account?</a>
   </div>
 </div>
+
+<script>
+  const pword1 = document.querySelector("#id_password");
+  const pword2 = document.querySelector("#id_password2");
+  if (pword1 && pword2) {
+    const form = document.querySelector("form");
+    form.addEventListener("mouseover", e => {
+      const btn = form.querySelector("button");
+      pword2.addEventListener("keyup", e => {
+        if (pword2.value !== pword1.value) {
+          pword2.previousElementSibling.textContent = "Password does not match";
+          btn.style.cursor = "not-allowed";
+          btn.style.pointerEvents = "none";
+        } else {
+          pword2.previousElementSibling.textContent = "";
+          btn.style.cursor = "pointer";
+          btn.style.pointerEvents = "all";
+        }
+      });
+    });
+  }
+</script>
 {% endblock %}
