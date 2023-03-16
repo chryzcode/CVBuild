@@ -297,12 +297,24 @@ def account_activate(request, uidb64, token, email):
                 return redirect("/")
             else:
                 if user:
-                    user.delete()
                     messages.add_message(request, messages.INFO, 
                     """
                     Authentication Token Timeout
                     """
                     )
+                    subject = "Activate your CV Build Account"
+                    message = render_to_string(
+                        "account/registration/account_activation_email.html",
+                        {
+                            "user": user,
+                            "domain": settings.DEFAULT_DOMAIN,
+                            "uid": urlsafe_base64_encode(force_bytes(user.pk)),
+                            "token": account_activation_token.make_token(user),
+                            "email": user.email
+                        },
+                    )
+                    user.email_user(subject=subject, message=message)
+                    return render(request, "account/registration/registration-success.html")
                 else:
                     messages.add_message(request, messages.INFO, 
                     """
