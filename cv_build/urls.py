@@ -23,6 +23,6 @@ urlpatterns = [
     path('', include('app.urls')),
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
-handler404 = "app.views.custom_error_404"
-handler500 = "app.views.custom_error_500"
+# handler404 = "app.views.custom_error_404"
+# handler500 = "app.views.custom_error_500"
 
