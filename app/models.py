@@ -37,6 +37,9 @@ class CustomAccountManager(BaseUserManager):
         user.set_password(password)
         user.save()
         return user
+    
+    
+
 
 class User(AbstractBaseUser, PermissionsMixin):
     email = models.EmailField(_("email address"), unique=True)
@@ -183,6 +186,12 @@ class Profile(models.Model):
 
 class Levels(models.Model):
     name = models.CharField(max_length= 100)
+
+    def create_level():
+        if Levels.objects.all().count() < 1:
+            Levels.objects.create(name='Novice')
+            Levels.objects.create(name='Intermediate')
+            Levels.objects.create(name='Expert')
 
     def __str__(self):
         return self.name + ' level'
