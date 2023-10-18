@@ -187,11 +187,11 @@ class Profile(models.Model):
 class Levels(models.Model):
     name = models.CharField(max_length= 100)
 
-    def create_level():
-        if Levels.objects.all().count() < 1:
-            Levels.objects.create(name='Novice')
-            Levels.objects.create(name='Intermediate')
-            Levels.objects.create(name='Expert')
+    def create_level(self):
+        if self.objects.all().count() < 1:
+            self.objects.create(name='Novice')
+            self.objects.create(name='Intermediate')
+            self.objects.create(name='Expert')
 
     def __str__(self):
         return self.name + ' level'
