@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     "cloudinary_storage",
     "cloudinary",
     'app',
+    'rest_framework',
 ]
 
 MIDDLEWARE = [
@@ -118,6 +119,13 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 AUTH_USER_MODEL = "app.User"
+
+# REST_FRAMEWORK = {
+#     'DEFAULT_AUTHENTICATION_CLASSES': [
+#         'rest_framework.authentication.TokenAuthentication',
+#     ],
+#     # Other settings...
+# }
 
 
 # Internationalization
