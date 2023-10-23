@@ -32,7 +32,7 @@ class ResumeSerializer(ModelSerializer):
 class skillSerializer(ModelSerializer):
     class Meta:
         model = Skills
-        fields = '__all__'
+        exclude = ('id', )
 
 
 

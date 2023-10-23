@@ -13,9 +13,11 @@ def apiOverview(request):
         'update current user profile': '/update-account/',
         'delete current account': '/delete-account/',
         'create resume': '/create-resume/',
-        'get a resume': 'get-resume/<pk:pk>/',
-        'delete a resume': 'delete-resume/<int:pk>/',
-        'get a resume skil': 'get-skill/<int:pk>/',
+        'get a resume': '/get-resume/<pk:pk>/',
+        'delete a resume': '/delete-resume/<int:pk>/',
+        'get a resume skil': '/get-skill/<int:pk>/',
+        'update a resume skill': '/update-skill/<int:pk>/<int:personal_detail_pk>/',
+        'delete a resume skill': '/delete-skill/<int:pk>/<int:personal_detail_pk>/',
     }
     return Response(api_urls)
 
@@ -96,11 +98,25 @@ def getSkill(request, pk):
 
 @api_view(['PUT'])
 @permission_classes([IsAuthenticated])
-def updateSkill(request, pk):
+def updateSkill(request, pk, personal_detail_pk):
     user = User.objects.get(id=request.user.id)
-    skill = Skills.objects.get(id=pk)
-    if user and skill:
-        if user == skill.personal_detail.user:
-            serializer = skillSerializer(skill, many = False)
-            return Response(serializer.data)
-        return Response("unauthorized", status=status.HTTP_401_UNAUTHORIZED)
+    personal_detail = Personal_Details(user=user, id=personal_detail_pk)
+    skill = Skills.objects.get(id=pk, personal_detail=personal_detail)
+    if user and skill and personal_detail:
+            serializer = skillSerializer(skill, data=request.data)
+            if serializer.is_valid():
+                serializer.save()
+                return Response(serializer.data)
+            
+
+@api_view(['DELETE'])
+@permission_classes([IsAuthenticated])
+def deleteSkill(request, pk, personal_detail_pk):
+    user = User.objects.get(id=request.user.id)
+    personal_detail = Personal_Details(user=user, id=personal_detail_pk)
+    skill = Skills.objects.get(id=pk, personal_detail=personal_detail)
+    if user and skill and personal_detail:
+        skill.delete()
+        return Response('Skill Deleted Successfully')
+        
+
