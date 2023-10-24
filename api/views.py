@@ -2,7 +2,7 @@ from rest_framework.decorators import api_view, permission_classes
 from rest_framework import status
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
-from api.serializers import UserSerializer, userProfileSerializer, ResumeSerializer, skillSerializer
+from api.serializers import UserSerializer, userProfileSerializer, ResumeSerializer, skillSerializer, addSkillSerializer
 from app.models import User, Personal_Details, Skills
 
 
@@ -15,6 +15,7 @@ def apiOverview(request):
         'create resume': '/create-resume/',
         'get a resume': '/get-resume/<pk:pk>/',
         'delete a resume': '/delete-resume/<int:pk>/',
+        'create a skill': '/create-skill/<int:personal_detail_pk>/',
         'get a resume skil': '/get-skill/<int:pk>/',
         'update a resume skill': '/update-skill/<int:pk>/<int:personal_detail_pk>/',
         'delete a resume skill': '/delete-skill/<int:pk>/<int:personal_detail_pk>/',
@@ -45,19 +46,18 @@ def deleteAccount(request):
     user.delete()
     return Response('User Deleted Successfully')
 
-# @api_view(['POST'])
-# @permission_classes([IsAuthenticated])
-# def createResume(request):
-#     user = User.objects.get(id=request.user.id)
-#     serializer = ResumeSerializer(data=request.data)
-#     print(serializer.Meta.model.full_name)
-#     print(request.data['full_name'])
-#     if user:
-#         if serializer.is_valid():
-#             serializer.Meta.model.full_name = request.data['full_name']
-#             serializer.Meta.model.email = user.email
-#             serializer.save()
-#             return Response(serializer.data)
+@api_view(['POST'])
+@permission_classes([IsAuthenticated])
+def createResume(request):
+    user = User.objects.get(id=request.user.id)
+    serializer = ResumeSerializer(data=request.data)
+    if user:
+        if serializer.is_valid():
+            serializer_instance = serializer.save()
+            serializer_instance.user = user
+            serializer_instance.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
   
 
 @api_view(['GET'])
@@ -82,6 +82,24 @@ def deleteResume(request, pk):
             resume.delete()
             return Response('Resume Deleted Successfully')
         return Response("unauthorized", status=status.HTTP_401_UNAUTHORIZED)
+    
+
+@api_view(['POST'])
+@permission_classes([IsAuthenticated])
+def create_skill(request, personal_detail_pk):
+    user = User.objects.get(id=request.user.id)
+    personal_detail = Personal_Details.objects.get(user=user, id=personal_detail_pk)
+    serializer = addSkillSerializer(data=request.data, context={'request': request})
+    if user and personal_detail:
+        if request.user == personal_detail.user:        
+            if serializer.is_valid():
+                serializer_instance = serializer.save()
+                serializer_instance.personal_detail = personal_detail
+                serializer_instance.save()
+                return Response(serializer.data)
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
     
 
 @api_view(['GET'])
@@ -119,4 +137,8 @@ def deleteSkill(request, pk, personal_detail_pk):
         skill.delete()
         return Response('Skill Deleted Successfully')
         
-
+{
+    "skill_level": 1,
+   "skill_name": "Django",
+"personal_detail": 1
+}

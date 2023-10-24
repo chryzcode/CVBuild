@@ -34,5 +34,10 @@ class skillSerializer(ModelSerializer):
         model = Skills
         exclude = ('id', )
 
+class addSkillSerializer(ModelSerializer):
+    class Meta:
+        model = Skills
+        fields = '__all__'
+
 
 
