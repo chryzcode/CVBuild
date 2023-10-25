@@ -50,6 +50,26 @@ def apiOverview(request):
         'get a resume reference': '/get-reference/<int:pk>/',
         'update a resume reference': '/update-reference/<int:pk>/<int:personal_detail_pk>/',
         'delete a resume reference': '/delete-reference/<int:pk>/<int:personal_detail_pk>/',
+        'create a resume award': '/create-award/<int:personal_detail_pk>/',
+        'get a resume award': '/get-award/<int:pk>/',
+        'update a resume award': '/update-award/<int:pk>/<int:personal_detail_pk>/',
+        'delete a resume award': '/delete-award/<int:pk>/<int:personal_detail_pk>/',
+        'create a resume organisation': '/create-organisation/<int:personal_detail_pk>/',
+        'get a resume organisation': '/get-organisation/<int:pk>/',
+        'update a resume organisation': '/update-organisation/<int:pk>/<int:personal_detail_pk>/',
+        'delete a resume organisation': '/delete-organisation/<int:pk>/<int:personal_detail_pk>/',
+        'create a resume certificate': '/create-certificate/<int:personal_detail_pk>/',
+        'get a resume certificate': '/get-certificate/<int:pk>/',
+        'update a resume certificate': '/update-certificate/<int:pk>/<int:personal_detail_pk>/',
+        'delete a resume certificate': '/delete-certificate/<int:pk>/<int:personal_detail_pk>/',
+        'create a resume interest': '/create-interest/<int:personal_detail_pk>/',
+        'get a resume interest': '/get-interest/<int:pk>/',
+        'update a resume interest': '/update-interest/<int:pk>/<int:personal_detail_pk>/',
+        'delete a resume interest': '/delete-interest/<int:pk>/<int:personal_detail_pk>/',
+        'create a resume publication': '/create-publication/<int:personal_detail_pk>/',
+        'get a resume publication': '/get-publication/<int:pk>/',
+        'update a resume publication': '/update-publication/<int:pk>/<int:personal_detail_pk>/',
+        'delete a resume publication': '/delete-publication/<int:pk>/<int:personal_detail_pk>/'
     }
     return Response(api_urls)
 
@@ -533,4 +553,271 @@ def deleteReference(request, pk, personal_detail_pk):
     reference = Reference.objects.get(id=pk, personal_detail=personal_detail)
     if user and reference and personal_detail:
         reference.delete()
+        return Response('Reference Deleted Successfully', status=status.HTTP_200_OK)
+    
+@api_view(['POST'])
+@permission_classes([IsAuthenticated])
+def createAward(request, personal_detail_pk):
+    user = User.objects.get(id=request.user.id)
+    personal_detail = Personal_Details.objects.get(user=user, id=personal_detail_pk)
+    serializer = awardSerializer(data=request.data, context={'request': request})
+    if user and personal_detail:
+        if request.user == personal_detail.user:        
+            if serializer.is_valid():
+                serializer_instance = serializer.save()
+                serializer_instance.personal_detail = personal_detail
+                serializer_instance.save()
+                return Response(serializer.data, status=status.HTTP_201_CREATED)
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def getAward(request, pk):
+    user = User.objects.get(id=request.user.id)
+    award = Award.objects.get(id=pk)
+    if user and award:
+        if user == award.personal_detail.user:
+            serializer = awardSerializer(award, many = False)
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        return Response("unauthorized", status=status.HTTP_401_UNAUTHORIZED)
+    
+
+@api_view(['PUT'])
+@permission_classes([IsAuthenticated])
+def updateAward(request, pk, personal_detail_pk):
+    user = User.objects.get(id=request.user.id)
+    personal_detail = Personal_Details(user=user, id=personal_detail_pk)
+    award = Award.objects.get(id=pk, personal_detail=personal_detail)
+    if user and award and personal_detail:
+            serializer = awardSerializer(award, data=request.data)
+            if serializer.is_valid():
+                serializer.save()
+                return Response(serializer.data, status=status.HTTP_200_OK)
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+            
+
+@api_view(['DELETE'])
+@permission_classes([IsAuthenticated])
+def deleteAward(request, pk, personal_detail_pk):
+    user = User.objects.get(id=request.user.id)
+    personal_detail = Personal_Details(user=user, id=personal_detail_pk)
+    award = Award.objects.get(id=pk, personal_detail=personal_detail)
+    if user and award and personal_detail:
+        award.delete()
+        return Response('Reference Deleted Successfully', status=status.HTTP_200_OK)
+    
+@api_view(['POST'])
+@permission_classes([IsAuthenticated])
+def createOrganisation(request, personal_detail_pk):
+    user = User.objects.get(id=request.user.id)
+    personal_detail = Personal_Details.objects.get(user=user, id=personal_detail_pk)
+    serializer = organisationSerializer(data=request.data, context={'request': request})
+    if user and personal_detail:
+        if request.user == personal_detail.user:        
+            if serializer.is_valid():
+                serializer_instance = serializer.save()
+                serializer_instance.personal_detail = personal_detail
+                serializer_instance.save()
+                return Response(serializer.data, status=status.HTTP_201_CREATED)
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def getOrganisation(request, pk):
+    user = User.objects.get(id=request.user.id)
+    organisation = Organisation.objects.get(id=pk)
+    if user and organisation:
+        if user == organisation.personal_detail.user:
+            serializer = organisationSerializer(organisation, many = False)
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        return Response("unauthorized", status=status.HTTP_401_UNAUTHORIZED)
+    
+
+@api_view(['PUT'])
+@permission_classes([IsAuthenticated])
+def updateOrganisation(request, pk, personal_detail_pk):
+    user = User.objects.get(id=request.user.id)
+    personal_detail = Personal_Details(user=user, id=personal_detail_pk)
+    organisation = Organisation.objects.get(id=pk, personal_detail=personal_detail)
+    if user and organisation and personal_detail:
+            serializer = organisationSerializer(organisation, data=request.data)
+            if serializer.is_valid():
+                serializer.save()
+                return Response(serializer.data, status=status.HTTP_200_OK)
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+            
+
+@api_view(['DELETE'])
+@permission_classes([IsAuthenticated])
+def deleteOrganisation(request, pk, personal_detail_pk):
+    user = User.objects.get(id=request.user.id)
+    personal_detail = Personal_Details(user=user, id=personal_detail_pk)
+    organisation = Organisation.objects.get(id=pk, personal_detail=personal_detail)
+    if user and organisation and personal_detail:
+        organisation.delete()
+        return Response('Reference Deleted Successfully', status=status.HTTP_200_OK)
+    
+    
+@api_view(['POST'])
+@permission_classes([IsAuthenticated])
+def createCertificate(request, personal_detail_pk):
+    user = User.objects.get(id=request.user.id)
+    personal_detail = Personal_Details.objects.get(user=user, id=personal_detail_pk)
+    serializer = certificateSerializer(data=request.data, context={'request': request})
+    if user and personal_detail:
+        if request.user == personal_detail.user:        
+            if serializer.is_valid():
+                serializer_instance = serializer.save()
+                serializer_instance.personal_detail = personal_detail
+                serializer_instance.save()
+                return Response(serializer.data, status=status.HTTP_201_CREATED)
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def getCertificate(request, pk):
+    user = User.objects.get(id=request.user.id)
+    certificate = Certificate.objects.get(id=pk)
+    if user and certificate:
+        if user == certificate.personal_detail.user:
+            serializer = certificateSerializer(certificate, many = False)
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        return Response("unauthorized", status=status.HTTP_401_UNAUTHORIZED)
+    
+
+@api_view(['PUT'])
+@permission_classes([IsAuthenticated])
+def updateCertificate(request, pk, personal_detail_pk):
+    user = User.objects.get(id=request.user.id)
+    personal_detail = Personal_Details(user=user, id=personal_detail_pk)
+    certificate = Certificate.objects.get(id=pk, personal_detail=personal_detail)
+    if user and certificate and personal_detail:
+            serializer = certificateSerializer(certificate, data=request.data)
+            if serializer.is_valid():
+                serializer.save()
+                return Response(serializer.data, status=status.HTTP_200_OK)
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+            
+
+@api_view(['DELETE'])
+@permission_classes([IsAuthenticated])
+def deleteCertificate(request, pk, personal_detail_pk):
+    user = User.objects.get(id=request.user.id)
+    personal_detail = Personal_Details(user=user, id=personal_detail_pk)
+    certificate = Certificate.objects.get(id=pk, personal_detail=personal_detail)
+    if user and certificate and personal_detail:
+        certificate.delete()
+        return Response('Reference Deleted Successfully', status=status.HTTP_200_OK)
+    
+@api_view(['POST'])
+@permission_classes([IsAuthenticated])
+def createInterest(request, personal_detail_pk):
+    user = User.objects.get(id=request.user.id)
+    personal_detail = Personal_Details.objects.get(user=user, id=personal_detail_pk)
+    serializer = interestSerializer(data=request.data, context={'request': request})
+    if user and personal_detail:
+        if request.user == personal_detail.user:        
+            if serializer.is_valid():
+                serializer_instance = serializer.save()
+                serializer_instance.personal_detail = personal_detail
+                serializer_instance.save()
+                return Response(serializer.data, status=status.HTTP_201_CREATED)
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def getInterest(request, pk):
+    user = User.objects.get(id=request.user.id)
+    interest = Interest.objects.get(id=pk)
+    if user and interest:
+        if user == interest.personal_detail.user:
+            serializer = interestSerializer(interest, many = False)
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        return Response("unauthorized", status=status.HTTP_401_UNAUTHORIZED)
+    
+
+@api_view(['PUT'])
+@permission_classes([IsAuthenticated])
+def updateInterest(request, pk, personal_detail_pk):
+    user = User.objects.get(id=request.user.id)
+    personal_detail = Personal_Details(user=user, id=personal_detail_pk)
+    interest = Interest.objects.get(id=pk, personal_detail=personal_detail)
+    if user and interest and personal_detail:
+            serializer = interestSerializer(interest, data=request.data)
+            if serializer.is_valid():
+                serializer.save()
+                return Response(serializer.data, status=status.HTTP_200_OK)
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+            
+
+@api_view(['DELETE'])
+@permission_classes([IsAuthenticated])
+def deleteInterest(request, pk, personal_detail_pk):
+    user = User.objects.get(id=request.user.id)
+    personal_detail = Personal_Details(user=user, id=personal_detail_pk)
+    interest = Interest.objects.get(id=pk, personal_detail=personal_detail)
+    if user and interest and personal_detail:
+        interest.delete()
+        return Response('Reference Deleted Successfully', status=status.HTTP_200_OK)
+    
+    
+@api_view(['POST'])
+@permission_classes([IsAuthenticated])
+def createPublication(request, personal_detail_pk):
+    user = User.objects.get(id=request.user.id)
+    personal_detail = Personal_Details.objects.get(user=user, id=personal_detail_pk)
+    serializer = publicationSerializer(data=request.data, context={'request': request})
+    if user and personal_detail:
+        if request.user == personal_detail.user:        
+            if serializer.is_valid():
+                serializer_instance = serializer.save()
+                serializer_instance.personal_detail = personal_detail
+                serializer_instance.save()
+                return Response(serializer.data, status=status.HTTP_201_CREATED)
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def getPublication(request, pk):
+    user = User.objects.get(id=request.user.id)
+    publication = Publication.objects.get(id=pk)
+    if user and publication:
+        if user == publication.personal_detail.user:
+            serializer = publicationSerializer(publication, many = False)
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        return Response("unauthorized", status=status.HTTP_401_UNAUTHORIZED)
+    
+
+@api_view(['PUT'])
+@permission_classes([IsAuthenticated])
+def updatePublication(request, pk, personal_detail_pk):
+    user = User.objects.get(id=request.user.id)
+    personal_detail = Personal_Details(user=user, id=personal_detail_pk)
+    publication = Publication.objects.get(id=pk, personal_detail=personal_detail)
+    if user and publication and personal_detail:
+            serializer = publicationSerializer(publication, data=request.data)
+            if serializer.is_valid():
+                serializer.save()
+                return Response(serializer.data, status=status.HTTP_200_OK)
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+            
+
+@api_view(['DELETE'])
+@permission_classes([IsAuthenticated])
+def deletePublication(request, pk, personal_detail_pk):
+    user = User.objects.get(id=request.user.id)
+    personal_detail = Personal_Details(user=user, id=personal_detail_pk)
+    publication = Publication.objects.get(id=pk, personal_detail=personal_detail)
+    if user and publication and personal_detail:
+        publication.delete()
         return Response('Reference Deleted Successfully', status=status.HTTP_200_OK)

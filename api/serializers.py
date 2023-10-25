@@ -59,6 +59,31 @@ class referenceSerializer(ModelSerializer):
         model = Reference
         fields = '__all__'
 
+class awardSerializer(ModelSerializer):
+    class Meta:
+        model = Award
+        fields = '__all__'
+
+class organisationSerializer(ModelSerializer):
+    class Meta:
+        model = Organisation
+        fields = '__all__'
+
+class interestSerializer(ModelSerializer):
+    class Meta:
+        model = Interest
+        fields = '__all__'
+
+class certificateSerializer(ModelSerializer):
+    class Meta:
+        model = Certificate
+        fields = '__all__'
+
+class publicationSerializer(ModelSerializer):
+    class Meta:
+        model = Publication
+        fields = '__all__'
+
 class feedbackSerializer(ModelSerializer):
     class Meta:
         model = Feedback
