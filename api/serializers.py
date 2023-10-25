@@ -1,5 +1,5 @@
 from rest_framework.serializers import ModelSerializer
-from app.models import User, Personal_Details, Skills
+from app.models import User, Personal_Details, Skills, Feedback
 from rest_framework import serializers
 
 class UserSerializer(ModelSerializer):
@@ -38,6 +38,11 @@ class addSkillSerializer(ModelSerializer):
     class Meta:
         model = Skills
         fields = '__all__'
+
+class feedbackSerializer(ModelSerializer):
+    class Meta:
+        model = Skills
+        fields = ('time_created', 'persona_detail')
 
 
 

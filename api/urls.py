@@ -3,6 +3,10 @@ from . import views
 
 urlpatterns =  [
     path('', views.apiOverview, name='apiOverview'),
+    path('register/', views.register_user, name='register'),
+    path('login/', views.user_login, name='login'),
+    path('logout/', views.user_logout, name='logout'),
+    path('create-feedback/<int:pk>/', views.createFeedback, name='create_feedback'),
     path('current-user/', views.currentUser, name='currentUser'),
     path('update-account/', views.userProfileUpdate, name='update-user'),
     path('delete-account/', views.deleteAccount, name='delete_account'),
