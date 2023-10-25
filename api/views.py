@@ -5,8 +5,8 @@ from rest_framework.response import Response
 from django.core.exceptions import ObjectDoesNotExist
 from django.contrib.auth import authenticate
 from rest_framework.authtoken.models import Token
-from api.serializers import UserSerializer, userProfileSerializer, ResumeSerializer, skillSerializer, addSkillSerializer, feedbackSerializer
-from app.models import User, Personal_Details, Skills, Feedback
+from api.serializers import *
+from app.models import *
 
 
 @api_view(['GET'])
@@ -28,6 +28,8 @@ def apiOverview(request):
         'create a resume': '/create-resume/<int:pk>/',
         'create a resume feeback': 'create-feeback/<int:pk>/',
         'resume feedbacks': 'resume/<int:pk>/feedbacks/',
+        'get resume profile': '/get-resume-profile/<int:pk>/',
+        'create or update resume profile': '/resume-profile/<int:pk>/',
     }
     return Response(api_urls)
 
@@ -154,6 +156,44 @@ def resumeFeedbacks(request, pk):
         feedbacks = Feedback.objects.filter(personal_detail=personal_detail)
         serializer = feedbackSerializer(feedbacks, many = True)
         return Response(serializer.data, status=status.HTTP_200_OK)
+    
+@api_view(['GET'])
+def levels(request):
+    levels = Levels.objects.all()
+    if levels:
+        serializer = levelsSerializer(levels, many = True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+    
+@api_view(['GET'])
+def getProfile(request, pk):
+    personal_detail = Personal_Details.objects.get(id=pk)
+    if personal_detail:
+        profile = Profile.objects.get(personal_detail=personal_detail)
+        if profile.personal_detail.user == request.user:
+            serializer = profileSerializer(profile, many=False)
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        return Response("unauthorized", status=status.HTTP_401_UNAUTHORIZED)
+        
+        
+@api_view(['POST'])
+def createUpdateProfile(request, pk):
+    personal_detail = Personal_Details.objects.get(id=pk)
+    if personal_detail:
+        if Profile.objects.filter(personal_detail=pk).exists():
+            profile = Profile.objects.get(personal_detail=pk)
+            if profile.personal_detail.user == request.user:
+                serializer = profileSerializer(instance = profile,  data=request.data)
+            else:
+                return Response("unauthorized", status=status.HTTP_401_UNAUTHORIZED)
+        else:
+            serializer = profileSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer_instance = serializer.save()
+            serializer_instance.personal_detail = personal_detail
+            serializer_instance.save()
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    
 
 @api_view(['POST'])
 @permission_classes([IsAuthenticated])
