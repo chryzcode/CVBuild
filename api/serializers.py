@@ -41,8 +41,8 @@ class addSkillSerializer(ModelSerializer):
 
 class feedbackSerializer(ModelSerializer):
     class Meta:
-        model = Skills
-        fields = ('time_created', 'persona_detail')
+        model = Feedback
+        exclude = ('time_created',)
 
 
 

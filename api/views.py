@@ -6,7 +6,7 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.contrib.auth import authenticate
 from rest_framework.authtoken.models import Token
 from api.serializers import UserSerializer, userProfileSerializer, ResumeSerializer, skillSerializer, addSkillSerializer, feedbackSerializer
-from app.models import User, Personal_Details, Skills
+from app.models import User, Personal_Details, Skills, Feedback
 
 
 @api_view(['GET'])
@@ -25,7 +25,9 @@ def apiOverview(request):
         'register': '/register/',
         'login': '/login/',
         'logout': '/logout',
-        'create a resume': '/create-resume/<int:pk>/'
+        'create a resume': '/create-resume/<int:pk>/',
+        'create a resume feeback': 'create-feeback/<int:pk>/',
+        'resume feedbacks': 'resume/<int:pk>/feedbacks/',
     }
     return Response(api_urls)
 
@@ -139,12 +141,19 @@ def createFeedback(request, pk):
     serializer = feedbackSerializer(data=request.data, context={'personal_detail': personal_detail})
     if personal_detail:
         if serializer.is_valid():
-            serializer.save()
+            serializer_instance = serializer.save()
+            serializer_instance.personal_detail = personal_detail
+            serializer_instance.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
-
     
+@api_view(['GET'])
+def resumeFeedbacks(request, pk):
+    personal_detail = Personal_Details.objects.get(id=pk)
+    if personal_detail:
+        feedbacks = Feedback.objects.filter(personal_detail=personal_detail)
+        serializer = feedbackSerializer(feedbacks, many = True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
 
 @api_view(['POST'])
 @permission_classes([IsAuthenticated])
