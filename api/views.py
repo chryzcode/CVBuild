@@ -30,6 +30,26 @@ def apiOverview(request):
         'resume feedbacks': 'resume/<int:pk>/feedbacks/',
         'get resume profile': '/get-resume-profile/<int:pk>/',
         'create or update resume profile': '/resume-profile/<int:pk>/',
+        'create a resume experience': '/create-experience/<int:personal_detail_pk>/',
+        'get a resume experience': '/get-experience/<int:pk>/',
+        'update a resume experience': '/update-experience/<int:pk>/<int:personal_detail_pk>/',
+        'delete a resume experience': '/delete-experience/<int:pk>/<int:personal_detail_pk>/',
+        'create a resume project': '/create-project/<int:personal_detail_pk>/',
+        'get a resume project': '/get-project/<int:pk>/',
+        'update a resume project': '/update-project/<int:pk>/<int:personal_detail_pk>/',
+        'delete a resume project': '/delete-project/<int:pk>/<int:personal_detail_pk>/',
+        'create a resume education': '/create-education/<int:personal_detail_pk>/',
+        'get a resume education': '/get-education/<int:pk>/',
+        'update a resume education': '/update-education/<int:pk>/<int:personal_detail_pk>/',
+        'delete a resume education': '/delete-education/<int:pk>/<int:personal_detail_pk>/',
+        'create a resume language': '/create-language/<int:personal_detail_pk>/',
+        'get a resume language': '/get-language/<int:pk>/',
+        'update a resume language': '/update-language/<int:pk>/<int:personal_detail_pk>/',
+        'delete a resume language': '/delete-language/<int:pk>/<int:personal_detail_pk>/',
+        'create a resume reference': '/create-reference/<int:personal_detail_pk>/',
+        'get a resume reference': '/get-reference/<int:pk>/',
+        'update a resume reference': '/update-reference/<int:pk>/<int:personal_detail_pk>/',
+        'delete a resume reference': '/delete-reference/<int:pk>/<int:personal_detail_pk>/',
     }
     return Response(api_urls)
 
@@ -200,7 +220,7 @@ def createUpdateProfile(request, pk):
 def create_skill(request, personal_detail_pk):
     user = User.objects.get(id=request.user.id)
     personal_detail = Personal_Details.objects.get(user=user, id=personal_detail_pk)
-    serializer = addSkillSerializer(data=request.data, context={'request': request})
+    serializer = skillSerializer(data=request.data, context={'request': request})
     if user and personal_detail:
         if request.user == personal_detail.user:        
             if serializer.is_valid():
@@ -247,3 +267,270 @@ def deleteSkill(request, pk, personal_detail_pk):
     if user and skill and personal_detail:
         skill.delete()
         return Response('Skill Deleted Successfully', status=status.HTTP_200_OK)
+    
+    
+@api_view(['POST'])
+@permission_classes([IsAuthenticated])
+def createExperience(request, personal_detail_pk):
+    user = User.objects.get(id=request.user.id)
+    personal_detail = Personal_Details.objects.get(user=user, id=personal_detail_pk)
+    serializer = experienceSerializer(data=request.data, context={'request': request})
+    if user and personal_detail:
+        if request.user == personal_detail.user:        
+            if serializer.is_valid():
+                serializer_instance = serializer.save()
+                serializer_instance.personal_detail = personal_detail
+                serializer_instance.save()
+                return Response(serializer.data, status=status.HTTP_201_CREATED)
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def getExperience(request, pk):
+    user = User.objects.get(id=request.user.id)
+    experience = Experience.objects.get(id=pk)
+    if user and experience:
+        if user == experience.personal_detail.user:
+            serializer = skillSerializer(experience, many = False)
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        return Response("unauthorized", status=status.HTTP_401_UNAUTHORIZED)
+    
+
+@api_view(['PUT'])
+@permission_classes([IsAuthenticated])
+def updateExperience(request, pk, personal_detail_pk):
+    user = User.objects.get(id=request.user.id)
+    personal_detail = Personal_Details(user=user, id=personal_detail_pk)
+    experience = Experience.objects.get(id=pk, personal_detail=personal_detail)
+    if user and experience and personal_detail:
+            serializer = skillSerializer(experience, data=request.data)
+            if serializer.is_valid():
+                serializer.save()
+                return Response(serializer.data, status=status.HTTP_200_OK)
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+            
+
+@api_view(['DELETE'])
+@permission_classes([IsAuthenticated])
+def deleteExperience(request, pk, personal_detail_pk):
+    user = User.objects.get(id=request.user.id)
+    personal_detail = Personal_Details(user=user, id=personal_detail_pk)
+    experience = Experience.objects.get(id=pk, personal_detail=personal_detail)
+    if user and experience and personal_detail:
+        experience.delete()
+        return Response('Experience Deleted Successfully', status=status.HTTP_200_OK)
+    
+
+@api_view(['POST'])
+@permission_classes([IsAuthenticated])
+def createProject(request, personal_detail_pk):
+    user = User.objects.get(id=request.user.id)
+    personal_detail = Personal_Details.objects.get(user=user, id=personal_detail_pk)
+    serializer = projectSerializer(data=request.data, context={'request': request})
+    if user and personal_detail:
+        if request.user == personal_detail.user:        
+            if serializer.is_valid():
+                serializer_instance = serializer.save()
+                serializer_instance.personal_detail = personal_detail
+                serializer_instance.save()
+                return Response(serializer.data, status=status.HTTP_201_CREATED)
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def getProject(request, pk):
+    user = User.objects.get(id=request.user.id)
+    project = Project.objects.get(id=pk)
+    if user and project:
+        if user == project.personal_detail.user:
+            serializer = projectSerializer(project, many = False)
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        return Response("unauthorized", status=status.HTTP_401_UNAUTHORIZED)
+    
+
+@api_view(['PUT'])
+@permission_classes([IsAuthenticated])
+def updateProject(request, pk, personal_detail_pk):
+    user = User.objects.get(id=request.user.id)
+    personal_detail = Personal_Details(user=user, id=personal_detail_pk)
+    project = Project.objects.get(id=pk, personal_detail=personal_detail)
+    if user and project and personal_detail:
+            serializer = projectSerializer(project, data=request.data)
+            if serializer.is_valid():
+                serializer.save()
+                return Response(serializer.data, status=status.HTTP_200_OK)
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+            
+
+@api_view(['DELETE'])
+@permission_classes([IsAuthenticated])
+def deleteProject(request, pk, personal_detail_pk):
+    user = User.objects.get(id=request.user.id)
+    personal_detail = Personal_Details(user=user, id=personal_detail_pk)
+    project = Project.objects.get(id=pk, personal_detail=personal_detail)
+    if user and project and personal_detail:
+        project.delete()
+        return Response('Project Deleted Successfully', status=status.HTTP_200_OK)
+    
+@api_view(['POST'])
+@permission_classes([IsAuthenticated])
+def createEducation(request, personal_detail_pk):
+    user = User.objects.get(id=request.user.id)
+    personal_detail = Personal_Details.objects.get(user=user, id=personal_detail_pk)
+    serializer = educationSerializer(data=request.data, context={'request': request})
+    if user and personal_detail:
+        if request.user == personal_detail.user:        
+            if serializer.is_valid():
+                serializer_instance = serializer.save()
+                serializer_instance.personal_detail = personal_detail
+                serializer_instance.save()
+                return Response(serializer.data, status=status.HTTP_201_CREATED)
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def getEducation(request, pk):
+    user = User.objects.get(id=request.user.id)
+    education = Education.objects.get(id=pk)
+    if user and education:
+        if user == education.personal_detail.user:
+            serializer = educationSerializer(education, many = False)
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        return Response("unauthorized", status=status.HTTP_401_UNAUTHORIZED)
+    
+
+@api_view(['PUT'])
+@permission_classes([IsAuthenticated])
+def updateEducation(request, pk, personal_detail_pk):
+    user = User.objects.get(id=request.user.id)
+    personal_detail = Personal_Details(user=user, id=personal_detail_pk)
+    education = Education.objects.get(id=pk, personal_detail=personal_detail)
+    if user and education and personal_detail:
+            serializer = educationSerializer(education, data=request.data)
+            if serializer.is_valid():
+                serializer.save()
+                return Response(serializer.data, status=status.HTTP_200_OK)
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+            
+
+@api_view(['DELETE'])
+@permission_classes([IsAuthenticated])
+def deleteEducation(request, pk, personal_detail_pk):
+    user = User.objects.get(id=request.user.id)
+    personal_detail = Personal_Details(user=user, id=personal_detail_pk)
+    education = Education.objects.get(id=pk, personal_detail=personal_detail)
+    if user and education and personal_detail:
+        education.delete()
+        return Response('Education Deleted Successfully', status=status.HTTP_200_OK)
+    
+@api_view(['POST'])
+@permission_classes([IsAuthenticated])
+def createLanguage(request, personal_detail_pk):
+    user = User.objects.get(id=request.user.id)
+    personal_detail = Personal_Details.objects.get(user=user, id=personal_detail_pk)
+    serializer = languageSerializer(data=request.data, context={'request': request})
+    if user and personal_detail:
+        if request.user == personal_detail.user:        
+            if serializer.is_valid():
+                serializer_instance = serializer.save()
+                serializer_instance.personal_detail = personal_detail
+                serializer_instance.save()
+                return Response(serializer.data, status=status.HTTP_201_CREATED)
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def getLanguage(request, pk):
+    user = User.objects.get(id=request.user.id)
+    language = Language.objects.get(id=pk)
+    if user and language:
+        if user == language.personal_detail.user:
+            serializer = languageSerializer(language, many = False)
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        return Response("unauthorized", status=status.HTTP_401_UNAUTHORIZED)
+    
+
+@api_view(['PUT'])
+@permission_classes([IsAuthenticated])
+def updateLanguage(request, pk, personal_detail_pk):
+    user = User.objects.get(id=request.user.id)
+    personal_detail = Personal_Details(user=user, id=personal_detail_pk)
+    language = Language.objects.get(id=pk, personal_detail=personal_detail)
+    if user and language and personal_detail:
+            serializer = languageSerializer(language, data=request.data)
+            if serializer.is_valid():
+                serializer.save()
+                return Response(serializer.data, status=status.HTTP_200_OK)
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+            
+
+@api_view(['DELETE'])
+@permission_classes([IsAuthenticated])
+def deleteLanguage(request, pk, personal_detail_pk):
+    user = User.objects.get(id=request.user.id)
+    personal_detail = Personal_Details(user=user, id=personal_detail_pk)
+    language = Language.objects.get(id=pk, personal_detail=personal_detail)
+    if user and language and personal_detail:
+        language.delete()
+        return Response('Language Deleted Successfully', status=status.HTTP_200_OK)
+    
+@api_view(['POST'])
+@permission_classes([IsAuthenticated])
+def createReference(request, personal_detail_pk):
+    user = User.objects.get(id=request.user.id)
+    personal_detail = Personal_Details.objects.get(user=user, id=personal_detail_pk)
+    serializer = referenceSerializer(data=request.data, context={'request': request})
+    if user and personal_detail:
+        if request.user == personal_detail.user:        
+            if serializer.is_valid():
+                serializer_instance = serializer.save()
+                serializer_instance.personal_detail = personal_detail
+                serializer_instance.save()
+                return Response(serializer.data, status=status.HTTP_201_CREATED)
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def getReference(request, pk):
+    user = User.objects.get(id=request.user.id)
+    reference = Reference.objects.get(id=pk)
+    if user and reference:
+        if user == reference.personal_detail.user:
+            serializer = referenceSerializer(reference, many = False)
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        return Response("unauthorized", status=status.HTTP_401_UNAUTHORIZED)
+    
+
+@api_view(['PUT'])
+@permission_classes([IsAuthenticated])
+def updateReference(request, pk, personal_detail_pk):
+    user = User.objects.get(id=request.user.id)
+    personal_detail = Personal_Details(user=user, id=personal_detail_pk)
+    reference = Reference.objects.get(id=pk, personal_detail=personal_detail)
+    if user and reference and personal_detail:
+            serializer = referenceSerializer(reference, data=request.data)
+            if serializer.is_valid():
+                serializer.save()
+                return Response(serializer.data, status=status.HTTP_200_OK)
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+            
+
+@api_view(['DELETE'])
+@permission_classes([IsAuthenticated])
+def deleteReference(request, pk, personal_detail_pk):
+    user = User.objects.get(id=request.user.id)
+    personal_detail = Personal_Details(user=user, id=personal_detail_pk)
+    reference = Reference.objects.get(id=pk, personal_detail=personal_detail)
+    if user and reference and personal_detail:
+        reference.delete()
+        return Response('Reference Deleted Successfully', status=status.HTTP_200_OK)

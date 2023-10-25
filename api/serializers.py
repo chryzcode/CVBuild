@@ -32,11 +32,31 @@ class ResumeSerializer(ModelSerializer):
 class skillSerializer(ModelSerializer):
     class Meta:
         model = Skills
-        exclude = ('id', )
+        fields = '__all__'
 
-class addSkillSerializer(ModelSerializer):
+class experienceSerializer(ModelSerializer):
     class Meta:
-        model = Skills
+        model = Experience
+        fields = '__all__'
+
+class projectSerializer(ModelSerializer):
+    class Meta:
+        model = Project
+        fields = '__all__'
+
+class educationSerializer(ModelSerializer):
+    class Meta:
+        model = Education
+        fields = '__all__'
+
+class languageSerializer(ModelSerializer):
+    class Meta:
+        model = Language
+        fields = '__all__'
+
+class referenceSerializer(ModelSerializer):
+    class Meta:
+        model = Reference
         fields = '__all__'
 
 class feedbackSerializer(ModelSerializer):
