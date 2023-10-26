@@ -3,8 +3,14 @@ from rest_framework import status
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from django.core.exceptions import ObjectDoesNotExist
-from django.contrib.auth import authenticate
+from django.contrib.auth import authenticate, logout
 from rest_framework.authtoken.models import Token
+from django.template.loader import render_to_string
+from django.conf import settings
+from django.utils.http import urlsafe_base64_decode, urlsafe_base64_encode
+from django.utils.encoding import force_bytes, force_str
+from django.core.mail import send_mail
+from app.tokens import account_activation_token
 from api.serializers import *
 from app.models import *
 
@@ -75,7 +81,7 @@ def apiOverview(request):
 
 @api_view(['POST'])
 @permission_classes([IsAuthenticated])
-def user_logout(request):
+def userLogout(request):
     if request.method == 'POST':
         try:
             # Delete the user's token to logout
@@ -85,7 +91,7 @@ def user_logout(request):
             return Response({'error': str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 @api_view(['POST'])
-def user_login(request):
+def userLogin(request):
     if request.method == 'POST':
         email = request.data.get('email')
         password = request.data.get('password')
@@ -107,12 +113,25 @@ def user_login(request):
         return Response({'error': 'Invalid credentials'}, status=status.HTTP_401_UNAUTHORIZED)
 
 @api_view(['POST'])
-def register_user(request):
+def registerUser(request):
     if request.method == 'POST':
         serializer = UserSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
+            user = User.objects.get(email= serializer.data['email'])
+            subject = 'Activate CVBuild Account'
+            message = render_to_string(
+                "account/registration/account_activation_email.html",
+                {
+                    "user": user,
+                    "domain": settings.DEFAULT_DOMAIN,
+                    "uid": urlsafe_base64_encode(force_bytes(user.pk)),
+                    "token": account_activation_token.make_token(user),
+                    "email": user.email
+                },
+            )
+            user.email_user(subject=subject, message=message)
+            return Response(f'{serializer.data} Check your email to activate your account', status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 @api_view(['GET'])
@@ -136,8 +155,18 @@ def userProfileUpdate(request):
 @permission_classes([IsAuthenticated])
 def deleteAccount(request):
     user = User.objects.get(id=request.user.id)
-    user.delete()
-    return Response('User Deleted Successfully', status=status.HTTP_200_OK)
+    subject = f"Request for Your CVBuild Account to be Deleted"
+    message = render_to_string(
+    "account/user/account-delete-email.html",
+    {"user": user,
+    "domain": settings.DEFAULT_DOMAIN,
+    })
+    send_mail(subject, message, settings.EMAIL_HOST_USER, [user.email], html_message=message)
+    if not user.is_superuser:
+        user.is_active = False
+        user.save()
+    logout(request)
+    return Response('Account Successfully Deactivated.', status=status.HTTP_200_OK)
 
 @api_view(['POST'])
 @permission_classes([IsAuthenticated])
