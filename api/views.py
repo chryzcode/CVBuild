@@ -13,6 +13,9 @@ from django.core.mail import send_mail
 from app.tokens import account_activation_token
 from api.serializers import *
 from app.models import *
+from app.views import render_to_pdf
+
+from django.http import HttpResponse
 
 
 @api_view(['GET'])
@@ -75,7 +78,8 @@ def apiOverview(request):
         'create a resume publication': '/create-publication/<int:personal_detail_pk>/',
         'get a resume publication': '/get-publication/<int:pk>/',
         'update a resume publication': '/update-publication/<int:pk>/<int:personal_detail_pk>/',
-        'delete a resume publication': '/delete-publication/<int:pk>/<int:personal_detail_pk>/'
+        'delete a resume publication': '/delete-publication/<int:pk>/<int:personal_detail_pk>/',
+        'download pdf': 'dowload-pdf/<int:pk>/',
     }
     return Response(api_urls)
 
@@ -111,6 +115,32 @@ def userLogin(request):
             return Response({'token': token.key}, status=status.HTTP_200_OK)
 
         return Response({'error': 'Invalid credentials'}, status=status.HTTP_401_UNAUTHORIZED)
+
+@api_view(['POST'])
+@permission_classes([IsAuthenticated])
+def downloadPDF(request, pk):
+    if request.method == 'POST':
+        personal_detail = Personal_Details.objects.get(id=pk)
+        profile = Profile.objects.filter(personal_detail=personal_detail).last()
+        skills = Skills.objects.filter(personal_detail=personal_detail)
+        experiences = Experience.objects.filter(personal_detail=personal_detail)
+        projects = Project.objects.filter(personal_detail=personal_detail)
+        educations = Education.objects.filter(personal_detail=personal_detail)
+        languages = Language.objects.filter(personal_detail=personal_detail)
+        references = Reference.objects.filter(personal_detail=personal_detail)
+        awards = Award.objects.filter(personal_detail=personal_detail)
+        organisations = Organisation.objects.filter(personal_detail=personal_detail)
+        certificates = Certificate.objects.filter(personal_detail=personal_detail)
+        interests = Interest.objects.filter(personal_detail=personal_detail)
+        publications = Publication.objects.filter(personal_detail=personal_detail)
+        data = {'personal_detail':personal_detail, 'skills':skills, 'profile':profile, 'experiences':experiences, 'projects':projects, 'educations':educations, 'languages':languages,  'references':references, 'awards':awards, 'organisations':organisations, 'certificates':certificates,  'interests':interests, 'publications':publications}
+        pdf = render_to_pdf('pages/pdf-resume-template.html', data)
+        print(request.user)
+        filename = f'{request.user.first_name}_{request.user.last_name}_{personal_detail.resume_name}.pdf'
+        response = HttpResponse(pdf, content_type='application/pdf')
+        response['Content-Disposition'] = 'attachment; filename="{}"'.format(filename)
+        pdf = render_to_pdf('pages/pdf-resume-template.html', data)
+        return HttpResponse(pdf, content_type='application/pdf')
 
 @api_view(['POST'])
 def registerUser(request):

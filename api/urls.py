@@ -6,6 +6,7 @@ urlpatterns =  [
     path('register/', views.registerUser, name='api_register'),
     path('login/', views.userLogin, name='api_login'),
     path('logout/', views.userLogout, name='api_logout'),
+    path('download-pdf/<int:pk>/', views.downloadPDF, name='download_pdf'),
     path('create-feedback/<int:pk>/', views.createFeedback, name='api_create_feedback'),
     path('resume/<int:pk>/feedbacks/', views.resumeFeedbacks, name='api_resume_feedbacks'),
     path('get-resume-profile/<int:pk>/', views.getProfile, name='api_get_profile'),
