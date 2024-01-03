@@ -13,7 +13,6 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 import os
 from pathlib import Path
 from decouple import config
-import django_heroku
 import dj_database_url
 
 
@@ -143,10 +142,6 @@ USE_L10N = True
 USE_TZ = True
 
 
-
-
-# Activate Django_heroku.
-django_heroku.settings(locals())
 
 MEDIA_URL = "/cv-build/media/"
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
