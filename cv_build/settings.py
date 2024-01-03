@@ -32,7 +32,7 @@ SECRET_KEY = str(os.getenv('SECRET_KEY'))
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = config("DEBUG", default=False, cast=bool)
 
-ALLOWED_HOSTS = ["127.0.0.1", "localhost", "cvbuild-c354d1c4f98a.herokuapp.com"]
+ALLOWED_HOSTS = ["127.0.0.1", "localhost", "cvbuild.onrender.com"]
 
 
 # Application definition
