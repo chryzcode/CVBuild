@@ -16,6 +16,7 @@ django-cloudinary-storage==0.3.0
 django-heroku==0.3.1
 django-js-asset==2.0.0
 djangorestframework==3.14.0
+djangorestframework-simplejwt==5.3.1
 future==0.18.2
 gunicorn==20.1.0
 html5lib==1.1
@@ -30,6 +31,7 @@ psycopg2-pool==1.1
 pycparser==2.21
 pyHanko==0.14.0
 pyhanko-certvalidator==0.19.5
+PyJWT==2.8.0
 PyPDF3==1.0.6
 python-bidi==0.4.2
 python-decouple==3.6
