@@ -51,7 +51,6 @@ INSTALLED_APPS = [
     'app',
 
     'rest_framework',
-    'rest_framework.authtoken',
 
     #JWT
     'rest_framework_simplejwt.token_blacklist', #(BLACKLIST CONFIG)
